@@ -1,10 +1,11 @@
-package framework;
+package com.kredivation.aakhale.framework;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.apitechnosoft.ipad.constants.Contants;
+
+import com.kredivation.aakhale.utility.Contants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,6 @@ public abstract class FileUploaderHelper extends AsyncTask<String, Integer, Stri
         this.payload = payload;
         this.multipartBody = multipartBody;
         this.url = url;
-
     }
 
     @Override
@@ -52,7 +52,6 @@ public abstract class FileUploaderHelper extends AsyncTask<String, Integer, Stri
 
     @Override
     protected void onPreExecute() {
-
     }
 
     @Override

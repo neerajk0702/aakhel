@@ -1,4 +1,4 @@
-package framework;
+package com.kredivation.aakhale.framework;
 
 import android.util.Log;
 
@@ -9,8 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.apitechnosoft.ipad.ApplicationHelper;
-import com.apitechnosoft.ipad.constants.Contants;
+import com.kredivation.aakhale.utility.Contants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,16 +55,12 @@ public class ServiceHelper implements IServiceHelper {
                 return headers;
             }
         };
-        //jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(5*DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,  0, 0));
         // Adding request to request queue
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));
-        ApplicationHelper.application().addToRequestQueue(jsonObjReq);//, tag_json_obj);
+        AppController.getInstance().addToRequestQueue(jsonObjReq);//, tag_json_obj);
         //AppController.getInstance().cancelPendingRequests(jsonObjReq);
     }
 
-    /* static {
-         RequestQueue requestQueue = Volley.newRequestQueue(com.kredivation.aakhale.ApplicationHelper.application().getContext(), new HurlStack(null, ClientSSLSocketFactory.getSocketFactory()));
-     }*/
     public void cancelPendingRequests() {
 
     }
@@ -106,7 +101,7 @@ public class ServiceHelper implements IServiceHelper {
         };
         // Adding request to request queue
         jsonarray.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 0, 1.0f));
-        ApplicationHelper.application().addToRequestQueue(jsonarray);//, tag_json_obj);
+        AppController.getInstance().addToRequestQueue(jsonarray);//, tag_json_obj);
 
         //AppController.getInstance().cancelPendingRequests(jsonObjReq);
     }
@@ -144,7 +139,7 @@ public class ServiceHelper implements IServiceHelper {
         };
         // Adding request to request queue
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 0, 1.0f));
-        ApplicationHelper.application().addToRequestQueue(jsonObjReq);//, tag_json_obj);
+        AppController.getInstance().addToRequestQueue(jsonObjReq);//, tag_json_obj);
         //AppController.getInstance().cancelPendingRequests(jsonObjReq);
     }
 }

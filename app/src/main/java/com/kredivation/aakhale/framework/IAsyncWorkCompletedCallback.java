@@ -1,4 +1,4 @@
-package framework;
+package com.kredivation.aakhale.framework;
 
 /**
  * Created by Neeraj on 7/25/2017.
