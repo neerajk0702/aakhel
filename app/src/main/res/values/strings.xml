@@ -6,4 +6,38 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+
+    <string-array name="gender">
+        <item>GENDER</item>
+        <item>Male</item>
+        <item>FeMale</item>
+    </string-array>
+
+    <string-array name="experince">
+        <item>EXPERIENCE</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="sportsname">
+        <item>SELECT SPORTS</item>
+        <item>CRICKET</item>
+        <item>FOOTBALL</item>
+        <item>HOCKY</item>
+        <item>KHO KHO</item>
+        <item>SWIMMING</item>
+        <item>Basket Ball</item>
+        <item>Kabbadi</item>
+        <item>FOOTBALL</item>
+    </string-array>
+    <string-array name="role">
+        <item>Opener</item>
+        <item>Boller</item>
+        <item>Umpier</item>
+
+
+    </string-array>
+
+
 </resources>
