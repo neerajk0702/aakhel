@@ -13,7 +13,7 @@
         android:background="@drawable/headerbg">
 
 
-        <TextView
+        <com.kredivation.aakhale.components.ASTTextView
             android:id="@+id/signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:textSize="@dimen/_14dp" />
 
 
-        <TextView
+        <com.kredivation.aakhale.components.ASTTextView
             android:id="@+id/login"
             android:layout_width="@dimen/_250dp"
             android:layout_height="@dimen/_35dp"
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <EditText
+            <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/fullName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
@@ -72,7 +72,7 @@
                 android:padding="@dimen/_10dp"
                 android:textSize="@dimen/_12dp" />
 
-            <EditText
+            <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
@@ -84,7 +84,7 @@
                 android:padding="@dimen/_10dp"
                 android:textSize="@dimen/_12dp" />
 
-            <EditText
+            <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/contactNo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
@@ -106,7 +106,7 @@
                 android:orientation="horizontal">
 
 
-                <EditText
+                <com.kredivation.aakhale.components.ASTEditText
                     android:id="@+id/dobEdt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -273,7 +273,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
+    <com.kredivation.aakhale.components.ASTButton
         android:id="@+id/continuebtn"
         android:layout_width="@dimen/_190dp"
         android:layout_height="wrap_content"
