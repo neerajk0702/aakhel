@@ -12,8 +12,8 @@ public class Contants {
 
     public static final String APP_DIRECTORY = "/E" + DEFAULT_APPLICATION_NAME + "Directory/";
 
-    public static String BASE_URL = "http://switchlands.com/webservices/";
-    public static String API_KEY = "AIzaSyAPBpFTngYs7TxsTR221DhAr12mPaL12";
+    public static String BASE_URL = "";
+    public static String API_KEY = "";
 
     public static String LOGIN_URL = "login";
     public static String Forget_URL = "forget";

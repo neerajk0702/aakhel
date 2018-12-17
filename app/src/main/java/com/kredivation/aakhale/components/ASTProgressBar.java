@@ -1,4 +1,4 @@
-package com.kredivation.aakhale.utility;
+package com.kredivation.aakhale.components;
 
 import android.app.ProgressDialog;
 import android.content.Context;

@@ -11,14 +11,11 @@ import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.utility.ASTImageView;
 import com.kredivation.aakhale.utility.ASTStringUtil;
 import com.kredivation.aakhale.utility.ASTUIUtil;
-import com.kredivation.aakhale.utility.CircleImageView;
 
 
 /**

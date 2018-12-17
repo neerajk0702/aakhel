@@ -1,4 +1,4 @@
-package com.kredivation.aakhale.utility;
+package com.kredivation.aakhale.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 
 import com.kredivation.aakhale.PicassoTrustAll;
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.utility.ASTUIUtil;
+import com.kredivation.aakhale.utility.CircleTransform;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.RequestHandler;
