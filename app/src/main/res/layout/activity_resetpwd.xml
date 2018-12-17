@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@drawable/headerbg">
+
+
+        <com.kredivation.aakhale.components.ASTTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/_5dp"
+            android:text="RESET PASSWORD"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="0.4"
+            android:background="@color/red5" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:src="@drawable/aakhel"
+            android:text="OR"
+            android:textColor="@color/red1"
+            android:textSize="@dimen/_16dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="0.4"
+            android:background="@color/red5" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/registerEmailEdt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/edittextround"
+                android:hint="Register Email/Mobile Number"
+                android:padding="@dimen/_10dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/newPassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/edittextround"
+                android:hint="New Password"
+                android:padding="@dimen/_10dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/reapeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/edittextround"
+                android:hint="Repeat Password"
+                android:padding="@dimen/_10dp"
+                android:textSize="@dimen/_12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.kredivation.aakhale.components.ASTButton
+                    android:id="@+id/submitBtn"
+                    android:layout_width="@dimen/_190dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_10dp"
+                    android:background="@drawable/button_login"
+                    android:elevation="10dp"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_10dp"
+                    android:paddingBottom="@dimen/_10dp"
+                    android:text="SUBMIT"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

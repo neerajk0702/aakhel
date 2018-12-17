@@ -147,5 +147,14 @@
     </declare-styleable>
 
 
+    <declare-styleable name="FNImageInfoTile">
+        <attr name="footer_title" format="string" />
+    </declare-styleable>
+
+
+    <declare-styleable name="MetalRecyclerViewPager">
+        <attr name="itemMargin" format="dimension"/>
+    </declare-styleable>
+
 </resources>
 

@@ -4,17 +4,622 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.DashboardActivity"
     tools:showIn="@layout/app_bar_dashboard">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemMargin="@dimen/_35dp" />
+
+
+            <LinearLayout
+                android:id="@+id/searchLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:background="@drawable/edittextround"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_2dp">
+
+                <com.kredivation.aakhale.components.ASTEditText
+                    android:id="@+id/searchedit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:backgroundTint="@color/transparentWhite"
+                    android:hint="Search your Stuf here"
+                    android:padding="@dimen/_2dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp" />
+
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:gravity="center"
+                    android:src="@android:drawable/ic_menu_search" />
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_100dp"
+                android:orientation="vertical"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/gray1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_100dp"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:id="@+id/playersLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/playersTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_player"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="PLAYERS"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:id="@+id/teamsLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/teamsTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_team"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="TEAMS"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:id="@+id/umpireLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/umpiresTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_ground"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="UMPIRES"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:id="@+id/stadiumsLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/stadiumsTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_ground"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="STADIUMS"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"
+                            android:background="@color/gray1" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2dp"
+                            android:minHeight="@dimen/_100dp"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:id="@+id/coachesLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/coachesTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_ground"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="COACHES"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:id="@+id/tournamentLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/tournamentTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_ground"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_3dp"
+                                    android:text="TOURNAMENT"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:id="@+id/PERFORMERLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/PERFORMERTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_ground"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="TOP PERFORMER"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:id="@+id/UPCOMMINGLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/upcommingTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_ground"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="UPCOMMING MATCH"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"
+                            android:background="@color/gray1"
+                            android:elevation="@dimen/_38dp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_100dp"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:id="@+id/EVENTSLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/EVENTSTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_cricket_player"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="EVENTS"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:id="@+id/ACADEMICSLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical">
+
+                                <com.kredivation.aakhale.components.ASTFontTextIconView
+                                    android:id="@+id/ACADEMICSTxt"
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:src="@drawable/ic_team"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_30dp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="ACADEMICS"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/blue3"
+                                    android:textSize="@dimen/_10dp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical"
+                                android:visibility="invisible">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_cricket_ground" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="Stadium"
+                                    android:textAlignment="center"
+                                    android:textSize="@dimen/_14dp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/_112dp"
+                                android:layout_gravity="center"
+                                android:background="@color/gray1" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_2dp"
+                                android:layout_weight="0.5"
+                                android:orientation="vertical"
+                                android:visibility="invisible">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_40dp"
+                                    android:layout_height="@dimen/_40dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_cricket_ground" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/_5dp"
+                                    android:text="Stadium"
+                                    android:textAlignment="center"
+                                    android:textSize="@dimen/_14dp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"
+                            android:background="@color/gray1"
+                            android:elevation="@dimen/_38dp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/_225dp"
+                        android:layout_gravity="center"
+                        android:background="@color/gray1" />
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.kredivation.aakhale.components.ASTTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="TOP PERFORMANCE"
+                    android:textSize="@dimen/_14dp" />
+
+
+                <com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager
+                    android:id="@+id/topperformanceviewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:itemMargin="@dimen/_35dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.kredivation.aakhale.components.ASTTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="UPCOMMING MATCh"
+                    android:textSize="@dimen/_14dp" />
+
+
+                <com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager
+                    android:id="@+id/upcommingMatch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:itemMargin="@dimen/_35dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>
