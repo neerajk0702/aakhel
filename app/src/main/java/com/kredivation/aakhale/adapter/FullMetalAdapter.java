@@ -35,10 +35,10 @@ public class FullMetalAdapter extends MetalRecyclerViewPager.MetalAdapter<FullMe
     // private final List<String> metalList;
 
     int[] mResources = {
-            R.drawable.p1,
             R.drawable.p2,
-            R.drawable.p3,
-            R.drawable.p4,
+            R.drawable.p2,
+            R.drawable.p2,
+            R.drawable.p2,
     };
 
 

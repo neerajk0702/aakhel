@@ -30,10 +30,10 @@ public class UpcommingMatchAdapter extends MetalRecyclerViewPager.MetalAdapter<U
     // private final List<String> metalList;
 
     int[] mResources = {
-            R.drawable.match1,
-            R.drawable.match1,
-            R.drawable.match1,
-            R.drawable.match1,
+            R.drawable.tropy1,
+            R.drawable.tropy2,
+            R.drawable.tropy1,
+            R.drawable.tropy2,
     };
 
 

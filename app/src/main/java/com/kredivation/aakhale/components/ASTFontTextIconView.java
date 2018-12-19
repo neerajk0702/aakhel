@@ -63,4 +63,8 @@ public class ASTFontTextIconView extends AppCompatTextView {
     public void setTextSize(float size) {
         super.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
     }
+
+
+
+
 }

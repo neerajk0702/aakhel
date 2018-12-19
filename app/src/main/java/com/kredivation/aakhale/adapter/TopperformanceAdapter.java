@@ -23,17 +23,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.components.ASTTextView;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 
-public class TopperformanceAdapter extends MetalRecyclerViewPager.MetalAdapter<TopperformanceAdapter.FullMetalViewHolder> {
+public class TopperformanceAdapter extends MetalRecyclerViewPager.MetalAdapter<TopperformanceAdapter.TopperformanceViewHolder> {
 
     // private final List<String> metalList;
 
     int[] mResources = {
-            R.drawable.p1,
-            R.drawable.p2,
-            R.drawable.p3,
-            R.drawable.p4,
+            R.drawable.tropy1,
+            R.drawable.tropy2,
+            R.drawable.tropy1,
+            R.drawable.tropy2,
     };
 
 
@@ -42,17 +43,17 @@ public class TopperformanceAdapter extends MetalRecyclerViewPager.MetalAdapter<T
     }
 
     @Override
-    public FullMetalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TopperformanceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View viewItem = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.toperformancer_item, parent, false);
-        return new FullMetalViewHolder(viewItem);
+        return new TopperformanceViewHolder(viewItem);
     }
 
     @Override
-    public void onBindViewHolder(FullMetalViewHolder holder, int position) {
+    public void onBindViewHolder(TopperformanceViewHolder holder, int position) {
         // don't forget about calling supper.onBindViewHolder!
         super.onBindViewHolder(holder, position);
-        holder.metalText.setImageResource(mResources[position]);
+        holder.bgimage.setImageResource(mResources[position]);
 
     }
 
@@ -61,13 +62,15 @@ public class TopperformanceAdapter extends MetalRecyclerViewPager.MetalAdapter<T
         return mResources.length;
     }
 
-    static class FullMetalViewHolder extends MetalRecyclerViewPager.MetalViewHolder {
+    static class TopperformanceViewHolder extends MetalRecyclerViewPager.MetalViewHolder {
 
-        ImageView metalText;
+        ImageView bgimage;
+        ASTTextView title;
 
-        public FullMetalViewHolder(View itemView) {
+        public TopperformanceViewHolder(View itemView) {
             super(itemView);
-            metalText = itemView.findViewById(R.id.metal_text);
+            bgimage = itemView.findViewById(R.id.bgimage);
+            title = itemView.findViewById(R.id.title);
         }
     }
 }
