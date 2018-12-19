@@ -207,13 +207,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.ACADEMICSTxt:
                 AcademicsFragment academicsFragment = new AcademicsFragment();
-                Utility.updateFragment(academicsFragment, null);
+                updateFragment(academicsFragment, null);
                 break;
             case R.id.teamsTxt:
                 CreateTeamFragment createTeamFragment = new CreateTeamFragment();
-                Utility.updateFragment(createTeamFragment, null);
+                updateFragment(createTeamFragment, null);
                 break;
         }
+    }
+
+    public static void updateFragment(Fragment pageFragment, Bundle bundle) {
+        android.support.v4.app.FragmentManager fm = ApplicationHelper.application().getActivity().getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        pageFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.mainView, pageFragment);
+        fragmentTransaction.commit();
     }
 
 }
