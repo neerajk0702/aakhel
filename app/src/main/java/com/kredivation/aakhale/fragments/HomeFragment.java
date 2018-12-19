@@ -19,6 +19,7 @@ import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
+import com.kredivation.aakhale.utility.Utility;
 
 import java.util.Arrays;
 import java.util.List;
@@ -206,16 +207,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.ACADEMICSTxt:
                 AcademicsFragment academicsFragment = new AcademicsFragment();
-                updateFragment(academicsFragment, null);
+                Utility.updateFragment(academicsFragment, null);
+                break;
+            case R.id.teamsTxt:
+                CreateTeamFragment createTeamFragment = new CreateTeamFragment();
+                Utility.updateFragment(createTeamFragment, null);
                 break;
         }
     }
 
-    public void updateFragment(Fragment pageFragment, Bundle bundle) {
-        android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        pageFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.mainView, pageFragment);
-        fragmentTransaction.commit();
-    }
 }

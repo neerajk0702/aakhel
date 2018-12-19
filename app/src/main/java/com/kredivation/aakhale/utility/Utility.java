@@ -23,6 +23,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.DocumentsContract;
@@ -31,6 +32,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -48,6 +50,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kredivation.aakhale.ApplicationHelper;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.DashboardActivity;
 import com.squareup.picasso.Picasso;
@@ -993,5 +996,13 @@ public class Utility {
         if (prefs != null) {
             prefs.edit().clear().commit();
         }
+    }
+
+    public static void updateFragment(Fragment pageFragment, Bundle bundle) {
+        android.support.v4.app.FragmentManager fm = ApplicationHelper.application().getActivity().getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        pageFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.mainView, pageFragment);
+        fragmentTransaction.commit();
     }
 }
