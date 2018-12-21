@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
@@ -14,16 +15,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.kredivation.aakhale.ASTConstants;
-import com.kredivation.aakhale.activity.MainActivity;
+import com.kredivation.aakhale.Constants;
+import com.kredivation.aakhale.activity.SelectUserTypeActivity;
 import com.kredivation.aakhale.utility.ASTEnum;
 import com.kredivation.aakhale.utility.ASTObjectUtil;
 
 /**
  * Created by Neeraj on 7/25/2017.
  */
-public class AppController extends Application {
-    private MainActivity _activity;
+public class AppController extends MultiDexApplication {
+    private SelectUserTypeActivity _activity;
     public static final String TAG = AppController.class
             .getSimpleName();
     private RequestQueue mRequestQueue;
@@ -68,7 +69,7 @@ public class AppController extends Application {
         return mRequestQueue;
     }
 
-    public MainActivity getActivity() {
+    public SelectUserTypeActivity getActivity() {
         return this._activity;
     }
 
@@ -174,28 +175,28 @@ public class AppController extends Application {
     public void initFont(ASTEnum fontType) {
         switch (fontType) {
             case FONT_BOLD:
-                this._fontBold = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_Bold);
+                this._fontBold = Typeface.createFromAsset(this.getAssets(), Constants.FONT_Bold);
                 break;
             case FONT_BOLD_ITALIC:
-                this._fontBoldItalic = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_Bold_Italic);
+                this._fontBoldItalic = Typeface.createFromAsset(this.getAssets(), Constants.FONT_Bold_Italic);
                 break;
             case FONT_ITALIC:
-                this._fontItalic = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_Italic);
+                this._fontItalic = Typeface.createFromAsset(this.getAssets(), Constants.FONT_Italic);
                 break;
             case FONT_SEMIBOLD:
-                this._fontSemiBold = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_Semi_Bold);
+                this._fontSemiBold = Typeface.createFromAsset(this.getAssets(), Constants.FONT_Semi_Bold);
                 break;
             case FONT_SEMIBOLD_ITALIC:
-                this._fontSemiBoldItalic = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_Semi_Bold_Italic);
+                this._fontSemiBoldItalic = Typeface.createFromAsset(this.getAssets(), Constants.FONT_Semi_Bold_Italic);
                 break;
             case FONT_LIGHT_ITALIC:
-                this._fontLightItalic = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_Light_Italic);
+                this._fontLightItalic = Typeface.createFromAsset(this.getAssets(), Constants.FONT_Light_Italic);
                 break;
             case FONT_EXTRALIGHT_ITALIC:
-                this._fontExtraLightItalic = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_ExtraLight_Italic);
+                this._fontExtraLightItalic = Typeface.createFromAsset(this.getAssets(), Constants.FONT_ExtraLight_Italic);
                 break;
             default:
-                this._fontRegular = Typeface.createFromAsset(this.getAssets(), ASTConstants.FONT_Regular);
+                this._fontRegular = Typeface.createFromAsset(this.getAssets(), Constants.FONT_Regular);
                 break;
 
         }
