@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     View view;
-
+    Context context;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        context = getActivity();
         playersTxt = view.findViewById(R.id.playersTxt);
         teamsTxt = view.findViewById(R.id.teamsTxt);
         umpiresTxt = view.findViewById(R.id.umpiresTxt);
@@ -206,9 +206,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ACADEMICSTxt:
-                AcademicsFragment academicsFragment = new AcademicsFragment();
+               AcademicsFragment academicsFragment = new AcademicsFragment();
+
                 updateFragment(academicsFragment, null);
                 break;
+
             case R.id.teamsTxt:
                 CreateTeamFragment createTeamFragment = new CreateTeamFragment();
                 updateFragment(createTeamFragment, null);
@@ -216,8 +218,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static void updateFragment(Fragment pageFragment, Bundle bundle) {
-        android.support.v4.app.FragmentManager fm = ApplicationHelper.application().getActivity().getSupportFragmentManager();
+    public void updateFragment(Fragment pageFragment, Bundle bundle) {
+        android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
         pageFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.mainView, pageFragment);

@@ -29,6 +29,8 @@ import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.fragments.AcademicsFragment;
+import com.kredivation.aakhale.fragments.AddAcademicsVFragments;
+import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 
@@ -102,8 +104,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            CreateTeamFragment createTeamFragment = new CreateTeamFragment();
+            updateFragment(createTeamFragment, null);
         } else if (id == R.id.nav_gallery) {
+            AddAcademicsVFragments academicsFragment = new AddAcademicsVFragments();
+            updateFragment(academicsFragment, null);
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -124,5 +129,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void onClick(View v) {
 
+    }
+
+
+    public void updateFragment(Fragment pageFragment, Bundle bundle) {
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        pageFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.mainView, pageFragment);
+        fragmentTransaction.commit();
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/nooftemMember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
+        android:padding="@dimen/_5dp"
+        android:text="Team Member "
+        android:textColor="@color/orange"
+        android:textSize="@dimen/_12dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
+        android:padding="@dimen/_5dp"
+        android:text="Full Name"
+        android:textSize="@dimen/_12dp"
+        android:textStyle="bold" />
+
+    <com.kredivation.aakhale.components.ASTEditText
+        android:id="@+id/memberfullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5dp"
+        android:layout_marginRight="@dimen/_5dp"
+        android:background="@drawable/round_boder"
+        android:padding="@dimen/_12dp"
+        android:textSize="@dimen/_12dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
+        android:padding="@dimen/_5dp"
+        android:text="Email"
+        android:textSize="@dimen/_12dp"
+        android:textStyle="bold" />
+
+    <com.kredivation.aakhale.components.ASTEditText
+        android:id="@+id/memberemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5dp"
+        android:layout_marginRight="@dimen/_5dp"
+        android:background="@drawable/round_boder"
+        android:padding="@dimen/_12dp"
+        android:textSize="@dimen/_12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
+        android:padding="@dimen/_5dp"
+        android:text="Contact Number"
+        android:textSize="@dimen/_12dp"
+        android:textStyle="bold" />
+
+    <com.kredivation.aakhale.components.ASTEditText
+        android:id="@+id/membercontactno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5dp"
+        android:layout_marginRight="@dimen/_5dp"
+        android:background="@drawable/round_boder"
+        android:padding="@dimen/_12dp"
+        android:textSize="@dimen/_12dp" />
+
+
+</LinearLayout>
