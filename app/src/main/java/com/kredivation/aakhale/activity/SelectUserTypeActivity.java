@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.AreaAdapter;
@@ -16,7 +14,7 @@ import com.kredivation.aakhale.components.ASTTextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class SelectUserTypeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ASTTextView signup, login;
     private ASTButton continuebtn;
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.select_user_type);
         loadview();
     }
 
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         continuebtn = findViewById(R.id.continuebtn);
 
         araelist = this.findViewById(R.id.araelist);
-        araelist.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        araelist.setLayoutManager(new LinearLayoutManager(SelectUserTypeActivity.this));
         datatoView();
 
     }
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         areaList.add("Player");
         areaList.add("RWA");
 
-        areaAdapter = new AreaAdapter(MainActivity.this, areaList);
+        areaAdapter = new AreaAdapter(SelectUserTypeActivity.this, areaList);
         araelist.setAdapter(areaAdapter);
     }
 
@@ -71,11 +69,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signup:
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(SelectUserTypeActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 break;
             case R.id.login:
-                Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent1 = new Intent(SelectUserTypeActivity.this, LoginActivity.class);
                 startActivity(intent1);
                 break;
         }

@@ -19,7 +19,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -41,7 +40,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -55,25 +53,18 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.internal.Primitives;
 import com.kredivation.aakhale.ApplicationHelper;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.activity.MainActivity;
-import com.kredivation.aakhale.framework.AppController;
+import com.kredivation.aakhale.activity.SelectUserTypeActivity;
 import com.kredivation.aakhale.resource.FNResources;
 
 import java.io.ByteArrayOutputStream;
@@ -91,8 +82,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
 /**
  * @author AST Inc.
@@ -458,7 +447,7 @@ public class ASTUIUtil {
     }
 
     private static Window getWindow() {
-        MainActivity activity = ApplicationHelper.application().getActivity();
+        SelectUserTypeActivity activity = ApplicationHelper.application().getActivity();
         if (activity == null)
             return null;
         return activity.getWindow();
