@@ -7,6 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,8 @@ import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.LoginActivity;
 import com.kredivation.aakhale.activity.ResetPasswordActivity;
 import com.kredivation.aakhale.adapter.GridViewAdapter;
+import com.kredivation.aakhale.adapter.RecycleViewAdapter;
+import com.kredivation.aakhale.adapter.SportsServiceGridViewAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.model.ImageItem;
@@ -32,8 +38,8 @@ import java.util.ArrayList;
 public class AddAcademicsVFragments extends Fragment implements View.OnClickListener {
 
     View view;
-    private GridView gridView;
-    private GridViewAdapter gridAdapter;
+    private RecyclerView addImageView;
+    private RecycleViewAdapter imageAdapater;
     LinearLayout container_moreadd;
     ImageView sortiMG, acadmiciMG;
     ASTEditText acdName, teameName, zipcode, description, managerfullName, manageremail, mamangercontactno;
@@ -48,6 +54,9 @@ public class AddAcademicsVFragments extends Fragment implements View.OnClickList
     LinearLayout acadmicViewinfoLayout, acadmicinfoLayout, acadmicmemberinfoLayout;
     int numberclick = 1;
     int academiesMemberLayoutclick = 1;
+
+    GridView sportsgridView;
+    SportsServiceGridViewAdapter sportsServiceGridViewAdapter;
 
     public AddAcademicsVFragments() {
         // Required empty public constructor
@@ -66,9 +75,14 @@ public class AddAcademicsVFragments extends Fragment implements View.OnClickList
 
     public void init() {
 
-        gridView = view.findViewById(R.id.gridView);
-        gridAdapter = new GridViewAdapter(getContext(), R.layout.image_item_layout, getData());
-        gridView.setAdapter(gridAdapter);
+        addImageView = view.findViewById(R.id.addImageView);
+        imageAdapater = new RecycleViewAdapter(getContext(), R.layout.image_item_layout, getData());
+        addImageView.setAdapter(imageAdapater);
+
+        setLinearLayoutManager(addImageView);
+        addImageView.setNestedScrollingEnabled(false);
+        addImageView.setHasFixedSize(false);
+
 
         container_moreadd = view.findViewById(R.id.container_moreadd);
         addMoreViewmember = view.findViewById(R.id.addMoreViewmember);
@@ -101,7 +115,18 @@ public class AddAcademicsVFragments extends Fragment implements View.OnClickList
         academiesMemberLayout.setOnClickListener(this);
         acadmicmemberinfoLayout = view.findViewById(R.id.acadmicmemberinfoLayout);
         addMoreMember();
+        sportsgridView = view.findViewById(R.id.sportsgridView);
 
+        sportsServiceGridViewAdapter = new SportsServiceGridViewAdapter(getContext(), R.layout.sports_row, getSportsData());
+        sportsgridView.setAdapter(sportsServiceGridViewAdapter);
+        sportsgridView.setFocusable(true);
+
+    }
+
+    private void setLinearLayoutManager(RecyclerView recyclerView) {
+        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(LayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     // Prepare some dummy data for gridview
@@ -112,6 +137,26 @@ public class AddAcademicsVFragments extends Fragment implements View.OnClickList
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
             imageItems.add(new ImageItem(bitmap, "Image#" + i));
         }
+        return imageItems;
+    }
+
+    private ArrayList<ImageItem> getSportsData() {
+        final ArrayList<ImageItem> imageItems = new ArrayList<>();
+        ImageItem imageItem = new ImageItem();
+        for (int i = 1; i <= 8; i++) {
+            imageItem.setTitle("Cricket");
+            imageItem.setTitle("Hocky");
+            imageItem.setTitle("FootBall");
+            imageItem.setTitle("VollyBall");
+            imageItem.setTitle("Swimming");
+            imageItem.setTitle("Chess");
+            imageItem.setTitle("FootBall");
+            imageItem.setTitle("Swimming");
+            imageItem.setTitle("Cricket");
+            imageItems.add(imageItem);
+        }
+
+
         return imageItems;
     }
 

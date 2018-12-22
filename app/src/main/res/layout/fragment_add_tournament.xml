@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Tournament Name"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+            android:id="@+id/tournamentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:background="@drawable/round_boder"
+            android:padding="@dimen/_12dp"
+            android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Venue Address"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/venueAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Zip Code"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/zipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select State"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select City"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_12dp"
+                    android:layout_marginRight="@dimen/_12dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/stateSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center"
+                            android:padding="@dimen/_5dp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/citySpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="No of Over"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select Formate"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_12dp"
+                    android:layout_marginRight="@dimen/_12dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <com.kredivation.aakhale.components.ASTEditText
+                            android:id="@+id/noofOver"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_marginRight="@dimen/_5dp"
+                            android:background="@drawable/round_boder"
+                            android:padding="@dimen/_12dp"
+                            android:textSize="@dimen/_12dp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/formateSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Start date"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="End date"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_12dp"
+                    android:layout_marginRight="@dimen/_12dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/startdateSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center"
+                            android:padding="@dimen/_5dp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/enddateSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Entery Fee"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select Status"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_12dp"
+                    android:layout_marginRight="@dimen/_12dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <com.kredivation.aakhale.components.ASTEditText
+                            android:id="@+id/enteryFee"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_marginRight="@dimen/_5dp"
+                            android:background="@drawable/round_boder"
+                            android:padding="@dimen/_12dp"
+                            android:textSize="@dimen/_12dp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/statusSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="About Tournament"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/aboutTournament"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:minHeight="@dimen/_90dp"
+                android:padding="@dimen/_5dp"
+                android:textSize="@dimen/_12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Facilites"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addMoreFacilites"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Add More"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_add_facilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Rule Regulation"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addMorerule_regulation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Add More"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_add_rule_regulation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Price"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addMoreprice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Add More"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_add_rule_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Add Display Picture"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addsisplayPicture"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Select Photo"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/addImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+    <com.kredivation.aakhale.components.ASTButton
+        android:id="@+id/continuebtn"
+        android:layout_width="@dimen/_190dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_5dp"
+        android:background="@drawable/button_login"
+        android:gravity="center"
+        android:padding="@dimen/_5dp"
+        android:text="SAVE"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14dp" />
+
+</LinearLayout>

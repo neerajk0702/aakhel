@@ -12,6 +12,13 @@ public class ImageItem {
         this.title = title;
     }
 
+    public ImageItem(String title) {
+        super();
+        this.title = title;
+    }
+    public ImageItem() {
+    }
+
     public Bitmap getImage() {
         return image;
     }

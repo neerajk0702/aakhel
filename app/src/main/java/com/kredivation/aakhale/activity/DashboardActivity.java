@@ -30,6 +30,11 @@ import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.fragments.AcademicsFragment;
 import com.kredivation.aakhale.fragments.AddAcademicsVFragments;
+import com.kredivation.aakhale.fragments.AddScoreFragment;
+import com.kredivation.aakhale.fragments.AddSportsFragment;
+import com.kredivation.aakhale.fragments.AddTournament;
+import com.kredivation.aakhale.fragments.CreateGroundFragment;
+import com.kredivation.aakhale.fragments.CreateMatchFragment;
 import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
@@ -111,10 +116,28 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             updateFragment(academicsFragment, null);
 
         } else if (id == R.id.nav_slideshow) {
+            AddTournament academicsFragment = new AddTournament();
+            updateFragment(academicsFragment, null);
 
         } else if (id == R.id.nav_manage) {
+            AddScoreFragment addScoreFragment = new AddScoreFragment();
+            updateFragment(addScoreFragment, null);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.matchcreate) {
+            CreateMatchFragment createTeamFragment = new CreateMatchFragment();
+            updateFragment(createTeamFragment, null);
+
+        } else if (id == R.id.addsports) {
+            AddSportsFragment addSportsFragmentelse = new AddSportsFragment();
+            updateFragment(addSportsFragmentelse, null);
+
+        } else if (id == R.id.createground) {
+            CreateGroundFragment createGroundFragment = new CreateGroundFragment();
+            updateFragment(createGroundFragment, null);
+
+        }
+
+        if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

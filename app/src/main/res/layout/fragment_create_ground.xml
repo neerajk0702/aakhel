@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Ground Name"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/matchName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Address"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/venueAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Zip Code"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/zipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select State"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select City"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_12dp"
+                    android:layout_marginRight="@dimen/_12dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/stateSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center"
+                            android:padding="@dimen/_5dp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/citySpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Floodlight"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Capacity"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_12dp"
+                    android:layout_marginRight="@dimen/_12dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_boder"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/floodlightSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <com.kredivation.aakhale.components.ASTEditText
+                            android:id="@+id/capacity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_marginRight="@dimen/_5dp"
+                            android:backgroundTint="@color/translucentWhite"
+                            android:padding="@dimen/_12dp"
+                            android:textSize="@dimen/_12dp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="Dimenission"
+                            android:textSize="@dimen/_12dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="TimeZone"
+                            android:textSize="@dimen/_12dp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_marginLeft="@dimen/_12dp"
+                        android:layout_marginTop="@dimen/_12dp"
+                        android:layout_marginRight="@dimen/_12dp"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_boder"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+
+                            <com.kredivation.aakhale.components.ASTEditText
+                                android:id="@+id/dimesionTxt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5dp"
+                                android:layout_marginRight="@dimen/_5dp"
+                                android:backgroundTint="@color/translucentWhite"
+                                android:padding="@dimen/_12dp"
+                                android:textSize="@dimen/_12dp" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittextround"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/TimeZoneSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="No of Match per Day"
+                            android:textSize="@dimen/_12dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="Day or Night"
+                            android:textSize="@dimen/_12dp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_marginLeft="@dimen/_12dp"
+                        android:layout_marginTop="@dimen/_12dp"
+                        android:layout_marginRight="@dimen/_12dp"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_boder"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+
+                            <com.kredivation.aakhale.components.ASTEditText
+                                android:id="@+id/noofMatchtxt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5dp"
+                                android:layout_marginRight="@dimen/_5dp"
+                                android:backgroundTint="@color/translucentWhite"
+                                android:padding="@dimen/_12dp"
+                                android:textSize="@dimen/_12dp" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittextround"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/dayorNightSpiner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Surface(seprate by coma)"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+                <com.kredivation.aakhale.components.ASTEditText
+                    android:id="@+id/surfaceTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
+                    android:layout_marginRight="@dimen/_5dp"
+                    android:background="@drawable/round_boder"
+                    android:padding="@dimen/_12dp"
+                    android:textSize="@dimen/_12dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Free Services"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addmorfreeServices"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Add More"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_add_freeservices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Term and Condition"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addMoretermcondtion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Add More"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_add_term_condtion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Cost"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Add Display Picture"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addsisplayPicture"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Select Photo"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/addImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <com.kredivation.aakhale.components.ASTButton
+            android:id="@+id/canclebtn"
+            android:layout_width="@dimen/_190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_login"
+            android:gravity="center"
+            android:padding="@dimen/_5dp"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14dp" />
+
+
+        <com.kredivation.aakhale.components.ASTButton
+            android:id="@+id/continuebtn"
+            android:layout_width="@dimen/_190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_login"
+            android:gravity="center"
+            android:padding="@dimen/_5dp"
+            android:text="SAVE"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14dp" />
+    </LinearLayout>
+</LinearLayout>

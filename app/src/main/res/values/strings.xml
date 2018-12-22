@@ -62,4 +62,20 @@
         <item>@drawable/pager3</item>
     </string-array>
 
+
+    <string-array name="sportsName">
+        <item>Cricket</item>
+        <item>Hocky</item>
+        <item>FootBall</item>
+        <item>VollyBall</item>
+        <item>Swimming</item>
+        <item>Chess</item>
+        <item>Cricket</item>
+        <item>Hocky</item>
+        <item>FootBall</item>
+        <item>VollyBall</item>
+        <item>Swimming</item>
+        <item>Chess</item>
+    </string-array>
+
 </resources>

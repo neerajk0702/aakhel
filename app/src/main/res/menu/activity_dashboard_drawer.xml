@@ -15,11 +15,27 @@
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Add Tournament" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Add Score" />
+
+        <item
+            android:id="@+id/matchcreate"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Create Match" />
+
+
+        <item
+            android:id="@+id/addsports"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Add Spoerts Match" />
+
+        <item
+            android:id="@+id/createground"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Create Ground" />
     </group>
 
     <item android:title="Communicate">

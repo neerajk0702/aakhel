@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Match Name"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/matchName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Venue Address"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/venueAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select State"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select City"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_12dp"
+                    android:layout_marginRight="@dimen/_12dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/stateSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center"
+                            android:padding="@dimen/_5dp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/citySpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:entries="@array/state"
+                            android:gravity="center" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Zip Code"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/zipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select Time"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:text="Select Date"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:orientation="horizontal">
+
+
+                        <com.kredivation.aakhale.components.ASTEditText
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/white"
+                            android:hint="Time"
+                            android:padding="@dimen/_10dp"
+                            android:textSize="@dimen/_12dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <View
+                                android:layout_width="@dimen/_1dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@color/darkBlack_color"
+                                android:backgroundTint="@color/darkBlack_color"
+                                android:padding="@dimen/_3dp" />
+
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_5dp"
+                                android:padding="@dimen/_5dp"
+                                android:src="@drawable/ic_calendar" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_margin="@dimen/_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextround"
+                        android:orientation="horizontal">
+
+
+                        <com.kredivation.aakhale.components.ASTEditText
+                            android:id="@+id/dobEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/white"
+                            android:hint="Date"
+                            android:padding="@dimen/_10dp"
+                            android:textSize="@dimen/_12dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <View
+                                android:layout_width="@dimen/_1dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@color/darkBlack_color"
+                                android:backgroundTint="@color/darkBlack_color"
+                                android:padding="@dimen/_3dp" />
+
+
+                            <ImageView
+                                android:id="@+id/dateIcon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_5dp"
+                                android:padding="@dimen/_5dp"
+                                android:src="@drawable/ic_calendar" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Select Ground"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
+                    android:layout_marginRight="@dimen/_5dp"
+                    android:background="@drawable/round_boder"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5dp">
+
+
+                    <Spinner
+                        android:id="@+id/groundSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:minHeight="@dimen/_30dp"
+                        android:padding="@dimen/_5dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="Type of Match"
+                            android:textSize="@dimen/_12dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="Over"
+                            android:textSize="@dimen/_12dp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_marginLeft="@dimen/_12dp"
+                        android:layout_marginTop="@dimen/_12dp"
+                        android:layout_marginRight="@dimen/_12dp"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_boder"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/matchtype"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittextround"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+
+                            <com.kredivation.aakhale.components.ASTEditText
+                                android:id="@+id/overtxt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5dp"
+                                android:layout_marginRight="@dimen/_5dp"
+                                android:background="@drawable/round_boder"
+                                android:padding="@dimen/_12dp"
+                                android:textSize="@dimen/_12dp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Formate"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+                <com.kredivation.aakhale.components.ASTEditText
+                    android:id="@+id/formate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
+                    android:layout_marginRight="@dimen/_5dp"
+                    android:background="@drawable/round_boder"
+                    android:padding="@dimen/_12dp"
+                    android:textSize="@dimen/_12dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <com.kredivation.aakhale.components.ASTButton
+            android:id="@+id/canclebtn"
+            android:layout_width="@dimen/_190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_login"
+            android:gravity="center"
+            android:padding="@dimen/_5dp"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14dp" />
+
+
+        <com.kredivation.aakhale.components.ASTButton
+            android:id="@+id/continuebtn"
+            android:layout_width="@dimen/_190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_login"
+            android:gravity="center"
+            android:padding="@dimen/_5dp"
+            android:text="SAVE"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14dp" />
+    </LinearLayout>
+
+
+</LinearLayout>
