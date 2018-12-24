@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.AddScoreFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5dp"
+            app:cardElevation="@dimen/_6dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_3dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Confirm Team"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14dp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/_5dp"
+                        android:text="Enyer Team 1 unique ID"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5dp">
+
+
+                        <com.kredivation.aakhale.components.ASTEditText
+                            android:id="@+id/teame1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_boder"
+                            android:padding="@dimen/_12dp"
+                            android:textSize="@dimen/_12dp" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:padding="@dimen/_5dp"
+                        android:text="Enyer Team 1 unique ID"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
+
+                    <com.kredivation.aakhale.components.ASTEditText
+                        android:id="@+id/teame2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:background="@drawable/round_boder"
+                        android:padding="@dimen/_12dp"
+                        android:textSize="@dimen/_12dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </ScrollView>
+
+    <com.kredivation.aakhale.components.ASTButton
+        android:id="@+id/continuebtn"
+        android:layout_width="@dimen/_190dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_5dp"
+        android:background="@drawable/button_login"
+        android:gravity="center"
+        android:padding="@dimen/_5dp"
+        android:text="CONTINUE"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14dp" />
+</LinearLayout>

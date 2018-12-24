@@ -33,10 +33,14 @@ import com.kredivation.aakhale.fragments.AddAcademicsVFragments;
 import com.kredivation.aakhale.fragments.AddScoreFragment;
 import com.kredivation.aakhale.fragments.AddSportsFragment;
 import com.kredivation.aakhale.fragments.AddTournament;
+import com.kredivation.aakhale.fragments.AddUmpiresFragment;
 import com.kredivation.aakhale.fragments.CreateGroundFragment;
 import com.kredivation.aakhale.fragments.CreateMatchFragment;
+import com.kredivation.aakhale.fragments.CreatePostFragment;
+import com.kredivation.aakhale.fragments.CreateScoreCardFragment;
 import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
+import com.kredivation.aakhale.fragments.ScoreCardFragment;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 
 import java.util.Arrays;
@@ -135,7 +139,24 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             CreateGroundFragment createGroundFragment = new CreateGroundFragment();
             updateFragment(createGroundFragment, null);
 
+        } else if (id == R.id.cretescorecard) {
+            CreateScoreCardFragment createScoreCardFragment = new CreateScoreCardFragment();
+            updateFragment(createScoreCardFragment, null);
+
+        } else if (id == R.id.scoreCard) {
+            ScoreCardFragment scoreCardFragment = new ScoreCardFragment();
+            updateFragment(scoreCardFragment, null);
+
+        } else if (id == R.id.createPost) {
+            CreatePostFragment createPostFragment = new CreatePostFragment();
+            updateFragment(createPostFragment, null);
+
+        } else if (id == R.id.adumpire) {
+            AddUmpiresFragment addUmpiresFragment = new AddUmpiresFragment();
+            updateFragment(addUmpiresFragment, null);
+
         }
+
 
         if (id == R.id.nav_share) {
 

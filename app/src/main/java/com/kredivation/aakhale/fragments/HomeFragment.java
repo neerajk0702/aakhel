@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         upcommingTxt.setOnClickListener(this);
         EVENTSTxt.setOnClickListener(this);
         ACADEMICSTxt.setOnClickListener(this);
-
+        stadiumsLayout.setOnClickListener(this);
     }
 
     public void setTopPerformanceViewPager() {
@@ -206,7 +206,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ACADEMICSTxt:
-               AcademicsFragment academicsFragment = new AcademicsFragment();
+                AcademicsFragment academicsFragment = new AcademicsFragment();
 
                 updateFragment(academicsFragment, null);
                 break;
@@ -215,7 +215,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 CreateTeamFragment createTeamFragment = new CreateTeamFragment();
                 updateFragment(createTeamFragment, null);
                 break;
+            case R.id.stadiumsLayout:
+                GroundFragment groundFragment = new GroundFragment();
+                updateFragment(groundFragment, null);
+                break;
         }
+
     }
 
     public void updateFragment(Fragment pageFragment, Bundle bundle) {

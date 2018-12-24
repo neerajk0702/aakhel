@@ -75,10 +75,8 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         addMoreprice = view.findViewById(R.id.addMoreprice);
         addMoreFacilites = view.findViewById(R.id.addMoreFacilites);
         addImageView = view.findViewById(R.id.addImageView);
-
         imageAdapater = new RecycleViewAdapter(getContext(), R.layout.image_item_layout, getData());
         addImageView.setAdapter(imageAdapater);
-
         setLinearLayoutManager(addImageView);
         addImageView.setNestedScrollingEnabled(false);
         addImageView.setHasFixedSize(false);

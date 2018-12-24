@@ -36,6 +36,25 @@
             android:id="@+id/createground"
             android:icon="@drawable/ic_menu_manage"
             android:title="Create Ground" />
+        <item
+            android:id="@+id/cretescorecard"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Create Score Card" />
+
+
+        <item
+            android:id="@+id/scoreCard"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Score Card" />
+
+        <item
+            android:id="@+id/createPost"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Create Post" />
+        <item
+            android:id="@+id/adumpire"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Add Umpires" />
     </group>
 
     <item android:title="Communicate">

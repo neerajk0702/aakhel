@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.AddSportsAdapter;
+import com.kredivation.aakhale.adapter.AddUmpireAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.model.ImageItem;
@@ -20,15 +21,14 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddSportsFragment extends Fragment {
+public class AddUmpiresFragment extends Fragment {
 
     View view;
-    ASTEditText sportsText;
-    RecyclerView sprtsList;
+    ASTEditText umpreSearchTxt;
+    RecyclerView umpireList;
     ASTButton saveBtn;
 
-
-    public AddSportsFragment() {
+    public AddUmpiresFragment() {
         // Required empty public constructor
     }
 
@@ -36,17 +36,17 @@ public class AddSportsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_sports, container, false);
-        getActivity().setTitle("Add Sports");
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_add_umpires, container, false);
         init();
+        getActivity().setTitle("Add Umpires");
         return view;
-
     }
 
     public void init() {
-        sportsText = view.findViewById(R.id.sportsText);
-        sprtsList = view.findViewById(R.id.sprtsList);
-        sprtsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        umpireList = view.findViewById(R.id.umpireList);
+        umpreSearchTxt = view.findViewById(R.id.umpreSearchTxt);
+        umpireList.setLayoutManager(new LinearLayoutManager(getContext()));
         saveBtn = view.findViewById(R.id.saveBtn);
         addSportListAdapter();
     }
@@ -57,11 +57,11 @@ public class AddSportsFragment extends Fragment {
         ArrayList<ImageItem> sportsList = new ArrayList<>();
         ImageItem data = new ImageItem();
         for (int i = 1; i <= 5; i++) {
-            data.setTitle("Cricket");
+            data.setTitle("Ravi Sastri");
             sportsList.add(data);
         }
 
-        AddSportsAdapter addSportsAdapter = new AddSportsAdapter(getContext(), sportsList);
-        sprtsList.setAdapter(addSportsAdapter);
+        AddUmpireAdapter addUmpireAdapter = new AddUmpireAdapter(getContext(), sportsList);
+        umpireList.setAdapter(addUmpireAdapter);
     }
 }
