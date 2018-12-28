@@ -6,294 +6,303 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5dp"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5dp">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight=".2"
-            android:src="@drawable/tropy1" />
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5dp"
-            android:layout_weight=".8"
-            android:orientation="horizontal"
-            android:padding="@dimen/_5dp">
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight=".2"
+                    android:src="@drawable/tropy1" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".8"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1 June 2018,04:09 PM"
+                            android:textSize="@dimen/_14dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/ratingTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="* * * * *"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:id="@+id/fab"
+                        android:layout_width="@dimen/_30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_favorite" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="General Details"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_100dp"
+                android:padding="@dimen/_5dp"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardElevation="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Unique ID: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/uniqueIdTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="456XyDFR"
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Age: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/ageTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="43 Years"
+                                android:textSize="@dimen/_12dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Experience :"
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/ExperienceTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10 Years"
+                                android:textSize="7pt" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Odis umpired:: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/OdieTxt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="32"
+                                android:textSize="@dimen/_12dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="T20is umpired: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/taskId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="40"
+                                android:textSize="@dimen/_12dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Role: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/activityID"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Cricket Umpire"
+                                android:textSize="@dimen/_12dp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Umpires Information"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_margin="@dimen/_5dp"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp">
 
                 <TextView
-                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 June 2018,04:09 PM"
-                    android:textSize="@dimen/_14dp"
+                    android:text="Text Umpire "
+                    android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
-
                 <TextView
-                    android:id="@+id/ratingTxt"
+                    android:id="@+id/testinformation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="* * * * *"
-                    android:textColor="@color/orange"
-                    android:textSize="@dimen/_20dp"
+                    android:text="30(2013-2018)"
+                    android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-
-            <ImageView
-                android:id="@+id/fab"
-                android:layout_width="@dimen/_30dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_favorite" />
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5dp"
-        android:padding="@dimen/_5dp"
-        android:text="General Details"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_14dp"
-        android:textStyle="bold" />
-
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/_100dp"
-        android:padding="@dimen/_5dp"
-        app:cardCornerRadius="@dimen/_5dp"
-        app:cardElevation="@dimen/_5dp"
-        app:cardUseCompatPadding="true">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5dp"
-            android:orientation="horizontal"
-            android:padding="@dimen/_5dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:orientation="vertical">
+                android:layout_margin="@dimen/_5dp"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
+                    android:text="Odis Umpire "
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unique ID: "
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/uniqueIdTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="456XyDFR"
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/odiesInfo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Age: "
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/ageTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="43 Years"
-                        android:textSize="@dimen/_12dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Experience :"
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/ExperienceTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10 Years"
-                        android:textSize="7pt" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Odis umpired:: "
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/OdieTxt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="32"
-                        android:textSize="@dimen/_12dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="T20is umpired: "
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/taskId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="40"
-                        android:textSize="@dimen/_12dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Role: "
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/activityID"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cricket Umpire"
-                        android:textSize="@dimen/_12dp" />
-                </LinearLayout>
-
-
+                    android:text="35(2013-2018)"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
             </LinearLayout>
-
-
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5dp"
-        android:padding="@dimen/_5dp"
-        android:text="Umpires Information"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_14dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/_5dp"
-        android:padding="@dimen/_5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Text Umpire "
-            android:textSize="@dimen/_12dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/testinformation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30(2013-2018)"
-            android:textSize="@dimen/_12dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/_5dp"
-        android:padding="@dimen/_5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Odis Umpire "
-            android:textSize="@dimen/_12dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/odiesInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="35(2013-2018)"
-            android:textSize="@dimen/_12dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
+    </ScrollView>
 
 </LinearLayout>

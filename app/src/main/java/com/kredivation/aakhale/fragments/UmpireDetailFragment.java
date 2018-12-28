@@ -17,8 +17,8 @@ import com.kredivation.aakhale.R;
 public class UmpireDetailFragment extends Fragment {
     View view;
 
-    TextView name,ratingTxt;
-    ImageView imageView,fab;
+    TextView name, ratingTxt;
+    ImageView imageView, fab;
 
     public UmpireDetailFragment() {
         // Required empty public constructor
@@ -30,6 +30,7 @@ public class UmpireDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_umpire_detail, container, false);
+        getActivity().setTitle("Umpires Details");
         return view;
     }
 
