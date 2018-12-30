@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.kredivation.aakhale.ApplicationHelper;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.FullMetalAdapter;
+import com.kredivation.aakhale.adapter.TeameFragment;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
@@ -172,6 +173,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         EVENTSTxt.setOnClickListener(this);
         ACADEMICSTxt.setOnClickListener(this);
         stadiumsLayout.setOnClickListener(this);
+        coachesLayout.setOnClickListener(this);
     }
 
     public void setTopPerformanceViewPager() {
@@ -212,14 +214,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.teamsTxt:
-                CreateTeamFragment createTeamFragment = new CreateTeamFragment();
-                updateFragment(createTeamFragment, null);
+                TeameFragment teameFragment = new TeameFragment();
+                updateFragment(teameFragment, null);
                 break;
             case R.id.stadiumsLayout:
                 GroundFragment groundFragment = new GroundFragment();
                 updateFragment(groundFragment, null);
                 break;
+
+            case R.id.coachesLayout:
+                CoachesFragments coachesFragments = new CoachesFragments();
+                updateFragment(coachesFragments, null);
+                break;
+            case R.id.playersTxt:
+                PlayerFragment playerFragment = new PlayerFragment();
+                updateFragment(playerFragment, null);
+                break;
+
         }
+
 
     }
 

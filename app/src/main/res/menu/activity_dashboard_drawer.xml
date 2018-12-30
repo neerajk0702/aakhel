@@ -55,6 +55,11 @@
             android:id="@+id/adumpire"
             android:icon="@drawable/ic_menu_manage"
             android:title="Add Umpires" />
+
+        <item
+            android:id="@+id/Schedule"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Schedule" />
     </group>
 
     <item android:title="Communicate">

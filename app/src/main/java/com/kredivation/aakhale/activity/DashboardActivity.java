@@ -40,6 +40,7 @@ import com.kredivation.aakhale.fragments.CreatePostFragment;
 import com.kredivation.aakhale.fragments.CreateScoreCardFragment;
 import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
+import com.kredivation.aakhale.fragments.ScheduleFragment;
 import com.kredivation.aakhale.fragments.ScoreCardFragment;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 
@@ -154,6 +155,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.adumpire) {
             AddUmpiresFragment addUmpiresFragment = new AddUmpiresFragment();
             updateFragment(addUmpiresFragment, null);
+
+        } else if (id == R.id.Schedule) {
+            ScheduleFragment scheduleFragment = new ScheduleFragment();
+            updateFragment(scheduleFragment, null);
 
         }
 
