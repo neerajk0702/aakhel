@@ -1,7 +1,7 @@
 package com.kredivation.aakhale.utility;
 
 
-import com.kredivation.aakhale.ApplicationHelper;
+import com.kredivation.aakhale.framework.AppController;
 
 /**
  * @author AST Inc.
@@ -9,11 +9,11 @@ import com.kredivation.aakhale.ApplicationHelper;
 public class ASTStringUtil {
 
 	public static String getStringForID(int id) {
-		return ApplicationHelper.application().getResources().getString(id);
+		return AppController.getInstance().getResources().getString(id);
 	}
 
 	public static String getStringForID(int id, Object... formatArgs) {
-		return ApplicationHelper.application().getResources().getString(id, formatArgs);
+		return AppController.getInstance().getResources().getString(id, formatArgs);
 	}
 
 	public static String getStringForName(String name) {
@@ -21,10 +21,10 @@ public class ASTStringUtil {
 	}
 
 	public static int getIdForName(String name) {
-		return ApplicationHelper.application().getResourceId(name, "string");
+		return AppController.getInstance().getResourceId(name, "string");
 	}
 
 	public static int getIdForName(String name, String packageName) {
-		return ApplicationHelper.application().getResourceId(name, "string", packageName);
+		return AppController.getInstance().getResourceId(name, "string", packageName);
 	}
 }

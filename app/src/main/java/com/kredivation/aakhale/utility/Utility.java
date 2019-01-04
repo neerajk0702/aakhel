@@ -50,9 +50,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kredivation.aakhale.ApplicationHelper;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.DashboardActivity;
+import com.kredivation.aakhale.framework.AppController;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -999,7 +999,7 @@ public class Utility {
     }
 
     public static void updateFragment(Fragment pageFragment, Bundle bundle) {
-        android.support.v4.app.FragmentManager fm = ApplicationHelper.application().getActivity().getSupportFragmentManager();
+        android.support.v4.app.FragmentManager fm = AppController.getInstance().getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
         pageFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.mainView, pageFragment);

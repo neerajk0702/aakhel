@@ -62,9 +62,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.internal.Primitives;
-import com.kredivation.aakhale.ApplicationHelper;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.SelectUserTypeActivity;
+import com.kredivation.aakhale.framework.AppController;
 import com.kredivation.aakhale.resource.FNResources;
 
 import java.io.ByteArrayOutputStream;
@@ -189,7 +189,7 @@ public class ASTUIUtil {
     }
 
     public static Drawable getDrawable(@DrawableRes int drawableResId) {
-        return ContextCompat.getDrawable(ApplicationHelper.application().getBaseContext(), drawableResId);
+        return ContextCompat.getDrawable(AppController.getInstance().getBaseContext(), drawableResId);
     }
 
     public static Drawable getDrawable(String drawableResName) {
@@ -205,7 +205,7 @@ public class ASTUIUtil {
     }
 
     public static int getColor(@ColorRes int colorId) {
-        return getColor(ApplicationHelper.application().getBaseContext(), colorId);
+        return getColor(AppController.getInstance().getBaseContext(), colorId);
     }
 
     public static <T> T findViewById(View view, Class<T> classOf, int resID) {
@@ -447,7 +447,7 @@ public class ASTUIUtil {
     }
 
     private static Window getWindow() {
-        SelectUserTypeActivity activity = ApplicationHelper.application().getActivity();
+        SelectUserTypeActivity activity = AppController.getInstance().getActivity();
         if (activity == null)
             return null;
         return activity.getWindow();
@@ -481,7 +481,7 @@ public class ASTUIUtil {
 
     public static void setFontTypeFace(TextView v, ASTEnum fontTypeFace) {
         try {
-            v.setTypeface(ApplicationHelper.application().getFontTypeFace(fontTypeFace));
+            v.setTypeface(AppController.getInstance().getFontTypeFace(fontTypeFace));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -499,7 +499,7 @@ public class ASTUIUtil {
     }
 
     public static float getDimension(@DimenRes int dimenId) {
-        return ApplicationHelper.application().getResources().getDimension(dimenId);
+        return AppController.getInstance().getResources().getDimension(dimenId);
     }
 
     public static int getDimensionInt(@DimenRes int dimenId) {
@@ -1492,7 +1492,7 @@ public class ASTUIUtil {
         //File sdcardPath = new File(Environment.getExternalStorageDirectory(), Contants.APP_DIRECTORY);
         // sdcardPath.mkdirs();
 
-        Context appContext = ApplicationHelper.application().getApplicationContext();
+        Context appContext = AppController.getInstance().getApplicationContext();
         File directory = new File(appContext.getCacheDir(), imageFileName);
         Log.d(Contants.LOG_TAG, "OLd file name and path __: " + directory.getPath());
         File newFileName = new File(appContext.getCacheDir(), newImageName);

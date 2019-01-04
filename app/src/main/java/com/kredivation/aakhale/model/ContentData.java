@@ -1,10 +1,18 @@
 package com.kredivation.aakhale.model;
 
 public class ContentData {
-
+private int id;
     private String status;
 
     private Data data;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getStatus ()
     {

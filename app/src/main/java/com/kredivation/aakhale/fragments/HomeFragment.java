@@ -1,7 +1,6 @@
 package com.kredivation.aakhale.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.kredivation.aakhale.ApplicationHelper;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.FullMetalAdapter;
 import com.kredivation.aakhale.adapter.TeameFragment;
@@ -20,7 +18,6 @@ import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
-import com.kredivation.aakhale.utility.Utility;
 
 import java.util.Arrays;
 import java.util.List;
