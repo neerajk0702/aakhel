@@ -1,7 +1,6 @@
 package com.kredivation.aakhale.resource;
 
 
-import com.kredivation.aakhale.ApplicationHelper;
 import com.kredivation.aakhale.framework.AppController;
 
 /**
@@ -10,7 +9,7 @@ import com.kredivation.aakhale.framework.AppController;
 public class FNResources {
 
 	public static int getId(String resourceName, String defType) {
-		return ApplicationHelper.application().getResourceId(resourceName, defType);
+		return AppController.getInstance().getResourceId(resourceName, defType);
 	}
 
 	public static final class anim {

@@ -19,8 +19,10 @@ import android.view.WindowManager;
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.database.AakhelDBHelper;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.utility.CompatibilityUtility;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
@@ -48,7 +50,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         chechPortaitAndLandSacpe();//chech Portait And LandSacpe Orientation
         dotDialog = new ASTProgressBar(SplashScreenActivity.this);
-        navigate();
+        // navigate();
+        getMsterData();
     }
 
     //chech Portait And LandSacpe Orientation
@@ -109,7 +112,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
         }
     }
-/*
+
     private void getMsterData() {
         if (Utility.isOnline(SplashScreenActivity.this)) {
             dotDialog.show();
@@ -121,7 +124,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             ServiceCaller serviceCaller = new ServiceCaller(SplashScreenActivity.this);
-            serviceCaller.CallCommanServiceMethod(serviceURL, object, "MasterData", new IAsyncWorkCompletedCallback() {
+            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "MasterData", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete) {
@@ -141,36 +144,35 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     public void parseMasterServiceData(String result) {
         if (result != null) {
-            final ServiceContentData serviceData = new Gson().fromJson(result, ServiceContentData.class);
+            final ContentData serviceData = new Gson().fromJson(result, ContentData.class);
             if (serviceData != null) {
-                if (serviceData.isSuccess()) {
-                    if (serviceData.getData() != null) {
-                        new AsyncTask<Void, Void, Boolean>() {
-                            @Override
-                            protected Boolean doInBackground(Void... voids) {
-                                Boolean flag = false;
-                                AakhelDBHelper switchDBHelper = new AakhelDBHelper(SplashScreenActivity.this);
-                                switchDBHelper.deleteAllRows("MasterData");
-                                switchDBHelper.insertMasterData(serviceData);
-                                flag = true;
-                                return flag;
-                            }
+                if (serviceData.getData() != null) {
+                    new AsyncTask<Void, Void, Boolean>() {
+                        @Override
+                        protected Boolean doInBackground(Void... voids) {
+                            Boolean flag = false;
+                            AakhelDBHelper switchDBHelper = new AakhelDBHelper(SplashScreenActivity.this);
+                            switchDBHelper.deleteAllRows("MasterData");
+                            switchDBHelper.insertMasterData(serviceData);
+                            flag = true;
+                            return flag;
+                        }
 
-                            @Override
-                            protected void onPostExecute(Boolean flag) {
-                                super.onPostExecute(flag);
-                                navigate();
+                        @Override
+                        protected void onPostExecute(Boolean flag) {
+                            super.onPostExecute(flag);
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
                             }
-                        }.execute();
-                    } else {
-                        Utility.showToast(SplashScreenActivity.this, serviceData.getMsg());
-                    }
+                            navigate();
+                        }
+                    }.execute();
                 } else {
-                    Utility.showToast(SplashScreenActivity.this, serviceData.getMsg());
+                    Utility.showToast(SplashScreenActivity.this, Contants.Error);
                 }
             }
         }
-    }*/
+    }
 
     private void navigate() {
         Intent intent;

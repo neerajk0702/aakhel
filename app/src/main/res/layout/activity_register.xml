@@ -80,7 +80,25 @@
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
                 android:hint="E-Mail"
+                android:inputType="textEmailAddress"
                 android:padding="@dimen/_10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/_12dp" />
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/edittextround"
+                android:hint="Password"
+                android:imeActionLabel="Sign in"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:padding="@dimen/_10dp"
+                android:singleLine="true"
                 android:textSize="@dimen/_12dp" />
 
             <com.kredivation.aakhale.components.ASTEditText
@@ -92,7 +110,9 @@
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
                 android:hint="Contact Number"
+                android:inputType="number"
                 android:padding="@dimen/_10dp"
+                android:singleLine="true"
                 android:textSize="@dimen/_12dp" />
 
             <LinearLayout
@@ -105,7 +125,7 @@
                 android:orientation="horizontal">
 
 
-                <com.kredivation.aakhale.components.ASTEditText
+                <com.kredivation.aakhale.components.ASTTextView
                     android:id="@+id/dobEdt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -186,14 +206,19 @@
                     android:orientation="horizontal">
 
 
-                    <Spinner
+                    <com.kredivation.aakhale.components.ASTEditText
                         android:id="@+id/experience"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:entries="@array/experince"
-                        android:gravity="center" />
-
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_marginLeft="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginRight="@dimen/_10dp"
+                        android:background="@drawable/edittextround"
+                        android:hint="Years of Experience"
+                        android:inputType="number"
+                        android:padding="@dimen/_10dp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/_12dp" />
 
                 </LinearLayout>
 
@@ -259,8 +284,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:entries="@array/role"
+                        android:gravity="center"
                         android:padding="@dimen/_5dp" />
 
 

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kredivation.aakhale.model.ContentData;
+import com.kredivation.aakhale.model.Data;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ public class AakhelDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_userInfo_TABLE = "CREATE TABLE userInfo(id TEXT,first_name TEXT, last_name TEXT,email TEXT,username TEXT,mobile_number TEXT,gender TEXT,status TEXT,is_verify TEXT,user_type TEXT,profile_image TEXT,is_home_available INTEGER,full_name TEXT,address_line_1 TEXT,address_line_2 TEXT,zipcode TEXT,country_id TEXT,city_id TEXT)";
         db.execSQL(CREATE_userInfo_TABLE);
-        String CREATE_MasterData_TABLE = "CREATE TABLE MasterData(id INTEGER,masterData TEXT)";
+        String CREATE_MasterData_TABLE = "CREATE TABLE MasterData(id INTEGER,masterDataStr TEXT)";
         db.execSQL(CREATE_MasterData_TABLE);
     }
 
@@ -34,8 +36,9 @@ public class AakhelDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS MasterData");
         onCreate(db);
     }
+/*
 
-   /* // upsert user info
+    // upsert user info
     public boolean upsertUserInfoData(Data ob, int is_home_available) {
         boolean done = false;
         Data data = null;
@@ -134,6 +137,7 @@ public class AakhelDBHelper extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+*/
 
     public void deleteAllRows(String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -141,8 +145,19 @@ public class AakhelDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //populate user  list data
-    private void populateMasterData(Cursor cursor, ServiceContentData ob) {
+    public boolean insertMasterData(ContentData ob) {
+        ContentValues values = new ContentValues();
+        populateMasterDataValue(values, ob);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long i = db.insert("MasterData", null, values);
+        db.close();
+        return i > 0;
+    }
+
+    //populate master list data
+    private void populateMasterData(Cursor cursor, ContentData ob) {
         ob.setId(cursor.getInt(0));
         Data data = new Gson().fromJson(cursor.getString(1), new TypeToken<Data>() {
         }.getType());
@@ -150,10 +165,27 @@ public class AakhelDBHelper extends SQLiteOpenHelper {
     }
 
 
-    public void populateMasterDataValue(ContentValues values, ServiceContentData ob) {
+    public void populateMasterDataValue(ContentValues values, ContentData ob) {
         values.put("id", 1);
         String mData = new Gson().toJson(ob.getData());
-        values.put("masterData", mData);
-    }*/
+        values.put("masterDataStr", mData);
+    }
 
+    public ContentData getMasterDataById(int id) {
+        String query = "Select * FROM MasterData WHERE id = '" + id + "' ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        ContentData ob = new ContentData();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateMasterData(cursor, ob);
+            cursor.close();
+        } else {
+            ob = null;
+        }
+        db.close();
+        return ob;
+    }
 }

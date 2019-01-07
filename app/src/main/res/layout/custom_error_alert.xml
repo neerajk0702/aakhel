@@ -39,7 +39,7 @@
 
             <TextView
                 android:id="@+id/Ok"
-                android:layout_width="120px"
+                android:layout_width="200px"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_login"
                 android:gravity="center"

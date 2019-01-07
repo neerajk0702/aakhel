@@ -38,7 +38,7 @@ public class ASTProgressBar extends ProgressDialog {
 	@Override
 	public void dismiss() {
 		super.dismiss();
-		//FNApplicationHelper.application().setAjaxTaskBusy(false);
+		//FNAppController.getInstance()().setAjaxTaskBusy(false);
 	}
 
 	public void setProgressLabel(String progressLable) {
