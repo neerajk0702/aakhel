@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_5dp"
+        android:layout_marginRight="@dimen/_8dp"
+        android:layout_marginBottom="@dimen/_5dp"
+        android:background="@drawable/edittextround"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/_2dp">
+
+        <com.kredivation.aakhale.components.ASTEditText
+            android:id="@+id/searchedit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:backgroundTint="@color/transparentWhite"
+            android:hint="Search your Stuf here"
+            android:padding="@dimen/_2dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12dp" />
+
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:gravity="center"
+            android:src="@android:drawable/ic_menu_search" />
+    </LinearLayout>
+
+    <com.kredivation.aakhale.components.ASTTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
+        android:padding="@dimen/_5dp"
+        android:text="Recent Chats"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14dp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" />
+
+</LinearLayout>

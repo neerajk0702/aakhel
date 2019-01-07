@@ -32,6 +32,7 @@ import com.kredivation.aakhale.fragments.AcademicsFragment;
 import com.kredivation.aakhale.fragments.AddAcademicsVFragments;
 import com.kredivation.aakhale.fragments.AddScoreFragment;
 import com.kredivation.aakhale.fragments.AddSportsFragment;
+import com.kredivation.aakhale.fragments.AddTeamFragment;
 import com.kredivation.aakhale.fragments.AddTournament;
 import com.kredivation.aakhale.fragments.AddUmpiresFragment;
 import com.kredivation.aakhale.fragments.CreateGroundFragment;
@@ -159,6 +160,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.Schedule) {
             ScheduleFragment scheduleFragment = new ScheduleFragment();
             updateFragment(scheduleFragment, null);
+
+        } else if (id == R.id.addTeam) {
+            AddTeamFragment addTeamFragment = new AddTeamFragment();
+            updateFragment(addTeamFragment, null);
 
         }
 
