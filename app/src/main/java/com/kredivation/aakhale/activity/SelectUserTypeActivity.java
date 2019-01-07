@@ -8,17 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.AreaAdapter;
+import com.kredivation.aakhale.adapter.UserTypeAdapter;
 import com.kredivation.aakhale.components.ASTButton;
-import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.components.ASTTextView;
 import com.kredivation.aakhale.database.AakhelDBHelper;
-import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.ContentData;
-import com.kredivation.aakhale.utility.Contants;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.kredivation.aakhale.model.Users_roles;
 
 import java.util.ArrayList;
 
@@ -27,8 +22,8 @@ public class SelectUserTypeActivity extends AppCompatActivity implements View.On
     private ASTTextView signup, login;
     private ASTButton continuebtn;
     RecyclerView araelist;
-    ArrayList<String> areaList;
-    AreaAdapter areaAdapter;
+    ArrayList<Users_roles> areaList;
+    UserTypeAdapter areaAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +48,13 @@ public class SelectUserTypeActivity extends AppCompatActivity implements View.On
         login.setOnClickListener(this);
         continuebtn.setOnClickListener(this);
         areaList = new ArrayList<>();
-        areaList.add("Player");
-        areaList.add("RWA");
-        areaList.add("Academy");
-        areaList.add("Player");
-        areaList.add("RWA");
-        areaList.add("Player");
-        areaList.add("RWA");
-        areaList.add("Academy");
-        areaList.add("Player");
-        areaList.add("RWA");
-        areaList.add("Player");
-        areaList.add("RWA");
-        areaList.add("Academy");
-        areaList.add("Player");
-        areaList.add("RWA");
-
         AakhelDBHelper switchDBHelper = new AakhelDBHelper(SelectUserTypeActivity.this);
         ContentData contentData = switchDBHelper.getMasterDataById(1);
-
-        areaAdapter = new AreaAdapter(SelectUserTypeActivity.this, areaList);
-        araelist.setAdapter(areaAdapter);
+        if (contentData != null && contentData.getData() != null && contentData.getData().getUsers_roles() != null) {
+            areaList = contentData.getData().getUsers_roles();
+            areaAdapter = new UserTypeAdapter(SelectUserTypeActivity.this, areaList);
+            araelist.setAdapter(areaAdapter);
+        }
     }
 
     @Override
