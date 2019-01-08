@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -44,8 +45,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<Long> sportIdList;
     ArrayList<Long> roleIdList;
     Button registerBtn;
-    String strfullName, stremail, strcontactNo, strdobEdt, strgender, strexperience,
-            strsportsSpinner, strroleSpinner, strpassword, role;
+    String strfullName, stremail, strcontactNo, strdobEdt, strgender, strexperience, strpassword, role;
+    long selectSportId, selectRoleId;
+    private long areaId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void lodView() {
+        areaId = getIntent().getLongExtra("AreaId", 0);
         fullName = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         contactNo = findViewById(R.id.contactNo);
@@ -84,6 +87,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
             ArrayAdapter<String> homeadapter = new ArrayAdapter<String>(RegisterActivity.this, R.layout.spinner_row, sportList);
             sportsSpinner.setAdapter(homeadapter);
+            sportsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                    selectSportId = sportIdList.get(pos);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
             ArrayList<String> roleList = new ArrayList<>();
             roleIdList = new ArrayList<>();
@@ -97,6 +111,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
             ArrayAdapter<String> roleadapter = new ArrayAdapter<String>(RegisterActivity.this, R.layout.spinner_row, roleList);
             roleSpinner.setAdapter(roleadapter);
+
+            roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                    selectRoleId = roleIdList.get(pos);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
     }
 
@@ -138,42 +164,44 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public boolean isvalidateSignup() {
+        String emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
         strfullName = fullName.getText().toString();
         stremail = email.getText().toString();
         strcontactNo = contactNo.getText().toString();
         strdobEdt = dobEdt.getText().toString();
         strgender = gender.getSelectedItem().toString();
         strexperience = experience.getText().toString();
-        strsportsSpinner = sportsSpinner.getSelectedItem().toString();
-        strroleSpinner = roleSpinner.getSelectedItem().toString();
         strpassword = password.getText().toString();
 
         if (strfullName.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Please Enter Username", Toast.LENGTH_SHORT).show();
             return false;
         } else if (stremail.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Please Enter Email Id", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!stremail.matches(emailRegex)) {
+            showToast("Please Enter valid Email ID");
             return false;
         } else if (strpassword.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
             return false;
         } else if (strcontactNo.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Contact no", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Please Enter Phone No", Toast.LENGTH_SHORT).show();
             return false;
         } else if (strdobEdt.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide DOB", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Please Select DOB", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (strgender.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Gender", Toast.LENGTH_SHORT).show();
+        } else if (strgender.equals("") || strgender.equals("GENDER")) {
+            Toast.makeText(RegisterActivity.this, "Please Select Gender", Toast.LENGTH_SHORT).show();
             return false;
         } else if (strexperience.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Experience", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Please Enter Yerr of Experience", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (strsportsSpinner.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Sports ", Toast.LENGTH_SHORT).show();
+        } else if (selectSportId == 0) {
+            Toast.makeText(RegisterActivity.this, "Please Select Sport", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (strsportsSpinner.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Provide Role ", Toast.LENGTH_SHORT).show();
+        } else if (selectRoleId == 0) {
+            Toast.makeText(RegisterActivity.this, "Please Select Role", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -188,17 +216,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             final String url = Contants.BASE_URL + Contants.Registration;
             JSONObject object = new JSONObject();
             try {
-
-                object.put("role", "Player");
+                int genId = 0;
+                if (strgender.equals("Male")) {
+                    genId = 1;
+                } else if (strgender.equals("Female")) {
+                    genId = 2;
+                }
+                object.put("role", areaId);
                 object.put("full_name", strfullName);
                 object.put("email", stremail);
                 object.put("mobile", strcontactNo);
                 object.put("password", strpassword);
                 object.put("date_of_birth", strdobEdt);
-                object.put("gender", strgender);
+                object.put("gender", genId);
                 object.put("experience", strexperience);
-                object.put("users_sports", strsportsSpinner);
-                object.put("player_role", strroleSpinner);
+                object.put("users_sports", selectSportId);
+                object.put("player_role", selectRoleId);
 
 
             } catch (JSONException e) {

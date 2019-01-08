@@ -1,14 +1,7 @@
 package com.kredivation.aakhale.activity;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.Html;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,17 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.FullMetalAdapter;
-import com.kredivation.aakhale.adapter.TopperformanceAdapter;
-import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
-import com.kredivation.aakhale.components.ASTFontTextIconView;
-import com.kredivation.aakhale.fragments.AcademicsFragment;
-import com.kredivation.aakhale.fragments.AddAcademicsVFragments;
+import com.kredivation.aakhale.fragments.AddAcademicsFragments;
 import com.kredivation.aakhale.fragments.AddScoreFragment;
 import com.kredivation.aakhale.fragments.AddSportsFragment;
 import com.kredivation.aakhale.fragments.AddTeamFragment;
@@ -43,10 +28,6 @@ import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
 import com.kredivation.aakhale.fragments.ScheduleFragment;
 import com.kredivation.aakhale.fragments.ScoreCardFragment;
-import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -118,7 +99,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             CreateTeamFragment createTeamFragment = new CreateTeamFragment();
             updateFragment(createTeamFragment, null);
         } else if (id == R.id.nav_gallery) {
-            AddAcademicsVFragments academicsFragment = new AddAcademicsVFragments();
+            AddAcademicsFragments academicsFragment = new AddAcademicsFragments();
             updateFragment(academicsFragment, null);
 
         } else if (id == R.id.nav_slideshow) {

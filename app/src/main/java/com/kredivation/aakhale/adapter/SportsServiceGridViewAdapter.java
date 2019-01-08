@@ -11,15 +11,16 @@ import android.widget.ImageView;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTTextView;
 import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.model.Sports;
 
 import java.util.ArrayList;
 
 public class SportsServiceGridViewAdapter extends ArrayAdapter {
     private Context context;
     private int layoutResourceId;
-    private ArrayList<ImageItem> data = new ArrayList();
+    private ArrayList<Sports> data ;
 
-    public SportsServiceGridViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem> data) {
+    public SportsServiceGridViewAdapter(Context context, int layoutResourceId, ArrayList<Sports> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -42,7 +43,7 @@ public class SportsServiceGridViewAdapter extends ArrayAdapter {
         }
 
         //    ImageItem item = data.get(position);
-        holder.sportsName.setText(data.get(position).getTitle());
+        holder.sportsName.setText(data.get(position).getSports_name());
         return row;
     }
 

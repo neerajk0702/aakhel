@@ -176,7 +176,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void navigate() {
         Intent intent;
-        intent = new Intent(SplashScreenActivity.this, SelectUserTypeActivity.class);
+        intent = new Intent(SplashScreenActivity.this, DashboardActivity.class);//SelectUserTypeActivity
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ACADEMICSTxt:
-                AcademicsFragment academicsFragment = new AcademicsFragment();
+                AcademicsListFragment academicsFragment = new AcademicsListFragment();
 
                 updateFragment(academicsFragment, null);
                 break;

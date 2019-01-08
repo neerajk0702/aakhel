@@ -134,8 +134,16 @@ public class ServiceHelper implements IServiceHelper {
                 }
                 c.onDone(callerUrl, null, error.getMessage());
             }
+
         }
         ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", "Bearer " + Contants.auth_token);
+                return headers;
+            }
         };
         // Adding request to request queue
         jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));

@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ASTTextView forgotPassword;
     private SignInButton btn_gsign_in;
     ASTProgressBar dotDialog;
-    SharedPreferences pref;
+    SharedPreferences UserInfo;
     String userId = "";
 
     @Override
@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         forgotPassword.setOnClickListener(this);
         btn_gsign_in.setOnClickListener(this);
         loginText.setOnClickListener(this);
-        pref = getApplicationContext().getSharedPreferences("SharedPref", MODE_PRIVATE);
-        userId = pref.getString("USER_ID", "");
+        UserInfo = getSharedPreferences("SharedPref", MODE_PRIVATE);
+        userId = UserInfo.getString("USER_ID", "");
         if (!userId.equals("")) {
             Intent intentHome = new Intent(LoginActivity.this, DashboardActivity.class);
             startActivity(intentHome);
@@ -65,16 +65,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginText:
+                String emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
                 String userName = registerEmailEdt.getText().toString();
                 String password = etpassword.getText().toString();
                 if (userName.equals("")) {
-                    Toast.makeText(LoginActivity.this, "Please Provide Username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please Enter Email Id", Toast.LENGTH_SHORT).show();
+                } else if (!userName.matches(emailRegex)) {
+                    Toast.makeText(LoginActivity.this, "Please Enter valid Email ID", Toast.LENGTH_SHORT).show();
                 } else if (password.equals("")) {
-                    Toast.makeText(LoginActivity.this, "Please Provide Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                     startActivity(intent);
-                  //  loginData(userName, password);
+                    //  loginData(userName, password);
                 }
 
 
@@ -125,13 +128,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void parseLoginServiceData(String result) {
         if (result != null) {
             try {
-                pref = getSharedPreferences("SharedPref", MODE_PRIVATE);
+                UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
                 JSONObject jsonRootObject = new JSONObject(result);
                 String jsonStatus = jsonRootObject.optString("Status").toString();
                 if (jsonStatus.equals("1")) {
                     JSONArray jsonArray = jsonRootObject.optJSONArray("Data");
                     // String userName = jsonObject.optString("UserName").toString();
-                    SharedPreferences.Editor editor = pref.edit();
+                    SharedPreferences.Editor editor = UserInfo.edit();
                     editor.putString("USER_NAME", "");
                     editor.putString("USER_ID", userId);
                     editor.putString("EMP_NAME", "");

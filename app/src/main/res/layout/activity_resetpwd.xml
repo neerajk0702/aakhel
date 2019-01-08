@@ -77,7 +77,8 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
-                android:hint="Register Email/Mobile Number"
+                android:hint="Register Email ID"
+                android:inputType="textEmailAddress"
                 android:padding="@dimen/_10dp"
                 android:textSize="@dimen/_12dp" />
 
@@ -91,6 +92,9 @@
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
                 android:hint="New Password"
+                android:imeActionLabel="Sign in"
+                android:imeOptions="actionUnspecified"
+                android:singleLine="true"
                 android:padding="@dimen/_10dp"
                 android:textSize="@dimen/_12dp" />
 
@@ -104,6 +108,9 @@
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
                 android:hint="Repeat Password"
+                android:imeActionLabel="Sign in"
+                android:imeOptions="actionUnspecified"
+                android:singleLine="true"
                 android:padding="@dimen/_10dp"
                 android:textSize="@dimen/_12dp" />
 

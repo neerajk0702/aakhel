@@ -4,11 +4,9 @@ package com.kredivation.aakhale.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.kredivation.aakhale.R;
@@ -17,14 +15,13 @@ import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.model.Academics;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AcademicsFragment#newInstance} factory method to
+ * Use the {@link AcademicsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AcademicsFragment extends Fragment implements View.OnClickListener {
+public class AcademicsListFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,7 +39,7 @@ public class AcademicsFragment extends Fragment implements View.OnClickListener 
     private static AcadamicAdapter adapter;
 
 
-    public AcademicsFragment() {
+    public AcademicsListFragment() {
         // Required empty public constructor
     }
 
@@ -55,8 +52,8 @@ public class AcademicsFragment extends Fragment implements View.OnClickListener 
      * @return A new instance of fragment AddHomeMyProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AcademicsFragment newInstance(String param1, String param2) {
-        AcademicsFragment fragment = new AcademicsFragment();
+    public static AcademicsListFragment newInstance(String param1, String param2) {
+        AcademicsListFragment fragment = new AcademicsListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -89,6 +86,7 @@ public class AcademicsFragment extends Fragment implements View.OnClickListener 
         sortBy = view.findViewById(R.id.sortBy);
         sortBy.setOnClickListener(this);
         acadamicListView = view.findViewById(R.id.acadamicListView);
+
         dataToView();
     }
 

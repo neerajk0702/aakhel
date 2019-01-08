@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.AddAcademicsVFragments">
+    tools:context=".fragments.AddAcademicsFragments">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                     android:textStyle="bold" />
 
                 <com.kredivation.aakhale.components.ASTEditText
-                    android:id="@+id/teameName"
+                    android:id="@+id/accAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5dp"
@@ -179,6 +179,7 @@
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:padding="@dimen/_12dp"
+                    android:inputType="number"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -258,7 +259,7 @@
                     <GridView
                         android:id="@+id/sportsgridView"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_100dp"
                         android:layout_margin="5dp"
                         android:clickable="true"
                         android:columnWidth="100dp"
@@ -373,6 +374,7 @@
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:padding="@dimen/_12dp"
+                    android:inputType="textEmailAddress"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -392,6 +394,7 @@
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:padding="@dimen/_12dp"
+                    android:inputType="number"
                     android:textSize="@dimen/_12dp" />
 
 
@@ -451,6 +454,7 @@
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:padding="@dimen/_12dp"
+                    android:inputType="textEmailAddress"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -470,6 +474,7 @@
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:padding="@dimen/_12dp"
+                    android:inputType="number"
                     android:textSize="@dimen/_12dp" />
 
 
@@ -529,6 +534,7 @@
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:padding="@dimen/_12dp"
+                    android:inputType="textEmailAddress"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -546,6 +552,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
+                    android:inputType="number"
                     android:background="@drawable/round_boder"
                     android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
