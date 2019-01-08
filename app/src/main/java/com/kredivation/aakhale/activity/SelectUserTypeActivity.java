@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class SelectUserTypeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ASTTextView signup, login;
-    private ASTButton continuebtn;
     RecyclerView araelist;
     ArrayList<Users_roles> areaList;
     UserTypeAdapter areaAdapter;
@@ -35,8 +34,6 @@ public class SelectUserTypeActivity extends AppCompatActivity implements View.On
     public void loadview() {
         signup = findViewById(R.id.signup);
         login = findViewById(R.id.login);
-        continuebtn = findViewById(R.id.continuebtn);
-
         araelist = this.findViewById(R.id.araelist);
         araelist.setLayoutManager(new LinearLayoutManager(SelectUserTypeActivity.this));
         datatoView();
@@ -46,7 +43,6 @@ public class SelectUserTypeActivity extends AppCompatActivity implements View.On
     public void datatoView() {
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
-        continuebtn.setOnClickListener(this);
         areaList = new ArrayList<>();
         AakhelDBHelper switchDBHelper = new AakhelDBHelper(SelectUserTypeActivity.this);
         ContentData contentData = switchDBHelper.getMasterDataById(1);

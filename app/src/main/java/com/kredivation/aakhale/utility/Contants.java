@@ -15,7 +15,8 @@ public class Contants {
     public static String BASE_URL = "http://cricket.vikaskumar.info/";
     public static String API_KEY = "";
     public static String UsersForm = "users/form";
-    public static String LOGIN_URL = "login";
+    public static String Registration  = "users";
+    public static String LOGIN_URL = "users/login";
 
 
 

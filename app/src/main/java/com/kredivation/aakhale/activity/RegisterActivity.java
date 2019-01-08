@@ -1,21 +1,33 @@
 package com.kredivation.aakhale.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTEditText;
+import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.components.ASTTextView;
 import com.kredivation.aakhale.database.AakhelDBHelper;
+import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
+import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.Player_roles;
 import com.kredivation.aakhale.model.Sports;
+import com.kredivation.aakhale.utility.ASTUIUtil;
+import com.kredivation.aakhale.utility.Contants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +35,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    ASTEditText fullName, email, contactNo,password,experience;
+    ASTEditText fullName, email, contactNo, password, experience;
     ASTTextView dobEdt;
     ImageView dateIcon;
     Spinner gender, sportsSpinner, roleSpinner;
@@ -31,6 +43,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     Calendar myCalendar;
     ArrayList<Long> sportIdList;
     ArrayList<Long> roleIdList;
+    Button registerBtn;
+    String strfullName, stremail, strcontactNo, strdobEdt, strgender, strexperience,
+            strsportsSpinner, strroleSpinner, strpassword, role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +66,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         password = findViewById(R.id.password);
         dateIcon = findViewById(R.id.dateIcon);
         dateIcon.setOnClickListener(this);
+        registerBtn = findViewById(R.id.registerBtn);
         setDate();
-
+        registerBtn.setOnClickListener(this);
         AakhelDBHelper switchDBHelper = new AakhelDBHelper(RegisterActivity.this);
         ContentData contentData = switchDBHelper.getMasterDataById(1);
         if (contentData != null && contentData.getData() != null) {
@@ -111,6 +127,116 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.dateIcon:
                 todatepicker.show();
                 break;
+            case R.id.registerBtn:
+                if (isvalidateSignup()) {
+                    callSignup();
+                }
+                break;
+
+
         }
+    }
+
+    public boolean isvalidateSignup() {
+        strfullName = fullName.getText().toString();
+        stremail = email.getText().toString();
+        strcontactNo = contactNo.getText().toString();
+        strdobEdt = dobEdt.getText().toString();
+        strgender = gender.getSelectedItem().toString();
+        strexperience = experience.getText().toString();
+        strsportsSpinner = sportsSpinner.getSelectedItem().toString();
+        strroleSpinner = roleSpinner.getSelectedItem().toString();
+        strpassword = password.getText().toString();
+
+        if (strfullName.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Username", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (stremail.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Email", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (strpassword.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Password", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (strcontactNo.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Contact no", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (strdobEdt.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide DOB", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (strgender.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Gender", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (strexperience.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Experience", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (strsportsSpinner.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Sports ", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (strsportsSpinner.equals("")) {
+            Toast.makeText(RegisterActivity.this, "Please Provide Role ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+
+    }
+
+    private void callSignup() {
+        if (ASTUIUtil.isOnline(this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(RegisterActivity.this);
+            dotDialog.show();
+            ServiceCaller serviceCaller = new ServiceCaller(this);
+            final String url = Contants.BASE_URL + Contants.Registration;
+            JSONObject object = new JSONObject();
+            try {
+
+                object.put("role", "Player");
+                object.put("full_name", strfullName);
+                object.put("email", stremail);
+                object.put("mobile", strcontactNo);
+                object.put("password", strpassword);
+                object.put("date_of_birth", strdobEdt);
+                object.put("gender", strgender);
+                object.put("experience", strexperience);
+                object.put("users_sports", strsportsSpinner);
+                object.put("player_role", strroleSpinner);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            serviceCaller.CallCommanServiceMethod(url, object, "Signup", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete) {
+                        ContentData data = new Gson().fromJson(result, ContentData.class);
+                        if (data != null) {
+                            //   if (data.isStatus()) {
+                            ASTUIUtil.setUserId(RegisterActivity.this, stremail, strpassword, null, null);
+                            Toast.makeText(RegisterActivity.this, "Signup Successfully.", Toast.LENGTH_LONG).show();
+                            Intent intentLoggedIn = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intentLoggedIn);
+                            // } else {
+                            Toast.makeText(RegisterActivity.this, "Signup not Successfully!", Toast.LENGTH_LONG).show();
+                            // }
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Signup not Successfully!", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        showToast(Contants.Error);
+                    }
+                    if (dotDialog.isShowing()) {
+                        dotDialog.dismiss();
+                    }
+                }
+            });
+        } else {
+            showToast(Contants.OFFLINE_MESSAGE);
+        }
+
+    }
+
+
+    private void showToast(String message) {
+        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }
