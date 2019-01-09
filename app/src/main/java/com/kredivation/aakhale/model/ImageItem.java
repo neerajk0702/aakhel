@@ -2,23 +2,13 @@ package com.kredivation.aakhale.model;
 
 import android.graphics.Bitmap;
 
+import java.io.File;
+
 public class ImageItem {
     private Bitmap image;
     private String title;
-
-    public ImageItem(Bitmap image, String title) {
-        super();
-        this.image = image;
-        this.title = title;
-    }
-
-    public ImageItem(String title) {
-        super();
-        this.title = title;
-    }
-    public ImageItem() {
-    }
-
+    private File imagFile;
+    private String imageStr;
     public Bitmap getImage() {
         return image;
     }
@@ -33,5 +23,21 @@ public class ImageItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public File getImagFile() {
+        return imagFile;
+    }
+
+    public void setImagFile(File imagFile) {
+        this.imagFile = imagFile;
+    }
+
+    public String getImageStr() {
+        return imageStr;
+    }
+
+    public void setImageStr(String imageStr) {
+        this.imageStr = imageStr;
     }
 }
