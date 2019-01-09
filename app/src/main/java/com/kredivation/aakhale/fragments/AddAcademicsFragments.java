@@ -216,7 +216,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
     }
 
     private void selectImage() {
-        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
+        final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Select File!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
