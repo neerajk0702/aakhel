@@ -86,7 +86,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
         for (int i = 0; i < imgs.length(); i++) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            imageItems.add(new ImageItem(bitmap, "Image#" + i));
+            //.add(new ImageItem(bitmap, "Image#" + i));
         }
         return imageItems;
     }

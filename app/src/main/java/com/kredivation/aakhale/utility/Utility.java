@@ -1005,4 +1005,12 @@ public class Utility {
         fragmentTransaction.replace(R.id.mainView, pageFragment);
         fragmentTransaction.commit();
     }
+
+    public static File getExternalStorageFilePathCreateAppDirectory(Context context) {
+        File directory = new File(Environment.getExternalStorageDirectory(), Contants.APP_DIRECTORY);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        return directory;
+    }
 }

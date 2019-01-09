@@ -1,16 +1,26 @@
 package com.kredivation.aakhale.fragments;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +38,7 @@ import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.LoginActivity;
 import com.kredivation.aakhale.activity.RegisterActivity;
 import com.kredivation.aakhale.activity.ResetPasswordActivity;
+import com.kredivation.aakhale.adapter.AddAcademicsImageAdapter;
 import com.kredivation.aakhale.adapter.GridViewAdapter;
 import com.kredivation.aakhale.adapter.RecycleViewAdapter;
 import com.kredivation.aakhale.adapter.SportsServiceGridViewAdapter;
@@ -42,13 +53,18 @@ import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Sports;
 import com.kredivation.aakhale.model.State;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FilePickerHelper;
 import com.kredivation.aakhale.utility.Utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,7 +73,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
 
     View view;
     private RecyclerView addImageView;
-    private RecycleViewAdapter imageAdapater;
+    private AddAcademicsImageAdapter imageAdapater;
     LinearLayout container_moreadd;
     ImageView sortiMG, acadmiciMG;
     ASTEditText acdName, accAddress, zipcode, description, managerfullName, manageremail, mamangercontactno;
@@ -80,6 +96,12 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
     private String stateId, cityId;
     List<City> cityInfoList;
     private String acdNameStr, accAddressStr, zipcodeStr, descriptionStr, managerfullNameStr, manageremailStr, mamangercontactnoStr, coachfullNameStr, coachemailStr, coachcontactnoStr, OwnerfullNameStr, OwneremailStr, OwnercontactnoStr;
+    public final int SELECT_PHOTO = 102;
+    public final int REQUEST_CAMERA = 101;
+    private String userChoosenTask;
+    File imgFile;
+    ASTProgressBar astProgressBar;
+    ArrayList<ImageItem> acImgList;
 
     public AddAcademicsFragments() {
         // Required empty public constructor
@@ -97,9 +119,9 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
     }
 
     public void init() {
-
+        acImgList = new ArrayList<>();
         addImageView = view.findViewById(R.id.addImageView);
-        imageAdapater = new RecycleViewAdapter(getContext(), R.layout.image_item_layout, getData());
+        imageAdapater = new AddAcademicsImageAdapter(getContext(), R.layout.image_item_layout, acImgList);
         addImageView.setAdapter(imageAdapater);
 
         setLinearLayoutManager(addImageView);
@@ -129,6 +151,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         sitySpinner = view.findViewById(R.id.sitySpinner);
         addMoreViewmember = view.findViewById(R.id.addMoreViewmember);
         addMoreViewImage = view.findViewById(R.id.addMoreViewImage);
+        addMoreViewImage.setOnClickListener(this);
         academiesMemberLayout = view.findViewById(R.id.academiesMemberLayout);
         continuebtn = view.findViewById(R.id.continuebtn);
         addMoreViewmember.setOnClickListener(this);
@@ -147,38 +170,6 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         recyclerView.setLayoutManager(LayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
-
-    // Prepare some dummy data for gridview
-    private ArrayList<ImageItem> getData() {
-        final ArrayList<ImageItem> imageItems = new ArrayList<>();
-        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
-        for (int i = 0; i < imgs.length(); i++) {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            imageItems.add(new ImageItem(bitmap, "Image#" + i));
-        }
-        return imageItems;
-    }
-
-    private ArrayList<ImageItem> getSportsData() {
-        final ArrayList<ImageItem> imageItems = new ArrayList<>();
-        ImageItem imageItem = new ImageItem();
-        for (int i = 1; i <= 8; i++) {
-            imageItem.setTitle("Cricket");
-            imageItem.setTitle("Hocky");
-            imageItem.setTitle("FootBall");
-            imageItem.setTitle("VollyBall");
-            imageItem.setTitle("Swimming");
-            imageItem.setTitle("Chess");
-            imageItem.setTitle("FootBall");
-            imageItem.setTitle("Swimming");
-            imageItem.setTitle("Cricket");
-            imageItems.add(imageItem);
-        }
-
-
-        return imageItems;
-    }
-
 
     public void addMoreMember() {
         count++;
@@ -218,8 +209,228 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
                 }
                 academiesMemberLayoutclick++;
                 break;
+            case R.id.addMoreViewImage:
+                selectImage();
+                break;
         }
     }
+
+    private void selectImage() {
+        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Select File!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    userChoosenTask = "Take Photo";
+                    //OpenCameraIntent("academic.png");
+                    cameraIntent();
+                } else if (items[item].equals("Choose from Gallery")) {
+                    userChoosenTask = "Choose from Library";
+                    galleryIntent();
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    //open camera
+    public void OpenCameraIntent(String fileName) {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        File file = new File(Utility.getExternalStorageFilePathCreateAppDirectory(getContext()) + File.separator + fileName);
+        String providerName = String.format(Locale.ENGLISH, "%s%s", getContext().getPackageName(), ".imagepicker.provider");
+        Uri uri = FileProvider.getUriForFile(getContext(), providerName, file);
+        FilePickerHelper.grantAppPermission(getContext(), intent, uri);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, FilePickerHelper.CAPTURE_IMAGE_FULLSIZE_ACTIVITY_REQUEST_CODE);
+    }
+
+    private void setImageView() {
+        String academicPic = "academicPic" + System.currentTimeMillis() + ".png";
+        File file = new File(Utility.getExternalStorageFilePathCreateAppDirectory(getContext()) + File.separator + "academic.png");
+        if (file.exists()) {
+            //compresImage(file, academicPic);
+        }
+    }
+
+    //open camera
+    private void cameraIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+    //select image from android.widget.Gallery
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select Photo"), SELECT_PHOTO);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_PHOTO) {
+                onSelectFromGalleryResult(data);
+            } else if (requestCode == REQUEST_CAMERA) {
+                onCaptureImageResult(data);
+            }
+            /* else if (requestCode == FilePickerHelper.CAPTURE_IMAGE_FULLSIZE_ACTIVITY_REQUEST_CODE) {
+                setImageView();
+            }*/
+        }
+    }
+
+    private void onCaptureImageResult(Intent data) {
+        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        Uri uri = Utility.getImageUri(getContext(), thumbnail);
+
+        if (uri != null) {
+            setImageName(uri, thumbnail);
+        }
+    }
+
+    private void setImageName(Uri uri, Bitmap imageBitmap) {
+        String homeStr = "academicPic" + System.currentTimeMillis() + ".png";
+        addBitmapAsFile(imageBitmap, homeStr);
+    }
+
+    private void onSelectFromGalleryResult(Intent data) {
+        Uri uri = null;
+        if (data != null) {
+            try {
+                uri = data.getData();
+                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), data.getData());
+                if (uri != null) {
+                    setImageName(uri, imageBitmap);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //add bitmap into list
+    private Boolean addBitmapAsFile(final Bitmap bitmap, final String fileName) {
+
+        new AsyncTask<Void, Void, Boolean>() {
+            File imgFile;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                astProgressBar = new ASTProgressBar(getContext());
+                astProgressBar.show();
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+
+                Boolean flag = false;
+                File sdcardPath = Utility.getExternalStorageFilePath(getContext());
+                sdcardPath.mkdirs();
+                //File imgFile = new File(sdcardPath, System.currentTimeMillis() + ".png");
+                imgFile = new File(sdcardPath, fileName);
+
+                try {
+                    FileOutputStream fOut = new FileOutputStream(imgFile);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, fOut);
+                    fOut.flush();
+                    fOut.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                MediaScannerConnection.scanFile(getContext(), new String[]{imgFile.toString()}, null,
+                        new MediaScannerConnection.OnScanCompletedListener() {
+                            public void onScanCompleted(String path, Uri uri) {
+                                if (Contants.IS_DEBUG_LOG) {
+                                    if (Contants.IS_DEBUG_LOG) {
+                                        Log.d(Contants.LOG_TAG, "Scanned " + path + ":");
+                                        Log.d(Contants.LOG_TAG, "-> uri=" + uri);
+                                    }
+                                }
+                            }
+                        });
+                return flag;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean flag) {
+                super.onPostExecute(flag);
+                // Picasso.with(context).load(imgFile).into(faultImage);
+                // setImageIntoList(imgFile);
+                ImageItem imageItem = new ImageItem();
+                imageItem.setImagFile(imgFile);
+                imageItem.setImageStr(imgFile.getAbsolutePath());
+                acImgList.add(imageItem);
+                imageAdapater.notifyDataSetChanged();
+
+                astProgressBar.dismiss();
+            }
+        }.execute();
+
+        return true;
+    }
+    //compres image
+   /* private void compresImage(final File file, final String fileName) {
+
+        new AsyncTask<Void, Void, Boolean>() {
+            ProgressDialog progressBar;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressBar = ProgressDialog.show(getContext(), "",
+                        "Please wait Image Loading..", true);
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+//compress file
+                Boolean flag = false;
+                int ot = FilePickerHelper.getExifRotation(file);
+                Bitmap bitmap = FilePickerHelper.compressImage(file.getAbsolutePath(), ot, 800.0f, 800.0f);
+                if (bitmap != null) {
+                    Uri uri = FilePickerHelper.getImageUri(getContext(), bitmap);
+//save compresed file into location
+                    imgFile = new File(Utility.getExternalStorageFilePathCreateAppDirectory(getContext()) + File.separator, fileName);
+                    try {
+                        InputStream iStream = getContext().getContentResolver().openInputStream(uri);
+                        byte[] inputData = FilePickerHelper.getBytes(iStream);
+
+                        FileOutputStream fOut = new FileOutputStream(imgFile);
+                        fOut.write(inputData);
+                        //   bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                        fOut.flush();
+                        fOut.close();
+                        iStream.close();
+                        flag = true;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+                return flag;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean flag) {
+                super.onPostExecute(flag);
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+                saveImageDetails();
+            }
+        }.execute();
+
+    }*/
 
     private void getacademyFormData() {
         if (Utility.isOnline(getContext())) {
@@ -282,7 +493,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
 
                 }
             });
-            if(serviceData.getSports()!=null) {
+            if (serviceData.getSports() != null) {
                 sportsServiceGridViewAdapter = new SportsServiceGridViewAdapter(getContext(), R.layout.sports_row, serviceData.getSports());
                 sportsgridView.setAdapter(sportsServiceGridViewAdapter);
                 sportsgridView.setFocusable(true);

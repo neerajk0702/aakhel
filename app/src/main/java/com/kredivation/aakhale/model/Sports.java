@@ -33,6 +33,15 @@ public class Sports {
     public void setIs_active(int is_active) {
         this.is_active = is_active;
     }
+private  boolean isSelected=false;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     @Override
     public String toString()
