@@ -120,9 +120,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:entries="@array/state"
-                            android:gravity="center"
-                            android:padding="@dimen/_5dp" />
+                            android:minHeight="@dimen/_30dp"
+                            android:gravity="center" />
 
 
                     </LinearLayout>
@@ -145,6 +144,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:entries="@array/state"
+                            android:minHeight="@dimen/_30dp"
                             android:gravity="center" />
 
 

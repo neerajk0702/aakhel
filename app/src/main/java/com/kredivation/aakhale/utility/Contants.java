@@ -23,5 +23,17 @@ public class Contants {
 
     public static String academyForm = "academy/form";
     public static String addAcademy = "academy";
+    public static String teamForm = "team/form";
+
+    public static String searchPlayerAPI = "users";
+    public static String matchFormApi = "match/form";
+
+    public static String creatematchApi = "match";
+    public static String tournamentForm = "tournament/form";
+    public static String tournamentAPi = "tournament";
+
+    public static String groundFormApi = "ground/form";
+
+
 
 }

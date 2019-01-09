@@ -8,10 +8,20 @@ import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.ListAdapter;
+import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
+import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.utility.ASTUIUtil;
+import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.Utility;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +45,13 @@ public class SearchDialog extends Dialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.search_dilog);
-//        float radius = ASTUIUtil.getDimension(R.dimen._15dp);
-        //  int scrWidth = getContext().getResources().getConfiguration().screenWidthDp;
-        //	this.getWindow().setLayout((FNUtil.getDipFromPixel(this.getContext(), scrWidth - 50)), LinearLayout.LayoutParams.WRAP_CONTENT);
-        //	ASTUIUtil.setBackgroundRound(this.findViewById(R.id.DialogNLayout), R.color.bg_color, new float[] { radius, radius, radius, radius, radius, radius, radius, radius });
-        //ASTUIUtil.setBackgroundRound(this.findViewById(R.id.pop_up_footer), android.R.color.white, new float[] { 0, 0, 0, 0, radius, radius, radius, radius });
-        //this.findViewById(R.id.footerDivider).setVisibility(View.GONE);
         this.setCanceledOnTouchOutside(true);
         this.getWindow().setBackgroundDrawableResource(android.R.color.darker_gray);
-
         listView = findViewById(R.id.listView);
         search = findViewById(R.id.search);
+
+
+
         arrayList.add("Sachin");
         arrayList.add("Neeraj");
         arrayList.add("Narayan");
@@ -89,6 +95,8 @@ public class SearchDialog extends Dialog implements View.OnClickListener {
     public void actionPerform() {
 
     }
+
+
 
 }
 

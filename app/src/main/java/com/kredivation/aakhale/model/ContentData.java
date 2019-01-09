@@ -1,5 +1,6 @@
 package com.kredivation.aakhale.model;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 
 public class ContentData {
@@ -56,7 +57,9 @@ private int id;
     private ArrayList<Sports> sports;
 
     private ArrayList<State> state;
+    private ArrayList<Ground> ground;
 
+    private ArrayList<Timezone> timezone;
     public ArrayList<Sports> getSports() {
         return sports;
     }
@@ -71,6 +74,22 @@ private int id;
 
     public void setState(ArrayList<State> state) {
         this.state = state;
+    }
+
+    public ArrayList<Ground> getGround() {
+        return ground;
+    }
+
+    public void setGround(ArrayList<Ground> ground) {
+        this.ground = ground;
+    }
+
+    public ArrayList<Timezone> getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(ArrayList<Timezone> timezone) {
+        this.timezone = timezone;
     }
 
     @Override

@@ -62,7 +62,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
     ImageView sortiMG, acadmiciMG;
     ASTEditText acdName, accAddress, zipcode, description, managerfullName, manageremail, mamangercontactno;
     ASTEditText coachfullName, coachemail, coachcontactno, OwnerfullName, Owneremail, Ownercontactno;
-    Spinner stateSpinner, sitySpinner;
+    Spinner stateSpinner, citySpinner;
     TextView addMoreViewmember, addMoreViewImage;
     LinearLayout academiesMemberLayout;
     ASTEditText memberfullName, memberemail, membercontactno;
@@ -126,7 +126,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         Owneremail = view.findViewById(R.id.Owneremail);
         Ownercontactno = view.findViewById(R.id.Ownercontactno);
         stateSpinner = view.findViewById(R.id.stateSpinner);
-        sitySpinner = view.findViewById(R.id.sitySpinner);
+        citySpinner = view.findViewById(R.id.citySpinner);
         addMoreViewmember = view.findViewById(R.id.addMoreViewmember);
         addMoreViewImage = view.findViewById(R.id.addMoreViewImage);
         academiesMemberLayout = view.findViewById(R.id.academiesMemberLayout);
@@ -304,8 +304,8 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
                 }
             }
             ArrayAdapter<String> citydapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_row, cityList);
-            sitySpinner.setAdapter(citydapter);
-            sitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            citySpinner.setAdapter(citydapter);
+            citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
                     cityId = cityIdList.get(pos);

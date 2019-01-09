@@ -25,14 +25,14 @@
                 android:textStyle="bold" />
 
             <com.kredivation.aakhale.components.ASTEditText
-            android:id="@+id/tournamentName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_5dp"
-            android:layout_marginRight="@dimen/_5dp"
-            android:background="@drawable/round_boder"
-            android:padding="@dimen/_12dp"
-            android:textSize="@dimen/_12dp" />
+                android:id="@+id/tournamentName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
 
 
             <TextView
@@ -135,8 +135,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:entries="@array/state"
-                            android:gravity="center"
-                            android:padding="@dimen/_5dp" />
+                            android:gravity="center" />
 
 
                     </LinearLayout>
@@ -324,8 +323,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:entries="@array/state"
-                            android:gravity="center"
-                            android:padding="@dimen/_5dp" />
+                            android:gravity="center" />
 
 
                     </LinearLayout>
