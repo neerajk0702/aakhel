@@ -226,6 +226,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:entries="@array/floodlight"
                             android:gravity="center" />
 
 
@@ -249,6 +250,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5dp"
                             android:layout_marginRight="@dimen/_5dp"
+                            android:inputType="number"
                             android:backgroundTint="@color/translucentWhite"
                             android:padding="@dimen/_12dp"
                             android:textSize="@dimen/_12dp" />
@@ -415,6 +417,7 @@
                                 android:layout_marginRight="@dimen/_5dp"
                                 android:backgroundTint="@color/translucentWhite"
                                 android:padding="@dimen/_12dp"
+                                android:inputType="number"
                                 android:textSize="@dimen/_12dp" />
 
                         </LinearLayout>
@@ -435,6 +438,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:entries="@array/daynight"
                                 android:gravity="center" />
 
 
@@ -581,7 +585,7 @@
 
 
                 <TextView
-                    android:id="@+id/addsisplayPicture"
+                    android:id="@+id/addPicture"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"

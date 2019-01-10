@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -25,6 +27,7 @@ import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.AddViewDynamically;
 import com.kredivation.aakhale.model.City;
 import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.ImageItem;
@@ -43,7 +46,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateGroundFragment extends Fragment {
+public class CreateGroundFragment extends Fragment implements View.OnClickListener {
 
     View view;
 
@@ -52,12 +55,19 @@ public class CreateGroundFragment extends Fragment {
     private ArrayList<String> stateIdList;
     private ArrayList<String> timeZoneList;
     private ArrayList<String> cityIdList;
-    private String stateId, cityId, groundId;
+    private String stateId, cityId, timeZoneId;
     List<City> cityInfoList;
-
+    int serviceCount = 0;
+    int termsCount = 0;
     ASTEditText gName, venueAddress, zipCode, capacitytxt, dimesionTxt, noofMatchtxt, surfaceTxt;
     Spinner stateSpinner, citySpinner, floodlightSpinner, TimeZoneSpinner, dayorNightSpiner;
-    ASTButton continuebtn;
+    ASTButton continuebtn, canclebtn;
+    String name, ground_address, ground_state, ground_city, ground_zipcode, floodlight, capacity, Dimension, timezone,
+            match_per_day, day_or_night, surface, free_services, terms_conditions, cost, sports;
+    LinearLayout container_add_freeservices, container_add_term_condtion;
+    List<AddViewDynamically> allFreeSertvice = new ArrayList<AddViewDynamically>();
+    List<AddViewDynamically> allTermCondication = new ArrayList<AddViewDynamically>();
+    private TextView addMoretermcondtion, addmorfreeServices, addPicture;
 
     public CreateGroundFragment() {
         // Required empty public constructor
@@ -87,14 +97,27 @@ public class CreateGroundFragment extends Fragment {
         TimeZoneSpinner = view.findViewById(R.id.TimeZoneSpinner);
         dayorNightSpiner = view.findViewById(R.id.dayorNightSpiner);
         continuebtn = view.findViewById(R.id.continuebtn);
+        continuebtn.setOnClickListener(this);
+        canclebtn = view.findViewById(R.id.canclebtn);
+        canclebtn.setOnClickListener(this);
         addImageView = view.findViewById(R.id.addImageView);
         imageAdapater = new RecycleViewAdapter(getContext(), R.layout.image_item_layout, getData());
         addImageView.setAdapter(imageAdapater);
         setLinearLayoutManager(addImageView);
         addImageView.setNestedScrollingEnabled(false);
         addImageView.setHasFixedSize(false);
+        container_add_freeservices = view.findViewById(R.id.container_add_freeservices);
+        container_add_term_condtion = view.findViewById(R.id.container_add_term_condtion);
+        addmorfreeServices = view.findViewById(R.id.addmorfreeServices);
+        addMoretermcondtion = view.findViewById(R.id.addMoretermcondtion);
+        addmorfreeServices.setOnClickListener(this);
+        addMoretermcondtion.setOnClickListener(this);
+        addPicture = view.findViewById(R.id.addPicture);
+        addPicture.setOnClickListener(this);
 
         getGroundData();
+        addTermsAndCondition();
+        addFreeService();
     }
 
     private void setLinearLayoutManager(RecyclerView recyclerView) {
@@ -132,7 +155,6 @@ public class CreateGroundFragment extends Fragment {
                             if (serviceData != null) {
                                 setStateSpinnerValue(serviceData);
                                 setTimeZoneSpinner(serviceData);
-
                             }
                         } else {
                             Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
@@ -227,7 +249,7 @@ public class CreateGroundFragment extends Fragment {
             TimeZoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-                    groundId = timeZoneList.get(pos);
+                    timeZoneId = timeZoneList.get(pos);
                 }
 
                 @Override
@@ -239,11 +261,35 @@ public class CreateGroundFragment extends Fragment {
 
     }
 
+    //add free service layout in runtime
+    public void addFreeService() {
+        serviceCount++;
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.add_editbox, null);
+        ASTEditText edittext = inflatedLayout.findViewById(R.id.edittext);
+        TextView count = inflatedLayout.findViewById(R.id.count);
+        count.setText(count + "-");
+        container_add_freeservices.addView(inflatedLayout);
+        AddViewDynamically addViewDynamically = new AddViewDynamically();
+        addViewDynamically.setAddEditText(edittext);
+        allFreeSertvice.add(addViewDynamically);
+    }
 
-    String name, ground_address, ground_state, ground_city, ground_zipcode, floodlight, capacity, Dimension, timezone,
-            match_per_day, day_or_night, surface, free_services, terms_conditions, cost, sports;
+    //add term and condition in run time
+    public void addTermsAndCondition() {
+        termsCount++;
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.add_editbox, null);
+        ASTEditText edittext = inflatedLayout.findViewById(R.id.edittext);
+        TextView count = inflatedLayout.findViewById(R.id.count);
+        count.setText(count + "-");
+        container_add_term_condtion.addView(inflatedLayout);
+        AddViewDynamically addViewDynamically = new AddViewDynamically();
+        addViewDynamically.setAddEditText(edittext);
+        allTermCondication.add(addViewDynamically);
+    }
 
-    public boolean isvalidateSignup() {
+    public boolean isValidate() {
         name = gName.getText().toString();
         ground_address = venueAddress.getText().toString();
         ground_zipcode = zipCode.getText().toString();
@@ -254,8 +300,6 @@ public class CreateGroundFragment extends Fragment {
         floodlight = floodlightSpinner.getSelectedItem().toString();
         timezone = TimeZoneSpinner.getSelectedItem().toString();
         day_or_night = dayorNightSpiner.getSelectedItem().toString();
-
-
         if (name.equals("")) {
             Toast.makeText(getContext(), "Please Enter Ground Name", Toast.LENGTH_SHORT).show();
             return false;
@@ -342,5 +386,28 @@ public class CreateGroundFragment extends Fragment {
             }
         }
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.continuebtn:
+                if (isValidate()) {
+
+                }
+                break;
+            case R.id.canclebtn:
+                break;
+            case R.id.addmorfreeServices:
+                addFreeService();
+                ASTUIUtil.showToast(getContext(), "One More Free Services Added.");
+                break;
+            case R.id.addMoretermcondtion:
+                addTermsAndCondition();
+                ASTUIUtil.showToast(getContext(), "One More Term and Condition Added.");
+                break;
+            case R.id.addPicture:
+                break;
+        }
     }
 }

@@ -6,7 +6,7 @@ public class AddViewDynamically {
     private ASTEditText fullname;
     private ASTEditText email;
     private ASTEditText phoneNo;
-
+    private ASTEditText addEditText;
     public ASTEditText getFullname() {
         return fullname;
     }
@@ -21,6 +21,14 @@ public class AddViewDynamically {
 
     public void setEmail(ASTEditText email) {
         this.email = email;
+    }
+
+    public ASTEditText getAddEditText() {
+        return addEditText;
+    }
+
+    public void setAddEditText(ASTEditText addEditText) {
+        this.addEditText = addEditText;
     }
 
     public ASTEditText getPhoneNo() {

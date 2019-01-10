@@ -207,6 +207,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.addMoreViewmember:
                 addMoreMember();
+                ASTUIUtil.showToast(getContext(), "One More Member Added");
                 break;
             case R.id.acadmicViewinfoLayout:
                 if (numberclick) {
