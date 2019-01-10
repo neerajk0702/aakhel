@@ -30,9 +30,11 @@ import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.State;
 import com.kredivation.aakhale.model.Timezone;
+import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class CreateGroundFragment extends Fragment {
     private String stateId, cityId, groundId;
     List<City> cityInfoList;
 
-    ASTEditText gName, venueAddress, zipCode, capacity, dimesionTxt, noofMatchtxt, surfaceTxt;
+    ASTEditText gName, venueAddress, zipCode, capacitytxt, dimesionTxt, noofMatchtxt, surfaceTxt;
     Spinner stateSpinner, citySpinner, floodlightSpinner, TimeZoneSpinner, dayorNightSpiner;
     ASTButton continuebtn;
 
@@ -75,7 +77,7 @@ public class CreateGroundFragment extends Fragment {
         gName = view.findViewById(R.id.gName);
         venueAddress = view.findViewById(R.id.venueAddress);
         zipCode = view.findViewById(R.id.zipCode);
-        capacity = view.findViewById(R.id.capacity);
+        capacitytxt = view.findViewById(R.id.capacity);
         dimesionTxt = view.findViewById(R.id.dimesionTxt);
         noofMatchtxt = view.findViewById(R.id.noofMatchtxt);
         surfaceTxt = view.findViewById(R.id.surfaceTxt);
@@ -237,4 +239,108 @@ public class CreateGroundFragment extends Fragment {
 
     }
 
+
+    String name, ground_address, ground_state, ground_city, ground_zipcode, floodlight, capacity, Dimension, timezone,
+            match_per_day, day_or_night, surface, free_services, terms_conditions, cost, sports;
+
+    public boolean isvalidateSignup() {
+        name = gName.getText().toString();
+        ground_address = venueAddress.getText().toString();
+        ground_zipcode = zipCode.getText().toString();
+        capacity = capacitytxt.getText().toString();
+        Dimension = dimesionTxt.getText().toString();
+        surface = surfaceTxt.getText().toString();
+        ground_state = stateSpinner.getSelectedItem().toString();
+        floodlight = floodlightSpinner.getSelectedItem().toString();
+        timezone = TimeZoneSpinner.getSelectedItem().toString();
+        day_or_night = dayorNightSpiner.getSelectedItem().toString();
+
+
+        if (name.equals("")) {
+            Toast.makeText(getContext(), "Please Enter Ground Name", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (ground_address.equals("")) {
+            Toast.makeText(getContext(), "Please Enter Ground Address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+
+    }
+
+
+    private void saveGroundData() {
+        if (ASTUIUtil.isOnline(getContext())) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(getContext());
+            dotDialog.show();
+            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            final String url = Contants.BASE_URL + Contants.creatematchApi;
+            JSONObject object = new JSONObject();
+            try {
+                object.put("name", name);
+                object.put("ground_address", ground_address);
+                object.put("ground_state", ground_state);
+                object.put("ground_city", ground_city);
+                object.put("ground_zipcode", ground_zipcode);
+                object.put("floodlight", floodlight);
+                object.put("capacity", capacity);
+                object.put("Dimension", Dimension);
+                object.put("timezone", timezone);
+                object.put("match_per_day", match_per_day);
+                object.put("day_or_night", day_or_night);
+                object.put("surface", surface);
+                object.put("free_services", free_services);
+                object.put("terms_conditions", terms_conditions);
+                object.put("cost", cost);
+                object.put("sports", sports);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            serviceCaller.CallCommanServiceMethod(url, object, "saveGroundData", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete) {
+                        parseGroundData(result);
+                    } else {
+                        showToast(Contants.Error);
+                    }
+                    if (dotDialog.isShowing()) {
+                        dotDialog.dismiss();
+                    }
+                }
+            });
+        } else {
+            showToast(Contants.OFFLINE_MESSAGE);
+        }
+
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+
+    /*
+     *
+     * Parse and Validate Teame Service Data
+     */
+    private void parseGroundData(String result) {
+        if (result != null) {
+            try {
+                JSONObject jsonRootObject = new JSONObject(result);
+                String jsonStatus = jsonRootObject.optString("Status").toString();
+                if (jsonStatus.equals("success")) {
+                    JSONObject object = jsonRootObject.optJSONObject("data");
+                    String userName = object.optString("name").toString();
+                    Toast.makeText(getContext(), "Ground added successfully", Toast.LENGTH_LONG).show();
+                } else {
+                }
+
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                //
+            }
+        }
+
+    }
 }
