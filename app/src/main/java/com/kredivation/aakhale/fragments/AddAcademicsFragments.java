@@ -3,8 +3,10 @@ package com.kredivation.aakhale.fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -45,17 +47,21 @@ import com.kredivation.aakhale.adapter.SportsServiceGridViewAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.framework.FileUploaderHelperWithProgress;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.AddViewDynamically;
 import com.kredivation.aakhale.model.City;
 import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Sports;
 import com.kredivation.aakhale.model.State;
+import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FilePickerHelper;
 import com.kredivation.aakhale.utility.Utility;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,8 +69,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,8 +97,8 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
     TextView nooftemMember;
     int count = 0;
     LinearLayout acadmicViewinfoLayout, acadmicinfoLayout, acadmicmemberinfoLayout;
-    int numberclick = 1;
-    int academiesMemberLayoutclick = 1;
+    boolean numberclick = false;
+    boolean academiesMemberLayoutclick = false;
 
     GridView sportsgridView;
     SportsServiceGridViewAdapter sportsServiceGridViewAdapter;
@@ -102,6 +113,8 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
     File imgFile;
     ASTProgressBar astProgressBar;
     ArrayList<ImageItem> acImgList;
+    List<AddViewDynamically> allmember = new ArrayList<AddViewDynamically>();
+    ArrayList<Sports> sportsList;
 
     public AddAcademicsFragments() {
         // Required empty public constructor
@@ -154,6 +167,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         addMoreViewImage.setOnClickListener(this);
         academiesMemberLayout = view.findViewById(R.id.academiesMemberLayout);
         continuebtn = view.findViewById(R.id.continuebtn);
+        continuebtn.setOnClickListener(this);
         addMoreViewmember.setOnClickListener(this);
         acadmicViewinfoLayout = view.findViewById(R.id.acadmicViewinfoLayout);
         acadmicinfoLayout = view.findViewById(R.id.acadmicinfoLayout);
@@ -181,6 +195,11 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         nooftemMember = inflatedLayout.findViewById(R.id.nooftemMember);
         nooftemMember.setText("Team Member\t" + count);
         container_moreadd.addView(inflatedLayout);
+        AddViewDynamically addViewDynamically = new AddViewDynamically();
+        addViewDynamically.setFullname(memberfullName);
+        addViewDynamically.setEmail(memberemail);
+        addViewDynamically.setPhoneNo(membercontactno);
+        allmember.add(addViewDynamically);
     }
 
     @Override
@@ -190,27 +209,34 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
                 addMoreMember();
                 break;
             case R.id.acadmicViewinfoLayout:
-                if ((numberclick % 2) == 0) {
+                if (numberclick) {
+                    numberclick = false;
                     sortiMG.setImageResource(R.drawable.ic_up_arrow);
                     acadmicinfoLayout.setVisibility(View.VISIBLE);
                 } else {
+                    numberclick = true;
                     sortiMG.setImageResource(R.drawable.ic_angle_arrow_down);
                     acadmicinfoLayout.setVisibility(View.GONE);
                 }
-                numberclick++;
                 break;
             case R.id.academiesMemberLayout:
-                if ((academiesMemberLayoutclick % 2) == 0) {
+                if (academiesMemberLayoutclick) {
+                    academiesMemberLayoutclick = false;
                     acadmiciMG.setImageResource(R.drawable.ic_up_arrow);
                     acadmicmemberinfoLayout.setVisibility(View.VISIBLE);
                 } else {
+                    academiesMemberLayoutclick = true;
                     acadmiciMG.setImageResource(R.drawable.ic_angle_arrow_down);
                     acadmicmemberinfoLayout.setVisibility(View.GONE);
                 }
-                academiesMemberLayoutclick++;
                 break;
             case R.id.addMoreViewImage:
                 selectImage();
+                break;
+            case R.id.continuebtn:
+                if (isValidate()) {
+                    uploadData();
+                }
                 break;
         }
     }
@@ -494,7 +520,8 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
                 }
             });
             if (serviceData.getSports() != null) {
-                sportsServiceGridViewAdapter = new SportsServiceGridViewAdapter(getContext(), R.layout.sports_row, serviceData.getSports());
+                sportsList = serviceData.getSports();
+                sportsServiceGridViewAdapter = new SportsServiceGridViewAdapter(getContext(), R.layout.sports_row, sportsList);
                 sportsgridView.setAdapter(sportsServiceGridViewAdapter);
                 sportsgridView.setFocusable(true);
             }
@@ -579,6 +606,9 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         } else if (!coachemailStr.matches(emailRegex)) {
             Toast.makeText(getContext(), "Please Enter valid Coach Email ID!", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (coachcontactnoStr.equals("")) {
+            Toast.makeText(getContext(), "Please Enter Coach Phone No!", Toast.LENGTH_SHORT).show();
+            return false;
         } else if (OwnerfullNameStr.equals("")) {
             Toast.makeText(getContext(), "Please Enter Owner Name!", Toast.LENGTH_SHORT).show();
             return false;
@@ -588,8 +618,129 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
         } else if (!OwneremailStr.matches(emailRegex)) {
             Toast.makeText(getContext(), "Please Enter valid Owner Email ID!", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (OwnercontactnoStr.equals("")) {
+            Toast.makeText(getContext(), "Please Enter Owner Phone No!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (stateId == null || stateId.equals("") || stateId.equals("0")) {
+            Toast.makeText(getContext(), "Please Select State!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (cityId == null || cityId.equals("") || cityId.equals("0")) {
+            Toast.makeText(getContext(), "Please Select City!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (sportsList == null || sportsList.size() == 0) {
+            Toast.makeText(getContext(), "Please Select at least one Sport!", Toast.LENGTH_SHORT).show();
+            return false;
         }
+
         return true;
 
+    }
+
+    public void uploadData() {
+        if (ASTUIUtil.isOnline(getContext())) {
+            final ASTProgressBar progressBar = new ASTProgressBar(getContext());
+            //   progressBar.show();
+            String serviceURL = Contants.BASE_URL + Contants.addAcademy;
+            HashMap<String, String> payloadList = new HashMap<String, String>();
+            payloadList.put("academy_name", acdNameStr);
+            payloadList.put("street_address", accAddressStr);
+            payloadList.put("academy_state", stateId);
+            payloadList.put("academy_city", cityId);
+            payloadList.put("academy_zipcode", zipcodeStr);
+            payloadList.put("academy_description", descriptionStr);
+            String sportsIdsStr = "";
+            if (sportsList != null && sportsList.size() > 0) {
+                String separatorComm = ",";
+                StringBuilder stringBuilders = new StringBuilder();
+                for (int i = 0; i < sportsList.size(); i++) {
+                    stringBuilders.append(String.valueOf(sportsList.get(i).getId()));
+                    stringBuilders.append(",");
+                }
+                sportsIdsStr = stringBuilders.toString();
+                if (sportsIdsStr != null && !sportsIdsStr.equals("")) {
+                    sportsIdsStr = sportsIdsStr.substring(0, sportsIdsStr.length() - separatorComm.length());
+                }
+            }
+            payloadList.put("academy_sports", sportsIdsStr);
+            OwnerfullNameStr = OwnerfullName.getText().toString();
+            OwneremailStr = Owneremail.getText().toString();
+            OwnercontactnoStr = Ownercontactno.getText().toString();
+
+            JSONObject manager = new JSONObject();
+            JSONObject coach = new JSONObject();
+            JSONObject owner = new JSONObject();
+            try {
+                manager.put("full_name", managerfullNameStr);
+                manager.put("email", manageremailStr);
+                manager.put("contact_number", mamangercontactnoStr);
+                coach.put("full_name", coachfullNameStr);
+                coach.put("email", coachemailStr);
+                coach.put("contact_number", coachcontactnoStr);
+                owner.put("full_name", OwnerfullNameStr);
+                owner.put("email", OwneremailStr);
+                owner.put("contact_number", OwnercontactnoStr);
+            } catch (JSONException e) {
+                //e.printStackTrace();
+            }
+
+            payloadList.put("academy_manager", manager.toString());
+            payloadList.put("academy_coach", coach.toString());
+            payloadList.put("academy_owner", owner.toString());
+            JSONArray jsonArrayTeam = new JSONArray();
+            try {
+                if (allmember != null && allmember.size() > 0) {
+                    for (AddViewDynamically viewDynamically : allmember) {
+                        JSONObject member = new JSONObject();
+                        if (viewDynamically.getFullname() != null) {
+                            member.put("full_name", viewDynamically.getFullname().getText().toString());
+                        }
+                        if (viewDynamically.getEmail() != null) {
+                            member.put("email", viewDynamically.getEmail().getText().toString());
+                        }
+                        if (viewDynamically.getPhoneNo() != null) {
+                            member.put("contact_number", viewDynamically.getPhoneNo().getText().toString());
+                        }
+                        jsonArrayTeam.put(member);
+                    }
+                }
+            } catch (JSONException e) {
+                //e.printStackTrace();
+            }
+            payloadList.put("team_member", jsonArrayTeam.toString());
+            MultipartBody.Builder multipartBody = setMultipartBodyVaule();
+            FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, serviceURL) {
+                @Override
+                public void receiveData(String result) {
+                    ContentData data = new Gson().fromJson(result, ContentData.class);
+                    if (data != null) {
+
+                    } else {
+                        ASTUIUtil.showToast(getContext(), "Academic not add!");
+                    }
+                    if (progressBar.isShowing()) {
+                        progressBar.dismiss();
+                    }
+                }
+            };
+            fileUploaderHelper.execute();
+        } else
+
+        {
+            ASTUIUtil.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+        }
+
+    }
+
+
+    //add pm install images into MultipartBody for send as multipart
+    private MultipartBody.Builder setMultipartBodyVaule() {
+        final MediaType MEDIA_TYPE = MediaType.parse("image/png");
+        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        for (ImageItem imageItem : acImgList) {
+            if (imageItem.getImagFile() != null && imageItem.getImagFile().exists()) {
+                multipartBody.addFormDataPart("academy_photos[]", imageItem.getImagFile().getName(), RequestBody.create(MEDIA_TYPE, imageItem.getImagFile()));
+            }
+        }
+        return multipartBody;
     }
 }
