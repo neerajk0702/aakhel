@@ -89,4 +89,13 @@
         <item>Chess</item>
     </string-array>
 
+    <string-array name="matchtype">
+        <item>Test</item>
+        <item>ODI</item>
+        <item>T-20</item>
+    </string-array>
+    <string-array name="status">
+        <item>Open</item>
+        <item>Close</item>
+    </string-array>
 </resources>

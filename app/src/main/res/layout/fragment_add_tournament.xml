@@ -230,6 +230,7 @@
                             android:layout_marginRight="@dimen/_5dp"
                             android:background="@drawable/round_boder"
                             android:padding="@dimen/_12dp"
+                            android:inputType="number"
                             android:textSize="@dimen/_12dp" />
 
 
@@ -250,6 +251,7 @@
                         <Spinner
                             android:id="@+id/formateSpinner"
                             android:layout_width="match_parent"
+                            android:entries="@array/matchtype"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center" />
@@ -418,6 +420,7 @@
                             android:layout_marginRight="@dimen/_5dp"
                             android:background="@drawable/round_boder"
                             android:padding="@dimen/_12dp"
+                            android:inputType="number"
                             android:textSize="@dimen/_12dp" />
 
 
@@ -439,6 +442,7 @@
                             android:id="@+id/statusSpinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:entries="@array/status"
                             android:layout_gravity="center"
                             android:gravity="center" />
 

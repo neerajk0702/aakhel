@@ -54,7 +54,7 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
     View view;
     ASTEditText matchName, venueAddress, zipCode, timeTxt, overtxt, formate, dateTxt;
     ImageView timeImage, dateIcon;
-    Spinner stateSpinner, citySpinner, groundSpinner, matchtype;
+    Spinner stateSpinner, citySpinner, groundSpinner, matchtypeSpinner;
     ASTButton canclebtn, continuebtn;
     private ArrayList<String> stateIdList;
     private ArrayList<String> groundList;
@@ -96,7 +96,7 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
         stateSpinner = view.findViewById(R.id.stateSpinner);
         citySpinner = view.findViewById(R.id.citySpinner);
         groundSpinner = view.findViewById(R.id.groundSpinner);
-        matchtype = view.findViewById(R.id.matchtype);
+        matchtypeSpinner = view.findViewById(R.id.matchtype);
         canclebtn = view.findViewById(R.id.canclebtn);
         continuebtn = view.findViewById(R.id.continuebtn);
         getMatchFormData();
@@ -284,6 +284,16 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
 
 
     private void saveCreateMatchData() {
+
+        String matchtype = "0";
+        if (match_type.equals("Test")) {
+            matchtype = "1";
+        } else if (match_type.equals("ODI")) {
+            matchtype = "2";
+        } else if (match_type.equals("T-20")) {
+            matchtype = "3";
+        }
+
         if (ASTUIUtil.isOnline(getContext())) {
             final ASTProgressBar dotDialog = new ASTProgressBar(getContext());
             dotDialog.show();
@@ -297,7 +307,7 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
                 object.put("match_city", cityId);
                 object.put("match_zipcode", match_zipcode);
                 object.put("ground_id", groundId);
-                object.put("match_type", match_type);
+                object.put("match_type", matchtype);
                 object.put("format", format);
                 object.put("tournament_id", tournament_id);
                 object.put("match_team", match_team);
@@ -339,7 +349,7 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
         match_state = stateSpinner.getSelectedItem().toString();
         match_city = citySpinner.getSelectedItem().toString();
         match_zipcode = zipCode.getText().toString();
-//        match_type = matchtype.getSelectedItem().toString();
+       match_type = matchtypeSpinner.getSelectedItem().toString();
         match_type = "20-20";
         format = formate.getText().toString();
         ground_id = groundSpinner.getSelectedItem().toString();
@@ -402,6 +412,8 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
                     JSONObject object = jsonRootObject.optJSONObject("data");
                     String userName = object.optString("name").toString();
                     Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
+
+
                 } else {
                 }
 
