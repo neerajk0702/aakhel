@@ -726,7 +726,7 @@ public class ASTUIUtil {
         return connected;
     }
 
-    //alert for error message
+    //alert for Error message
     public static void alertForErrorMessage(String errorMessage, Context mContext) {
         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mContext);
         Typeface roboto_regular = Typeface.createFromAsset(mContext.getAssets(), "fonts/roboto.regular.ttf");

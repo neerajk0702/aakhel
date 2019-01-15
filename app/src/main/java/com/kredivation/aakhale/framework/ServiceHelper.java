@@ -42,7 +42,7 @@ public class ServiceHelper implements IServiceHelper {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (Contants.IS_DEBUG_LOG) {
-                    Log.d(Contants.LOG_TAG, "error at ServiceHelper: callService " + callerUrl + ": " + error.getMessage());
+                    Log.d(Contants.LOG_TAG, "Error at ServiceHelper: callService " + callerUrl + ": " + error.getMessage());
                 }
                 c.onDone(callerUrl, null, error.getMessage());
             }
@@ -85,7 +85,7 @@ public class ServiceHelper implements IServiceHelper {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (Contants.IS_DEBUG_LOG) {
-                    Log.d(Contants.LOG_TAG, "error at ServiceHelper: callService " + callerUrl + ": " + error.getMessage());
+                    Log.d(Contants.LOG_TAG, "Error at ServiceHelper: callService " + callerUrl + ": " + error.getMessage());
                 }
                 c.onDone(callerUrl, null, error.getMessage());
             }
@@ -131,7 +131,7 @@ public class ServiceHelper implements IServiceHelper {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (Contants.IS_DEBUG_LOG) {
-                    Log.d(Contants.LOG_TAG, "error at ServiceHelper: callService " + callerUrl + ": " + error.getMessage());
+                    Log.d(Contants.LOG_TAG, "Error at ServiceHelper: callService " + callerUrl + ": " + error.getMessage());
                 }
                 c.onDone(callerUrl, null, error.getMessage());
             }

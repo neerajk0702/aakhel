@@ -19,6 +19,7 @@ import com.kredivation.aakhale.database.AakhelDBHelper;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.ContentData;
+import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
 
@@ -29,7 +30,7 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private ASTEditText registerEmailEdt, etpassword;
     private ASTButton loginText;
-    private ASTTextView forgotPassword;
+    private ASTTextView forgotPassword, signup;
     private SignInButton btn_gsign_in;
     ASTProgressBar dotDialog;
     SharedPreferences UserInfo;
@@ -48,8 +49,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etpassword = findViewById(R.id.password);
         loginText = findViewById(R.id.loginText);
         forgotPassword = findViewById(R.id.forgotPassword);
+        signup = findViewById(R.id.signup);
         btn_gsign_in = findViewById(R.id.btn_gsign_in);
-
+        signup.setOnClickListener(this);
         forgotPassword.setOnClickListener(this);
         btn_gsign_in.setOnClickListener(this);
         loginText.setOnClickListener(this);
@@ -75,9 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else if (password.equals("")) {
                     Toast.makeText(LoginActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                    startActivity(intent);
-                    //  loginData(userName, password);
+                    loginData(userName, password);
                 }
 
 
@@ -85,6 +85,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.forgotPassword:
                 Intent intent1 = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.signup:
+                Intent intentsignup = new Intent(LoginActivity.this, SelectUserTypeActivity.class);
+                startActivity(intentsignup);
                 break;
         }
     }
@@ -129,23 +133,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (result != null) {
             try {
                 UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
-                JSONObject jsonRootObject = new JSONObject(result);
-                String jsonStatus = jsonRootObject.optString("Status").toString();
-                if (jsonStatus.equals("1")) {
-                    JSONArray jsonArray = jsonRootObject.optJSONArray("Data");
-                    // String userName = jsonObject.optString("UserName").toString();
+                ContentData contentData = new Gson().fromJson(result, ContentData.class);
+                if (contentData.isStatus()) {
+                    Data data = contentData.getData();
                     SharedPreferences.Editor editor = UserInfo.edit();
-                    editor.putString("USER_NAME", "");
-                    editor.putString("USER_ID", userId);
-                    editor.putString("EMP_NAME", "");
+                    editor.putLong("id", data.getId());
+                    editor.putString("unique_id", data.getUnique_id());
+                    editor.putString("email", data.getEmail());
+                    editor.putInt("role", data.getRole());
+                    editor.putInt("is_active", data.getIs_active());
+                    editor.putString("auth_token", data.getAuth_token());
                     editor.commit();
+                    Toast.makeText(this, contentData.getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Please Provide Correct Credentials", Toast.LENGTH_SHORT).show();
                 }
-
-            } catch (JSONException e) {
+                if (dotDialog.isShowing()) {
+                    dotDialog.dismiss();
+                }
+            } catch (Exception e) {
                 // TODO Auto-generated catch block
                 //
             }

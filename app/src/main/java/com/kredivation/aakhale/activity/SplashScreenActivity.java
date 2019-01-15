@@ -175,8 +175,14 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void navigate() {
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
         Intent intent;
-        intent = new Intent(SplashScreenActivity.this, DashboardActivity.class);//SelectUserTypeActivity
+        String auth_token = UserInfo.getString("auth_token", "");
+        if (auth_token != null && !auth_token.equals("")) {
+            intent = new Intent(SplashScreenActivity.this, DashboardActivity.class);
+        } else {
+            intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

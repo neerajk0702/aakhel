@@ -4,10 +4,19 @@ import java.security.acl.Group;
 import java.util.ArrayList;
 
 public class ContentData {
-private int id;
-    private String status;
+    private int id;
+    private boolean status;
 
     private Data data;
+    private Error error;
+
+    public Error getError() {
+        return error;
+    }
+
+    public void setError(Error error) {
+        this.error = error;
+    }
 
     public int getId() {
         return id;
@@ -17,25 +26,22 @@ private int id;
         this.id = id;
     }
 
-    public String getStatus ()
-    {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus (String status)
-    {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public Data getData ()
-    {
+    public Data getData() {
         return data;
     }
 
-    public void setData (Data data)
-    {
+    public void setData(Data data) {
         this.data = data;
     }
+
     private String message;
     private long token;
 
@@ -54,12 +60,14 @@ private int id;
     public void setToken(long token) {
         this.token = token;
     }
+
     private ArrayList<Sports> sports;
 
     private ArrayList<State> state;
     private ArrayList<Ground> ground;
 
     private ArrayList<Timezone> timezone;
+
     public ArrayList<Sports> getSports() {
         return sports;
     }
@@ -93,8 +101,7 @@ private int id;
     }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [status = "+status+", data = "+data+"]";
+    public String toString() {
+        return "ClassPojo [status = " + status + ", data = " + data + "]";
     }
 }

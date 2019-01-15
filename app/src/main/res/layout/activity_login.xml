@@ -23,10 +23,26 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/_5dp"
-            android:text="LOGIN TO CONTINUE"
+            android:text="SIGN IN"
             android:textColor="@color/white"
             android:textSize="@dimen/_14dp" />
 
+
+        <com.kredivation.aakhale.components.ASTTextView
+            android:id="@+id/signup"
+            android:layout_width="@dimen/_250dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonwhite"
+            android:gravity="center"
+            android:padding="@dimen/_5dp"
+            android:text="SIGN UP"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_14dp" />
 
     </LinearLayout>
 
@@ -90,12 +106,12 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
-                android:inputType="textPassword"
                 android:hint="Password"
                 android:imeActionLabel="Sign in"
                 android:imeOptions="actionUnspecified"
-                android:singleLine="true"
+                android:inputType="textPassword"
                 android:padding="@dimen/_10dp"
+                android:singleLine="true"
                 android:textSize="@dimen/_12dp" />
 
             <LinearLayout
@@ -173,14 +189,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
- <!--               <com.facebook.login.widget.LoginButton
-                    android:id="@+id/facebooklogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_marginRight="@dimen/_5dp"
-                    android:layout_weight="0.5"
-                    android:background="@color/fb"
-                    android:textColor="@color/white" />-->
+                <!--               <com.facebook.login.widget.LoginButton
+                                   android:id="@+id/facebooklogin"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="@dimen/_30dp"
+                                   android:layout_marginRight="@dimen/_5dp"
+                                   android:layout_weight="0.5"
+                                   android:background="@color/fb"
+                                   android:textColor="@color/white" />-->
 
                 <com.google.android.gms.common.SignInButton
                     android:id="@+id/btn_gsign_in"

@@ -255,7 +255,7 @@ public class Utility {
         return connected;
     }
 
-    //alert for error message
+    //alert for Error message
     public static void alertForErrorMessage(String errorMessage, Context mContext) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         Typeface roboto_regular = Typeface.createFromAsset(mContext.getAssets(), "fonts/roboto.regular.ttf");

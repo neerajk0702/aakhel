@@ -242,17 +242,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete) {
                         ContentData data = new Gson().fromJson(result, ContentData.class);
-                        if (data != null) {
-                            //   if (data.isStatus()) {
+                        if (data != null && data.isStatus()) {
                             ASTUIUtil.setUserId(RegisterActivity.this, stremail, strpassword, null, null);
-                            Toast.makeText(RegisterActivity.this, "Signup Successfully.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, data.getMessage(), Toast.LENGTH_LONG).show();
                             Intent intentLoggedIn = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intentLoggedIn);
-                            // } else {
-                            Toast.makeText(RegisterActivity.this, "Signup not Successfully!", Toast.LENGTH_LONG).show();
-                            // }
                         } else {
-                            Toast.makeText(RegisterActivity.this, "Signup not Successfully!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, data.getError().getEmail(), Toast.LENGTH_LONG).show();
                         }
                     } else {
                         showToast(Contants.Error);
