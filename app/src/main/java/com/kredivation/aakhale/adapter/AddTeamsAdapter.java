@@ -14,12 +14,13 @@ import android.widget.TextView;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.UmpireDetailFragment;
 import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.model.Team;
 
 import java.util.ArrayList;
 
 
 public class AddTeamsAdapter extends RecyclerView.Adapter<AddTeamsAdapter.ViewHolder> {
-    private ArrayList<ImageItem> sportsList;
+    private ArrayList<Team> sportsList;
     Context context;
     String userId;
 
@@ -39,7 +40,7 @@ public class AddTeamsAdapter extends RecyclerView.Adapter<AddTeamsAdapter.ViewHo
         }
     }
 
-    public AddTeamsAdapter(Context context, ArrayList<ImageItem> sportsList) {
+    public AddTeamsAdapter(Context context, ArrayList<Team> sportsList) {
         this.sportsList = sportsList;
         this.context = context;
     }
@@ -56,7 +57,7 @@ public class AddTeamsAdapter extends RecyclerView.Adapter<AddTeamsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.teameName.setText(sportsList.get(position).getTitle() + "");
+        holder.teameName.setText(sportsList.get(position).getName() + "");
 
 
         holder.closeList.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +73,7 @@ public class AddTeamsAdapter extends RecyclerView.Adapter<AddTeamsAdapter.ViewHo
                 UmpireDetailFragment umpireDetailFragment = new UmpireDetailFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, umpireDetailFragment);
+                fragmentTransaction.replace(R.id.mainView, umpireDetailFragment).addToBackStack(null);
                 fragmentTransaction.commit();
 
 

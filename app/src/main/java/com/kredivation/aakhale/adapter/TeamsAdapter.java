@@ -64,7 +64,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
                 TeamDetailFragment teamDetailFragment = new TeamDetailFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, teamDetailFragment);
+                fragmentTransaction.replace(R.id.mainView, teamDetailFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

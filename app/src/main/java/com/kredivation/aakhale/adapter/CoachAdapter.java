@@ -61,7 +61,8 @@ public class CoachAdapter extends ArrayAdapter<Academics> {
                 CoachDeatailFragment coachDeatailFragment = new CoachDeatailFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) mContext).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, coachDeatailFragment);
+                fragmentTransaction.replace(R.id.mainView, coachDeatailFragment).addToBackStack(null);
+
                 fragmentTransaction.commit();
             }
         });

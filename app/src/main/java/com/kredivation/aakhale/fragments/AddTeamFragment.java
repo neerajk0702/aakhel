@@ -15,6 +15,7 @@ import com.kredivation.aakhale.adapter.AddUmpireAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.model.Team;
 
 import java.util.ArrayList;
 
@@ -45,8 +46,8 @@ public class AddTeamFragment extends Fragment {
 
     public void init() {
         teamList = view.findViewById(R.id.teamList);
-        umpreSearchTxt = view.findViewById(R.id.umpreSearchTxt);
         teamList.setLayoutManager(new LinearLayoutManager(getContext()));
+        umpreSearchTxt = view.findViewById(R.id.umpreSearchTxt);
         saveBtn = view.findViewById(R.id.saveBtn);
         addSportListAdapter();
     }
@@ -54,10 +55,10 @@ public class AddTeamFragment extends Fragment {
 
     //set data into recycle view
     private void addSportListAdapter() {
-        ArrayList<ImageItem> sportsList = new ArrayList<>();
-        ImageItem data = new ImageItem();
+        ArrayList<Team> sportsList = new ArrayList<>();
+        Team data = new Team();
         for (int i = 1; i <= 5; i++) {
-            data.setTitle("Noida Fresher");
+            data.setName("Noida Fresher");
             sportsList.add(data);
         }
 

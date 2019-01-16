@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
@@ -59,8 +61,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         HomeFragment homeFragment = new HomeFragment();
-        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.mainView, homeFragment);
         fragmentTransaction.commit();
 
@@ -72,19 +74,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         runTimePermission();
-
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        Contants.auth_token = UserInfo.getString("auth_token", "");
     }
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -191,8 +186,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
         pageFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.mainView, pageFragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.mainView, pageFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void runTimePermission() {
