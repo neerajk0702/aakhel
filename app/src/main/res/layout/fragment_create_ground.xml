@@ -447,7 +447,31 @@
                     </LinearLayout>
 
                 </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5dp"
+                    android:text="Sports"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:background="@drawable/edittextround"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
+                    <Spinner
+                        android:id="@+id/sportsSpiner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:entries="@array/daynight"
+                        android:gravity="center" />
+
+
+                </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

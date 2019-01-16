@@ -724,9 +724,7 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
                 }
             };
             fileUploaderHelper.execute();
-        } else
-
-        {
+        } else {
             ASTUIUtil.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
 

@@ -30,7 +30,7 @@ public class Contants {
     public static String tournamentForm = "tournament/form";
     public static String tournamentAPi = "tournament";
     public static String groundFormApi = "ground/form";
-    public static String groundAPI = "ground";
+    public static String SaveGround = "ground";
 
 
 }
