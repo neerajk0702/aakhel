@@ -73,9 +73,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
         runTimePermission();
 
-        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
-        Contants.auth_token = UserInfo.getString("auth_token", "");
-
     }
 
 
