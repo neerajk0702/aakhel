@@ -243,7 +243,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
         pageFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.mainView, pageFragment);
+        fragmentTransaction.replace(R.id.mainView, pageFragment).addToBackStack(null);
         fragmentTransaction.commit();
     }
 

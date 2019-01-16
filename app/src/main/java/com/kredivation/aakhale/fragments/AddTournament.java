@@ -2,6 +2,7 @@ package com.kredivation.aakhale.fragments;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -24,7 +25,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +36,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.AddAcademicsImageAdapter;
+import com.kredivation.aakhale.adapter.AddTeamsAdapter;
 import com.kredivation.aakhale.adapter.AddTournamentImageAdapter;
 import com.kredivation.aakhale.adapter.RecycleViewAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.dialog.SearchDialog;
 import com.kredivation.aakhale.framework.FileUploaderHelperWithProgress;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
@@ -45,10 +51,12 @@ import com.kredivation.aakhale.model.City;
 import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.State;
+import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FilePickerHelper;
 import com.kredivation.aakhale.utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +64,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -73,11 +84,10 @@ public class AddTournament extends Fragment implements View.OnClickListener {
     View view;
     ASTEditText tournamentName, venueAddress, zipCode, noofOver, enteryFee, aboutTournament;
 
-    Spinner stateSpinner, citySpinner, formateSpinner, startdateSpinner, enddateSpinner, statusSpinner;
+    Spinner stateSpinner, citySpinner, formateSpinner, statusSpinner;
     LinearLayout container_add_facilities, container_add_rule_regulation, container_add_rule_price;
     TextView addsisplayPicture, addMoreprice, addMoreFacilites, addMorerule_regulation;
-    RecyclerView addImageView;
-    private AddTournamentImageAdapter imageAdapater;
+    ImageView addImageView;
     private ArrayList<String> stateIdList;
     private ArrayList<String> groundList;
     private ArrayList<String> cityIdList;
@@ -96,8 +106,18 @@ public class AddTournament extends Fragment implements View.OnClickListener {
             format, start_date, end_date, entry_fees, status, about_tournament, facilities, rules_regulations,
             prizes, display_picture, teams;
 
-    ArrayList<ImageItem> acImgList;
     ASTProgressBar astProgressBar;
+    int Facilitescount = 1, Regulationcount = 1, priceCount = 1;
+
+    TextView startdateTxt, enddateTxt;
+    ImageView startdateIcon, enddateIcon;
+
+    DatePickerDialog startdatepicker, enddatepicker;
+    Calendar myCalendar;
+    RecyclerView teamList;
+    LinearLayout addTeameLayout;
+    ArrayList<Team> teamlist = new ArrayList<>();
+    SearchDialog fnNewDialog;
 
     public AddTournament() {
     }
@@ -125,8 +145,6 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         stateSpinner = view.findViewById(R.id.stateSpinner);
         citySpinner = view.findViewById(R.id.citySpinner);
         formateSpinner = view.findViewById(R.id.formateSpinner);
-        startdateSpinner = view.findViewById(R.id.startdateSpinner);
-        enddateSpinner = view.findViewById(R.id.enddateSpinner);
         statusSpinner = view.findViewById(R.id.statusSpinner);
         container_add_facilities = view.findViewById(R.id.container_add_facilities);
         container_add_rule_regulation = view.findViewById(R.id.container_add_rule_regulation);
@@ -135,55 +153,135 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         addMoreprice = view.findViewById(R.id.addMoreprice);
         addMoreFacilites = view.findViewById(R.id.addMoreFacilites);
 
-
-        acImgList = new ArrayList<>();
+        startdateTxt = view.findViewById(R.id.startdateTxt);
+        enddateTxt = view.findViewById(R.id.enddateTxt);
+        startdateIcon = view.findViewById(R.id.startdateIcon);
+        enddateIcon = view.findViewById(R.id.enddateIcon);
+        startdateIcon.setOnClickListener(this);
+        enddateIcon.setOnClickListener(this);
         addImageView = view.findViewById(R.id.addImageView);
-        imageAdapater = new AddTournamentImageAdapter(getContext(), R.layout.image_item_layout, acImgList);
-        addImageView.setAdapter(imageAdapater);
 
-        setLinearLayoutManager(addImageView);
-        addImageView.setNestedScrollingEnabled(false);
-        addImageView.setHasFixedSize(false);
-
-
+        addImageView.setOnClickListener(this);
         addsisplayPicture.setOnClickListener(this);
         addMoreprice.setOnClickListener(this);
         addMoreFacilites.setOnClickListener(this);
         addMorerule_regulation.setOnClickListener(this);
         continuebtn = view.findViewById(R.id.continuebtn);
+
+        teamList = view.findViewById(R.id.teamList);
+        teamList.setLayoutManager(new LinearLayoutManager(getContext()));
+        addTeameLayout = view.findViewById(R.id.addTeameLayout);
+
+        addTeameLayout.setOnClickListener(this);
         continuebtn.setOnClickListener(this);
-        addMoreFacilites("Facilites Name");
-        addMorerule_regulation("Rule Regulation Name");
-        addMoreprice("Price");
+        addMoreFacilites("Facilites Name\t" + Facilitescount);
+        addMorerule_regulation("Rule Regulation Name\t" + Regulationcount);
+        addMoreprice("Price\t" + priceCount);
         getAddTournamentData();
+        setendDate();
+        setstartDate();
 
-
+        setTeameAdapter();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.addMoreFacilites:
-                addMoreFacilites("Facilites Name");
+                Facilitescount++;
+                addMoreFacilites("Facilites Name\t" + Facilitescount);
                 break;
             case R.id.addMorerule_regulation:
-                addMorerule_regulation("Rule Regulation Name");
+                Regulationcount++;
+                addMorerule_regulation("Rule Regulation Name\t" + Regulationcount);
+
                 break;
             case R.id.addMoreprice:
-                addMoreprice("Price");
+                priceCount++;
+                addMoreprice("Price\t" + priceCount);
+
                 break;
-            case R.id.addsisplayPicture:
+            case R.id.addImageView:
                 selectImage();
                 break;
             case R.id.continuebtn:
                 if (isvalidateSignup()) {
                     addTournamentServer();
                 }
+                break;
+            case R.id.startdateIcon:
+                startdatepicker.show();
+                break;
+            case R.id.enddateIcon:
+                enddatepicker.show();
+                break;
+            case R.id.addTeameLayout:
+                //    AddTeamFragment addTeamFragment = new AddTeamFragment();
+                //  updateFragment(addTeamFragment, null);
+                fnNewDialog = new SearchDialog(getContext()) {
+                    @Override
+                    public void actionPerform() {
+
+                    }
+                };
+
+                fnNewDialog.show();
+                break;
 
 
         }
     }
 
+    public void updateFragment(Fragment pageFragment, Bundle bundle) {
+        android.support.v4.app.FragmentManager fm = getFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        pageFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.mainView, pageFragment).addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    private void setstartDate() {
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener todate = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                startdateTxt.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+        startdatepicker = new DatePickerDialog(getContext(), todate, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void setendDate() {
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener todate = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                enddateTxt.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+        enddatepicker = new DatePickerDialog(getContext(), todate, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+    }
 
     public void addMoreFacilites(String lblName) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -377,53 +475,42 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 payloadList.put("status", statuss);
                 payloadList.put("about_tournament", about_tournament);
 
-                String facilitiesStr = "";
+                JSONArray jsonArrayfacilities = new JSONArray();
                 if (allfacilites != null && allfacilites.size() > 0) {
-                    String separatorComm = ",";
-                    StringBuilder stringBuilders = new StringBuilder();
-                    for (int i = 0; i < allfacilites.size(); i++) {
-                        stringBuilders.append(String.valueOf(allfacilites.get(i).getFullname()));
-                        stringBuilders.append(",");
-                    }
-                    facilitiesStr = stringBuilders.toString();
-                    if (facilitiesStr != null && !facilitiesStr.equals("")) {
-                        facilitiesStr = facilitiesStr.substring(0, facilitiesStr.length() - separatorComm.length());
+                    ArrayList<String> facilitylist = new ArrayList<>();
+                    for (AddViewDynamically viewDynamically : allfacilites) {
+                        jsonArrayfacilities.put(viewDynamically.getFullname().getText().toString());
                     }
                 }
-                payloadList.put("facilities", facilitiesStr);
+                payloadList.put("facilities", jsonArrayfacilities.toString());
 
 
-                String rules_regulationsstr = "";
+                JSONArray jsonArrayrules_regulations = new JSONArray();
                 if (rulesregulations != null && rulesregulations.size() > 0) {
-                    String separatorComm = ",";
-                    StringBuilder stringBuilders = new StringBuilder();
-                    for (int i = 0; i < rulesregulations.size(); i++) {
-                        stringBuilders.append(String.valueOf(rulesregulations.get(i).getFullname()));
-                        stringBuilders.append(",");
-                    }
-                    rules_regulationsstr = stringBuilders.toString();
-                    if (rules_regulationsstr != null && !rules_regulationsstr.equals("")) {
-                        rules_regulationsstr = rules_regulationsstr.substring(0, rules_regulationsstr.length() - separatorComm.length());
+                    for (AddViewDynamically viewDynamically : rulesregulations) {
+                        jsonArrayrules_regulations.put(viewDynamically.getFullname().getText().toString());
                     }
                 }
-                payloadList.put("rules_regulations", rules_regulationsstr);
+                payloadList.put("rules_regulations", jsonArrayrules_regulations.toString());
 
 
-                String prizesstr = "";
+                JSONArray jsonArrayrulesprizes = new JSONArray();
                 if (price != null && price.size() > 0) {
-                    String separatorComm = ",";
-                    StringBuilder stringBuilders = new StringBuilder();
-                    for (int i = 0; i < price.size(); i++) {
-                        stringBuilders.append(String.valueOf(price.get(i).getFullname()));
-                        stringBuilders.append(",");
-                    }
-                    prizesstr = stringBuilders.toString();
-                    if (prizesstr != null && !prizesstr.equals("")) {
-                        prizesstr = prizesstr.substring(0, prizesstr.length() - separatorComm.length());
+                    for (AddViewDynamically viewDynamically : price) {
+                        jsonArrayrulesprizes.put(viewDynamically.getFullname().getText().toString());
                     }
                 }
-                payloadList.put("prizes", prizesstr);
-                payloadList.put("teams", "aa,ss,ff");
+                payloadList.put("prizes", jsonArrayrulesprizes.toString());
+
+
+                JSONArray teamsArray = new JSONArray();
+                if (price != null && price.size() > 0) {
+                    for (Team team : teamlist) {
+                        teamsArray.put(team.getName());
+                    }
+                }
+                // payloadList.put("teams", teamsArray.toString());
+                payloadList.put("teams", "1,2");
             } catch (Exception e) {
                 //e.printStackTrace();
             }
@@ -433,6 +520,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 public void receiveData(String result) {
                     ContentData data = new Gson().fromJson(result, ContentData.class);
                     if (data != null) {
+                        ASTUIUtil.showToast(getContext(), "Tournament Add successfully!");
 
                     } else {
                         ASTUIUtil.showToast(getContext(), "Tournament not add!");
@@ -451,11 +539,11 @@ public class AddTournament extends Fragment implements View.OnClickListener {
     private MultipartBody.Builder setMultipartBodyVaule() {
         final MediaType MEDIA_TYPE = MediaType.parse("image/png");
         MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        for (ImageItem imageItem : acImgList) {
-            if (imageItem.getImagFile() != null && imageItem.getImagFile().exists()) {
-                multipartBody.addFormDataPart("display_picture[]", imageItem.getImagFile().getName(), RequestBody.create(MEDIA_TYPE, imageItem.getImagFile()));
-            }
+
+        if (imgFile != null && imgFile.exists()) {
+            multipartBody.addFormDataPart(imgFile.getName(), imgFile.getName(), RequestBody.create(MEDIA_TYPE, imgFile));
         }
+
         return multipartBody;
     }
 
@@ -473,8 +561,8 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         tournament_zipcode = zipCode.getText().toString();
         overs = noofOver.getText().toString();
         format = formateSpinner.getSelectedItem().toString();
-        start_date = startdateSpinner.getSelectedItem().toString();
-        end_date = enddateSpinner.getSelectedItem().toString();
+        start_date = startdateTxt.getText().toString();
+        end_date = enddateTxt.getText().toString();
         entry_fees = enteryFee.getText().toString();
         status = statusSpinner.getSelectedItem().toString();
         about_tournament = aboutTournament.getText().toString();
@@ -653,7 +741,6 @@ public class AddTournament extends Fragment implements View.OnClickListener {
     private Boolean addBitmapAsFile(final Bitmap bitmap, final String fileName) {
 
         new AsyncTask<Void, Void, Boolean>() {
-            File imgFile;
 
             @Override
             protected void onPreExecute() {
@@ -700,12 +787,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 super.onPostExecute(flag);
                 // Picasso.with(context).load(imgFile).into(faultImage);
                 // setImageIntoList(imgFile);
-                ImageItem imageItem = new ImageItem();
-                imageItem.setImagFile(imgFile);
-                imageItem.setImageStr(imgFile.getAbsolutePath());
-                acImgList.add(imageItem);
-                imageAdapater.notifyDataSetChanged();
-
+                Picasso.with(getContext()).load(imgFile).into(addImageView);
                 astProgressBar.dismiss();
             }
         }.execute();
@@ -713,5 +795,17 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         return true;
     }
 
+
+    //set data into recycle view
+    private void setTeameAdapter() {
+        Team data = new Team();
+        for (int i = 1; i < 2; i++) {
+            data.setName("Noida Fresher");
+            teamlist.add(data);
+        }
+
+        AddTeamsAdapter addTeamsAdapter = new AddTeamsAdapter(getContext(), teamlist);
+        teamList.setAdapter(addTeamsAdapter);
+    }
 
 }

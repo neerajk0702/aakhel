@@ -65,7 +65,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
                 PlayerDetailsFragment playerDetailsFragment = new PlayerDetailsFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, playerDetailsFragment);
+                fragmentTransaction.replace(R.id.mainView, playerDetailsFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

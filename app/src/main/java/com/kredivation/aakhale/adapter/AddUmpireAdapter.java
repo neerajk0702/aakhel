@@ -74,7 +74,7 @@ public class AddUmpireAdapter extends RecyclerView.Adapter<AddUmpireAdapter.View
                 UmpireDetailFragment umpireDetailFragment = new UmpireDetailFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, umpireDetailFragment);
+                fragmentTransaction.replace(R.id.mainView, umpireDetailFragment).addToBackStack(null);
                 fragmentTransaction.commit();
 
 
