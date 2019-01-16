@@ -57,6 +57,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -98,6 +99,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
     ArrayList<ImageItem> acImgList;
     ASTProgressBar astProgressBar;
+    int Facilitescount = 1, Regulationcount = 1, priceCount = 1;
 
     public AddTournament() {
     }
@@ -152,25 +154,32 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         addMorerule_regulation.setOnClickListener(this);
         continuebtn = view.findViewById(R.id.continuebtn);
         continuebtn.setOnClickListener(this);
-        addMoreFacilites("Facilites Name");
-        addMorerule_regulation("Rule Regulation Name");
-        addMoreprice("Price");
+        addMoreFacilites("Facilites Name\t" + Facilitescount);
+        addMorerule_regulation("Rule Regulation Name\t" + Regulationcount);
+        addMoreprice("Price\t" + priceCount);
         getAddTournamentData();
 
 
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.addMoreFacilites:
-                addMoreFacilites("Facilites Name");
+                Facilitescount++;
+                addMoreFacilites("Facilites Name\t" + Facilitescount);
                 break;
             case R.id.addMorerule_regulation:
-                addMorerule_regulation("Rule Regulation Name");
+                Regulationcount++;
+                addMorerule_regulation("Rule Regulation Name\t" + Regulationcount);
+
                 break;
             case R.id.addMoreprice:
-                addMoreprice("Price");
+                priceCount++;
+                addMoreprice("Price\t" + priceCount);
+
                 break;
             case R.id.addsisplayPicture:
                 selectImage();
@@ -377,52 +386,38 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 payloadList.put("status", statuss);
                 payloadList.put("about_tournament", about_tournament);
 
-                String facilitiesStr = "";
+                JSONArray jsonArrayfacilities = new JSONArray();
                 if (allfacilites != null && allfacilites.size() > 0) {
-                    String separatorComm = ",";
-                    StringBuilder stringBuilders = new StringBuilder();
-                    for (int i = 0; i < allfacilites.size(); i++) {
-                        stringBuilders.append(String.valueOf(allfacilites.get(i).getFullname()));
-                        stringBuilders.append(",");
+                    ArrayList<String> facilitylist = new ArrayList<>();
+                    for (AddViewDynamically viewDynamically : allfacilites) {
+                        facilitylist.add(viewDynamically.getFullname().getText().toString());
                     }
-                    facilitiesStr = stringBuilders.toString();
-                    if (facilitiesStr != null && !facilitiesStr.equals("")) {
-                        facilitiesStr = facilitiesStr.substring(0, facilitiesStr.length() - separatorComm.length());
-                    }
+                    jsonArrayfacilities.put(Arrays.asList(facilitylist));
                 }
-                payloadList.put("facilities", facilitiesStr);
+                payloadList.put("facilities", jsonArrayfacilities.toString());
 
 
-                String rules_regulationsstr = "";
+                JSONArray jsonArrayrules_regulations = new JSONArray();
                 if (rulesregulations != null && rulesregulations.size() > 0) {
-                    String separatorComm = ",";
-                    StringBuilder stringBuilders = new StringBuilder();
-                    for (int i = 0; i < rulesregulations.size(); i++) {
-                        stringBuilders.append(String.valueOf(rulesregulations.get(i).getFullname()));
-                        stringBuilders.append(",");
+                    ArrayList<String> rules_regulations = new ArrayList<>();
+                    for (AddViewDynamically viewDynamically : rulesregulations) {
+                        rules_regulations.add(viewDynamically.getFullname().getText().toString());
                     }
-                    rules_regulationsstr = stringBuilders.toString();
-                    if (rules_regulationsstr != null && !rules_regulationsstr.equals("")) {
-                        rules_regulationsstr = rules_regulationsstr.substring(0, rules_regulationsstr.length() - separatorComm.length());
-                    }
+                    jsonArrayrules_regulations.put(Arrays.asList(rules_regulations));
                 }
-                payloadList.put("rules_regulations", rules_regulationsstr);
+                payloadList.put("rules_regulations", jsonArrayrules_regulations.toString());
 
 
-                String prizesstr = "";
+                JSONArray jsonArrayrulesprizes = new JSONArray();
                 if (price != null && price.size() > 0) {
-                    String separatorComm = ",";
-                    StringBuilder stringBuilders = new StringBuilder();
-                    for (int i = 0; i < price.size(); i++) {
-                        stringBuilders.append(String.valueOf(price.get(i).getFullname()));
-                        stringBuilders.append(",");
+                    ArrayList<String> pricelist = new ArrayList<>();
+                    for (AddViewDynamically viewDynamically : price) {
+                        pricelist.add(viewDynamically.getFullname().getText().toString());
                     }
-                    prizesstr = stringBuilders.toString();
-                    if (prizesstr != null && !prizesstr.equals("")) {
-                        prizesstr = prizesstr.substring(0, prizesstr.length() - separatorComm.length());
-                    }
+                    jsonArrayrulesprizes.put(Arrays.asList(pricelist));
                 }
-                payloadList.put("prizes", prizesstr);
+                payloadList.put("prizes", jsonArrayrulesprizes.toString());
+
                 payloadList.put("teams", "aa,ss,ff");
             } catch (Exception e) {
                 //e.printStackTrace();
