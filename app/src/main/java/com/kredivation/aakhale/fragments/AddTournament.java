@@ -146,7 +146,6 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         addImageView.setHasFixedSize(false);
 
 
-
         addsisplayPicture.setOnClickListener(this);
         addMoreprice.setOnClickListener(this);
         addMoreFacilites.setOnClickListener(this);
@@ -377,21 +376,53 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 payloadList.put("entry_fees", entry_fees);
                 payloadList.put("status", statuss);
                 payloadList.put("about_tournament", about_tournament);
-                JSONArray jsonArrayfacilities = new JSONArray();
+
+                String facilitiesStr = "";
                 if (allfacilites != null && allfacilites.size() > 0) {
-                    jsonArrayfacilities.put(allfacilites);
+                    String separatorComm = ",";
+                    StringBuilder stringBuilders = new StringBuilder();
+                    for (int i = 0; i < allfacilites.size(); i++) {
+                        stringBuilders.append(String.valueOf(allfacilites.get(i).getFullname()));
+                        stringBuilders.append(",");
+                    }
+                    facilitiesStr = stringBuilders.toString();
+                    if (facilitiesStr != null && !facilitiesStr.equals("")) {
+                        facilitiesStr = facilitiesStr.substring(0, facilitiesStr.length() - separatorComm.length());
+                    }
                 }
-                payloadList.put("facilities", jsonArrayfacilities.toString());
-                JSONArray jsonArrayrules_regulations = new JSONArray();
+                payloadList.put("facilities", facilitiesStr);
+
+
+                String rules_regulationsstr = "";
                 if (rulesregulations != null && rulesregulations.size() > 0) {
-                    jsonArrayrules_regulations.put(rulesregulations);
+                    String separatorComm = ",";
+                    StringBuilder stringBuilders = new StringBuilder();
+                    for (int i = 0; i < rulesregulations.size(); i++) {
+                        stringBuilders.append(String.valueOf(rulesregulations.get(i).getFullname()));
+                        stringBuilders.append(",");
+                    }
+                    rules_regulationsstr = stringBuilders.toString();
+                    if (rules_regulationsstr != null && !rules_regulationsstr.equals("")) {
+                        rules_regulationsstr = rules_regulationsstr.substring(0, rules_regulationsstr.length() - separatorComm.length());
+                    }
                 }
-                payloadList.put("rules_regulations", jsonArrayrules_regulations.toString());
-                JSONArray jsonArrayrulesprizes = new JSONArray();
+                payloadList.put("rules_regulations", rules_regulationsstr);
+
+
+                String prizesstr = "";
                 if (price != null && price.size() > 0) {
-                    jsonArrayrulesprizes.put(price);
+                    String separatorComm = ",";
+                    StringBuilder stringBuilders = new StringBuilder();
+                    for (int i = 0; i < price.size(); i++) {
+                        stringBuilders.append(String.valueOf(price.get(i).getFullname()));
+                        stringBuilders.append(",");
+                    }
+                    prizesstr = stringBuilders.toString();
+                    if (prizesstr != null && !prizesstr.equals("")) {
+                        prizesstr = prizesstr.substring(0, prizesstr.length() - separatorComm.length());
+                    }
                 }
-                payloadList.put("prizes", jsonArrayrulesprizes.toString());
+                payloadList.put("prizes", prizesstr);
                 payloadList.put("teams", "aa,ss,ff");
             } catch (Exception e) {
                 //e.printStackTrace();

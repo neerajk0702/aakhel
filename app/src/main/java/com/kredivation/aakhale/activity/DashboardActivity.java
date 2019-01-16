@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.kredivation.aakhale.Constants;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.AddAcademicsFragments;
 import com.kredivation.aakhale.fragments.AddScoreFragment;
@@ -39,15 +41,17 @@ import com.kredivation.aakhale.fragments.ScheduleFragment;
 import com.kredivation.aakhale.fragments.ScoreCardFragment;
 import com.kredivation.aakhale.runtimepermission.PermissionResultCallback;
 import com.kredivation.aakhale.runtimepermission.PermissionUtils;
+import com.kredivation.aakhale.utility.Contants;
 
 import java.util.ArrayList;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,ActivityCompat.OnRequestPermissionsResultCallback, PermissionResultCallback {
+public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback, PermissionResultCallback {
 
     ArrayList<String> permissions = new ArrayList<>();
     PermissionUtils permissionUtils;
     private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1;
     private int REQUEST_CODE_GPS_PERMISSIONS = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +72,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         runTimePermission();
+
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        Contants.auth_token = UserInfo.getString("auth_token", "");
 
     }
 
