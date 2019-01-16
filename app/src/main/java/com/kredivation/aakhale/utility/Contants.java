@@ -9,9 +9,8 @@ public class Contants {
     public static final String OFFLINE_MESSAGE = "Oops! You are Offline. Please check your Internet Connection.";
     public static final String Error = "Server Side Error!";
     public static final String DEFAULT_APPLICATION_NAME = "AAkhel";
-    //public static String auth_token = "$2y$13$tEadYuhdLYrA9qKCK/Za5eUCnddcDNS36IUyL9G3.by8SZoL/NITW";
+   // public static String auth_token = "$2y$13$tEadYuhdLYrA9qKCK/Za5eUCnddcDNS36IUyL9G3.by8SZoL/NITW";
     public static String auth_token = "";
-
     public static final String APP_DIRECTORY = "/E" + DEFAULT_APPLICATION_NAME + "Directory/";
 
     public static String BASE_URL = "http://cricket.vikaskumar.info/";

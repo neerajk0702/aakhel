@@ -103,10 +103,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 object.put("email", userName);
                 object.put("password", password);
             } catch (JSONException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
             }
             ServiceCaller serviceCaller = new ServiceCaller(LoginActivity.this);
-            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "LoginData", new IAsyncWorkCompletedCallback() {
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "LoginData", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete) {
@@ -144,6 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.putInt("is_active", data.getIs_active());
                     editor.putString("auth_token", data.getAuth_token());
                     editor.commit();
+                    Contants.auth_token = data.getAuth_token();
                     Toast.makeText(this, contentData.getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                     startActivity(intent);
