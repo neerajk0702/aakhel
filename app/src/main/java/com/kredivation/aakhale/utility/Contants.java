@@ -31,6 +31,9 @@ public class Contants {
     public static String tournamentAPi = "tournament";
     public static String groundFormApi = "ground/form";
     public static String SaveGround = "ground";
+    public static String UserList = "users?filter[role]=";
+
+
 
 
 }

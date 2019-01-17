@@ -91,10 +91,22 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/sprtsList"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="2dp" />
+        android:gravity="center"
+        android:orientation="vertical">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:dividerHeight="1dp" />
+
+        <ProgressBar
+            android:id="@+id/loaddataProgress"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp" />
+    </LinearLayout>
 </LinearLayout>

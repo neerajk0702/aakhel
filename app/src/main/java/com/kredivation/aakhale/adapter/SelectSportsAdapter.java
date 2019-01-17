@@ -50,6 +50,11 @@ public class SelectSportsAdapter extends ArrayAdapter<Sports> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        if(sports.getId()==0){
+            viewHolder.checkbox.setVisibility(View.GONE);
+        }else {
+            viewHolder.checkbox.setVisibility(View.VISIBLE);
+        }
         viewHolder.nametext.setText(sports.getSports_name());
 
         viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

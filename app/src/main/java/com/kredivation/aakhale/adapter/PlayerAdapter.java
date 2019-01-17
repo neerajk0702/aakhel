@@ -14,13 +14,14 @@ import android.widget.TextView;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.CoachDeatailFragment;
 import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
+import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.ImageItem;
 
 import java.util.ArrayList;
 
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
-    private ArrayList<ImageItem> sportsList;
+    private ArrayList<Data> sportsList;
     Context context;
     String userId;
 
@@ -40,7 +41,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         }
     }
 
-    public PlayerAdapter(Context context, ArrayList<ImageItem> sportsList) {
+    public PlayerAdapter(Context context, ArrayList<Data> sportsList) {
         this.sportsList = sportsList;
         this.context = context;
     }
@@ -57,7 +58,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(sportsList.get(position).getTitle() + "");
+        holder.name.setText(sportsList.get(position).getFull_name());
 
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override

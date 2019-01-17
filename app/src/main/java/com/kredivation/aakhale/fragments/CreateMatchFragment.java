@@ -349,7 +349,7 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
         match_state = stateSpinner.getSelectedItem().toString();
         match_city = citySpinner.getSelectedItem().toString();
         match_zipcode = zipCode.getText().toString();
-       match_type = matchtypeSpinner.getSelectedItem().toString();
+        match_type = matchtypeSpinner.getSelectedItem().toString();
         match_type = "20-20";
         format = formate.getText().toString();
         ground_id = groundSpinner.getSelectedItem().toString();
@@ -405,16 +405,16 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
      */
     private void parseCrateTeameData(String result) {
         if (result != null) {
+            Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
             try {
                 JSONObject jsonRootObject = new JSONObject(result);
                 String jsonStatus = jsonRootObject.optString("Status").toString();
                 if (jsonStatus.equals("success")) {
                     JSONObject object = jsonRootObject.optJSONObject("data");
                     String userName = object.optString("name").toString();
-                    Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
 
 
-                } else {
                 }
 
             } catch (JSONException e) {
@@ -424,7 +424,6 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
         }
 
     }
-
 
 
 }

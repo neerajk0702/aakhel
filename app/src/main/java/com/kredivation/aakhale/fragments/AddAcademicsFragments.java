@@ -712,9 +712,9 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
             FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, serviceURL) {
                 @Override
                 public void receiveData(String result) {
-                    ContentData data = new Gson().fromJson(result, ContentData.class);
-                    if (data != null) {
-
+                    //ContentData data = new Gson().fromJson(result, ContentData.class);
+                    if (result != null) {
+                        ASTUIUtil.showToast(getContext(), "Academic added successfully");
                     } else {
                         ASTUIUtil.showToast(getContext(), "Academic not add!");
                     }

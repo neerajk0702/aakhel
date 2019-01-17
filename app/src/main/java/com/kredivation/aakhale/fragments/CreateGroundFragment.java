@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.AddAcademicsImageAdapter;
 import com.kredivation.aakhale.adapter.RecycleViewAdapter;
 import com.kredivation.aakhale.adapter.SelectSportsAdapter;
+import com.kredivation.aakhale.adapter.SportsServiceGridViewAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
@@ -81,7 +83,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     int serviceCount = 0;
     int termsCount = 0;
     ASTEditText gName, venueAddress, zipCode, capacitytxt, dimesionTxt, noofMatchtxt, surfaceTxt, costtext;
-    Spinner stateSpinner, citySpinner, floodlightSpinner, TimeZoneSpinner, dayorNightSpiner, sportsSpiner;
+    Spinner stateSpinner, citySpinner, floodlightSpinner, TimeZoneSpinner, dayorNightSpiner;
     ASTButton continuebtn, canclebtn;
     String name, ground_address, ground_zipcode, capacity, Dimension, noofMatchStr,
             match_per_day, surface, free_services, terms_conditions, coststr;
@@ -98,6 +100,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     ASTProgressBar astProgressBar;
     ArrayList<ImageItem> acImgList;
     AddAcademicsImageAdapter imageAdapater;
+    GridView sportsgridView;
 
     public CreateGroundFragment() {
         // Required empty public constructor
@@ -135,7 +138,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
         setLinearLayoutManager(addImageView);
         addImageView.setNestedScrollingEnabled(false);
         addImageView.setHasFixedSize(false);
-        sportsSpiner = view.findViewById(R.id.sportsSpiner);
+        sportsgridView = view.findViewById(R.id.sportsgridView);
         container_add_freeservices = view.findViewById(R.id.container_add_freeservices);
         container_add_term_condtion = view.findViewById(R.id.container_add_term_condtion);
         addmorfreeServices = view.findViewById(R.id.addmorfreeServices);
@@ -282,17 +285,12 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     }
 
     private void setSportsSpinner(ContentData serviceData) {
-        if (serviceData.getTimezone() != null) {
+        if (serviceData.getSports() != null) {
             sportsList = new ArrayList<>();
-            Sports sports = new Sports();
-            sports.setSports_name("Select Sports");
-            sports.setId(0);
-            sportsList.add(sports);
-            for (Sports sport : serviceData.getSports()) {
-                sportsList.add(sport);
-            }
-            SelectSportsAdapter soprtAdapter = new SelectSportsAdapter(sportsList, getActivity());
-            sportsSpiner.setAdapter(soprtAdapter);
+            sportsList.addAll(serviceData.getSports());
+            SportsServiceGridViewAdapter sportsServiceGridViewAdapter = new SportsServiceGridViewAdapter(getContext(), R.layout.sports_row, sportsList);
+            sportsgridView.setAdapter(sportsServiceGridViewAdapter);
+            sportsgridView.setFocusable(true);
         }
     }
 
@@ -448,11 +446,11 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
             FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, serviceURL) {
                 @Override
                 public void receiveData(String result) {
-                    ContentData data = new Gson().fromJson(result, ContentData.class);
-                    if (data != null) {
-
+                   // ContentData data = new Gson().fromJson(result, ContentData.class);
+                    if (result != null) {
+                        ASTUIUtil.showToast(getContext(), "Ground added successfully");
                     } else {
-                        ASTUIUtil.showToast(getContext(), "Academic not add!");
+                        ASTUIUtil.showToast(getContext(), "Ground not added successfully!");
                     }
 
                 }

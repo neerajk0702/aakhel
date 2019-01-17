@@ -133,8 +133,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:entries="@array/state"
-                            android:gravity="center"
-                            />
+                            android:gravity="center" />
 
 
                     </LinearLayout>
@@ -250,8 +249,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5dp"
                             android:layout_marginRight="@dimen/_5dp"
-                            android:inputType="number"
                             android:backgroundTint="@color/translucentWhite"
+                            android:inputType="number"
                             android:padding="@dimen/_12dp"
                             android:textSize="@dimen/_12dp" />
 
@@ -416,8 +415,8 @@
                                 android:layout_marginLeft="@dimen/_5dp"
                                 android:layout_marginRight="@dimen/_5dp"
                                 android:backgroundTint="@color/translucentWhite"
-                                android:padding="@dimen/_12dp"
                                 android:inputType="number"
+                                android:padding="@dimen/_12dp"
                                 android:textSize="@dimen/_12dp" />
 
                         </LinearLayout>
@@ -447,31 +446,33 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Sports"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+
+
+                <GridView
+                    android:id="@+id/sportsgridView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/_100dp"
                     android:layout_margin="@dimen/_5dp"
-                    android:background="@drawable/edittextround"
+                    android:clickable="true"
+                    android:columnWidth="100dp"
+                    android:drawSelectorOnTop="true"
+                    android:focusable="true"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/sportsSpiner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:entries="@array/daynight"
-                        android:gravity="center" />
+                    android:minHeight="@dimen/_90dp"
+                    android:numColumns="3"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="5dp" />
 
 
-                </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
