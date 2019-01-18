@@ -12,36 +12,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
-import com.kredivation.aakhale.fragments.TeamDetailFragment;
-import com.kredivation.aakhale.model.Data;
-import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.fragments.UmpireDetailFragment;
+import com.kredivation.aakhale.model.Team;
 
 import java.util.ArrayList;
 
 
-public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> {
-    private ArrayList<Data> sportsList;
+public class AddChatAdapter extends RecyclerView.Adapter<AddChatAdapter.ViewHolder> {
+    private ArrayList<Team> sportsList;
     Context context;
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, teamName, ratingTxt;
-        ImageView sportsIcon, menumore;
-        LinearLayout root_layout;
+        TextView teameName, teameAdress;
+        ImageView imageSports;
+        LinearLayout MainLayout;
 
         public ViewHolder(View v) {
             super(v);
-            name = v.findViewById(R.id.name);
-            teamName = v.findViewById(R.id.teamName);
-            ratingTxt = v.findViewById(R.id.ratingTxt);
-            root_layout = v.findViewById(R.id.root_layout);
-            sportsIcon = v.findViewById(R.id.sportsIcon);
-            menumore = v.findViewById(R.id.menumore);
+            teameName = v.findViewById(R.id.teameName);
+            teameAdress = v.findViewById(R.id.teameAdress);
+            imageSports = v.findViewById(R.id.imageSports);
+            MainLayout = v.findViewById(R.id.MainLayout);
         }
     }
 
-    public TeamsAdapter(Context context, ArrayList<Data> sportsList) {
+    public AddChatAdapter(Context context, ArrayList<Team> sportsList) {
         this.sportsList = sportsList;
         this.context = context;
     }
@@ -51,25 +47,28 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
                                          int viewType) {
         LayoutInflater inflater = LayoutInflater.from(
                 parent.getContext());
-        View v = inflater.inflate(R.layout.teams_row, parent, false);
+        View v = inflater.inflate(R.layout.add_team_row, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(sportsList.get(position).getFull_name() + "");
-        holder.root_layout.setOnClickListener(new View.OnClickListener() {
+        holder.teameName.setText(sportsList.get(position).getName() + "");
+
+
+        holder.MainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeamDetailFragment teamDetailFragment = new TeamDetailFragment();
+                UmpireDetailFragment umpireDetailFragment = new UmpireDetailFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, teamDetailFragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.mainView, umpireDetailFragment).addToBackStack(null);
                 fragmentTransaction.commit();
+
+
             }
         });
-
 
     }
 
@@ -77,5 +76,6 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
     public int getItemCount() {
         return sportsList.size();
     }
+
 
 }

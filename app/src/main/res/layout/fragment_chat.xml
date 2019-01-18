@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/umpreSearchTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:hint="Search Here"
+                android:padding="@dimen/_12dp"
+                android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Recent Chat"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/teamList"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
