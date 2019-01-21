@@ -64,7 +64,12 @@
         <item
             android:id="@+id/addTeam"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Add TEam" />
+            android:title="Add Team" />
+
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Profile" />
 
 
     </group>
@@ -74,11 +79,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Chat" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Notification" />
         </menu>
     </item>
 

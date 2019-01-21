@@ -33,12 +33,15 @@ import com.kredivation.aakhale.fragments.AddSportsFragment;
 import com.kredivation.aakhale.fragments.AddTeamFragment;
 import com.kredivation.aakhale.fragments.AddTournament;
 import com.kredivation.aakhale.fragments.AddUmpiresFragment;
+import com.kredivation.aakhale.fragments.ChatFragment;
 import com.kredivation.aakhale.fragments.CreateGroundFragment;
 import com.kredivation.aakhale.fragments.CreateMatchFragment;
 import com.kredivation.aakhale.fragments.CreatePostFragment;
 import com.kredivation.aakhale.fragments.CreateScoreCardFragment;
 import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
+import com.kredivation.aakhale.fragments.MyProfileFragment;
+import com.kredivation.aakhale.fragments.NotificationListFragment;
 import com.kredivation.aakhale.fragments.ScheduleFragment;
 import com.kredivation.aakhale.fragments.ScoreCardFragment;
 import com.kredivation.aakhale.runtimepermission.PermissionResultCallback;
@@ -170,13 +173,19 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             AddTeamFragment addTeamFragment = new AddTeamFragment();
             updateFragment(addTeamFragment, null);
 
-        }
+        } else if (id == R.id.profile) {
+            MyProfileFragment profileFragment = new MyProfileFragment();
+            updateFragment(profileFragment, null);
 
+        }
 
         if (id == R.id.nav_share) {
 
+            ChatFragment chatFragment = new ChatFragment();
+            updateFragment(chatFragment, null);
         } else if (id == R.id.nav_send) {
-
+            NotificationListFragment notificationListFragment = new NotificationListFragment();
+            updateFragment(notificationListFragment, null);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
