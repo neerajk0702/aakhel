@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.TournamentFragmentP">
+    tools:context=".fragments.NotificationListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/tList"
-        android:layout_width="fill_parent"
+        android:id="@+id/topTeamsList"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5dp" />
+        android:layout_marginTop="@dimen/_5dp"
+        android:layout_weight="1"
+        android:dividerHeight="2dp" />
 
 </LinearLayout>
