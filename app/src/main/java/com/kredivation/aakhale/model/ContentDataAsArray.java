@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ContentDataAsArray {
     private boolean status;
     private ArrayList<Data> data;
-
+private long total_pages;
     public boolean isStatus() {
         return status;
     }
@@ -20,6 +20,14 @@ public class ContentDataAsArray {
 
     public void setData(ArrayList<Data> data) {
         this.data = data;
+    }
+
+    public long getTotal_pages() {
+        return total_pages;
+    }
+
+    public void setTotal_pages(long total_pages) {
+        this.total_pages = total_pages;
     }
 
     @Override

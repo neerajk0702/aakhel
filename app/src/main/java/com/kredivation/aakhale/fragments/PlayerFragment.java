@@ -30,7 +30,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     View view;
     RecyclerView rvList;
@@ -47,6 +47,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private PlayerAdapter playerAdapter;
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
 
         // SwipeRefreshLayout
-        mSwipeRefreshLayout =  view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_green_dark,
@@ -107,7 +108,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
          * Showing Swipe Refresh animation on activity create
          * As animation won't start on onCreate, post runnable is used
          */
-       /* mSwipeRefreshLayout.post(new Runnable() {
+        mSwipeRefreshLayout.post(new Runnable() {
 
             @Override
             public void run() {
@@ -117,10 +118,9 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 // Fetching data from server
                 getPlayerListData();
             }
-        });*/
+        });
         playerAdapter = new PlayerAdapter(getContext(), playerList);
         rvList.setAdapter(playerAdapter);
-        getPlayerListData();
     }
 
 
@@ -130,7 +130,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
             ASTProgressBar dotDialog = new ASTProgressBar(getContext());
-           // dotDialog.show();
+            // dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.UserList + "player&page=" + currentPage;
             JSONObject object = new JSONObject();
 
@@ -146,6 +146,8 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                                     playerList.addAll(serviceData.getData());
                                     playerAdapter.notifyDataSetChanged();
                                     loading = true;
+                                    loaddataProgress.setVisibility(View.GONE);
+                                    mSwipeRefreshLayout.setRefreshing(false);
                                 }
                             }
                         } else {
@@ -153,11 +155,11 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                         }
                     } else {
                         Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        loaddataProgress.setVisibility(View.GONE);
+                        mSwipeRefreshLayout.setRefreshing(false);
                     }
                 }
             });
-            loaddataProgress.setVisibility(View.GONE);
-            mSwipeRefreshLayout.setRefreshing(false);
         } else {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }

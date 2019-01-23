@@ -100,6 +100,7 @@ public class ContentData {
         this.timezone = timezone;
     }
 
+
     @Override
     public String toString() {
         return "ClassPojo [status = " + status + ", data = " + data + "]";

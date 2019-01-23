@@ -18,12 +18,13 @@ import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Data;
+import com.kredivation.aakhale.model.GroundData;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder> {
-    private ArrayList<Data> sportsList;
+    private ArrayList<GroundData> sportsList;
     Context context;
     String userId;
 
@@ -46,7 +47,7 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
         }
     }
 
-    public GroundAdapter(Context context, ArrayList<Data> sportsList) {
+    public GroundAdapter(Context context, ArrayList<GroundData> sportsList) {
         this.sportsList = sportsList;
         this.context = context;
     }
@@ -63,7 +64,7 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull GroundAdapter.ViewHolder holder, final int position) {
-        holder.stadiunName.setText(sportsList.get(position).getFull_name());
+        holder.stadiunName.setText(sportsList.get(position).getName());
 
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
