@@ -4,15 +4,31 @@ package com.kredivation.aakhale.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.AcadamicAdapter;
+import com.kredivation.aakhale.adapter.TeamsAdapter;
+import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
+import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
+import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Academics;
+import com.kredivation.aakhale.model.Team;
+import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.Utility;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -21,7 +37,7 @@ import java.util.ArrayList;
  * Use the {@link AcademicsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AcademicsListFragment extends Fragment implements View.OnClickListener {
+public class AcademicsListFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,9 +50,18 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
     ASTFontTextIconView sortBy;
     ListView acadamicListView;
 
-    ArrayList<Academics> dataModels;
-    ListView listView;
-    private static AcadamicAdapter adapter;
+
+    View view;
+    RecyclerView rvList;
+    ASTButton saveBtn;
+    private boolean loading = true;
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    LinearLayoutManager mLayoutManager;
+    int currentPage = 1;
+    private ProgressBar loaddataProgress;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    ArrayList<Academics> academicsArrayList;
+    private AcadamicAdapter acadamicAdapter;
 
 
     public AcademicsListFragment() {
@@ -70,7 +95,6 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private View view;
     private Context context;
 
     @Override
@@ -82,31 +106,156 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
         return view;
     }
 
-    private void init() {
+
+    public void init() {
         sortBy = view.findViewById(R.id.sortBy);
         sortBy.setOnClickListener(this);
-        acadamicListView = view.findViewById(R.id.acadamicListView);
+        rvList = view.findViewById(R.id.rvList);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        rvList.setLayoutManager(mLayoutManager);
+        loaddataProgress = view.findViewById(R.id.loaddataProgress);
+        academicsArrayList = new ArrayList<>();
+        acadamicAdapter = new AcadamicAdapter(getContext(), academicsArrayList);
+        rvList.setAdapter(acadamicAdapter);
 
-        dataToView();
+        rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+                            currentPage += 1;
+                            getAcademyList();
+                        }
+                    }
+                }
+            }
+
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING || newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // playerAdapter.onScrolled(recyclerView);
+                }
+            }
+
+        });
+
+        // SwipeRefreshLayout
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+                // Fetching data from server first time
+                getAcademyList();
+            }
+        });
     }
 
-    public void dataToView() {
-        dataModels = new ArrayList<>();
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Rahul Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Saurav Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Neeraj Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Narayan Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Semwal Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India ", "3", "0"));
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India", "3", "0"));
-        dataModels.add(new Academics("Sachin Cricket Stadium", "Noida Up India", "3", "0"));
-        adapter = new AcadamicAdapter(dataModels, getContext());
-        acadamicListView.setAdapter(adapter);
+
+    //get getTeamList
+    private void getAcademyList() {
+        if (Utility.isOnline(getContext())) {
+            loaddataProgress.setVisibility(View.VISIBLE);
+            String serviceURL = Contants.BASE_URL + Contants.addAcademy + "?page=" + currentPage;
+            JSONObject object = new JSONObject();
+
+            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getAcademyList", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject mainObj = new JSONObject(result);
+                            boolean status = mainObj.optBoolean("status");
+                            if (status) {
+                                int total_pages = mainObj.optInt("total_pages");
+                                JSONArray dataArray = mainObj.optJSONArray("data");
+                                if (dataArray != null) {
+                                    for (int i = 0; i < dataArray.length(); i++) {
+                                        Academics academicsData = new Academics();
+                                        JSONObject jsonObject = dataArray.getJSONObject(i);
+
+                                        String academy_owner = jsonObject.optString("academy_owner");
+                                        String academy_city = jsonObject.optString("academy_city");
+                                        String academy_description = jsonObject.optString("academy_description");
+                                        String academy_name = jsonObject.optString("academy_name");
+                                        int is_active = jsonObject.optInt("is_active");
+                                        String academy_country = jsonObject.optString("academy_country");
+                                        String academy_photos = jsonObject.optString("academy_photos");
+                                        String team_member = jsonObject.optString("team_member");
+                                        int id = jsonObject.optInt("id");
+                                        String unique_id = jsonObject.optString("unique_id");
+                                        String academy_zipcode = jsonObject.optString("academy_zipcode");
+                                        String updated_at = jsonObject.optString("updated_at");
+                                        String created_at = jsonObject.optString("created_at");
+                                        String user_id = jsonObject.optString("user_id");
+                                        String academy_manager = jsonObject.optString("academy_manager");
+                                        String academy_state = jsonObject.optString("academy_state");
+                                        String academy_coach = jsonObject.optString("academy_coach");
+                                        String academy_sports = jsonObject.optString("academy_sports");
+                                        String street_address = jsonObject.optString("street_address");
+
+                                        academicsData.setId(id);
+                                        academicsData.setAcademy_owner(academy_owner);
+                                        academicsData.setAcademy_city(academy_city);
+                                        academicsData.setAcademy_description(academy_description);
+                                        academicsData.setAcademy_name(academy_name);
+                                        academicsData.setIs_active(is_active);
+                                        academicsData.setAcademy_country(academy_country);
+                                        academicsData.setAcademy_photos(academy_photos);
+                                        academicsData.setTeam_member(team_member);
+                                        academicsData.setUnique_id(unique_id);
+                                        academicsData.setAcademy_zipcode(academy_zipcode);
+                                        academicsData.setUpdated_at(updated_at);
+                                        academicsData.setCreated_at(created_at);
+                                        academicsData.setUser_id(user_id);
+                                        academicsData.setAcademy_manager(academy_manager);
+                                        academicsData.setAcademy_state(academy_state);
+                                        academicsData.setAcademy_coach(academy_coach);
+                                        academicsData.setAcademy_sports(academy_sports);
+                                        academicsData.setStreet_address(street_address);
+                                        academicsArrayList.add(academicsData);
+                                    }
+                                    acadamicAdapter.notifyDataSetChanged();
+                                    loading = true;
+                                    loaddataProgress.setVisibility(View.GONE);
+                                    mSwipeRefreshLayout.setRefreshing(false);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            // e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        loaddataProgress.setVisibility(View.GONE);
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+        }
     }
 
 
@@ -118,5 +267,11 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        academicsArrayList.clear();
+        getAcademyList();
+    }
 
 }

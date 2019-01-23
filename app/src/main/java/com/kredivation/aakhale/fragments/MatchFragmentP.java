@@ -15,6 +15,7 @@ import com.kredivation.aakhale.adapter.AddTournamnetPAdapter;
 import com.kredivation.aakhale.adapter.MatchPAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.model.Match;
 
 import java.util.ArrayList;
 
@@ -90,10 +91,10 @@ public class MatchFragmentP extends Fragment {
     //set data into recycle view
 
     private void addSportListAdapter() {
-        ArrayList<ImageItem> sportsList = new ArrayList<>();
-        ImageItem data = new ImageItem();
+        ArrayList<Match> sportsList = new ArrayList<>();
+        Match data = new Match();
         for (int i = 1; i <= 5; i++) {
-            data.setTitle("Noida King vs Ghaziabad Rider");
+            data.setName("Noida King vs Ghaziabad Rider");
             sportsList.add(data);
         }
 

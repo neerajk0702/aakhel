@@ -16,24 +16,25 @@ import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.fragments.TeamDetailFragment;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.model.Team;
 
 import java.util.ArrayList;
 
 
 public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> {
-    private ArrayList<Data> sportsList;
+    private ArrayList<Team> teamArrayList;
     Context context;
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, teamName, ratingTxt;
+        TextView name, teamaddress, ratingTxt;
         ImageView sportsIcon, menumore;
         LinearLayout root_layout;
 
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.name);
-            teamName = v.findViewById(R.id.teamName);
+            teamaddress = v.findViewById(R.id.teamaddress);
             ratingTxt = v.findViewById(R.id.ratingTxt);
             root_layout = v.findViewById(R.id.root_layout);
             sportsIcon = v.findViewById(R.id.sportsIcon);
@@ -41,8 +42,8 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
         }
     }
 
-    public TeamsAdapter(Context context, ArrayList<Data> sportsList) {
-        this.sportsList = sportsList;
+    public TeamsAdapter(Context context, ArrayList<Team> teamArrayList) {
+        this.teamArrayList = teamArrayList;
         this.context = context;
     }
 
@@ -58,7 +59,9 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(sportsList.get(position).getFull_name() + "");
+        holder.name.setText(teamArrayList.get(position).getName());
+        holder.teamaddress.setText(teamArrayList.get(position).getTeam_city());
+
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +78,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return sportsList.size();
+        return teamArrayList.size();
     }
 
 }

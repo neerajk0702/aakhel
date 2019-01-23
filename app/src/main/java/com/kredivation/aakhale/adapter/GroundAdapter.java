@@ -19,6 +19,7 @@ import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.GroundData;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView stadiunName, capacity, addressTxt;
-        ImageView sportsIcon, menumore;
+        ImageView sportsIcon;
         LinearLayout root_layout;
         ASTButton avilableTxt;
 
@@ -41,7 +42,6 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
             addressTxt = v.findViewById(R.id.addressTxt);
             capacity = v.findViewById(R.id.capacity);
             avilableTxt = v.findViewById(R.id.avilableTxt);
-            menumore = v.findViewById(R.id.menumore);
             root_layout = v.findViewById(R.id.root_layout);
             sportsIcon = v.findViewById(R.id.imageView);
         }
@@ -66,6 +66,15 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
     public void onBindViewHolder(@NonNull GroundAdapter.ViewHolder holder, final int position) {
         holder.stadiunName.setText(sportsList.get(position).getName());
 
+        holder.addressTxt.setText(sportsList.get(position).getGround_address());
+        holder.capacity.setText(sportsList.get(position).getCapacity());
+        if (sportsList.get(position).getAvailable() == 1) {
+            holder.avilableTxt.setText("Available");
+        } else {
+            holder.avilableTxt.setText("Not Available");
+        }
+
+        Picasso.with(context).load(sportsList.get(position).getDisplay_picture()).placeholder(R.drawable.noimage).into(holder.sportsIcon);
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

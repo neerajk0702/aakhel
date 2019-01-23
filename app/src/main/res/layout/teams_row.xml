@@ -52,7 +52,7 @@
 
 
                     <TextView
-                        android:id="@+id/teamName"
+                        android:id="@+id/teamaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="UP"

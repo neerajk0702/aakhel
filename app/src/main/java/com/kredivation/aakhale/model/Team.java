@@ -4,7 +4,8 @@ public class Team {
 
 
     int id, is_active;
-    String name, unique_id, created_at, updated_at, about_team, team_city, team_state, team_country, team_zipcode, team_thumbnail;
+    String name, user_id;
+            String unique_id, created_at, updated_at, about_team, team_city, team_state, team_country, team_zipcode, team_thumbnail;
 
     public int getId() {
         return id;
@@ -100,5 +101,13 @@ public class Team {
 
     public void setTeam_thumbnail(String team_thumbnail) {
         this.team_thumbnail = team_thumbnail;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

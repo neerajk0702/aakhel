@@ -12,18 +12,18 @@ import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.model.Match;
 
 import java.util.ArrayList;
 
 
 public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder> {
-    private ArrayList<ImageItem> sportsList;
+    private ArrayList<Match> matchArrayList;
     Context context;
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, address, date;
-        ImageView imageSports;
+        TextView name, address, date, time;
         LinearLayout MainLayout;
 
         public ViewHolder(View v) {
@@ -31,13 +31,13 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
             name = v.findViewById(R.id.name);
             address = v.findViewById(R.id.address);
             date = v.findViewById(R.id.date);
-            imageSports = v.findViewById(R.id.imageSports);
             MainLayout = v.findViewById(R.id.MainLayout);
+            time = v.findViewById(R.id.time);
         }
     }
 
-    public MatchPAdapter(Context context, ArrayList<ImageItem> sportsList) {
-        this.sportsList = sportsList;
+    public MatchPAdapter(Context context, ArrayList<Match> matchArrayList) {
+        this.matchArrayList = matchArrayList;
         this.context = context;
     }
 
@@ -53,14 +53,17 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(sportsList.get(position).getTitle() + "");
+        holder.name.setText(matchArrayList.get(position).getName() + "");
+        holder.address.setText(matchArrayList.get(position).getMatch_address() + "");
+        holder.date.setText(matchArrayList.get(position).getDate() + "");
+        holder.time.setText(matchArrayList.get(position).getTime() + "");
 
 
     }
 
     @Override
     public int getItemCount() {
-        return sportsList.size();
+        return matchArrayList.size();
     }
 
 
