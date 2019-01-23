@@ -3,6 +3,7 @@ package com.kredivation.aakhale.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayerFragment extends Fragment {
+public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     View view;
     RecyclerView rvList;
@@ -45,7 +46,7 @@ public class PlayerFragment extends Fragment {
     ArrayList<Data> playerList;
     private PlayerAdapter playerAdapter;
     private ProgressBar loaddataProgress;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,10 +64,6 @@ public class PlayerFragment extends Fragment {
         rvList.setLayoutManager(mLayoutManager);
         loaddataProgress = view.findViewById(R.id.loaddataProgress);
         playerList = new ArrayList<>();
-        playerAdapter = new PlayerAdapter(getContext(), playerList);
-        rvList.setAdapter(playerAdapter);
-        getPlayerListData();
-
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -97,6 +94,33 @@ public class PlayerFragment extends Fragment {
             }
 
         });
+
+
+        // SwipeRefreshLayout
+        mSwipeRefreshLayout =  view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+       /* mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+
+                // Fetching data from server
+                getPlayerListData();
+            }
+        });*/
+        playerAdapter = new PlayerAdapter(getContext(), playerList);
+        rvList.setAdapter(playerAdapter);
+        getPlayerListData();
     }
 
 
@@ -106,7 +130,7 @@ public class PlayerFragment extends Fragment {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
             ASTProgressBar dotDialog = new ASTProgressBar(getContext());
-            dotDialog.show();
+           // dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.UserList + "player&page=" + currentPage;
             JSONObject object = new JSONObject();
 
@@ -122,7 +146,6 @@ public class PlayerFragment extends Fragment {
                                     playerList.addAll(serviceData.getData());
                                     playerAdapter.notifyDataSetChanged();
                                     loading = true;
-                                    loaddataProgress.setVisibility(View.GONE);
                                 }
                             }
                         } else {
@@ -133,11 +156,17 @@ public class PlayerFragment extends Fragment {
                     }
                 }
             });
-            if (dotDialog.isShowing()) {
-                dotDialog.dismiss();
-            }
+            loaddataProgress.setVisibility(View.GONE);
+            mSwipeRefreshLayout.setRefreshing(false);
         } else {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        playerList.clear();
+        getPlayerListData();
     }
 }
