@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -62,13 +63,17 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
         holder.name.setText(teamArrayList.get(position).getName());
         holder.teamaddress.setText(teamArrayList.get(position).getTeam_city());
 
+        final Bundle bundle = new Bundle();
+        bundle.putInt("id", teamArrayList.get(position).getId());
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TeamDetailFragment teamDetailFragment = new TeamDetailFragment();
+                teamDetailFragment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 fragmentTransaction.replace(R.id.mainView, teamDetailFragment).addToBackStack(null);
+
                 fragmentTransaction.commit();
             }
         });

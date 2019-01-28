@@ -7,24 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.components.ASTButton;
-import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.fragments.CoachDeatailFragment;
-import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
-import com.kredivation.aakhale.model.Academics;
+import com.kredivation.aakhale.fragments.UmpireDetailFragment;
 import com.kredivation.aakhale.model.Data;
-import com.kredivation.aakhale.model.GroundData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> {
+public class UmpireAdapter extends RecyclerView.Adapter<UmpireAdapter.ViewHolder> {
     private ArrayList<Data> sportsList;
     Context context;
     String userId;
@@ -47,23 +42,23 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
         }
     }
 
-    public CoachAdapter(Context context, ArrayList<Data> sportsList) {
+    public UmpireAdapter(Context context, ArrayList<Data> sportsList) {
         this.sportsList = sportsList;
         this.context = context;
     }
 
     @Override
-    public CoachAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                      int viewType) {
+    public UmpireAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                       int viewType) {
         LayoutInflater inflater = LayoutInflater.from(
                 parent.getContext());
-        View v = inflater.inflate(R.layout.coach_item_row, parent, false);
-        CoachAdapter.ViewHolder vh = new CoachAdapter.ViewHolder(v);
+        View v = inflater.inflate(R.layout.umpire_item_row, parent, false);
+        UmpireAdapter.ViewHolder vh = new UmpireAdapter.ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoachAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull UmpireAdapter.ViewHolder holder, final int position) {
         holder.name.setText(sportsList.get(position).getFull_name());
 
         holder.coachType.setText(sportsList.get(position).getAddress());
@@ -74,7 +69,7 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CoachDeatailFragment coachDeatailFragment = new CoachDeatailFragment();
+                UmpireDetailFragment coachDeatailFragment = new UmpireDetailFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 fragmentTransaction.replace(R.id.mainView, coachDeatailFragment).addToBackStack(null);

@@ -5,10 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".fragments.TournamentFragmentP">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/tList"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5dp" />
+        android:gravity="center"
+        android:orientation="vertical">
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="1dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/loaddataProgress"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp" />
+    </LinearLayout>
 </LinearLayout>

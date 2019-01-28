@@ -172,7 +172,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         stadiumsLayout.setOnClickListener(this);
         coachesLayout.setOnClickListener(this);
         tournamentLayout.setOnClickListener(this);
+        umpireLayout.setOnClickListener(this);
         UPCOMMINGLayout.setOnClickListener(this);
+        playersLayout.setOnClickListener(this);
+        teamsLayout.setOnClickListener(this);
     }
 
     public void setTopPerformanceViewPager() {
@@ -208,11 +211,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.ACADEMICSTxt:
                 AcademicsListFragment academicsFragment = new AcademicsListFragment();
-
                 updateFragment(academicsFragment, null);
                 break;
 
-            case R.id.teamsTxt:
+            case R.id.teamsLayout:
                 TeameFragment teameFragment = new TeameFragment();
                 updateFragment(teameFragment, null);
                 break;
@@ -225,7 +227,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 CoachesFragments coachesFragments = new CoachesFragments();
                 updateFragment(coachesFragments, null);
                 break;
-            case R.id.playersTxt:
+            case R.id.playersLayout:
                 PlayerFragment playerFragment = new PlayerFragment();
                 updateFragment(playerFragment, null);
                 break;
@@ -237,6 +239,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 MatchListFragment matchListFragment = new MatchListFragment();
                 updateFragment(matchListFragment, null);
                 break;
+            case R.id.umpireLayout:
+                UmpireListFragment umpireListFragment = new UmpireListFragment();
+                updateFragment(umpireListFragment, null);
+                break;
+
+
+
 
 
         }

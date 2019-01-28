@@ -16,18 +16,19 @@ import com.kredivation.aakhale.fragments.CoachDeatailFragment;
 import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.ImageItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
-    private ArrayList<Data> sportsList;
+    private ArrayList<Data> playerList;
     Context context;
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, teamName, ratingTxt;
-        ImageView sportsIcon, menumore;
+        ImageView imageView, menumore;
         LinearLayout root_layout;
 
         public ViewHolder(View v) {
@@ -35,14 +36,14 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
             name = v.findViewById(R.id.name);
             teamName = v.findViewById(R.id.teamName);
             ratingTxt = v.findViewById(R.id.ratingTxt);
-            sportsIcon = v.findViewById(R.id.sportsIcon);
+            imageView = v.findViewById(R.id.imageView);
             menumore = v.findViewById(R.id.menumore);
             root_layout = v.findViewById(R.id.root_layout);
         }
     }
 
-    public PlayerAdapter(Context context, ArrayList<Data> sportsList) {
-        this.sportsList = sportsList;
+    public PlayerAdapter(Context context, ArrayList<Data> playerList) {
+        this.playerList = playerList;
         this.context = context;
     }
 
@@ -58,8 +59,15 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(sportsList.get(position).getFull_name());
+        holder.name.setText(playerList.get(position).getFull_name());
 
+        holder.teamName.setText(playerList.get(position).getAddress());
+       // holder.ratingTxt.setText(playerList.get(position).getAddress());
+       /* if (playerList.get(position).getProfile_picture() != null) {
+            Picasso.with(context).load(playerList.get(position).getProfile_picture())
+                    .placeholder(R.drawable.noimage).into(holder.imageView);
+        }
+*/
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +84,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return sportsList.size();
+        return playerList.size();
     }
 
 }

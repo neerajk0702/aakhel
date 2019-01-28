@@ -9,37 +9,40 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.AcadamicAdapter;
 import com.kredivation.aakhale.adapter.CoachAdapter;
-import com.kredivation.aakhale.adapter.GroundAdapter;
+import com.kredivation.aakhale.adapter.UmpireAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
-import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.ContentDataAsArray;
 import com.kredivation.aakhale.model.Data;
-import com.kredivation.aakhale.model.GroundData;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Use the {@link UmpireListFragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class CoachesFragments extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class UmpireListFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
     View view;
     ASTFontTextIconView sortBy;
     RecyclerView rvList;
@@ -47,21 +50,49 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     LinearLayoutManager mLayoutManager;
     int currentPage = 1;
-    ArrayList<Data> coachList;
+    ArrayList<Data> umpireList;
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    private CoachAdapter adapter;
+    private UmpireAdapter adapter;
 
-    public CoachesFragments() {
+    public UmpireListFragment() {
+        // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment UmpireListFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static UmpireListFragment newInstance(String param1, String param2) {
+        UmpireListFragment fragment = new UmpireListFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_coaches_fragments, container, false);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_umpire_list, container, false);
         init();
-        getActivity().setTitle("Coaches");
+        getActivity().setTitle("Umpires");
         return view;
     }
 
@@ -73,8 +104,8 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
         mLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(mLayoutManager);
         loaddataProgress = view.findViewById(R.id.loaddataProgress);
-        coachList = new ArrayList<>();
-        adapter = new CoachAdapter(getContext(), coachList);
+        umpireList = new ArrayList<>();
+        adapter = new UmpireAdapter(getContext(), umpireList);
         rvList.setAdapter(adapter);
 
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -92,7 +123,7 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getCoachListData();
+                            getUmireList();
                         }
                     }
                 }
@@ -127,21 +158,21 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
                 mSwipeRefreshLayout.setRefreshing(true);
 
                 // Fetching data from server first time
-                getCoachListData();
+                getUmireList();
             }
         });
     }
 
-    private void getCoachListData() {
+    private void getUmireList() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
             ASTProgressBar dotDialog = new ASTProgressBar(getContext());
             // dotDialog.show();
-            String serviceURL = Contants.BASE_URL + Contants.UserList + "coach&page=" + currentPage;
+            String serviceURL = Contants.BASE_URL + Contants.UserList + "umpire&page=" + currentPage;
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());
-            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getPlayerListData", new IAsyncWorkCompletedCallback() {
+            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getUmireList", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete) {
@@ -149,7 +180,7 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
                             final ContentDataAsArray serviceData = new Gson().fromJson(result, ContentDataAsArray.class);
                             if (serviceData != null && serviceData.isStatus()) {
                                 if (serviceData.getData() != null) {
-                                    coachList.addAll(serviceData.getData());
+                                    umpireList.addAll(serviceData.getData());
                                     adapter.notifyDataSetChanged();
                                     loading = true;
                                     loaddataProgress.setVisibility(View.GONE);
@@ -182,7 +213,7 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
     @Override
     public void onRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
-        coachList.clear();
-        getCoachListData();
+        umpireList.clear();
+        getUmireList();
     }
 }

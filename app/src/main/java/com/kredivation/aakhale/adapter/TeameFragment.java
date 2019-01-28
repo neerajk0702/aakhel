@@ -167,7 +167,6 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                                         String updated_at = jsonObject.optString("updated_at");
                                         String unique_id = jsonObject.optString("unique_id");
                                         String team_state = jsonObject.optString("team_state");
-
                                         teamdata.setId(id);
                                         teamdata.setIs_active(is_active);
                                         teamdata.setTeam_zipcode(team_zipcode);
@@ -180,8 +179,6 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                                         teamdata.setUpdated_at(updated_at);
                                         teamdata.setTeam_state(team_state);
                                         teamdata.setUser_id(user_id);
-
-
                                         teamArrayList.add(teamdata);
                                     }
                                     teamsAdapter.notifyDataSetChanged();

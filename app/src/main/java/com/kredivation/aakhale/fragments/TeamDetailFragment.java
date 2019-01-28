@@ -28,6 +28,7 @@ public class TeamDetailFragment extends Fragment {
     ImageView imageView, fab;
     TextView name, ratingTxt, wonmatch, Tournamentwon, tmeavsteam, stadiumaddress, date, tmeavsteam1, stadiumaddress1, date1;
     View view;
+    Bundle bundle;
 
     public TeamDetailFragment() {
         // Required empty public constructor
@@ -42,6 +43,22 @@ public class TeamDetailFragment extends Fragment {
 
         setTopPerformanceViewPager();
         return view;
+
+    }
+
+    public void init() {
+        imageView = view.findViewById(R.id.imageView);
+        fab = view.findViewById(R.id.fab);
+        name = view.findViewById(R.id.name);
+        ratingTxt = view.findViewById(R.id.ratingTxt);
+        wonmatch = view.findViewById(R.id.wonmatch);
+        Tournamentwon = view.findViewById(R.id.Tournamentwon);
+        tmeavsteam = view.findViewById(R.id.tmeavsteam);
+        stadiumaddress = view.findViewById(R.id.stadiumaddress);
+        date = view.findViewById(R.id.date);
+        tmeavsteam1 = view.findViewById(R.id.tmeavsteam1);
+        stadiumaddress1 = view.findViewById(R.id.stadiumaddress1);
+        date1 = view.findViewById(R.id.date1);
 
     }
 
