@@ -209,7 +209,7 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
                                         String user_id = jsonObject.optString("user_id");
                                         String match_address = jsonObject.optString("match_address");
 
-                                        matchdata.setId(String.valueOf(id));
+                                        matchdata.setId(id);
                                         matchdata.setMatch_type(String.valueOf(match_type));
                                         matchdata.setUnique_id(match_city);
                                         matchdata.setUser_id(match_country);

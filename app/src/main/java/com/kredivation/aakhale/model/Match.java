@@ -9,7 +9,7 @@ public class Match {
     private String format;
     private String ground_id;
     private String date;
-    private String id;
+    private int id;
     private String unique_id;
     private String match_zipcode;
     private String over;
@@ -85,11 +85,11 @@ public class Match {
         this.date = date;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

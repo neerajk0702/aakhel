@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
+import com.kredivation.aakhale.fragments.AcadamicsDetailFragment;
 import com.kredivation.aakhale.fragments.TeamDetailFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Team;
@@ -67,10 +68,10 @@ public class AcadamicAdapter extends RecyclerView.Adapter<AcadamicAdapter.ViewHo
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeamDetailFragment teamDetailFragment = new TeamDetailFragment();
+                AcadamicsDetailFragment acadamicsDetailFragment = new AcadamicsDetailFragment();
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, teamDetailFragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.mainView, acadamicsDetailFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

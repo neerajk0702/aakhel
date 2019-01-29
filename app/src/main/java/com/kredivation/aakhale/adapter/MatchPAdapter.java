@@ -1,7 +1,9 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.fragments.AcadamicsDetailFragment;
+import com.kredivation.aakhale.fragments.MatchDetailsFragment;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Match;
 
@@ -57,6 +61,20 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
         holder.address.setText(matchArrayList.get(position).getMatch_address() + "");
         holder.date.setText(matchArrayList.get(position).getDate() + "");
         holder.time.setText(matchArrayList.get(position).getTime() + "");
+
+        holder.MainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MatchDetailsFragment matchDetailsFragment = new MatchDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", matchArrayList.get(position).getId());
+                matchDetailsFragment.setArguments(bundle);
+                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.mainView, matchDetailsFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
 
     }
