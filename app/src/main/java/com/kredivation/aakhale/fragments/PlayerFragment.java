@@ -62,9 +62,10 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public void init() {
         rvList = view.findViewById(R.id.rvList);
         mLayoutManager = new LinearLayoutManager(getContext());
-        rvList.setLayoutManager(mLayoutManager);
+
         loaddataProgress = view.findViewById(R.id.loaddataProgress);
         playerList = new ArrayList<>();
+        rvList.setLayoutManager(mLayoutManager);
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

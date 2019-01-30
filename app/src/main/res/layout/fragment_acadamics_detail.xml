@@ -35,7 +35,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sewagh Acadimics"
-                        android:textSize="@dimen/_14dp"
+                        android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
 
 
@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:text="* * * * *"
                         android:textColor="@color/orange"
-                        android:textSize="@dimen/_20dp"
+                        android:textSize="@dimen/_16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:padding="@dimen/_5dp"
                 android:text="Noida Sec 12 Up India Asia Pecific  India Asia Pecific India Asia Pecific"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14dp"
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
             <View
@@ -81,9 +81,10 @@
                 android:id="@+id/uniqueId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
                 android:text="Unique ID: 898765F"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/_14dp"
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -95,7 +96,7 @@
                 android:padding="@dimen/_5dp"
                 android:text="Establish 2011 Establish 2011 Establish 2011 Establish 2011 vEstablish 2011 Establish 2011Establish 2011 "
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/_14dp"
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
 

@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -69,6 +70,9 @@ public class AcadamicAdapter extends RecyclerView.Adapter<AcadamicAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 AcadamicsDetailFragment acadamicsDetailFragment = new AcadamicsDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", academicsArrayList.get(position).getId());
+                acadamicsDetailFragment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 fragmentTransaction.replace(R.id.mainView, acadamicsDetailFragment).addToBackStack(null);
