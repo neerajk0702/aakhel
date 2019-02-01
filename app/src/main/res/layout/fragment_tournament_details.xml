@@ -20,13 +20,15 @@
             <ImageView
                 android:id="@+id/displayImage"
                 android:layout_width="match_parent"
-                android:src="@drawable/pager1"
-                android:layout_height="@dimen/_150dp" />
+                android:layout_height="@dimen/_150dp"
+                android:src="@drawable/pager1" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
                 android:orientation="horizontal"
+                android:padding="@dimen/_5dp"
                 android:weightSum="1">
 
                 <TextView
@@ -58,6 +60,7 @@
                 android:id="@+id/uniqeId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
                 android:text="Name"
                 android:textSize="@dimen/_14dp" />
 
@@ -65,6 +68,7 @@
                 android:id="@+id/dateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
                 android:text="Name"
                 android:textSize="@dimen/_14dp" />
 
@@ -265,14 +269,18 @@
                         android:textSize="@dimen/_14dp" />
 
 
-                    <TextView
-                        android:id="@+id/facilites"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
-                        android:maxLines="5"
-                        android:padding="@dimen/_5dp"
-                        android:textSize="@dimen/_16dp" />
+                        android:padding="@dimen/_5dp">
+
+                        <LinearLayout
+                            android:id="@+id/facilitiesesView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
 
 
                 </LinearLayout>
@@ -293,17 +301,51 @@
                         android:text="Price:"
                         android:textSize="@dimen/_14dp" />
 
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5dp">
+
+                        <LinearLayout
+                            android:id="@+id/priceView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:background="@drawable/round_boder"
+                    android:orientation="vertical">
+
 
                     <TextView
-                        android:id="@+id/price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5dp"
                         android:maxLines="5"
                         android:padding="@dimen/_5dp"
+                        android:text="Rule Regulation:"
                         android:textSize="@dimen/_16dp" />
 
 
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/ruleRegulationView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
                 </LinearLayout>
 
 
@@ -319,33 +361,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Rule Regulation:"
-                        android:textSize="@dimen/_16dp" />
-
-
-                    <TextView
-                        android:id="@+id/ruleRegulation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:maxLines="5"
                         android:padding="@dimen/_5dp"
+                        android:text="Umpire"
                         android:textSize="@dimen/_16dp" />
 
 
-                </LinearLayout>
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/UmpireList"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                        android:layout_height="wrap_content">
 
-                </HorizontalScrollView>
+                        <LinearLayout
+                            android:id="@+id/UmpireView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
+                </LinearLayout>
             </LinearLayout>
 
 

@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
+import com.kredivation.aakhale.fragments.GroundDetailFrgment;
 import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Data;
@@ -78,10 +80,13 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlayerDetailsFragment playerDetailsFragment = new PlayerDetailsFragment();
+                GroundDetailFrgment groundDetailFrgment = new GroundDetailFrgment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", sportsList.get(position).getId());
+                groundDetailFrgment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, playerDetailsFragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.mainView, groundDetailFrgment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

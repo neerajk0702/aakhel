@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,11 +36,12 @@ import java.util.List;
 public class AcadamicsDetailFragment extends Fragment {
     View view;
     TextView name, ratingTxt, address, uniqueId, establishText;
-    RecyclerView imageViewList, servicesList, teamsList;
     ImageView fab;
     ASTProgressBar astProgressBar;
     Bundle bundle;
     int id;
+    LinearLayout galeeryImageView, servicesLayoutView, teamLiastView;
+    int serviceCount;
 
     public AcadamicsDetailFragment() {
     }
@@ -59,10 +62,10 @@ public class AcadamicsDetailFragment extends Fragment {
         address = view.findViewById(R.id.address);
         uniqueId = view.findViewById(R.id.uniqueId);
         establishText = view.findViewById(R.id.establishText);
-        imageViewList = view.findViewById(R.id.imageViewList);
-        servicesList = view.findViewById(R.id.servicesList);
-        teamsList = view.findViewById(R.id.teamsList);
         fab = view.findViewById(R.id.fab);
+        galeeryImageView = view.findViewById(R.id.galeeryImageView);
+        servicesLayoutView = view.findViewById(R.id.servicesLayoutView);
+        teamLiastView = view.findViewById(R.id.teamLiastView);
         dataToView();
 
     }
@@ -123,9 +126,23 @@ public class AcadamicsDetailFragment extends Fragment {
 
                                     String[] academy_photosList = academy_photos.split(",");
                                     List<String> academy_photosArayList = Arrays.asList(academy_photosList);
+                                    if (academy_photosArayList != null) {
+                                        for (int i = 0; i < academy_photosArayList.size(); i++) {
+                                            addGalleryImage(academy_photosArayList.get(i));
+                                        }
 
-                                    GalleryAdapter galleryAdapter = new GalleryAdapter(getContext(), academy_photosArayList);
-                                    imageViewList.setAdapter(galleryAdapter);
+                                    }
+                                    String[] free_servicesList = team_member.split(",");
+                                    List<String> free_servicesLis = Arrays.asList(free_servicesList);
+                                    if (free_servicesLis != null) {
+                                        for (int i = 0; i < free_servicesLis.size(); i++) {
+                                            addFreeService(free_servicesLis.get(i));
+                                        }
+                                    }
+
+
+
+
 
 
                                 }
@@ -146,5 +163,31 @@ public class AcadamicsDetailFragment extends Fragment {
         }
     }
 
+
+    //add free service layout in runtime
+    public void addGalleryImage(String name) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.gallery_row, null);
+        ImageView image = inflatedLayout.findViewById(R.id.image);
+
+        Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + name)
+                .placeholder(R.drawable.noimage).into(image);
+        galeeryImageView.addView(inflatedLayout);
+
+    }
+
+
+    //add free service layout in runtime
+    public void addFreeService(String name) {
+        serviceCount++;
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.freeservices_item_row, null);
+        TextView servicesName = inflatedLayout.findViewById(R.id.name);
+        TextView count = inflatedLayout.findViewById(R.id.count);
+        count.setText(serviceCount + "-");
+        servicesName.setText(name);
+        servicesLayoutView.addView(inflatedLayout);
+
+    }
 
 }

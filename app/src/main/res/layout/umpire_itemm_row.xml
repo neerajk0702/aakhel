@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_boder"
+    android:orientation="vertical"
+    app:cardElevation="@dimen/_5dp"
+    app:cardCornerRadius="@dimen/_8dp"
+    app:cardUseCompatPadding="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5dp">
+
+        <ImageView
+            android:id="@+id/matchPerview"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_cricket_player" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/_5dp">
+
+            <TextView
+                android:id="@+id/teamneName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="@dimen/_5dp"
+                android:text="Crickect"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="@dimen/_5dp"
+                android:text="Crickect"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
