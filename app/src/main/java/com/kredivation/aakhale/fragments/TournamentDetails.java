@@ -64,7 +64,7 @@ public class TournamentDetails extends Fragment {
         over = view.findViewById(R.id.over);
         teame = view.findViewById(R.id.teame);
         formate = view.findViewById(R.id.formate);
-        venueAddress = view.findViewById(R.id.facilitiesesView);
+        facilitiesesView = view.findViewById(R.id.facilitiesesView);
         enteryFee = view.findViewById(R.id.enteryFee);
         ruleRegulationView = view.findViewById(R.id.ruleRegulationView);
 

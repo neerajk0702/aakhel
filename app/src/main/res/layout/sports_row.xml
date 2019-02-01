@@ -16,9 +16,10 @@
         android:layout_margin="@dimen/_5dp"
         android:background="@drawable/round_boder"
         android:gravity="center"
-        android:minHeight="@dimen/_35dp"
+        android:minHeight="@dimen/_45dp"
         android:text="Cricket"
         android:textAlignment="center"
+        android:minWidth="@dimen/_50dp"
         android:textColor="@color/black"
         android:textSize="@dimen/_12dp"
         android:textStyle="bold" />

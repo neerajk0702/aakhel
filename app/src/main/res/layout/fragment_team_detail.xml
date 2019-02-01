@@ -165,17 +165,18 @@
                         android:textStyle="bold" />
 
 
-                   <!-- <android.support.v7.widget.RecyclerView
-                        android:id="@+id/tgallaryIMageviewPager"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:itemMargin="@dimen/_70dp" />-->
+                        android:layout_height="wrap_content">
 
-                    <com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager
-                        android:id="@+id/tgallaryIMageviewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:itemMargin="@dimen/_70dp" />
+                        <LinearLayout
+                            android:id="@+id/teameMemberImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp" />
+                    </HorizontalScrollView>
 
                 </LinearLayout>
 
@@ -190,10 +191,13 @@
                     android:textStyle="bold" />
 
 
-                <ListView
-                    android:id="@+id/matchPlayeList"
+                <LinearLayout
+                    android:id="@+id/matchPlayedView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp" />
 
 
             </LinearLayout>

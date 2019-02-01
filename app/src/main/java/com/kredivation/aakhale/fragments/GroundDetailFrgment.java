@@ -59,6 +59,7 @@ public class GroundDetailFrgment extends Fragment {
     }
 
     public void init() {
+        getActivity().setTitle("Ground Details");
         displAyImage = view.findViewById(R.id.displayImage);
         nametxt = view.findViewById(R.id.name);
         statustxt = view.findViewById(R.id.status);
@@ -76,6 +77,7 @@ public class GroundDetailFrgment extends Fragment {
         freServiceesLayoutView = view.findViewById(R.id.freServiceesLayoutView);
         termCondtionLayoutView = view.findViewById(R.id.termCondtionLayoutView);
         dataToView();
+
     }
 
     public void dataToView() {
@@ -178,17 +180,33 @@ public class GroundDetailFrgment extends Fragment {
                                     }
 
                                     String terms_conditions = jsonObject.optString("terms_conditions");
-                                    String[] terms_conditionsList = terms_conditions.split(",");
+                                    String newterms_conditions = terms_conditions.substring(1, terms_conditions.length() - 1);
+
+
+                                    JSONArray jsonArray = new JSONArray(newterms_conditions);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        addTermsAndCondition(jsonArray.get(i).toString());
+                                    }
+                                /*    String[] terms_conditionsList = terms_conditions.split(",");
                                     List<String> academy_photosArayList = Arrays.asList(terms_conditionsList);
                                     if (academy_photosArayList != null) {
                                         for (int i = 0; i < academy_photosArayList.size(); i++) {
                                             addTermsAndCondition(academy_photosArayList.get(i));
-                                        }
+                                        }*/
 
-                                    }
+                                    //}
 
 
                                     String free_services = jsonObject.optString("free_services");
+                                    String newfree_services = free_services.substring(1, free_services.length() - 1);
+
+
+                                    JSONArray free_servicesjsonArray = new JSONArray(newfree_services);
+                                    for (int i = 0; i < free_servicesjsonArray.length(); i++) {
+                                        addFreeService(free_servicesjsonArray.get(i).toString());
+                                    }
+
+                                   /* String free_services = jsonObject.optString("free_services");
                                     String[] free_servicesList = free_services.split(",");
                                     List<String> free_servicesLis = Arrays.asList(free_servicesList);
                                     if (free_servicesLis != null) {
@@ -196,7 +214,7 @@ public class GroundDetailFrgment extends Fragment {
                                             addFreeService(free_servicesLis.get(i));
                                         }
                                     }
-
+*/
 
                                 }
 

@@ -113,77 +113,60 @@
                     android:padding="@dimen/_5dp"
                     android:text="Gallery"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14dp"
+                    android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.CardView
+
+                <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="@dimen/_5dp"
-                    app:cardCornerRadius="@dimen/_5dp"
-                    app:cardUseCompatPadding="true">
+                    android:layout_height="wrap_content">
 
-
-                    <HorizontalScrollView
+                    <LinearLayout
+                        android:id="@+id/galeeryImageView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5dp" />
+                </HorizontalScrollView>
 
-                        <LinearLayout
-                            android:id="@+id/galeeryImageView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5dp"
-
-                            android:orientation="horizontal"
-                            android:padding="@dimen/_5dp" />
-                    </HorizontalScrollView>
-
-
-                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
-            <LinearLayout
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Services(Sports)"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
 
-                <TextView
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/sportsView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
-                    android:text="Services"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14dp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5dp" />
+            </HorizontalScrollView>
 
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="@dimen/_5dp"
-                    app:cardCornerRadius="@dimen/_5dp"
-                    app:cardUseCompatPadding="true">
-
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:id="@+id/servicesLayoutView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5dp"
-
-                            android:orientation="horizontal"
-                            android:padding="@dimen/_5dp" />
-                    </HorizontalScrollView>
-
-
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:padding="@dimen/_5dp"
+                android:text="Acadmics Member"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
 
 
             <LinearLayout
@@ -196,35 +179,105 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
-                    android:text="Teams"
+                    android:text="Manager"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14dp"
+                    android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
+                    android:id="@+id/managerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:elevation="@dimen/_5dp"
-                    app:cardCornerRadius="@dimen/_5dp"
-                    app:cardUseCompatPadding="true">
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp" />
 
 
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:id="@+id/teamLiastView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5dp"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/_5dp" />
-                    </HorizontalScrollView>
+            </LinearLayout>
 
 
-                </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Coach"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:id="@+id/coachLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Owner"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:id="@+id/ownerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Teams Member"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:id="@+id/teamLiastView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp" />
+
+
             </LinearLayout>
 
         </LinearLayout>
