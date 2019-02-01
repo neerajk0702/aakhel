@@ -53,6 +53,7 @@ public class TournamentDetails extends Fragment {
     }
 
     private void init() {
+        getActivity().setTitle("Tournament Detail");
         displayImage = view.findViewById(R.id.displayImage);
         matchPerview = view.findViewById(R.id.matchPerview);
         name = view.findViewById(R.id.name);
