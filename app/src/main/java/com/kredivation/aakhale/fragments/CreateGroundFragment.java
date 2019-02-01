@@ -446,7 +446,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
             FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, serviceURL) {
                 @Override
                 public void receiveData(String result) {
-                   // ContentData data = new Gson().fromJson(result, ContentData.class);
+                    // ContentData data = new Gson().fromJson(result, ContentData.class);
                     if (result != null) {
                         ASTUIUtil.showToast(getContext(), "Ground added successfully");
                     } else {

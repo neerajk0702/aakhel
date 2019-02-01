@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Match;
@@ -30,7 +33,7 @@ public class MatchDetailsFragment extends Fragment {
 
     View view;
     TextView nametxt, datetime, uniqueId, statustxt, overtxt, teams, formateMatch, venueAddress, venueAddress1;
-    RecyclerView teameList, umpiresList;
+    LinearLayout umpireView, teamsView;
 
     public MatchDetailsFragment() {
         // Required empty public constructor
@@ -61,8 +64,8 @@ public class MatchDetailsFragment extends Fragment {
         formateMatch = view.findViewById(R.id.formateMatch);
         venueAddress = view.findViewById(R.id.venueAddress);
         venueAddress1 = view.findViewById(R.id.venueAddress1);
-        teameList = view.findViewById(R.id.teameList);
-        umpiresList = view.findViewById(R.id.umpiresList);
+        umpireView = view.findViewById(R.id.umpireView);
+        teamsView = view.findViewById(R.id.teamsView);
         dataToView();
     }
 
@@ -70,12 +73,15 @@ public class MatchDetailsFragment extends Fragment {
         getMatchDetails();
     }
 
+    ASTProgressBar astProgressBar;
 
     // getMatchDetails
     private void getMatchDetails() {
         bundle = getArguments();
         int id = getArguments().getInt("id");
         if (Utility.isOnline(getContext())) {
+            astProgressBar = new ASTProgressBar(getContext());
+            astProgressBar.show();
             String serviceURL = Contants.BASE_URL + Contants.creatematchApi + "/" + id;
             JSONObject object = new JSONObject();
 
@@ -88,57 +94,110 @@ public class MatchDetailsFragment extends Fragment {
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                JSONArray dataArray = mainObj.optJSONArray("data");
+                                astProgressBar.dismiss();
+                                JSONObject jsondata = mainObj.optJSONObject("data");
+                                JSONObject basic_infodata = jsondata.optJSONObject("basic_info");
+
+                                String name = basic_infodata.optString("name");
+                                String unique_id = basic_infodata.optString("unique_id");
+                                String user_id = basic_infodata.optString("user_id");
+                                String created_at = basic_infodata.optString("created_at");
+                                String updated_at = basic_infodata.optString("updated_at");
+                                int is_active = basic_infodata.optInt("is_active");
+                                String match_city = basic_infodata.optString("match_city");
+                                String match_state = basic_infodata.optString("match_state");
+                                String match_country = basic_infodata.optString("match_country");
+                                String match_zipcode = basic_infodata.optString("match_zipcode");
+                                String ground_id = basic_infodata.optString("ground_id");
+                                String time = basic_infodata.optString("time");
+                                String date = basic_infodata.optString("date");
+                                String match_type = basic_infodata.optString("match_type");
+                                String format = basic_infodata.optString("format");
+                                String over = basic_infodata.optString("over");
+
+                                nametxt.setText(name);
+                                datetime.setText(date);
+                                uniqueId.setText(unique_id);
+
+
+                                if (is_active == 1) {
+                                    statustxt.setText("Avilable");
+
+                                } else {
+                                    statustxt.setText("Not Avilable");
+                                }
+
+
+                                overtxt.setText(over);
+                                // teams.setText(teams);
+                                formateMatch.setText(format);
+                                //venueAddress.setText(venueAddress);
+                                //venueAddress1.setText(name);
+
+                                JSONArray dataArray = jsondata.optJSONArray("match_team");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {
-                                        JSONArray basic_info = dataArray.getJSONArray(i);
-                                        for (int j = 0; j < basic_info.length(); j++) {
-                                            JSONObject jsonObject = dataArray.getJSONObject(i);
-                                            int id = jsonObject.optInt("id");
-                                            String name = jsonObject.optString("name");
-                                            String unique_id = jsonObject.optString("unique_id");
-                                            String user_id = jsonObject.optString("user_id");
-                                            String created_at = jsonObject.optString("created_at");
-                                            String updated_at = jsonObject.optString("updated_at");
-                                            int is_active = jsonObject.optInt("is_active");
-                                            String match_city = jsonObject.optString("match_city");
-                                            String match_state = jsonObject.optString("match_state");
-                                            String match_country = jsonObject.optString("match_country");
-                                            String match_zipcode = jsonObject.optString("match_zipcode");
-                                            String ground_id = jsonObject.optString("ground_id");
-                                            String time = jsonObject.optString("time");
-                                            String date = jsonObject.optString("date");
-                                            String match_type = jsonObject.optString("match_type");
-                                            String format = jsonObject.optString("format");
-                                            String over = jsonObject.optString("over");
+                                        JSONObject jsonObject = dataArray.getJSONObject(i);
+                                        String uname = jsonObject.optString("name");
+                                        String ustatus = jsonObject.optString("status");
+                                        addSportmatchView(uname);
+                                    }
+                                }
 
-                                            nametxt.setText(name);
-                                            datetime.setText(date);
-                                            uniqueId.setText(unique_id);
-                                            statustxt.setText(is_active);
-                                            overtxt.setText(over);
-                                            //  teams.setText(teams);
-                                            formateMatch.setText(format);
-                                            //venueAddress.setText(venueAddress);
-                                            //venueAddress1.setText(name);
 
-                                        }
+                                JSONArray udataArray = jsondata.optJSONArray("match_umpire");
+                                if (dataArray != null) {
+                                    for (int i = 0; i < udataArray.length(); i++) {
+                                        JSONObject jsonObject = udataArray.getJSONObject(i);
+                                        String uname = jsonObject.optString("name");
+                                        String country = jsonObject.optString("country");
+                                        String state = jsonObject.optString("state");
+                                        String ustatus = jsonObject.optString("status");
+                                        addUmpire(uname, country, state);
 
 
                                     }
                                 }
+
                             }
                         } catch (JSONException e) {
                             // e.printStackTrace();
                         }
                     } else {
                         Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        astProgressBar.dismiss();
                     }
                 }
             });
         } else {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
+    }
+
+
+    //add free service layout in runtime
+    public void addSportmatchView(String name) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.sports_item_row, null);
+        TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
+        ImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
+        teamneName.setText(name);
+        teamsView.addView(inflatedLayout);
+
+    }
+
+
+    //add free service layout in runtime
+    public void addUmpire(String name, String country, String state) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.umpire_itemm_row, null);
+        TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
+        ImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
+        TextView address = inflatedLayout.findViewById(R.id.address);
+        address.setText(country + "," + state);
+        teamneName.setText(name);
+        umpireView.addView(inflatedLayout);
+
     }
 
 }

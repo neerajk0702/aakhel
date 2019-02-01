@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class TournamentDetails extends Fragment {
     TextView name, status, uniqeId, dateTime, aboutTournament, teamneName, over, teame, formate, venueAddress, enteryFee, facilites, price, ruleRegulation, UmpireList;
     Bundle bundle;
     View view;
+    LinearLayout facilitiesesView, priceView, UmpireView, ruleRegulationView;
 
     public TournamentDetails() {
         // Required empty public constructor
@@ -51,6 +53,26 @@ public class TournamentDetails extends Fragment {
     }
 
     private void init() {
+        getActivity().setTitle("Tournament Detail");
+        displayImage = view.findViewById(R.id.displayImage);
+        matchPerview = view.findViewById(R.id.matchPerview);
+        name = view.findViewById(R.id.name);
+        status = view.findViewById(R.id.status);
+        uniqeId = view.findViewById(R.id.uniqeId);
+        dateTime = view.findViewById(R.id.dateTime);
+        aboutTournament = view.findViewById(R.id.aboutTournament);
+        teamneName = view.findViewById(R.id.teamneName);
+        over = view.findViewById(R.id.over);
+        teame = view.findViewById(R.id.teame);
+        formate = view.findViewById(R.id.formate);
+        facilitiesesView = view.findViewById(R.id.facilitiesesView);
+        enteryFee = view.findViewById(R.id.enteryFee);
+        ruleRegulationView = view.findViewById(R.id.ruleRegulationView);
+
+        facilitiesesView = view.findViewById(R.id.facilitiesesView);
+        priceView = view.findViewById(R.id.priceView);
+        UmpireView = view.findViewById(R.id.UmpireView);
+
         getTournamentDetailMatch();
     }
 
@@ -88,31 +110,18 @@ public class TournamentDetails extends Fragment {
                                         String created_at = jsonObject.optString("created_at");
                                         String tournament_country = jsonObject.optString("tournament_country");
                                         String overs = jsonObject.optString("overs");
-
                                         String tournament_city = jsonObject.optString("tournament_city");
-
                                         String entry_fees = jsonObject.optString("entry_fees");
-
                                         String updated_at = jsonObject.optString("updated_at");
-
                                         String about_tournament = jsonObject.optString("about_tournament");
-
                                         String user_id = jsonObject.optString("user_id");
-
                                         String tournament_state = jsonObject.optString("tournament_state");
-
                                         String tournament_address = jsonObject.optString("tournament_address");
-
                                         String prizes = jsonObject.optString("prizes");
-
                                         String name = jsonObject.optString("name");
-
                                         int id = jsonObject.optInt("id");
-
                                         String facilities = jsonObject.optString("facilities");
-
                                         String start_date = jsonObject.optString("start_date");
-
                                         //   int status = jsonObject.optInt("status");
 
 

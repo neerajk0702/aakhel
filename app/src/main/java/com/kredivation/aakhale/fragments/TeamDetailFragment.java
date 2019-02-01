@@ -2,12 +2,14 @@ package com.kredivation.aakhale.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,12 +43,10 @@ public class TeamDetailFragment extends Fragment {
     TextView nametxt, ratingTxt, wonmatch, Tournamentwon;
     View view;
     Bundle bundle;
-    //RecyclerView gallaryIMageviewPager;
     ListView matchPlayeList;
     ArrayList<Team_player> team_playerArrayList = new ArrayList<>();
     ArrayList<Match_played> match_playedList = new ArrayList<>();
-    //   TeamsPlayerAdapter teamsPlayerAdapter;
-    MatchPlayedAdapter matchPlayedAdapter;
+    LinearLayout teameMemberImageView, matchPlayedView;
 
     public TeamDetailFragment() {
         // Required empty public constructor
@@ -70,8 +70,9 @@ public class TeamDetailFragment extends Fragment {
         wonmatch = view.findViewById(R.id.wonmatch);
         Tournamentwon = view.findViewById(R.id.Tournamentwon);
         // gallaryIMageviewPager = view.findViewById(R.id.tgallaryIMageviewPager);
-        matchPlayeList = view.findViewById(R.id.matchPlayeList);
+        matchPlayedView = view.findViewById(R.id.matchPlayedView);
         imageView = view.findViewById(R.id.imageView);
+        teameMemberImageView = view.findViewById(R.id.teameMemberImageView);
         dataToView();
     }
 
@@ -135,12 +136,7 @@ public class TeamDetailFragment extends Fragment {
                                                 String pname = object.optString("name");
                                                 String pstatus = object.optString("status");
                                                 String profile_picture = object.optString("profile_picture");
-                                                team_player1.setName(pname);
-                                                team_player1.setStatus(pstatus);
-                                                team_player1.setProfile_picture(profile_picture);
-                                                team_playerArrayList.add(team_player1);
-                                                //    teamsPlayerAdapter.notifyDataSetChanged();
-                                                setTopPerformanceViewPager();
+                                                addTeameMember(pname, pstatus, profile_picture);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -163,16 +159,8 @@ public class TeamDetailFragment extends Fragment {
                                                 String zipcode = object.optString("zipcode");
                                                 String date = object.optString("date");
 
-                                                match_played1.setName(pname);
-                                                match_played1.setStatus(pstatus);
-                                                match_played1.setAddress(address);
-                                                match_played1.setCity(city);
-                                                match_played1.setState(state);
-                                                match_played1.setZipcode(zipcode);
-                                                match_played1.setDate(date);
-                                                match_playedList.add(match_played1);
-                                                matchPlayedAdapter = new MatchPlayedAdapter(match_playedList, getContext());
-                                                matchPlayeList.setAdapter(matchPlayedAdapter);
+                                                String addressstr = address + "," + city + "," + state + "," + city + "," + zipcode;
+                                                addMatchPlayed(pname, addressstr, date);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -198,19 +186,44 @@ public class TeamDetailFragment extends Fragment {
         }
     }
 
-    public void setTopPerformanceViewPager() {
-        DisplayMetrics metrics = getDisplayMetrics();
-        TopPlayersAdapter topperformanceAdapter = new TopPlayersAdapter(metrics, team_playerArrayList, getContext());
-        MetalRecyclerViewPager viewPager = view.findViewById(R.id.tgallaryIMageviewPager);
-        viewPager.setAdapter(topperformanceAdapter);
 
+    //addSportS
+    public void addTeameMember(String name, String statusstr, String imagPathe) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.teame_player_row, null);
+        ImageView playerImage = inflatedLayout.findViewById(R.id.playerImage);
+        TextView playeName = inflatedLayout.findViewById(R.id.playeName);
+        TextView status = inflatedLayout.findViewById(R.id.status);
+        playeName.setText(name);
+        if (statusstr.equalsIgnoreCase("0")) {
+            status.setText("PENDING");
+            status.setTextColor(getContext().getResources().getColor(R.color.orange_color));
+        } else if (statusstr.equalsIgnoreCase("0")) {
+            status.setText("APPROVED");
+            status.setTextColor(getContext().getResources().getColor(R.color.green2));
+        }
+
+
+        if (statusstr != null && !statusstr.equals("")) {
+            Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + imagPathe)
+                    .placeholder(R.drawable.noimage).into(playerImage);
+        }
+
+        teameMemberImageView.addView(inflatedLayout);
 
     }
 
-    private DisplayMetrics getDisplayMetrics() {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
-        return metrics;
+    //addManager
+    public void addMatchPlayed(String nametxt, String address, String datetxt) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.matchplay_row, null);
+        TextView tmeavsteam = inflatedLayout.findViewById(R.id.tmeavsteam);
+        TextView stadiumaddress = inflatedLayout.findViewById(R.id.stadiumaddress);
+        TextView date = inflatedLayout.findViewById(R.id.date);
+        tmeavsteam.setText(nametxt);
+        stadiumaddress.setText(address);
+        date.setText(datetxt);
+        matchPlayedView.addView(inflatedLayout);
+
     }
 }

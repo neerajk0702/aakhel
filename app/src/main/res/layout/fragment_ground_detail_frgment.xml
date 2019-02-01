@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5dp"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/displayImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150dp"
+                android:src="@drawable/p1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:text="Narayan Cricket Stadium "
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_14dp" />
+
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_5dp"
+                    android:background="@drawable/round_boder"
+                    android:padding="@dimen/_5dp"
+                    android:text="Name"
+                    android:textAlignment="center"
+                    android:textColor="@color/green" />
+
+                <TextView
+                    android:id="@+id/uniqeId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                 android:layout_margin="@dimen/_5dp"
+                    android:text="Tyr567"
+                    android:textSize="@dimen/_14dp" />
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_5dp"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/light_grey"
+                        android:padding="@dimen/_5dp"
+                        android:text="About Tournament"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5dp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".2"
+                                android:padding="@dimen/_5dp"
+                                android:text="Capacity"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/capacityTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".8"
+                                android:gravity="center"
+                                android:padding="@dimen/_5dp"
+                                android:text="650000"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".2"
+                                android:padding="@dimen/_5dp"
+                                android:text="Dimensions:"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/Dimensionstxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".8"
+                                android:gravity="center"
+                                android:padding="@dimen/_5dp"
+                                android:text="65m*120m"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".2"
+                                android:padding="@dimen/_5dp"
+                                android:text="Day or Night"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/dayNightTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".8"
+                                android:gravity="center"
+                                android:padding="@dimen/_5dp"
+                                android:text="Both day and Night"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".2"
+                                android:padding="@dimen/_5dp"
+                                android:text="Floodlight:"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/fllodLightTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".8"
+                                android:gravity="center"
+                                android:padding="@dimen/_5dp"
+                                android:text="Yes"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".2"
+                                android:padding="@dimen/_5dp"
+                                android:text="No of Match per Day"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/capacitymatchPerDayTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".8"
+                                android:padding="@dimen/_5dp"
+                                android:text="04"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".2"
+                                android:padding="@dimen/_5dp"
+                                android:text="Time Zone"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/timeZoneTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".8"
+                                android:gravity="center"
+                                android:padding="@dimen/_5dp"
+                                android:text="IST"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".2"
+                                android:padding="@dimen/_5dp"
+                                android:text="Surface:"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/surfaceTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_5dp"
+                                android:layout_weight=".8"
+                                android:gravity="center"
+                                android:padding="@dimen/_5dp"
+                                android:text="All Wether "
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:text="Venue"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/venueTxt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:text="Noida Sec 135 BAst Tower"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:text="Cost"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_16dp" />
+
+
+                            <TextView
+                                android:id="@+id/costTxt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:text="Rs 45000/-per month"
+                                android:textSize="@dimen/_16dp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_5dp"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:text="Sports"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_16dp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/spoetsLayoyView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp" />
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_5dp"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5dp"
+                        android:textStyle="bold"
+                        android:text="Free Services"
+                        android:textSize="@dimen/_14dp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/freServiceesLayoutView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:orientation="vertical" />
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_5dp"
+                app:cardCornerRadius="@dimen/_5dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5dp"
+                        android:textStyle="bold"
+                        android:text="Terms and Condition"
+                        android:textSize="@dimen/_14dp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/termCondtionLayoutView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5dp"
+                            android:orientation="vertical" />
+                    </HorizontalScrollView>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <CalendarView
+                android:id="@+id/calanderView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <com.kredivation.aakhale.components.ASTButton
+        android:id="@+id/facilitesBtn"
+        android:layout_width="@dimen/_190dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_10dp"
+        android:background="@drawable/button_login"
+        android:gravity="center"
+        android:paddingTop="@dimen/_10dp"
+        android:paddingBottom="@dimen/_10dp"
+        android:text="PARTICIPATE"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10dp" />
+</LinearLayout>
