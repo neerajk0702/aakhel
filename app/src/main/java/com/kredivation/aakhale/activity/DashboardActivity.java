@@ -218,7 +218,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         permissions.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         permissions.add(android.Manifest.permission.CAMERA);
         permissions.add(android.Manifest.permission.WAKE_LOCK);
-        permissions.add(Manifest.permission.SEND_SMS);
         permissions.add(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
 
 
