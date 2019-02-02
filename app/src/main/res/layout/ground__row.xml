@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,6 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_90dp"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/_5dp"
                 android:layout_weight=".3"
                 android:src="@drawable/p4" />
 
@@ -46,7 +48,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/_5dp"
                         android:layout_weight="1"
-                        android:text="New Delhi Staduim"
+                        android:padding="@dimen/_3dp"
                         android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
 
@@ -69,7 +71,7 @@
                     android:id="@+id/capacity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Capacity:93000"
+                    android:padding="@dimen/_3dp"
                     android:textSize="@dimen/_12dp" />
 
 
@@ -78,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5dp"
-                    android:text="Gali no 23, Near New Delhi Mettro Station,New Delhi INDIA"
+                    android:padding="@dimen/_3dp"
                     android:textSize="@dimen/_12dp" />
 
             </LinearLayout>

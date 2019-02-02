@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -69,7 +70,10 @@ public class UmpireAdapter extends RecyclerView.Adapter<UmpireAdapter.ViewHolder
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", sportsList.get(position).getId());
                 UmpireDetailFragment coachDeatailFragment = new UmpireDetailFragment();
+                coachDeatailFragment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 fragmentTransaction.replace(R.id.mainView, coachDeatailFragment).addToBackStack(null);

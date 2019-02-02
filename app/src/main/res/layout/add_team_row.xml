@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:minHeight="@dimen/_90dp"
-        app:cardCornerRadius="@dimen/_2dp"
-        app:cardElevation="@dimen/_3dp"
+        app:cardCornerRadius="@dimen/_5dp"
+        app:cardElevation="@dimen/_5dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -46,6 +46,7 @@
                             android:layout_height="match_parent"
                             android:padding="@dimen/_2dp"
                             android:src="@drawable/p4"
+                            android:layout_margin="@dimen/_4dp"
                             android:textSize="@dimen/_12dp"
                             android:textStyle="bold" />
 

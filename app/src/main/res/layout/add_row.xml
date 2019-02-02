@@ -21,7 +21,8 @@
         android:layout_marginLeft="@dimen/_5dp"
         android:layout_marginRight="@dimen/_5dp"
         android:background="@drawable/round_boder"
-        android:padding="@dimen/_12dp"
+        android:minHeight="@dimen/_40dp"
+        android:padding="@dimen/_5dp"
         android:textSize="@dimen/_12dp" />
 
 </LinearLayout>

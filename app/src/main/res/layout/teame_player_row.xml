@@ -8,8 +8,8 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardViewLayout"
-        android:layout_width="@dimen/_160dp"
-        android:layout_height="@dimen/_155dp"
+        android:layout_width="@dimen/_150dp"
+        android:layout_height="@dimen/_150dp"
         android:layout_gravity="center"
         card_view:cardCornerRadius="@dimen/_8dp"
         card_view:cardElevation="@dimen/_5dp"
@@ -17,28 +17,29 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/playerImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:contentDescription="@string/app_name"
-                android:scaleType="fitXY"
-                android:layout_weight="1" />
+                android:scaleType="fitXY" />
 
 
             <com.kredivation.aakhale.components.ASTTextView
                 android:id="@+id/playeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Sachin Ram Semwal"
-                android:maxLines="2"
-                android:layout_marginTop="@dimen/_3dp"
                 android:layout_marginLeft="@dimen/_3dp"
+                android:layout_marginTop="@dimen/_3dp"
+                android:background="@android:color/transparent"
+                android:maxLines="2"
+                android:padding="@dimen/_3dp"
+                android:text="Sachin Ram Semwal"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -48,9 +49,9 @@
                 android:id="@+id/status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PENDING"
                 android:layout_marginLeft="@dimen/_3dp"
                 android:maxLines="2"
+                android:text="PENDING"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />

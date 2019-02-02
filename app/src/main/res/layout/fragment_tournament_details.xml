@@ -101,12 +101,40 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:text="Teams"
+                    android:textSize="@dimen/_16dp" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/teamesView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5dp"
+                        android:orientation="horizontal" />
+
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5dp"
-                android:text="Teams"
-                android:textSize="@dimen/_16dp" />
+                android:text="Details"
+                android:textSize="@dimen/_14dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,268 +145,218 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_60dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:padding="@dimen/_5dp">
 
-                    <ImageView
-                        android:id="@+id/matchPerview"
-                        android:layout_width="@dimen/_180dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/teamneName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:text="Game Formates" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Over" />
+
+                        <TextView
+                            android:id="@+id/over"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_8dp"
+                            android:padding="@dimen/_5dp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teams:" />
+
+                        <TextView
+                            android:id="@+id/teame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_8dp"
+                            android:padding="@dimen/_5dp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Formate:" />
+
+                        <TextView
+                            android:id="@+id/formate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_8dp"
+                            android:padding="@dimen/_5dp" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:text="Venue:" />
+
+                    <TextView
+                        android:id="@+id/venueAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:padding="@dimen/_5dp"
+                        android:text="Venue:" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:text="Entery Fee:" />
+
+                    <TextView
+                        android:id="@+id/enteryFee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:padding="@dimen/_5dp"
+                        android:text="Enter Fee:" />
 
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:orientation="vertical">
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
-                    android:text="Details"
+                    android:padding="@dimen/_5dp"
+                    android:text="Facilites"
                     android:textSize="@dimen/_14dp" />
 
+
                 <LinearLayout
+                    android:id="@+id/facilitiesesView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:orientation="vertical">
+
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
-                    android:orientation="vertical">
+                    android:padding="@dimen/_5dp"
+                    android:text="Price:"
+                    android:textSize="@dimen/_14dp" />
 
+
+                <LinearLayout
+                    android:id="@+id/priceView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:maxLines="5"
+                    android:padding="@dimen/_5dp"
+                    android:text="Rule Regulation:"
+                    android:textSize="@dimen/_16dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/ruleRegulationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:maxLines="5"
+                    android:padding="@dimen/_5dp"
+                    android:text="Umpire"
+                    android:textSize="@dimen/_16dp" />
+
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_60dp"
-                        android:layout_margin="@dimen/_5dp"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_5dp">
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Game Formates" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Over" />
-
-                            <TextView
-                                android:id="@+id/over"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_8dp"
-                                android:padding="@dimen/_5dp" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Teams:" />
-
-                            <TextView
-                                android:id="@+id/teame"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_8dp"
-                                android:padding="@dimen/_5dp" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Formate:" />
-
-                            <TextView
-                                android:id="@+id/formate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_8dp"
-                                android:padding="@dimen/_5dp" />
-
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Venue:" />
-
-                        <TextView
-
-                            android:id="@+id/venueAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Venue:" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Entery Fee:" />
-
-                        <TextView
-                            android:id="@+id/enteryFee"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Venue:" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:background="@drawable/round_boder"
-                    android:orientation="vertical">
-
-
-                    <TextView
+                        android:id="@+id/UmpireView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Facilites"
-                        android:textSize="@dimen/_14dp" />
+                        android:orientation="horizontal" />
 
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_5dp">
-
-                        <LinearLayout
-                            android:id="@+id/facilitiesesView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-
-                    </HorizontalScrollView>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:background="@drawable/round_boder"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Price:"
-                        android:textSize="@dimen/_14dp" />
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_5dp">
-
-                        <LinearLayout
-                            android:id="@+id/priceView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-
-                    </HorizontalScrollView>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:background="@drawable/round_boder"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
-                        android:maxLines="5"
-                        android:padding="@dimen/_5dp"
-                        android:text="Rule Regulation:"
-                        android:textSize="@dimen/_16dp" />
-
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:id="@+id/ruleRegulationView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-
-                    </HorizontalScrollView>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:background="@drawable/round_boder"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
-                        android:maxLines="5"
-                        android:padding="@dimen/_5dp"
-                        android:text="Umpire"
-                        android:textSize="@dimen/_16dp" />
-
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:id="@+id/UmpireView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-
-                    </HorizontalScrollView>
-                </LinearLayout>
+                </HorizontalScrollView>
             </LinearLayout>
 
 

@@ -44,8 +44,8 @@
                             android:id="@+id/imageSports"
                             android:layout_width="@dimen/_50dp"
                             android:layout_height="match_parent"
-                            android:padding="@dimen/_2dp"
                             android:src="@drawable/p4"
+                            android:layout_margin="@dimen/_5dp"
                             android:textSize="@dimen/_12dp"
                             android:textStyle="bold" />
 

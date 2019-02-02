@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.components.CircleImageView;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Match;
@@ -192,7 +193,7 @@ public class MatchDetailsFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View inflatedLayout = inflater.inflate(R.layout.umpire_itemm_row, null);
         TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
-        ImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
+        CircleImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
         TextView address = inflatedLayout.findViewById(R.id.address);
         address.setText(country + "," + state);
         teamneName.setText(name);

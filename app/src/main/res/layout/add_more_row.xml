@@ -33,7 +33,8 @@
         android:layout_marginLeft="@dimen/_5dp"
         android:layout_marginRight="@dimen/_5dp"
         android:background="@drawable/round_boder"
-        android:padding="@dimen/_12dp"
+        android:minHeight="@dimen/_40dp"
+        android:padding="@dimen/_6dp"
         android:textSize="@dimen/_12dp" />
 
 
@@ -53,8 +54,9 @@
         android:layout_marginLeft="@dimen/_5dp"
         android:layout_marginRight="@dimen/_5dp"
         android:background="@drawable/round_boder"
-        android:padding="@dimen/_12dp"
         android:inputType="textEmailAddress"
+        android:minHeight="@dimen/_40dp"
+        android:padding="@dimen/_6dp"
         android:textSize="@dimen/_12dp" />
 
     <TextView
@@ -72,9 +74,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_5dp"
         android:layout_marginRight="@dimen/_5dp"
+        android:minHeight="@dimen/_40dp"
         android:background="@drawable/round_boder"
         android:inputType="number"
-        android:padding="@dimen/_12dp"
+        android:padding="@dimen/_5dp"
         android:textSize="@dimen/_12dp" />
 
 

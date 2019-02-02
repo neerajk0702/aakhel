@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:minHeight="@dimen/_90dp"
+        android:padding="@dimen/_5dp"
         app:cardCornerRadius="@dimen/_2dp"
         app:cardElevation="@dimen/_3dp"
         app:cardUseCompatPadding="true">
@@ -23,9 +24,8 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
@@ -44,8 +44,8 @@
                             android:id="@+id/imageSports"
                             android:layout_width="@dimen/_50dp"
                             android:layout_height="match_parent"
+                            android:layout_margin="@dimen/_4dp"
                             android:padding="@dimen/_2dp"
-                            android:src="@drawable/p4"
                             android:textSize="@dimen/_12dp"
                             android:textStyle="bold" />
 
@@ -61,7 +61,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:padding="@dimen/_5dp"
-                                android:text="Ramayanv Raj"
                                 android:textSize="@dimen/_14dp"
                                 android:textStyle="bold" />
 
@@ -71,7 +70,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:padding="@dimen/_5dp"
-                                android:text="Cricket Umpire"
                                 android:textSize="@dimen/_14dp" />
 
 

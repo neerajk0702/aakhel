@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -62,7 +63,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         holder.name.setText(playerList.get(position).getFull_name());
 
         holder.teamName.setText(playerList.get(position).getAddress());
-       // holder.ratingTxt.setText(playerList.get(position).getAddress());
+        // holder.ratingTxt.setText(playerList.get(position).getAddress());
        /* if (playerList.get(position).getProfile_picture() != null) {
             Picasso.with(context).load(playerList.get(position).getProfile_picture())
                     .placeholder(R.drawable.noimage).into(holder.imageView);
@@ -71,10 +72,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlayerDetailsFragment playerDetailsFragment = new PlayerDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", playerList.get(position).getId());
+                PlayerDetailsFragment coachDeatailFragment = new PlayerDetailsFragment();
+                coachDeatailFragment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, playerDetailsFragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.mainView, coachDeatailFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

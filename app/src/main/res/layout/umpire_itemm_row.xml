@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/MainLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/_90dp"
+    android:layout_margin="@dimen/_5dp"
     android:background="@drawable/round_boder"
     android:orientation="vertical"
-    app:cardElevation="@dimen/_5dp"
     app:cardCornerRadius="@dimen/_8dp"
+    app:cardElevation="@dimen/_5dp"
     app:cardUseCompatPadding="true">
 
 
@@ -19,10 +19,11 @@
         android:orientation="horizontal"
         android:padding="@dimen/_5dp">
 
-        <ImageView
+        <com.kredivation.aakhale.components.CircleImageView
             android:id="@+id/matchPerview"
             android:layout_width="@dimen/_80dp"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/_5dp"
             android:layout_weight="1"
             android:src="@drawable/ic_cricket_player" />
 

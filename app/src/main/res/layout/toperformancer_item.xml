@@ -29,7 +29,6 @@
                 android:src="@drawable/tropy1" />
 
 
-
             <com.kredivation.aakhale.components.ASTTextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
@@ -37,12 +36,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5dp"
-                android:layout_marginRight="@dimen/_5dp"
-                android:layout_marginBottom="@dimen/_5dp"
-                android:background="@android:color/transparent"
+                android:background="@color/lightBlue2"
+                android:padding="@dimen/_4dp"
                 android:text="Sachin Ram Semwal"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
