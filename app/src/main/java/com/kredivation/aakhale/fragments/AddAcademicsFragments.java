@@ -639,8 +639,6 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
 
     public void uploadData() {
         if (ASTUIUtil.isOnline(getContext())) {
-            final ASTProgressBar progressBar = new ASTProgressBar(getContext());
-            //   progressBar.show();
             String serviceURL = Contants.BASE_URL + Contants.addAcademy;
             HashMap<String, String> payloadList = new HashMap<String, String>();
             payloadList.put("academy_name", acdNameStr);
@@ -712,15 +710,21 @@ public class AddAcademicsFragments extends Fragment implements View.OnClickListe
             FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, serviceURL) {
                 @Override
                 public void receiveData(String result) {
-                    //ContentData data = new Gson().fromJson(result, ContentData.class);
                     if (result != null) {
-                        ASTUIUtil.showToast(getContext(), "Academic added successfully");
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            if(status){
+                                ASTUIUtil.showToast(getContext(), "Academic added successfully");
+                            }else {
+                                ASTUIUtil.showToast(getContext(), "Academic not added!");
+                            }
+                        } catch (JSONException e) {
+                        }
                     } else {
-                        ASTUIUtil.showToast(getContext(), "Academic not add!");
+                        ASTUIUtil.showToast(getContext(), "Academic not added!");
                     }
-                    if (progressBar.isShowing()) {
-                        progressBar.dismiss();
-                    }
+
                 }
             };
             fileUploaderHelper.execute();

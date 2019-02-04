@@ -64,11 +64,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
         holder.teamName.setText(playerList.get(position).getAddress());
         // holder.ratingTxt.setText(playerList.get(position).getAddress());
-       /* if (playerList.get(position).getProfile_picture() != null) {
+        if (playerList.get(position).getProfile_picture() != null && !playerList.get(position).getProfile_picture().equals("")) {
             Picasso.with(context).load(playerList.get(position).getProfile_picture())
                     .placeholder(R.drawable.noimage).into(holder.imageView);
         }
-*/
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -96,7 +96,7 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
     }
 
     private Context context;
-
+    int total_pages=1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getActivity();
@@ -133,7 +133,9 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getAcademyList();
+                            if(currentPage <=total_pages) {
+                                getAcademyList();
+                            }
                         }
                     }
                 }
@@ -189,7 +191,7 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                int total_pages = mainObj.optInt("total_pages");
+                                 total_pages = mainObj.optInt("total_pages");
                                 JSONArray dataArray = mainObj.optJSONArray("data");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {

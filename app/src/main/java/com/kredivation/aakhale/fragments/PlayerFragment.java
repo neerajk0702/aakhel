@@ -47,6 +47,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private PlayerAdapter playerAdapter;
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    long total_pages = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,7 +82,9 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getPlayerListData();
+                            if (currentPage <= total_pages) {
+                                getPlayerListData();
+                            }
                         }
                     }
                 }
@@ -130,8 +133,6 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private void getPlayerListData() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            ASTProgressBar dotDialog = new ASTProgressBar(getContext());
-            // dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.UserList + "player&page=" + currentPage;
             JSONObject object = new JSONObject();
 
@@ -143,6 +144,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                         if (result != null) {
                             final ContentDataAsArray serviceData = new Gson().fromJson(result, ContentDataAsArray.class);
                             if (serviceData != null && serviceData.isStatus()) {
+                                total_pages = serviceData.getTotal_pages();
                                 if (serviceData.getData() != null) {
                                     playerList.addAll(serviceData.getData());
                                     playerAdapter.notifyDataSetChanged();

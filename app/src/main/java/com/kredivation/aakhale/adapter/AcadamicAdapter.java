@@ -19,7 +19,11 @@ import com.kredivation.aakhale.fragments.AcadamicsDetailFragment;
 import com.kredivation.aakhale.fragments.TeamDetailFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Team;
+import com.kredivation.aakhale.utility.Contants;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -64,7 +68,17 @@ public class AcadamicAdapter extends RecyclerView.Adapter<AcadamicAdapter.ViewHo
     public void onBindViewHolder(@NonNull AcadamicAdapter.ViewHolder holder, final int position) {
         holder.name.setText(academicsArrayList.get(position).getAcademy_name());
         holder.address.setText(academicsArrayList.get(position).getStreet_address());
-        Picasso.with(context).load(academicsArrayList.get(position).getAcademy_photos()).placeholder(R.drawable.noimage).into(holder.imageView);
+        try {
+            JSONArray jsonArray = new JSONArray(academicsArrayList.get(position).getAcademy_photos());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Picasso.with(context).load(Contants.BASE_URL + jsonArray.get(i).toString()).placeholder(R.drawable.noimage).into(holder.imageView);
+                break;
+            }
+
+        } catch (JSONException e) {
+            // e.printStackTrace();
+        }
+
 
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override

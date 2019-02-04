@@ -18,6 +18,11 @@ import com.kredivation.aakhale.fragments.TeamDetailFragment;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Team;
+import com.kredivation.aakhale.utility.Contants;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -29,7 +34,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, teamaddress, ratingTxt;
-        ImageView sportsIcon, menumore;
+        ImageView sportsIcon, menumore, imageView;
         LinearLayout root_layout;
 
         public ViewHolder(View v) {
@@ -40,6 +45,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
             root_layout = v.findViewById(R.id.root_layout);
             sportsIcon = v.findViewById(R.id.sportsIcon);
             menumore = v.findViewById(R.id.menumore);
+            imageView = v.findViewById(R.id.imageView);
         }
     }
 
@@ -62,7 +68,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.name.setText(teamArrayList.get(position).getName());
         holder.teamaddress.setText(teamArrayList.get(position).getTeam_city());
-
+        Picasso.with(context).load(Contants.BASE_URL + teamArrayList.get(position).getTeam_thumbnail()).placeholder(R.drawable.noimage).into(holder.imageView);
 
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override

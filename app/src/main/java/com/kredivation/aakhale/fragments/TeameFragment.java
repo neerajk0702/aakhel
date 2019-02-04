@@ -1,4 +1,4 @@
-package com.kredivation.aakhale.adapter;
+package com.kredivation.aakhale.fragments;
 
 
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.adapter.TeamsAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.components.ASTProgressBar;
@@ -50,7 +51,7 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<Team> teamArrayList;
     private TeamsAdapter teamsAdapter;
-
+    int total_pages=1;
     public TeameFragment() {
         // Required empty public constructor
     }
@@ -93,7 +94,9 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getTeamList();
+                            if(currentPage <=total_pages){
+                                getTeamList();
+                            }
                         }
                     }
                 }
@@ -149,7 +152,7 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                int total_pages = mainObj.optInt("total_pages");
+                                 total_pages = mainObj.optInt("total_pages");
                                 JSONArray dataArray = mainObj.optJSONArray("data");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {

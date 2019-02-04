@@ -97,7 +97,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
     ASTProgressBar astProgressBar;
     ImageView image;
     File imgFile;
-
+    String name, aboutTeamstr, stateSpinnerstr, citySpinnerstr, zipCodestr;
     public CreateTeamFragment() {
         // Required empty public constructor
     }
@@ -410,7 +410,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
         return true;
     }
 
-    String name, aboutTeamstr, stateSpinnerstr, citySpinnerstr, zipCodestr;
+
 
     public boolean isvalidateSignup() {
         name = teameName.getText().toString();
@@ -444,7 +444,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
         if (ASTUIUtil.isOnline(getContext())) {
             final ASTProgressBar dotDialog = new ASTProgressBar(getContext());
             dotDialog.show();
-            final String url = Contants.BASE_URL + Contants.tournamentAPi;
+            final String url = Contants.BASE_URL + Contants.teamCreate;
             HashMap<String, String> payloadList = new HashMap<String, String>();
             try {
                 payloadList.put("name", name);
@@ -452,7 +452,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
                 payloadList.put("team_state", stateId);
                 payloadList.put("team_city", cityId);
                 payloadList.put("team_zipcode", zipCodestr);
-                payloadList.put("team_player", "aa,ss,ff");
+                payloadList.put("team_player", "aku001,aku002,aku003");
             } catch (Exception e) {
                 //e.printStackTrace();
             }

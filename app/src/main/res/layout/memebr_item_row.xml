@@ -7,11 +7,21 @@
     android:orientation="vertical"
     android:padding="@dimen/_5dp">
 
+    <TextView
+        android:id="@+id/teammemberlabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5dp"
+        android:text="Teams Member"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12dp"
+        android:textStyle="bold" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:textColorHint="@color/black"
         app:counterOverflowTextAppearance="@style/AlertDialogTheme"
         app:hintTextAppearance="@style/TextAppearance.AppCompat">
 
@@ -20,7 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
+            android:enabled="false"
             android:hint="Full Name"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14dp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -29,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:textColorHint="@color/black"
         app:counterOverflowTextAppearance="@style/AlertDialogTheme"
         app:hintTextAppearance="@style/TextAppearance.AppCompat">
 
@@ -37,7 +50,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
+            android:enabled="false"
             android:hint="Email Id"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14dp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -46,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:textColorHint="@color/black"
         app:counterOverflowTextAppearance="@style/AlertDialogTheme"
         app:hintTextAppearance="@style/TextAppearance.AppCompat">
 
@@ -54,7 +70,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
+            android:enabled="false"
             android:hint="Contact No"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14dp" />
     </android.support.design.widget.TextInputLayout>
 

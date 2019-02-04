@@ -251,17 +251,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_5dp"
-                    android:text="Teams Member"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:textSize="@dimen/_12dp"
-                    android:textStyle="bold" />
-
-
                 <LinearLayout
                     android:id="@+id/teamLiastView"
                     android:layout_width="match_parent"

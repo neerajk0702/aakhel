@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class ContentDataAsArray {
     private boolean status;
     private ArrayList<Data> data;
-private long total_pages;
+    private long total_pages;
+
     public boolean isStatus() {
         return status;
     }

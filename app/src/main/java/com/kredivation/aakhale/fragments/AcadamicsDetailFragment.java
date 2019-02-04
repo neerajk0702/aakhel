@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.GalleryAdapter;
 import com.kredivation.aakhale.adapter.PlayerAdapter;
@@ -80,7 +81,6 @@ public class AcadamicsDetailFragment extends Fragment {
 
     }
 
-
     public void dataToView() {
         getAcadmicsDetails();
     }
@@ -127,9 +127,9 @@ public class AcadamicsDetailFragment extends Fragment {
                                     establishText.setText(academy_description);
 
                                     String academymanager = jsonObject.optString("academy_manager");
-                                    String newacademymanager = academymanager.substring(1, academymanager.length() - 1);
+                                    //   String newacademymanager = academymanager.substring(1, academymanager.length() - 1);
 
-                                    JSONObject academy_manager = new JSONObject(newacademymanager);
+                                    JSONObject academy_manager = new JSONObject(academymanager);
                                     String full_name = academy_manager.optString("full_name");
                                     String email = academy_manager.optString("email");
                                     String contact_number = academy_manager.optString("contact_number");
@@ -137,10 +137,10 @@ public class AcadamicsDetailFragment extends Fragment {
 
 
                                     String academy_owner = jsonObject.optString("academy_owner");
-                                    String newacademy_owner = academy_owner.substring(1, academy_owner.length() - 1);
+                                    // String newacademy_owner = academy_owner.substring(1, academy_owner.length() - 1);
 
 
-                                    JSONObject academy_ownerobj = new JSONObject(newacademy_owner);
+                                    JSONObject academy_ownerobj = new JSONObject(academy_owner);
                                     String ownerfull_name = academy_ownerobj.optString("full_name");
                                     String owneremail = academy_ownerobj.optString("email");
                                     String ownercontact_number = academy_ownerobj.optString("contact_number");
@@ -149,31 +149,32 @@ public class AcadamicsDetailFragment extends Fragment {
 
                                     String team_member = jsonObject.optString("team_member");
 
-                                    String newteam_member = team_member.substring(1, team_member.length() - 1);
+                                    //  String newteam_member = team_member.substring(1, team_member.length() - 1);
 
-                                    JSONObject academy_teamobj = new JSONObject(newteam_member);
-                                    String teamfull_name = academy_teamobj.optString("full_name");
-                                    String teamemail = academy_teamobj.optString("email");
-                                    String teamcontact_number = academy_teamobj.optString("contact_number");
-                                    addTeamsView(teamemail, teamcontact_number, teamfull_name);
+                                    JSONArray academy_teamobj = new JSONArray(team_member);
+                                    for (int i = 0; i < academy_teamobj.length(); i++) {
+                                        JSONObject object = academy_teamobj.optJSONObject(i);
+                                        String teamfull_name = object.optString("full_name");
+                                        String teamemail = object.optString("email");
+                                        String teamcontact_number = object.optString("contact_number");
+                                        addTeamsView(teamemail, teamcontact_number, teamfull_name, i + 1);
+                                    }
 
 
                                     String academy_coach = jsonObject.optString("academy_coach");
-                                    String newacademy_coach = academy_coach.substring(1, academy_coach.length() - 1);
+                                    // String newacademy_coach = academy_coach.substring(1, academy_coach.length() - 1);
 
-                                    JSONObject academy_tacademy_coach = new JSONObject(newacademy_coach);
+                                    JSONObject academy_tacademy_coach = new JSONObject(academy_coach);
                                     String caochfull_name = academy_tacademy_coach.optString("full_name");
                                     String caochemail = academy_tacademy_coach.optString("email");
                                     String caochcontact_number = academy_tacademy_coach.optString("contact_number");
                                     addCoachView(caochcontact_number, caochemail, caochfull_name);
 
                                     String academy_photos = jsonObject.optString("academy_photos");
-                                    String[] academy_photosList = academy_photos.split(",");
-                                    List<String> academy_photosArayList = Arrays.asList(academy_photosList);
-                                    if (academy_photosArayList != null) {
-                                        for (int i = 0; i < academy_photosArayList.size(); i++) {
-
-                                            addGalleryImage(academy_photosArayList.get(i));
+                                    JSONArray photojsonArray = new JSONArray(academy_photos);
+                                    if (photojsonArray != null) {
+                                        for (int i = 0; i < photojsonArray.length(); i++) {
+                                            addGalleryImage(photojsonArray.get(i).toString());
                                         }
 
                                     }
@@ -213,7 +214,7 @@ public class AcadamicsDetailFragment extends Fragment {
         View inflatedLayout = inflater.inflate(R.layout.gallery_row, null);
         ImageView image = inflatedLayout.findViewById(R.id.image);
 
-        Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + name)
+        Picasso.with(getContext()).load(Contants.BASE_URL + name)
                 .placeholder(R.drawable.noimage).into(image);
         galeeryImageView.addView(inflatedLayout);
 
@@ -274,12 +275,14 @@ public class AcadamicsDetailFragment extends Fragment {
     }
 
     //addSportS
-    public void addTeamsView(String emailstr, String strcontactNo, String strfullName) {
+    public void addTeamsView(String emailstr, String strcontactNo, String strfullName, int no) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View inflatedLayout = inflater.inflate(R.layout.memebr_item_row, null);
         AppCompatAutoCompleteTextView contactNo = inflatedLayout.findViewById(R.id.contactNo);
         AppCompatAutoCompleteTextView emailId = inflatedLayout.findViewById(R.id.emailId);
         AppCompatAutoCompleteTextView fullName = inflatedLayout.findViewById(R.id.fullName);
+        TextView teammemberlabel = inflatedLayout.findViewById(R.id.teammemberlabel);
+        teammemberlabel.setText("Teams Member " + no);
         contactNo.setText(strcontactNo);
         emailId.setText(emailstr);
         fullName.setText(strfullName);

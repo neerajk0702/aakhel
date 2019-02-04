@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.FullMetalAdapter;
-import com.kredivation.aakhale.adapter.TeameFragment;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
@@ -159,16 +158,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         EVENTSTxt.setText(Html.fromHtml("&#xf108;"));
         ACADEMICSTxt.setText(Html.fromHtml("&#xf109;"));
 
-        playersTxt.setOnClickListener(this);
-        teamsTxt.setOnClickListener(this);
-        umpiresTxt.setOnClickListener(this);
-        stadiumsTxt.setOnClickListener(this);
-        coachesTxt.setOnClickListener(this);
-        tournamentTxt.setOnClickListener(this);
-        PERFORMERTxt.setOnClickListener(this);
-        upcommingTxt.setOnClickListener(this);
-        EVENTSTxt.setOnClickListener(this);
-        ACADEMICSTxt.setOnClickListener(this);
         stadiumsLayout.setOnClickListener(this);
         coachesLayout.setOnClickListener(this);
         tournamentLayout.setOnClickListener(this);
@@ -176,6 +165,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         UPCOMMINGLayout.setOnClickListener(this);
         playersLayout.setOnClickListener(this);
         teamsLayout.setOnClickListener(this);
+        ACADEMICSLayout.setOnClickListener(this);
     }
 
     public void setTopPerformanceViewPager() {
@@ -209,7 +199,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ACADEMICSTxt:
+            case R.id.ACADEMICSLayout:
                 AcademicsListFragment academicsFragment = new AcademicsListFragment();
                 updateFragment(academicsFragment, null);
                 break;
