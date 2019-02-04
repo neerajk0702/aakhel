@@ -211,16 +211,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Bowling: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/taskId"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="Show left arm bowler"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
@@ -232,16 +234,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Role: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/coachRole"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="Head Coach"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
@@ -256,17 +260,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
                 android:padding="@dimen/_5dp"
                 android:text="Team Information"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14dp"
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
                 android:minHeight="@dimen/_90dp"
                 android:orientation="vertical"
                 android:padding="@dimen/_5dp">

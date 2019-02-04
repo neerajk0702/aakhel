@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/_5dp"
+    android:orientation="vertical"
+    android:padding="@dimen/_3dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,13 +20,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:orientation="horizontal"
                     android:padding="@dimen/_5dp">
 
@@ -89,14 +88,13 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_3dp"
                     android:orientation="horizontal"
                     android:padding="@dimen/_5dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -106,16 +104,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Match Won: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/wonmatch"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="30"
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
@@ -129,18 +129,20 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Tournament Won :"
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/Tournamentwon"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="10 Years "
-                                android:textSize="7pt" />
+                                android:textSize="7dp" />
                         </LinearLayout>
 
 
@@ -152,16 +154,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:orientation="vertical">
 
                     <com.kredivation.aakhale.components.ASTTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:padding="@dimen/_5dp"
                         android:text="Team Members"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_14dp"
+                        android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
 
 
@@ -173,7 +175,6 @@
                             android:id="@+id/teameMemberImageView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5dp"
                             android:orientation="horizontal"
                             android:padding="@dimen/_5dp" />
                     </HorizontalScrollView>
@@ -183,11 +184,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Match Played"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14dp"
+                    android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
 
@@ -195,7 +196,6 @@
                     android:id="@+id/matchPlayedView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:orientation="vertical"
                     android:padding="@dimen/_5dp" />
 

@@ -4,7 +4,9 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/_5dp"
+    android:orientation="vertical"
+    android:padding="@dimen/_3dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,9 +27,8 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
+                    android:padding="@dimen/_4dp">
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -41,7 +42,6 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:layout_weight=".8"
                         android:orientation="horizontal"
                         android:padding="@dimen/_5dp">
@@ -89,14 +89,12 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
+                    android:padding="@dimen/_4dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -106,16 +104,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Age: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/age"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="30"
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
@@ -129,18 +129,20 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Experience :"
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/ExperienceTxt"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="10 Years"
-                                android:textSize="7pt" />
+                                android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -150,16 +152,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Batting: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/OdieTxt"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="Right hand Batting"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
@@ -171,16 +175,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Bowling: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/boloingTxt"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="Show left arm bowler"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
@@ -192,16 +198,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Role: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/roleTxt"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="Head Coach"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
@@ -215,11 +223,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Team Information"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14dp"
+                    android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
 
@@ -228,7 +236,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:padding="@dimen/_5dp" />
 
@@ -236,17 +243,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:orientation="vertical">
 
                     <com.kredivation.aakhale.components.ASTTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5dp"
                         android:padding="@dimen/_5dp"
                         android:text="Gallery"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_14dp"
+                        android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
 
                     <HorizontalScrollView
@@ -258,7 +264,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
                             android:orientation="horizontal"
                             android:padding="@dimen/_5dp" />
                     </HorizontalScrollView>
