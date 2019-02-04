@@ -4,7 +4,9 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/_5dp"
+    android:orientation="vertical"
+    android:padding="@dimen/_3dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,7 +20,6 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
                 android:orientation="horizontal"
                 android:padding="@dimen/_5dp">
 
@@ -82,11 +83,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:padding="@dimen/_5dp"
                 android:text="General Details"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14dp"
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
 
@@ -102,14 +103,12 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:orientation="horizontal"
                     android:padding="@dimen/_5dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -119,16 +118,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Unique ID: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/uniqueIdTxt"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="456XyDFR"
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
@@ -141,16 +142,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Age: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/ageTxt"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="43 Years"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
@@ -162,16 +165,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Experience :"
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/ExperienceTxt"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="10 Years"
                                 android:textSize="7pt" />
                         </LinearLayout>
@@ -183,16 +188,18 @@
                             android:padding="@dimen/_5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".3"
                                 android:text="Batting: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/OdieTxt"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight=".7"
                                 android:text="Right hand Batting"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>

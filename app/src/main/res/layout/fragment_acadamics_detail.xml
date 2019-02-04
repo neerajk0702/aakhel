@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/_5dp"
     android:orientation="vertical"
+    android:padding="@dimen/_2dp"
     tools:context=".fragments.AcadamicsDetailFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -14,13 +16,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
                 android:orientation="horizontal"
                 android:padding="@dimen/_5dp">
 
@@ -33,20 +33,20 @@
 
                     <TextView
                         android:id="@+id/name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sewagh Acadimics"
-                        android:textSize="@dimen/_12dp"
+                        android:padding="@dimen/_2dp"
                         android:textStyle="bold" />
 
 
                     <TextView
                         android:id="@+id/ratingTxt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="@dimen/_2dp"
                         android:text="* * * * *"
                         android:textColor="@color/orange"
-                        android:textSize="@dimen/_16dp"
+                        android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -56,6 +56,7 @@
                     android:layout_width="@dimen/_30dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:padding="@dimen/_2dp"
                     android:src="@drawable/ic_favorite" />
 
 
@@ -63,10 +64,9 @@
 
             <TextView
                 android:id="@+id/address"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5dp"
-                android:text="Noida Sec 12 Up India Asia Pecific  India Asia Pecific India Asia Pecific"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -80,9 +80,9 @@
 
             <TextView
                 android:id="@+id/uniqueId"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5dp"
+                android:padding="@dimen/_2dp"
                 android:text="Unique ID: 898765F"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12dp"
@@ -90,12 +90,11 @@
 
             <TextView
                 android:id="@+id/establishText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4dp"
                 android:maxLines="5"
                 android:padding="@dimen/_5dp"
-                android:text="Establish 2011 Establish 2011 Establish 2011 Establish 2011 vEstablish 2011 Establish 2011Establish 2011 "
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -109,7 +108,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Gallery"
                     android:textColor="@color/black"
@@ -125,7 +123,7 @@
                         android:id="@+id/galeeryImageView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
+                        android:layout_margin="@dimen/_3dp"
                         android:orientation="horizontal"
                         android:padding="@dimen/_5dp" />
                 </HorizontalScrollView>
@@ -137,7 +135,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:padding="@dimen/_5dp"
                 android:text="Services(Sports)"
                 android:textColor="@color/black"
@@ -152,7 +150,7 @@
                     android:id="@+id/sportsView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_margin="@dimen/_3dp"
                     android:orientation="horizontal"
                     android:padding="@dimen/_5dp" />
             </HorizontalScrollView>
@@ -161,7 +159,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:padding="@dimen/_5dp"
                 android:text="Acadmics Member"
                 android:textColor="@color/orange"
@@ -177,7 +175,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Manager"
                     android:textColor="@color/black"
@@ -189,9 +186,8 @@
                     android:id="@+id/managerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5dp" />
+                    android:layout_margin="@dimen/_3dp"
+                    android:orientation="vertical" />
 
 
             </LinearLayout>
@@ -205,7 +201,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Coach"
                     android:textColor="@color/black"
@@ -217,7 +213,6 @@
                     android:id="@+id/coachLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:orientation="vertical"
                     android:padding="@dimen/_5dp" />
 
@@ -233,7 +228,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Owner"
                     android:textColor="@color/black"
@@ -245,9 +240,7 @@
                     android:id="@+id/ownerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5dp" />
+                    android:orientation="vertical" />
 
 
             </LinearLayout>
@@ -261,10 +254,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Teams Member"
                     android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
@@ -274,8 +267,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5dp" />
+                    android:orientation="vertical" />
 
 
             </LinearLayout>

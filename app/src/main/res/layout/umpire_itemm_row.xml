@@ -3,33 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MainLayout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_90dp"
-    android:layout_margin="@dimen/_5dp"
+    android:layout_height="@dimen/_50dp"
     android:background="@drawable/round_boder"
     android:orientation="vertical"
-    app:cardCornerRadius="@dimen/_8dp"
-    app:cardElevation="@dimen/_5dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/_6dp"
+    app:cardElevation="@dimen/_5dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:padding="@dimen/_5dp">
+        android:padding="@dimen/_8dp">
 
         <com.kredivation.aakhale.components.CircleImageView
             android:id="@+id/matchPerview"
             android:layout_width="@dimen/_80dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_5dp"
             android:layout_weight="1"
             android:src="@drawable/ic_cricket_player" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/_5dp"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -40,11 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:padding="@dimen/_5dp"
                 android:text="Crickect"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/_14dp"
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
 
@@ -53,11 +51,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:padding="@dimen/_5dp"
                 android:text="Crickect"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/_14dp"
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
 

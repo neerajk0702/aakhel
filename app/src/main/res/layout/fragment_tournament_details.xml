@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/_5dp"
     android:orientation="vertical"
+    android:padding="@dimen/_3dp"
     tools:context=".fragments.TournamentDetails">]
 
     <ScrollView
@@ -20,13 +22,13 @@
             <ImageView
                 android:id="@+id/displayImage"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150dp"
-                android:src="@drawable/pager1" />
+                android:layout_height="@dimen/_130dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/_5dp"
                 android:weightSum="1">
@@ -35,9 +37,8 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:text="Name"
-                    android:textSize="@dimen/_14dp" />
+                    android:padding="@dimen/_4dp"
+                    android:textSize="@dimen/_12dp" />
 
 
                 <TextView
@@ -60,43 +61,42 @@
                 android:id="@+id/uniqeId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:text="Name"
-                android:textSize="@dimen/_14dp" />
+                android:padding="@dimen/_4dp"
+                android:textSize="@dimen/_12dp" />
 
             <TextView
                 android:id="@+id/dateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:text="Name"
-                android:textSize="@dimen/_14dp" />
+                android:padding="@dimen/_5dp"
+                android:textSize="@dimen/_12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/round_boder"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp">
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
+                    android:padding="@dimen/_4dp"
                     android:text="About Tournament"
-                    android:textSize="@dimen/_14dp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
 
                 <TextView
                     android:id="@+id/aboutTournament"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:maxLines="5"
                     android:padding="@dimen/_5dp"
-                    android:textSize="@dimen/_16dp" />
+                    android:textSize="@dimen/_12dp" />
 
 
             </LinearLayout>
@@ -110,8 +110,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
                     android:text="Teams"
-                    android:textSize="@dimen/_16dp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -121,8 +124,8 @@
                         android:id="@+id/teamesView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
-                        android:orientation="horizontal" />
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_3dp" />
 
                 </HorizontalScrollView>
 
@@ -132,116 +135,128 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:padding="@dimen/_4dp"
                 android:text="Details"
-                android:textSize="@dimen/_14dp" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp">
 
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5dp"
+                    android:text="Game Formates"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5dp">
-
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Game Formates" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Over" />
-
-                        <TextView
-                            android:id="@+id/over"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_8dp"
-                            android:padding="@dimen/_5dp" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Teams:" />
-
-                        <TextView
-                            android:id="@+id/teame"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_8dp"
-                            android:padding="@dimen/_5dp" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Formate:" />
-
-                        <TextView
-                            android:id="@+id/formate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_8dp"
-                            android:padding="@dimen/_5dp" />
-
-
-                    </LinearLayout>
+                        android:layout_weight=".3"
+                        android:text="Over" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/over"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight=".7"
+                        android:padding="@dimen/_5dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".3"
+                        android:text="Teams:" />
+
+                    <TextView
+                        android:id="@+id/teame"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".7"
+                        android:padding="@dimen/_5dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".3"
+                        android:text="Formate:" />
+
+                    <TextView
+                        android:id="@+id/formate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".7"
+                        android:padding="@dimen/_5dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".3"
                         android:text="Venue:" />
 
                     <TextView
                         android:id="@+id/venueAddress"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight=".7"
                         android:padding="@dimen/_5dp"
                         android:text="Venue:" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight=".3"
                         android:text="Entery Fee:" />
 
                     <TextView
                         android:id="@+id/enteryFee"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight=".7"
                         android:padding="@dimen/_5dp"
                         android:text="Enter Fee:" />
 
@@ -249,10 +264,10 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:orientation="vertical">
 
@@ -260,10 +275,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Facilites"
-                    android:textSize="@dimen/_14dp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
 
                 <LinearLayout
@@ -278,7 +294,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:orientation="vertical">
 
@@ -286,10 +302,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Price:"
-                    android:textSize="@dimen/_14dp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
 
                 <LinearLayout
@@ -304,7 +321,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:orientation="vertical">
 
@@ -312,11 +329,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:maxLines="5"
                     android:padding="@dimen/_5dp"
                     android:text="Rule Regulation:"
-                    android:textSize="@dimen/_16dp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
 
                 <LinearLayout
@@ -331,7 +348,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:orientation="vertical">
 
@@ -339,11 +356,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:maxLines="5"
                     android:padding="@dimen/_5dp"
                     android:text="Umpire"
-                    android:textSize="@dimen/_16dp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
 
                 <HorizontalScrollView
