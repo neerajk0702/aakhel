@@ -51,7 +51,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_15dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -59,6 +58,15 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_10dp"
             android:orientation="vertical">
+
+            <com.kredivation.aakhale.components.CircleImageView
+                android:id="@+id/profileImg"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
+                android:layout_gravity="center"
+                android:elevation="@dimen/_10dp"
+                android:padding="@dimen/_5dp"
+                android:src="@drawable/ic_user" />
 
             <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/fullName"
@@ -116,14 +124,30 @@
                 android:singleLine="true"
                 android:textSize="@dimen/_12dp" />
 
-            <LinearLayout
+            <com.kredivation.aakhale.components.ASTEditText
+                android:id="@+id/feepermatch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
-                android:orientation="horizontal">
+                android:hint="Fee Per Match"
+                android:padding="@dimen/_10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/_12dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/doblayouut"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@drawable/edittextround"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
 
                 <com.kredivation.aakhale.components.ASTTextView
@@ -166,7 +190,7 @@
             </LinearLayout>
 
 
-            <LinearLayout
+            <LinearLayout android:id="@+id/genderMainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_10dp"
@@ -175,6 +199,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/genderLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -182,7 +207,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/edittextround"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
 
                     <Spinner
@@ -198,13 +224,15 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/yearofexpLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:background="@drawable/edittextround"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
 
                     <com.kredivation.aakhale.components.ASTEditText
@@ -212,10 +240,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
+                        android:background="@drawable/edittextround"
                         android:gravity="center"
                         android:hint="Years of Experience"
                         android:inputType="number"
-                        android:background="@drawable/edittextround"
                         android:padding="@dimen/_10dp"
                         android:singleLine="true"
                         android:textSize="@dimen/_12dp" />
@@ -226,6 +254,7 @@
 
 
             <LinearLayout
+                android:id="@+id/sportLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_10dp"
@@ -260,12 +289,14 @@
 
 
             <LinearLayout
+                android:id="@+id/roleLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -292,6 +323,10 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_15dp"
+                android:background="@color/white" />
         </LinearLayout>
     </ScrollView>
 

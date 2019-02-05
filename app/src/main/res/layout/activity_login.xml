@@ -94,6 +94,7 @@
                 android:layout_marginRight="@dimen/_10dp"
                 android:background="@drawable/edittextround"
                 android:hint="Register Email Id"
+                android:inputType="textEmailAddress"
                 android:padding="@dimen/_10dp"
                 android:textSize="@dimen/_12dp" />
 
