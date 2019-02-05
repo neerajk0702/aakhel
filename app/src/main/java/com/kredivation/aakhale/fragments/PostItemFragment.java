@@ -48,7 +48,7 @@ public class PostItemFragment extends Fragment {
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
 
         List<DummyContent> gaggeredList = getListItemData();
-        MyPostItemRecyclerViewAdapter rcAdapter = new MyPostItemRecyclerViewAdapter(gaggeredList);
+        MyPostItemRecyclerViewAdapter rcAdapter = new MyPostItemRecyclerViewAdapter(gaggeredList, getContext());
         recyclerView.setAdapter(rcAdapter);
 
         return view;
