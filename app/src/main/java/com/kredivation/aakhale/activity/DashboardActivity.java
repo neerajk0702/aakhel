@@ -42,6 +42,7 @@ import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
 import com.kredivation.aakhale.fragments.MyProfileFragment;
 import com.kredivation.aakhale.fragments.NotificationListFragment;
+import com.kredivation.aakhale.fragments.PostItemFragment;
 import com.kredivation.aakhale.fragments.ScheduleFragment;
 import com.kredivation.aakhale.fragments.ScoreCardFragment;
 import com.kredivation.aakhale.runtimepermission.PermissionResultCallback;
@@ -186,7 +187,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_send) {
             NotificationListFragment notificationListFragment = new NotificationListFragment();
             updateFragment(notificationListFragment, null);
+        } else if (id == R.id.postItem) {
+            PostItemFragment postItemFragment = new PostItemFragment();
+            updateFragment(postItemFragment, null);
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
