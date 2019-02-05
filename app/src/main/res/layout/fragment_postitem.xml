@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="@dimen/_8dp"
+    card_view:cardUseCompatPadding="true">
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/action_settings"
+            android:minHeight="@dimen/_290dp"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/noimage" />
+
+        <TextView
+            android:id="@+id/lblTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="2"
+            android:padding="5dp"
+            android:text="The difference between the number– Someone has clicked on and opened your article in their browser or on the LinkedIn mobile app. Note: Clicking into and viewing your own article also counts towards the number of views for that article."
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/descrition"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_3dp"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="5"
+            android:text="The difference between the number of views on a post, video or an article is: Articles – Someone has clicked on and opened your article in their browser or on the LinkedIn mobile app. Note: Clicking into and viewing your own article also counts towards the number of views for that article."
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12dp" />\
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:minHeight="@dimen/_22dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/Share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5dp"
+                    android:src="@drawable/ic_menu_share"
+                    android:text="Share"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/shareTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_5dp"
+                    android:text="Share"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:layout_margin="@dimen/_5dp"
+                android:src="@drawable/ic_favorite" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+</android.support.v7.widget.CardView>
