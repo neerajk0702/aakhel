@@ -110,4 +110,13 @@ public class Team {
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
+    private boolean selectValue=false;
+
+    public boolean isSelectValue() {
+        return selectValue;
+    }
+
+    public void setSelectValue(boolean selectValue) {
+        this.selectValue = selectValue;
+    }
 }

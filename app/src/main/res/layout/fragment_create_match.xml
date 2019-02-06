@@ -399,8 +399,8 @@
                                 android:id="@+id/matchtype"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:entries="@array/matchtype"
                                 android:layout_gravity="center"
+                                android:entries="@array/matchtype"
                                 android:gravity="center" />
 
 
@@ -423,8 +423,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_5dp"
                                 android:layout_marginRight="@dimen/_5dp"
-                                android:inputType="number"
                                 android:background="@drawable/edittextround"
+                                android:inputType="number"
                                 android:padding="@dimen/_12dp"
                                 android:textSize="@dimen/_12dp" />
 
@@ -450,13 +450,68 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
-                    android:inputType="number"
                     android:background="@drawable/round_boder"
+                    android:inputType="number"
                     android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/addTeamView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_2dp"
+                    android:padding="@dimen/_5dp"
+                    android:text="Add Teams"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/addTeamLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/addUmpireView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_2dp"
+                    android:layout_weight=".4"
+                    android:padding="@dimen/_5dp"
+                    android:text="Add Umpires"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:id="@+id/addUmpireLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5dp" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

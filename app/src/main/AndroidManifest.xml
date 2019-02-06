@@ -75,6 +75,12 @@
             android:name=".activity.SelectUserTypeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.TeamListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UmpireListActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

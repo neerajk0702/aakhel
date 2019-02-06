@@ -4,6 +4,9 @@ package com.kredivation.aakhale.utility;
  * Created by Neeraj on 3/8/2017.
  */
 public class Contants {
+    public static int REQ_PAGE_COMMUNICATOR = 110;
+    public static int RES_PAGE_COMMUNICATOR = 111;
+
     public static String LOG_TAG = "AAkhel";
     public static boolean IS_DEBUG_LOG = true;
     public static final String OFFLINE_MESSAGE = "Oops! You are Offline. Please check your Internet Connection.";

@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.TeamListActivity;
+import com.kredivation.aakhale.activity.UmpireListActivity;
 import com.kredivation.aakhale.adapter.FullMetalAdapter;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
@@ -205,8 +208,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.teamsLayout:
-                TeameFragment teameFragment = new TeameFragment();
-                updateFragment(teameFragment, null);
+                Intent intent = new Intent(getActivity(), TeamListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.stadiumsLayout:
                 GroundFragment groundFragment = new GroundFragment();
@@ -230,14 +233,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 updateFragment(matchListFragment, null);
                 break;
             case R.id.umpireLayout:
-                UmpireListFragment umpireListFragment = new UmpireListFragment();
-                updateFragment(umpireListFragment, null);
+                Intent uintent = new Intent(getActivity(), UmpireListActivity.class);
+                startActivity(uintent);
                 break;
-
-
-
-
-
         }
 
 

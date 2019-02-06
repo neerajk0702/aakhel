@@ -1,32 +1,31 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.TeamsAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
-import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
-import com.kredivation.aakhale.model.Academics;
-import com.kredivation.aakhale.model.ContentDataAsArray;
-import com.kredivation.aakhale.model.Data;
-import com.kredivation.aakhale.model.ImageItem;
-import com.kredivation.aakhale.model.Match;
 import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
+import com.kredivation.aakhale.utility.RecyclerItemClickListener;
 import com.kredivation.aakhale.utility.Utility;
 
 import org.json.JSONArray;
@@ -38,8 +37,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TeameFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
-    View view;
+public class TeamListActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     RecyclerView rvList;
     ASTButton saveBtn;
     ASTFontTextIconView sortBy;
@@ -51,32 +49,44 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<Team> teamArrayList;
     private TeamsAdapter teamsAdapter;
-    int total_pages=1;
-    public TeameFragment() {
+    int total_pages = 1;
+    private Toolbar toolbar;
+
+    public TeamListActivity() {
         // Required empty public constructor
     }
 
+    boolean selectFlag = false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_teame, container, false);
-        getActivity().setTitle("Teams");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_teame);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
-
     }
 
     public void init() {
-        sortBy = view.findViewById(R.id.sortBy);
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        selectFlag = getIntent().getBooleanExtra("CreateMatch", false);
+        sortBy = findViewById(R.id.sortBy);
         sortBy.setOnClickListener(this);
-        rvList = view.findViewById(R.id.rvList);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        rvList = findViewById(R.id.rvList);
+        mLayoutManager = new LinearLayoutManager(TeamListActivity.this);
         rvList.setLayoutManager(mLayoutManager);
-        loaddataProgress = view.findViewById(R.id.loaddataProgress);
+        loaddataProgress = findViewById(R.id.loaddataProgress);
         teamArrayList = new ArrayList<>();
-        teamsAdapter = new TeamsAdapter(getContext(), teamArrayList);
+        teamsAdapter = new TeamsAdapter(TeamListActivity.this, teamArrayList, selectFlag);
         rvList.setAdapter(teamsAdapter);
 
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -94,7 +104,7 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            if(currentPage <=total_pages){
+                            if (currentPage <= total_pages) {
                                 getTeamList();
                             }
                         }
@@ -113,7 +123,7 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
         });
 
         // SwipeRefreshLayout
-        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_green_dark,
@@ -133,17 +143,31 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                 getTeamList();
             }
         });
+
+        rvList.addOnItemTouchListener(
+                new RecyclerItemClickListener(TeamListActivity.this, rvList, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        teamArrayList.get(position);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
     }
 
 
     //get getTeamList
     private void getTeamList() {
-        if (Utility.isOnline(getContext())) {
+        if (Utility.isOnline(TeamListActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
             String serviceURL = Contants.BASE_URL + Contants.teamCreate + "?page=" + currentPage;
             JSONObject object = new JSONObject();
 
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(TeamListActivity.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getTeamList", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -152,7 +176,7 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                 total_pages = mainObj.optInt("total_pages");
+                                total_pages = mainObj.optInt("total_pages");
                                 JSONArray dataArray = mainObj.optJSONArray("data");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {
@@ -194,14 +218,14 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
                             // e.printStackTrace();
                         }
                     } else {
-                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TeamListActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
                         loaddataProgress.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, TeamListActivity.this);//off line msg....
         }
     }
 
@@ -221,4 +245,11 @@ public class TeameFragment extends Fragment implements View.OnClickListener, Swi
         getTeamList();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent output = new Intent();
+        output.putExtra("Test", "testssskmnds");
+        setResult(RESULT_OK, output);
+        finish();
+    }
 }

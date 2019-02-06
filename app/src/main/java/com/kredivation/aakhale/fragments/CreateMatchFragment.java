@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.DashboardActivity;
+import com.kredivation.aakhale.activity.ForgetPasswordActivity;
 import com.kredivation.aakhale.activity.LoginActivity;
 import com.kredivation.aakhale.activity.RegisterActivity;
+import com.kredivation.aakhale.activity.TeamListActivity;
+import com.kredivation.aakhale.activity.UmpireListActivity;
 import com.kredivation.aakhale.adapter.GridViewAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
@@ -66,6 +72,8 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
     String name, match_address, match_state, match_city, match_zipcode, match_type, format, tournament_id, match_team,
             match_umpire, over, ground_id, time, date;
 
+    TextView addTeamView, addUmpireView;
+    LinearLayout addTeamLayout, addUmpireLayout;
 
     public CreateMatchFragment() {
         // Required empty public constructor
@@ -104,6 +112,13 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
         dateIcon.setOnClickListener(this);
         timeImage.setOnClickListener(this);
         continuebtn.setOnClickListener(this);
+
+        addTeamView = view.findViewById(R.id.addTeamView);
+        addUmpireView = view.findViewById(R.id.addUmpireView);
+        addTeamLayout = view.findViewById(R.id.addTeamLayout);
+        addUmpireLayout = view.findViewById(R.id.addUmpireLayout);
+        addUmpireView.setOnClickListener(this);
+        addTeamView.setOnClickListener(this);
 
     }
 
@@ -277,11 +292,28 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
                 if (isvalidateSignup()) {
                     saveCreateMatchData();
                 }
-
-
+                break;
+            case R.id.addTeamView:
+                Intent intent1 = new Intent(getContext(), TeamListActivity.class);
+                intent1.putExtra("CreateMatch",true);
+                startActivityForResult(intent1, Contants.REQ_PAGE_COMMUNICATOR);
+                break;
+            case R.id.addUmpireView:
+                Intent umintent = new Intent(getContext(), UmpireListActivity.class);
+                umintent.putExtra("CreateMatch",true);
+                startActivityForResult(umintent, Contants.REQ_PAGE_COMMUNICATOR);
+                break;
         }
     }
 
+    public void updateFragment(Fragment pageFragment, Bundle bundle) {
+        android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        pageFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.mainView, pageFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
     private void saveCreateMatchData() {
 
@@ -412,7 +444,7 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
                 if (jsonStatus.equals("success")) {
                     JSONObject object = jsonRootObject.optJSONObject("data");
                     String userName = object.optString("name").toString();
-                   // Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
 
 
                 }
@@ -425,5 +457,11 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
 
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(Contants.LOG_TAG, "onActivityResult");
+        String willReloadBackScreen = data.getExtras().getString("Test");
+        Log.d(Contants.LOG_TAG, "onActivityResult   " + willReloadBackScreen);
+    }
 }
