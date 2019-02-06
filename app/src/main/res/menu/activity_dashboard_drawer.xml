@@ -89,6 +89,11 @@
                 android:id="@+id/postItem"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Post List" />
+
+            <item
+                android:id="@+id/chatList"
+                android:icon="@drawable/messenger_bubble_large_blue"
+                android:title="Chat List" />
         </menu>
     </item>
 

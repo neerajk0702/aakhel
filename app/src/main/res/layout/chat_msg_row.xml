@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_10dp"
+    android:background="#00000000"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/serverside"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_1dp">
+
+        <LinearLayout
+            android:id="@+id/commentDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="0.7"
+            android:background="@drawable/server_chatbg"
+            android:orientation="vertical"
+            android:padding="@dimen/_1dp">
+
+            <TextView
+                android:id="@+id/servermsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:layout_weight="0.8"
+                android:gravity="left"
+                android:text="sdcsdcsdc"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:id="@+id/servertiming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_3dp"
+                android:layout_marginRight="@dimen/_8dp"
+                android:layout_weight="0.2"
+                android:gravity="right"
+                android:text="sdcsdcsdc"
+                android:textSize="@dimen/_10dp" />
+
+            <TextView
+                android:id="@+id/serveruserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:paddingTop="@dimen/_2dp"
+                android:paddingRight="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
+                android:text="sdcsdcsdc"
+                android:textSize="@dimen/_12dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_weight="0.3"
+            android:background="#00000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/myside"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_5dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_1dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_weight="0.3"
+            android:background="#00000000" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="0.7"
+            android:background="@drawable/server_chatbg"
+            android:orientation="vertical"
+            android:padding="@dimen/_1dp">
+
+            <TextView
+                android:id="@+id/mycomment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5dp"
+                android:layout_weight="0.8"
+                android:gravity="left"
+                android:text="sdcsdcsdc"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:id="@+id/mytiming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_3dp"
+                android:layout_marginRight="@dimen/_8dp"
+                android:layout_weight="0.2"
+                android:gravity="right"
+                android:text="sdcsdcsdc"
+                android:textSize="@dimen/_10dp" />
+
+            <TextView
+                android:id="@+id/myName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:paddingTop="@dimen/_2dp"
+                android:paddingRight="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
+                android:text="sdcsdcsdc"
+                android:textSize="@dimen/_12dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

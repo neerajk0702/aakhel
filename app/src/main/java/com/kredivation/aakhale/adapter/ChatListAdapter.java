@@ -3,6 +3,8 @@ package com.kredivation.aakhale.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -13,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.fragments.ChatDetailFragment;
+import com.kredivation.aakhale.fragments.ChatFragment;
+import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.utility.FontManager;
@@ -67,6 +72,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ChatDetailFragment chatFragment = new ChatDetailFragment();
+                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) mContext).getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.mainView, chatFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
     }

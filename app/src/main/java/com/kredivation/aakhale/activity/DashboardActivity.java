@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.card.MaterialCardView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.kredivation.aakhale.Constants;
 import com.kredivation.aakhale.R;
@@ -34,6 +36,7 @@ import com.kredivation.aakhale.fragments.AddTeamFragment;
 import com.kredivation.aakhale.fragments.AddTournament;
 import com.kredivation.aakhale.fragments.AddUmpiresFragment;
 import com.kredivation.aakhale.fragments.ChatFragment;
+import com.kredivation.aakhale.fragments.ChatListFragment;
 import com.kredivation.aakhale.fragments.CreateGroundFragment;
 import com.kredivation.aakhale.fragments.CreateMatchFragment;
 import com.kredivation.aakhale.fragments.CreatePostFragment;
@@ -58,6 +61,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1;
     private int REQUEST_CODE_GPS_PERMISSIONS = 2;
 
+    TextView createTeame, aaAcademics, addTournament, addScore, createMatch, addSportsMAtch, createGround, cretescorecard,
+            scoreCard, createPost, adumpire, schedule, addTeam, Chat, Notification, postItem, sghareApp, rateApp, privacy,
+            termUSe;
+    MaterialCardView profile, setting, logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +88,61 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         runTimePermission();
         SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
         Contants.auth_token = UserInfo.getString("auth_token", "");
-
+        init();
     }
 
+
+    public void init() {
+
+        createTeame = findViewById(R.id.createTeame);
+        aaAcademics = findViewById(R.id.aaAcademics);
+        addTournament = findViewById(R.id.addTournament);
+        addScore = findViewById(R.id.addScore);
+        createMatch = findViewById(R.id.createMatch);
+        addSportsMAtch = findViewById(R.id.addSportsMAtch);
+        createGround = findViewById(R.id.createGround);
+        cretescorecard = findViewById(R.id.cretescorecard);
+        scoreCard = findViewById(R.id.scoreCard);
+        createPost = findViewById(R.id.createPost);
+        adumpire = findViewById(R.id.adumpire);
+        schedule = findViewById(R.id.schedule);
+        addTeam = findViewById(R.id.addTeam);
+        Chat = findViewById(R.id.chat);
+        Notification = findViewById(R.id.Notification);
+        postItem = findViewById(R.id.postItem);
+        sghareApp = findViewById(R.id.sghareApp);
+        rateApp = findViewById(R.id.rateApp);
+        privacy = findViewById(R.id.privacy);
+        termUSe = findViewById(R.id.termUSe);
+        profile = findViewById(R.id.profile);
+        setting = findViewById(R.id.setting);
+        logout = findViewById(R.id.logout);
+
+        createTeame.setOnClickListener(this);
+        aaAcademics.setOnClickListener(this);
+        addTournament.setOnClickListener(this);
+        addScore.setOnClickListener(this);
+        createMatch.setOnClickListener(this);
+        addSportsMAtch.setOnClickListener(this);
+        createGround.setOnClickListener(this);
+        cretescorecard.setOnClickListener(this);
+        scoreCard.setOnClickListener(this);
+        createPost.setOnClickListener(this);
+        adumpire.setOnClickListener(this);
+        schedule.setOnClickListener(this);
+        addTeam.setOnClickListener(this);
+        Chat.setOnClickListener(this);
+        Notification.setOnClickListener(this);
+        postItem.setOnClickListener(this);
+        sghareApp.setOnClickListener(this);
+        rateApp.setOnClickListener(this);
+        privacy.setOnClickListener(this);
+        termUSe.setOnClickListener(this);
+        profile.setOnClickListener(this);
+        setting.setOnClickListener(this);
+        logout.setOnClickListener(this);
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -190,6 +250,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.postItem) {
             PostItemFragment postItemFragment = new PostItemFragment();
             updateFragment(postItemFragment, null);
+        } else if (id == R.id.chatList) {
+            ChatListFragment chatListFragment = new ChatListFragment();
+            updateFragment(chatListFragment, null);
         }
 
 
@@ -201,6 +264,87 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onClick(View v) {
+
+
+        if (v.getId() == R.id.createTeame) {
+            CreateTeamFragment createTeamFragment = new CreateTeamFragment();
+            updateFragment(createTeamFragment, null);
+        } else if (v.getId() == R.id.aaAcademics) {
+            AddAcademicsFragments academicsFragment = new AddAcademicsFragments();
+            updateFragment(academicsFragment, null);
+
+        } else if (v.getId() == R.id.addTournament) {
+            AddTournament academicsFragment = new AddTournament();
+            updateFragment(academicsFragment, null);
+
+        } else if (v.getId() == R.id.addScore) {
+            AddScoreFragment addScoreFragment = new AddScoreFragment();
+            updateFragment(addScoreFragment, null);
+
+        } else if (v.getId() == R.id.createMatch) {
+            CreateMatchFragment createTeamFragment = new CreateMatchFragment();
+            updateFragment(createTeamFragment, null);
+
+        } else if (v.getId() == R.id.addSportsMAtch) {
+            AddSportsFragment addSportsFragmentelse = new AddSportsFragment();
+            updateFragment(addSportsFragmentelse, null);
+
+        } else if (v.getId() == R.id.createGround) {
+            CreateGroundFragment createGroundFragment = new CreateGroundFragment();
+            updateFragment(createGroundFragment, null);
+
+        } else if (v.getId() == R.id.cretescorecard) {
+            CreateScoreCardFragment createScoreCardFragment = new CreateScoreCardFragment();
+            updateFragment(createScoreCardFragment, null);
+
+        } else if (v.getId() == R.id.scoreCard) {
+            ScoreCardFragment scoreCardFragment = new ScoreCardFragment();
+            updateFragment(scoreCardFragment, null);
+
+        } else if (v.getId() == R.id.createPost) {
+            CreatePostFragment createPostFragment = new CreatePostFragment();
+            updateFragment(createPostFragment, null);
+
+        } else if (v.getId() == R.id.adumpire) {
+            AddUmpiresFragment addUmpiresFragment = new AddUmpiresFragment();
+            updateFragment(addUmpiresFragment, null);
+
+        } else if (v.getId() == R.id.Schedule) {
+            ScheduleFragment scheduleFragment = new ScheduleFragment();
+            updateFragment(scheduleFragment, null);
+
+        } else if (v.getId() == R.id.addTeam) {
+            AddTeamFragment addTeamFragment = new AddTeamFragment();
+            updateFragment(addTeamFragment, null);
+
+        } else if (v.getId() == R.id.profile) {
+            MyProfileFragment profileFragment = new MyProfileFragment();
+            updateFragment(profileFragment, null);
+
+        }
+
+
+        if (v.getId() == R.id.chat) {
+        } else if (v.getId() == R.id.Notification) {
+            NotificationListFragment notificationListFragment = new NotificationListFragment();
+            updateFragment(notificationListFragment, null);
+        } else if (v.getId() == R.id.postItem) {
+            PostItemFragment postItemFragment = new PostItemFragment();
+            updateFragment(postItemFragment, null);
+        } else if (v.getId() == R.id.chat) {
+            ChatListFragment chatListFragment = new ChatListFragment();
+            updateFragment(chatListFragment, null);
+        } else if (v.getId() == R.id.profile) {
+            MyProfileFragment chatListFragment = new MyProfileFragment();
+            updateFragment(chatListFragment, null);
+        } else if (v.getId() == R.id.setting) {
+
+        } else if (v.getId() == R.id.logout) {
+
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
     }
 
