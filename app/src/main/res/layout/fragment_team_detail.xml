@@ -1,15 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_5dp"
-    android:orientation="vertical"
-    android:padding="@dimen/_3dp">
+    android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay"
+        android:visibility="visible">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/back"
+                    android:layout_width="@dimen/_40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20dp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_35dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Team Detail"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16dp" />
+
+
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -58,7 +102,13 @@
                                 android:text="Royal Chalanger"
                                 android:textSize="@dimen/_14dp"
                                 android:textStyle="bold" />
-
+                            <TextView
+                                android:id="@+id/userid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="@dimen/_14dp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/ratingTxt"
@@ -73,7 +123,7 @@
 
                         <ImageView
                             android:id="@+id/fab"
-                            android:layout_width="@dimen/_30dp"
+                            android:layout_width="@dimen/_25dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_favorite" />
@@ -96,7 +146,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
 
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="About Team: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/aboutteam"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -116,7 +188,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="30"
+                                android:text=""
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -141,10 +213,32 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="10 Years "
+                                android:text=""
                                 android:textSize="7dp" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
 
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="Address:"
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/address"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                     </LinearLayout>
 

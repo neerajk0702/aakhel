@@ -172,6 +172,60 @@ public class Match {
     public void setMatch_address(String match_address) {
         this.match_address = match_address;
     }
+    private String matchUmpire;
+    private String matchteam;
+    private String matchGround;
+    private String matchCity;
+    private String matchState;
+    private String matchCountry;
+
+    public String getMatchUmpire() {
+        return matchUmpire;
+    }
+
+    public void setMatchUmpire(String matchUmpire) {
+        this.matchUmpire = matchUmpire;
+    }
+
+    public String getMatchteam() {
+        return matchteam;
+    }
+
+    public void setMatchteam(String matchteam) {
+        this.matchteam = matchteam;
+    }
+
+    public String getMatchGround() {
+        return matchGround;
+    }
+
+    public void setMatchGround(String matchGround) {
+        this.matchGround = matchGround;
+    }
+
+    public String getMatchCity() {
+        return matchCity;
+    }
+
+    public void setMatchCity(String matchCity) {
+        this.matchCity = matchCity;
+    }
+
+    public String getMatchState() {
+        return matchState;
+    }
+
+    public void setMatchState(String matchState) {
+        this.matchState = matchState;
+    }
+
+    public String getMatchCountry() {
+        return matchCountry;
+    }
+
+    public void setMatchCountry(String matchCountry) {
+        this.matchCountry = matchCountry;
+    }
 
     @Override
     public String toString() {

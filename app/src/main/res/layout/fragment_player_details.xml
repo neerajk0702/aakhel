@@ -59,7 +59,15 @@
                                 android:text="Sacin Ji"
                                 android:textSize="@dimen/_14dp"
                                 android:textStyle="bold" />
-
+                            <TextView
+                                android:id="@+id/userId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:layout_marginTop="@dimen/_3dp"
+                                android:layout_marginBottom="@dimen/_3dp"
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/ratingTxt"
@@ -74,7 +82,7 @@
 
                         <ImageView
                             android:id="@+id/fab"
-                            android:layout_width="@dimen/_30dp"
+                            android:layout_width="@dimen/_25dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_favorite" />
@@ -96,7 +104,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
 
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="Email: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/mail"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="Phone No: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/phoneno"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -121,7 +174,29 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
 
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="Gender: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/gender"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -155,7 +230,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".3"
-                                android:text="Batting: "
+                                android:text="Player Role: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
@@ -164,33 +239,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="Right hand Batting"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/_5dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".3"
-                                android:text="Bowling: "
-                                android:textSize="@dimen/_12dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/boloingTxt"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".7"
-                                android:text="Show left arm bowler"
-                                android:textSize="@dimen/_12dp" />
-                        </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

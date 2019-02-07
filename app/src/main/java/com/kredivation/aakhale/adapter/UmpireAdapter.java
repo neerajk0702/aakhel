@@ -1,21 +1,23 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.fragments.CoachDeatailFragment;
-import com.kredivation.aakhale.fragments.UmpireDetailFragment;
+import com.kredivation.aakhale.activity.UmpireDetailActivity;
 import com.kredivation.aakhale.model.Data;
+import com.kredivation.aakhale.utility.FontManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,15 +26,18 @@ public class UmpireAdapter extends RecyclerView.Adapter<UmpireAdapter.ViewHolder
     private ArrayList<Data> sportsList;
     Context context;
     String userId;
+    boolean selectFlage;
+    Typeface materialdesignicons_font;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, coachType, ratingTxt;
+        TextView name, coachType, ratingTxt, selectCheck, userId, address;
         ImageView sportsIcon, menumore, imageView;
-        LinearLayout root_layout;
+        CardView root_layout;
 
 
         public ViewHolder(View v) {
             super(v);
+            userId = v.findViewById(R.id.userId);
             name = v.findViewById(R.id.name);
             coachType = v.findViewById(R.id.coachType);
             ratingTxt = v.findViewById(R.id.ratingTxt);
@@ -40,12 +45,17 @@ public class UmpireAdapter extends RecyclerView.Adapter<UmpireAdapter.ViewHolder
             root_layout = v.findViewById(R.id.root_layout);
             menumore = v.findViewById(R.id.menumore);
             imageView = v.findViewById(R.id.imageView);
+            selectCheck = v.findViewById(R.id.selectCheck);
+            selectCheck.setTypeface(materialdesignicons_font);
+            address = v.findViewById(R.id.address);
         }
     }
 
-    public UmpireAdapter(Context context, ArrayList<Data> sportsList) {
+    public UmpireAdapter(Context context, ArrayList<Data> sportsList, boolean selectFlag) {
         this.sportsList = sportsList;
         this.context = context;
+        this.selectFlage = selectFlag;
+        materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(context, "fonts/materialdesignicons-webfont.otf");
     }
 
     @Override
@@ -61,27 +71,41 @@ public class UmpireAdapter extends RecyclerView.Adapter<UmpireAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull UmpireAdapter.ViewHolder holder, final int position) {
         holder.name.setText(sportsList.get(position).getFull_name());
-
-        holder.coachType.setText(sportsList.get(position).getAddress());
-        // holder.ratingTxt.setText(sportsList.get(position).getCapacity());
-
-
-        Picasso.with(context).load(sportsList.get(position).getProfile_picture()).placeholder(R.drawable.noimage).into(holder.imageView);
+        String completeAdd = sportsList.get(position).getAddress() + "," + sportsList.get(position).getCity() + "," + sportsList.get(position).getState() + "," + sportsList.get(position).getZipcode();
+        holder.address.setText(completeAdd);
+        holder.coachType.setText(sportsList.get(position).getUsers_sports() + "");
+        holder.userId.setText(sportsList.get(position).getUnique_id());
+        Picasso.with(context).load(sportsList.get(position).getProfile_picture()).placeholder(R.drawable.ic_uuuser).into(holder.imageView);
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putLong("id", sportsList.get(position).getId());
-                UmpireDetailFragment coachDeatailFragment = new UmpireDetailFragment();
-                coachDeatailFragment.setArguments(bundle);
-                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, coachDeatailFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(context, UmpireDetailActivity.class);
+                intent.putExtra("id", sportsList.get(position).getId());
+                context.startActivity(intent);
             }
         });
 
-
+        if (selectFlage) {
+            holder.selectCheck.setVisibility(View.VISIBLE);
+            if (sportsList.get(position).isSelectValue()) {
+                holder.selectCheck.setText(Html.fromHtml("&#xf132;"));
+                holder.selectCheck.setTextColor(Color.parseColor("#198719"));
+            } else {
+                holder.selectCheck.setText(Html.fromHtml("&#xf131;"));
+                holder.selectCheck.setTextColor(Color.parseColor("#000000"));
+            }
+        }
+        holder.selectCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sportsList.get(position).isSelectValue()) {
+                    sportsList.get(position).setSelectValue(false);
+                } else {
+                    sportsList.get(position).setSelectValue(true);
+                }
+                notifyItemChanged(position);
+            }
+        });
     }
 
     @Override

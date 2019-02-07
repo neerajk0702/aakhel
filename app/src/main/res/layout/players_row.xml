@@ -30,8 +30,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_weight=".2"
                     android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".2"
                     android:src="@drawable/tropy1" />
 
                 <LinearLayout
@@ -50,7 +50,13 @@
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
-
+                    <TextView
+                        android:id="@+id/userId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/_12dp"
+                        android:textStyle="bold" />
                     <TextView
                         android:id="@+id/teamName"
                         android:layout_width="wrap_content"
@@ -90,6 +96,15 @@
                     android:orientation="vertical"
                     android:padding="@dimen/_5dp">
 
+                    <TextView
+                        android:id="@+id/selectCheck"
+                        android:layout_width="@dimen/_25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="te"
+                        android:textSize="@dimen/_20dp"
+                        android:visibility="gone" />
+
                     <ImageView
                         android:id="@+id/sportsIcon"
                         android:layout_width="wrap_content"
@@ -121,8 +136,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/lightRed2"
-                android:padding="@dimen/_5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/_5dp">
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"

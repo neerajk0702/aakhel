@@ -2,9 +2,11 @@ package com.kredivation.aakhale.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,9 +28,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.kredivation.aakhale.Constants;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.AddAcademicsFragments;
 import com.kredivation.aakhale.fragments.AddScoreFragment;
@@ -37,7 +41,6 @@ import com.kredivation.aakhale.fragments.AddTournament;
 import com.kredivation.aakhale.fragments.AddUmpiresFragment;
 import com.kredivation.aakhale.fragments.ChatFragment;
 import com.kredivation.aakhale.fragments.ChatListFragment;
-import com.kredivation.aakhale.fragments.CreateGroundFragment;
 import com.kredivation.aakhale.fragments.CreateMatchFragment;
 import com.kredivation.aakhale.fragments.CreatePostFragment;
 import com.kredivation.aakhale.fragments.CreateScoreCardFragment;
@@ -207,8 +210,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             updateFragment(addSportsFragmentelse, null);
 
         } else if (id == R.id.createground) {
-            CreateGroundFragment createGroundFragment = new CreateGroundFragment();
-            updateFragment(createGroundFragment, null);
 
         } else if (id == R.id.cretescorecard) {
             CreateScoreCardFragment createScoreCardFragment = new CreateScoreCardFragment();
@@ -290,9 +291,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             updateFragment(addSportsFragmentelse, null);
 
         } else if (v.getId() == R.id.createGround) {
-            CreateGroundFragment createGroundFragment = new CreateGroundFragment();
-            updateFragment(createGroundFragment, null);
-
+            Intent intent1 = new Intent(DashboardActivity.this, CreateGroundActivity.class);
+            startActivity(intent1);
         } else if (v.getId() == R.id.cretescorecard) {
             CreateScoreCardFragment createScoreCardFragment = new CreateScoreCardFragment();
             updateFragment(createScoreCardFragment, null);
@@ -477,4 +477,21 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
+    //for hid keyboard when tab outside edittext box
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
 }

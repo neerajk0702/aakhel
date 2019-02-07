@@ -90,6 +90,8 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
         }
     }
 
+    long total_pages = 1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -127,7 +129,9 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getMatchList();
+                            if (currentPage <= total_pages) {
+                                getMatchList();
+                            }
                         }
                     }
                 }
@@ -182,19 +186,32 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
                         try {
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
+                            total_pages = mainObj.optInt("total_pages");
                             if (status) {
-                                int total_pages = mainObj.optInt("total_pages");
-                                JSONArray dataArray = mainObj.optJSONArray("data");
-                                if (dataArray != null) {
-                                    for (int i = 0; i < dataArray.length(); i++) {
+                                JSONArray mainDataArray = mainObj.getJSONArray("data");
+                                if (mainDataArray != null) {
+                                    for (int i = 0; i < mainDataArray.length(); i++) {
+                                        JSONObject obj = mainDataArray.optJSONObject(i);
+                                        JSONObject dataArray = obj.optJSONObject("data");
                                         Match matchdata = new Match();
-                                        JSONObject jsonObject = dataArray.getJSONObject(i);
+                                        JSONArray umpireArray = dataArray.getJSONArray("match_umpire");
+                                        JSONArray teamArray = dataArray.getJSONArray("match_team");
+                                        JSONObject ground_data = dataArray.getJSONObject("ground_data");
+                                        matchdata.setMatchUmpire(umpireArray.toString());
+                                        matchdata.setMatchteam(teamArray.toString());
+                                        matchdata.setMatchGround(ground_data.toString());
+
+                                        JSONObject jsonObject = dataArray.getJSONObject("basic_info");
 
                                         int match_type = jsonObject.optInt("match_type");
                                         int is_active = jsonObject.optInt("is_active");
-                                        String match_city = jsonObject.optString("match_city");
-                                        String match_country = jsonObject.optString("match_country");
-                                        String match_state = jsonObject.optString("match_state");
+                                        JSONObject match_city = jsonObject.getJSONObject("match_city");
+                                        JSONObject match_state = jsonObject.getJSONObject("match_state");
+                                        JSONObject match_country = jsonObject.getJSONObject("match_country");
+                                        matchdata.setMatchCity(match_city.toString());
+                                        matchdata.setMatchState(match_state.toString());
+                                        matchdata.setMatchCountry(match_country.toString());
+
                                         String format = jsonObject.optString("format");
                                         String ground_id = jsonObject.optString("ground_id");
                                         String date = jsonObject.optString("date");
@@ -208,14 +225,11 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
                                         String created_at = jsonObject.optString("created_at");
                                         String user_id = jsonObject.optString("user_id");
                                         String match_address = jsonObject.optString("match_address");
-
+                                        matchdata.setIs_active(String.valueOf(is_active));
                                         matchdata.setId(id);
                                         matchdata.setMatch_type(String.valueOf(match_type));
-                                        matchdata.setUnique_id(match_city);
-                                        matchdata.setUser_id(match_country);
-                                        matchdata.setCreated_at(match_state);
-                                        matchdata.setUpdated_at(format);
-                                        matchdata.setIs_active(ground_id);
+                                        matchdata.setFormat(format);
+                                        matchdata.setGround_id(ground_id);
                                         matchdata.setDate(date);
                                         matchdata.setUnique_id(unique_id);
                                         matchdata.setMatch_zipcode(match_zipcode);
@@ -228,11 +242,14 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
                                         matchdata.setMatch_address(match_address);
                                         matchArrayList.add(matchdata);
                                     }
-                                    matchPAdapter.notifyDataSetChanged();
-                                    loading = true;
-                                    loaddataProgress.setVisibility(View.GONE);
-                                    mSwipeRefreshLayout.setRefreshing(false);
                                 }
+                                matchPAdapter.notifyDataSetChanged();
+                                loading = true;
+                                loaddataProgress.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
+
+                            } else {
+                                Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             // e.printStackTrace();

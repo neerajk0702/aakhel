@@ -22,6 +22,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.DashboardActivity;
 import com.kredivation.aakhale.activity.ForgetPasswordActivity;
@@ -35,13 +36,17 @@ import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.AddViewDynamically;
 import com.kredivation.aakhale.model.City;
 import com.kredivation.aakhale.model.ContentData;
+import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.Ground;
 import com.kredivation.aakhale.model.State;
+import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,11 +74,10 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
     List<City> cityInfoList;
     DatePickerDialog todatepicker;
     Calendar myCalendar;
-    String name, match_address, match_state, match_city, match_zipcode, match_type, format, tournament_id, match_team,
-            match_umpire, over, ground_id, time, date;
-
+    String name, match_address, match_state, match_city, match_zipcode, match_type, format, tournament_id, over, ground_id, time, date;
     TextView addTeamView, addUmpireView;
     LinearLayout addTeamLayout, addUmpireLayout;
+    String selectTeamId, selectUmpireId;
 
     public CreateMatchFragment() {
         // Required empty public constructor
@@ -295,24 +299,15 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.addTeamView:
                 Intent intent1 = new Intent(getContext(), TeamListActivity.class);
-                intent1.putExtra("CreateMatch",true);
+                intent1.putExtra("CreateMatch", true);
                 startActivityForResult(intent1, Contants.REQ_PAGE_COMMUNICATOR);
                 break;
             case R.id.addUmpireView:
                 Intent umintent = new Intent(getContext(), UmpireListActivity.class);
-                umintent.putExtra("CreateMatch",true);
+                umintent.putExtra("CreateMatch", true);
                 startActivityForResult(umintent, Contants.REQ_PAGE_COMMUNICATOR);
                 break;
         }
-    }
-
-    public void updateFragment(Fragment pageFragment, Bundle bundle) {
-        android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        pageFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.mainView, pageFragment)
-                .addToBackStack(null)
-                .commit();
     }
 
     private void saveCreateMatchData() {
@@ -342,15 +337,15 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
                 object.put("match_type", matchtype);
                 object.put("format", format);
                 object.put("tournament_id", tournament_id);
-                object.put("match_team", match_team);
-                object.put("match_umpire", match_umpire);
+                object.put("match_team", selectTeamId);
+                object.put("match_umpire", selectUmpireId);
                 object.put("over", over);
                 object.put("time", time);
                 object.put("date", date);
 
 
             } catch (JSONException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             serviceCaller.CallCommanServiceMethod(url, object, "saveCreateMatchData", new IAsyncWorkCompletedCallback() {
                 @Override
@@ -382,17 +377,12 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
         match_city = citySpinner.getSelectedItem().toString();
         match_zipcode = zipCode.getText().toString();
         match_type = matchtypeSpinner.getSelectedItem().toString();
-        match_type = "20-20";
         format = formate.getText().toString();
         ground_id = groundSpinner.getSelectedItem().toString();
         tournament_id = "";
-        match_umpire = "";
-        match_team = "";
         over = overtxt.getText().toString();
         time = timeTxt.getText().toString();
         date = dateTxt.getText().toString();
-
-
         if (name.equals("")) {
             Toast.makeText(getContext(), "Please Enter Match Name", Toast.LENGTH_SHORT).show();
             return false;
@@ -437,21 +427,17 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
      */
     private void parseCrateTeameData(String result) {
         if (result != null) {
-            Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
             try {
                 JSONObject jsonRootObject = new JSONObject(result);
-                String jsonStatus = jsonRootObject.optString("Status").toString();
-                if (jsonStatus.equals("success")) {
-                    JSONObject object = jsonRootObject.optJSONObject("data");
-                    String userName = object.optString("name").toString();
-                    // Toast.makeText(getContext(), "Match added successfully", Toast.LENGTH_LONG).show();
-
-
+                boolean jsonStatus = jsonRootObject.optBoolean("status");
+                String message = jsonRootObject.optString("message");
+                if (jsonStatus) {
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                 }
 
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                //
             }
         }
 
@@ -460,8 +446,49 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(Contants.LOG_TAG, "onActivityResult");
-        String willReloadBackScreen = data.getExtras().getString("Test");
-        Log.d(Contants.LOG_TAG, "onActivityResult   " + willReloadBackScreen);
+        if (data != null) {
+            String selectedTeam = data.getExtras().getString("selectedTeam");
+            if (selectedTeam != null && !selectedTeam.equals("")) {
+                selectTeamId = data.getExtras().getString("selectTeamId");
+                ArrayList<Team> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Team>>() {
+                }.getType());
+                for (Team team : teamList) {
+                    showSelectedTeam(team);
+                }
+            }
+            String selectedUmpire = data.getExtras().getString("selectedUmpire");
+            if (selectedUmpire != null && !selectedUmpire.equals("")) {
+                selectUmpireId = data.getExtras().getString("selectUmpireId");
+                ArrayList<Data> teamList = new Gson().fromJson(selectedUmpire, new TypeToken<ArrayList<Data>>() {
+                }.getType());
+                for (Data umpire : teamList) {
+                    showSelectedUmpire(umpire);
+                }
+            }
+        }
+    }
+
+    public void showSelectedTeam(Team team) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.create_match_team_layout, null);
+        ImageView imageView = inflatedLayout.findViewById(R.id.imageView);
+        TextView name = inflatedLayout.findViewById(R.id.name);
+        name.setText(team.getName());
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        userId.setText(team.getUnique_id());
+        Picasso.with(getContext()).load(Contants.BASE_URL + team.getTeam_thumbnail()).placeholder(R.drawable.ic_uuuser).into(imageView);
+        addTeamLayout.addView(inflatedLayout);
+    }
+
+    public void showSelectedUmpire(Data data) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.create_match_team_layout, null);
+        ImageView imageView = inflatedLayout.findViewById(R.id.imageView);
+        TextView name = inflatedLayout.findViewById(R.id.name);
+        name.setText(data.getFull_name());
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        userId.setText(data.getUnique_id());
+        Picasso.with(getContext()).load(Contants.BASE_URL + data.getProfile_picture()).placeholder(R.drawable.ic_uuuser).into(imageView);
+        addUmpireLayout.addView(inflatedLayout);
     }
 }

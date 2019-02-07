@@ -2,7 +2,6 @@ package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.fragments.UmpireDetailFragment;
 import com.kredivation.aakhale.model.ImageItem;
 
 import java.util.ArrayList;

@@ -47,7 +47,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_2dp"
-                        android:text="Sewagh Acadimics"
+                        android:text=""
                         android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
 
@@ -194,7 +194,7 @@
                             android:layout_gravity="center"
                             android:layout_weight=".7"
                             android:padding="@dimen/_5dp"
-                            android:text="45"
+                            android:text=""
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/_12dp"
                             android:textStyle="bold" />

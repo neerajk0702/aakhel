@@ -45,7 +45,7 @@ public class PlayerDetailsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     View view;
-    TextView nametxt, ratingTxt, agetxt, ExperienceTxt, OdieTxt, boloingTxt, roleTxt, challange, REQUEST, INVITE;
+    TextView nametxt, ratingTxt, agetxt, ExperienceTxt, OdieTxt, roleTxt, challange, REQUEST, INVITE, gender, phoneno, mail, userId;
     LinearLayout teamInfoLayoutView, galleryView;
     Bundle bundle;
     MetalRecyclerViewPager topperformanceviewPager;
@@ -92,12 +92,15 @@ public class PlayerDetailsFragment extends Fragment {
     }
 
     public void init() {
+        userId = view.findViewById(R.id.userId);
+        phoneno = view.findViewById(R.id.phoneno);
+        mail = view.findViewById(R.id.mail);
         nametxt = view.findViewById(R.id.name);
         ratingTxt = view.findViewById(R.id.ratingTxt);
         agetxt = view.findViewById(R.id.age);
         ExperienceTxt = view.findViewById(R.id.ExperienceTxt);
         OdieTxt = view.findViewById(R.id.OdieTxt);
-        boloingTxt = view.findViewById(R.id.boloingTxt);
+        gender = view.findViewById(R.id.gender);
         roleTxt = view.findViewById(R.id.roleTxt);
         challange = view.findViewById(R.id.challange);
         REQUEST = view.findViewById(R.id.REQUEST);
@@ -123,7 +126,7 @@ public class PlayerDetailsFragment extends Fragment {
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());
-            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getPlayerList", new IAsyncWorkCompletedCallback() {
+            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getPlayerDetailList", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete && result != null) {
@@ -146,7 +149,7 @@ public class PlayerDetailsFragment extends Fragment {
                                         String full_name = basic_info.optString("full_name");
                                         String mobile = basic_info.optString("mobile");
                                         String date_of_birth = basic_info.optString("date_of_birth");
-                                        int gender = basic_info.optInt("gender");
+                                        int genderValue = basic_info.optInt("gender");
                                         String address = basic_info.optString("address");
                                         String city = basic_info.optString("city");
                                         String state = basic_info.optString("state");
@@ -158,43 +161,38 @@ public class PlayerDetailsFragment extends Fragment {
                                         String player_role = basic_info.optString("player_role");
                                         String profile_picture = basic_info.optString("profile_picture");
 
-
                                         if (profile_picture != null && !profile_picture.equals("")) {
-                                            Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + profile_picture)
-                                                    .placeholder(R.drawable.noimage).into(imageView);
+                                            Picasso.with(getContext()).load(Contants.BASE_URL + profile_picture)
+                                                    .placeholder(R.drawable.ic_cricket_player).into(imageView);
                                         }
-
+                                        userId.setText(unique_id);
+                                        phoneno.setText(mobile + "");
+                                        mail.setText(email);
                                         nametxt.setText(full_name);
-                                        ratingTxt.setText("");
-                                        agetxt.setText("");
-                                        ExperienceTxt.setText(experience);
-                                        OdieTxt.setText("");
-                                        boloingTxt.setText("");
+                                        //  ratingTxt.setText("");
+                                        agetxt.setText(date_of_birth);
+                                        ExperienceTxt.setText(experience + " Years");
+                                        OdieTxt.setText(player_role);
                                         roleTxt.setText(role);
-
-
-                                        if (gender == 1) {
-                                            // ge.setText("Open");
+                                        if (genderValue == 1) {
+                                            gender.setText("Male");
+                                        } else {
+                                            gender.setText("Female");
                                         }
-
-
-                                        JSONArray umpire_matchArray = jsonObject.optJSONArray("umpire_match");
-                                        if (umpire_matchArray != null) {
-                                            for (int i = 0; i < umpire_matchArray.length(); i++) {
+                                        JSONArray playerTeamArray = jsonObject.optJSONArray("player_team");
+                                        if (playerTeamArray != null) {
+                                            for (int i = 0; i < playerTeamArray.length(); i++) {
                                                 try {
-                                                    JSONObject object = umpire_matchArray.getJSONObject(i);
+                                                    JSONObject object = playerTeamArray.getJSONObject(i);
                                                     String pname = object.optString("name");
                                                     String statusp = object.optString("status");
                                                     String datestr = object.optString("date");
                                                     addTeameInfoView(pname, statusp, datestr);
                                                 } catch (JSONException e) {
-                                                    e.printStackTrace();
                                                 }
                                             }
 
                                         }
-
-
                                     }
                                 }
 
@@ -224,9 +222,12 @@ public class PlayerDetailsFragment extends Fragment {
         TextView status = inflatedLayout.findViewById(R.id.status);
         nameTameInfo.setText(name);
         dateInfo.setText(date);
-        status.setText(statuss);
+        if (statuss.equals("0")) {
+            status.setText("Panding");
+        } else {
+            status.setText("Approved");
+        }
         teamInfoLayoutView.addView(inflatedLayout);
-
     }
 
 

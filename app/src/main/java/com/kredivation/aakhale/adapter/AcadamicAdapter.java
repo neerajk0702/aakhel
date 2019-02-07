@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,9 +15,7 @@ import android.widget.TextView;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.fragments.AcadamicsDetailFragment;
-import com.kredivation.aakhale.fragments.TeamDetailFragment;
 import com.kredivation.aakhale.model.Academics;
-import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.Contants;
 import com.squareup.picasso.Picasso;
 

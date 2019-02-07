@@ -26,6 +26,16 @@ public class Data {
     private String profile_picture;
     private String auth_token;
 
+    public boolean isSelectValue() {
+        return selectValue;
+    }
+
+    public void setSelectValue(boolean selectValue) {
+        this.selectValue = selectValue;
+    }
+
+    private boolean selectValue=false;
+
     public long getId() {
         return id;
     }

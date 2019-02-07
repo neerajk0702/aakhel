@@ -1,9 +1,8 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.fragments.UmpireDetailFragment;
+import com.kredivation.aakhale.activity.UmpireDetailActivity;
 import com.kredivation.aakhale.model.ImageItem;
 
 import java.util.ArrayList;
@@ -71,11 +70,9 @@ public class AddUmpireAdapter extends RecyclerView.Adapter<AddUmpireAdapter.View
         holder.MainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UmpireDetailFragment umpireDetailFragment = new UmpireDetailFragment();
-                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, umpireDetailFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(context, UmpireDetailActivity.class);
+                //intent.putExtra("id", sportsList.get(position).getId());
+                context.startActivity(intent);
 
 
             }

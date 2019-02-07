@@ -1,13 +1,13 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.util.DisplayMetrics;
-import android.view.Display;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -15,15 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.MatchPlayedAdapter;
-import com.kredivation.aakhale.adapter.TopPlayersAdapter;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Match_played;
 import com.kredivation.aakhale.model.Team_player;
-import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
 
@@ -38,41 +36,52 @@ import java.util.ArrayList;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TeamDetailFragment extends Fragment {
+public class TeamDetailActivity extends AppCompatActivity {
     ImageView imageView, fab;
-    TextView nametxt, ratingTxt, wonmatch, Tournamentwon;
-    View view;
-    Bundle bundle;
+    TextView nametxt, ratingTxt, wonmatch, Tournamentwon, userid, aboutteam, address;
     ListView matchPlayeList;
     ArrayList<Team_player> team_playerArrayList = new ArrayList<>();
     ArrayList<Match_played> match_playedList = new ArrayList<>();
     LinearLayout teameMemberImageView, matchPlayedView;
+    private Toolbar toolbar;
 
-    public TeamDetailFragment() {
+    public TeamDetailActivity() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_team_detail, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_team_detail);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
-
     }
 
     public void init() {
-        imageView = view.findViewById(R.id.imageView);
-        fab = view.findViewById(R.id.fab);
-        nametxt = view.findViewById(R.id.name);
-        ratingTxt = view.findViewById(R.id.ratingTxt);
-        wonmatch = view.findViewById(R.id.wonmatch);
-        Tournamentwon = view.findViewById(R.id.Tournamentwon);
-        // gallaryIMageviewPager = view.findViewById(R.id.tgallaryIMageviewPager);
-        matchPlayedView = view.findViewById(R.id.matchPlayedView);
-        imageView = view.findViewById(R.id.imageView);
-        teameMemberImageView = view.findViewById(R.id.teameMemberImageView);
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        address = findViewById(R.id.address);
+        imageView = findViewById(R.id.imageView);
+        userid = findViewById(R.id.userid);
+        aboutteam = findViewById(R.id.aboutteam);
+        fab = findViewById(R.id.fab);
+        nametxt = findViewById(R.id.name);
+        ratingTxt = findViewById(R.id.ratingTxt);
+        wonmatch = findViewById(R.id.wonmatch);
+        Tournamentwon = findViewById(R.id.Tournamentwon);
+        // gallaryIMageviewPager = findViewById(R.id.tgallaryIMageviewPager);
+        matchPlayedView = findViewById(R.id.matchPlayedView);
+        imageView = findViewById(R.id.imageView);
+        teameMemberImageView = findViewById(R.id.teameMemberImageView);
         dataToView();
     }
 
@@ -87,14 +96,13 @@ public class TeamDetailFragment extends Fragment {
 
     // getTeamsDetails
     private void getTeamsDetails() {
-        bundle = getArguments();
-        int id = getArguments().getInt("id");
+        int id = getIntent().getIntExtra("id", 0);
 
-        if (Utility.isOnline(getContext())) {
-            astProgressBar = new ASTProgressBar(getContext());
+        if (Utility.isOnline(TeamDetailActivity.this)) {
+            astProgressBar = new ASTProgressBar(TeamDetailActivity.this);
             astProgressBar.show();
             String serviceURL = Contants.BASE_URL + Contants.teamCreate + "/" + id;
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(TeamDetailActivity.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, "getTeamsDetails", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -119,12 +127,16 @@ public class TeamDetailFragment extends Fragment {
                                     String team_country = jsonObject.optString("team_country");
                                     String team_zipcode = jsonObject.optString("team_zipcode");
                                     String team_thumbnail = jsonObject.optString("team_thumbnail");
+                                    String completeAdd = team_city + "," + team_state + "," + team_country + "," + team_zipcode;
+                                    address.setText(completeAdd);
+                                    aboutteam.setText(about_team + "");
+                                    userid.setText(unique_id);
                                     nametxt.setText(name);
-                                    ratingTxt.setText("");
+                                  //  ratingTxt.setText("");
                                     wonmatch.setText("");
                                     Tournamentwon.setText("");
 
-                                    Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + team_thumbnail)
+                                    Picasso.with(TeamDetailActivity.this).load(Contants.BASE_URL + team_thumbnail)
                                             .placeholder(R.drawable.noimage).into(imageView);
 
                                     JSONArray team_player = mainObj.optJSONArray("team_player");
@@ -138,7 +150,7 @@ public class TeamDetailFragment extends Fragment {
                                                 String profile_picture = object.optString("profile_picture");
                                                 addTeameMember(pname, pstatus, profile_picture);
                                             } catch (JSONException e) {
-                                                e.printStackTrace();
+                                                //e.printStackTrace();
                                             }
                                         }
 
@@ -176,20 +188,20 @@ public class TeamDetailFragment extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TeamDetailActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
                         astProgressBar.dismiss();
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, TeamDetailActivity.this);//off line msg....
         }
     }
 
 
     //addSportS
     public void addTeameMember(String name, String statusstr, String imagPathe) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(TeamDetailActivity.this);
         View inflatedLayout = inflater.inflate(R.layout.teame_player_row, null);
         ImageView playerImage = inflatedLayout.findViewById(R.id.playerImage);
         TextView playeName = inflatedLayout.findViewById(R.id.playeName);
@@ -197,15 +209,13 @@ public class TeamDetailFragment extends Fragment {
         playeName.setText(name);
         if (statusstr.equalsIgnoreCase("0")) {
             status.setText("PENDING");
-            status.setTextColor(getContext().getResources().getColor(R.color.orange_color));
+            status.setTextColor(TeamDetailActivity.this.getResources().getColor(R.color.orange_color));
         } else if (statusstr.equalsIgnoreCase("0")) {
             status.setText("APPROVED");
-            status.setTextColor(getContext().getResources().getColor(R.color.green2));
+            status.setTextColor(getResources().getColor(R.color.green2));
         }
-
-
         if (statusstr != null && !statusstr.equals("")) {
-            Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + imagPathe)
+            Picasso.with(TeamDetailActivity.this).load(Contants.BASE_URL + imagPathe)
                     .placeholder(R.drawable.noimage).into(playerImage);
         }
 
@@ -215,7 +225,7 @@ public class TeamDetailFragment extends Fragment {
 
     //addManager
     public void addMatchPlayed(String nametxt, String address, String datetxt) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(TeamDetailActivity.this);
         View inflatedLayout = inflater.inflate(R.layout.matchplay_row, null);
         TextView tmeavsteam = inflatedLayout.findViewById(R.id.tmeavsteam);
         TextView stadiumaddress = inflatedLayout.findViewById(R.id.stadiumaddress);

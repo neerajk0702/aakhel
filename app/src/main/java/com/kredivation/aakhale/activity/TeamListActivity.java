@@ -1,7 +1,9 @@
 package com.kredivation.aakhale.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,11 +13,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.TeamsAdapter;
 import com.kredivation.aakhale.components.ASTButton;
@@ -144,7 +150,7 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        rvList.addOnItemTouchListener(
+        /*rvList.addOnItemTouchListener(
                 new RecyclerItemClickListener(TeamListActivity.this, rvList, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -156,7 +162,7 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
                         // do whatever
                     }
                 })
-        );
+        );*/
     }
 
 
@@ -247,9 +253,50 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
+        getTeamValue();
+    }
+
+    private void getTeamValue() {
+        ArrayList<Team> teamList = new ArrayList<>();
+        String teamIdsStr = "";
+        if (teamArrayList != null && teamArrayList.size() > 0) {
+            String separatorComm = ",";
+            StringBuilder stringBuilders = new StringBuilder();
+            for (int i = 0; i < teamArrayList.size(); i++) {
+                if (teamArrayList.get(i).isSelectValue()) {
+                    teamList.add(teamArrayList.get(i));
+                    stringBuilders.append(String.valueOf(teamArrayList.get(i).getId()));
+                    stringBuilders.append(",");
+                }
+            }
+            teamIdsStr = stringBuilders.toString();
+            if (teamIdsStr != null && !teamIdsStr.equals("")) {
+                teamIdsStr = teamIdsStr.substring(0, teamIdsStr.length() - separatorComm.length());
+            }
+        }
         Intent output = new Intent();
-        output.putExtra("Test", "testssskmnds");
+        output.putExtra("selectTeamId", teamIdsStr);
+        output.putExtra("selectedTeam", new Gson().toJson(teamList));
         setResult(RESULT_OK, output);
         finish();
     }
+
+    //for hid keyboard when tab outside edittext box
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
 }

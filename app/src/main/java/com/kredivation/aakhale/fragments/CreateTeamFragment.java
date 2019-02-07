@@ -37,7 +37,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.TeamListActivity;
 import com.kredivation.aakhale.adapter.AddTournamentImageAdapter;
 import com.kredivation.aakhale.adapter.GridViewAdapter;
 import com.kredivation.aakhale.adapter.SportsServiceGridViewAdapter;
@@ -51,8 +53,10 @@ import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.AddViewDynamically;
 import com.kredivation.aakhale.model.City;
 import com.kredivation.aakhale.model.ContentData;
+import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.State;
+import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FilePickerHelper;
@@ -89,8 +93,6 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
     private String stateId, cityId;
     List<City> cityInfoList;
     LinearLayout addPlayerLayout;
-    ASTEditText addviewedtxt;
-    List<AddViewDynamically> addPlayerview = new ArrayList<AddViewDynamically>();
     public final int SELECT_PHOTO = 102;
     public final int REQUEST_CAMERA = 101;
     private String userChoosenTask;
@@ -98,6 +100,8 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
     ImageView image;
     File imgFile;
     String name, aboutTeamstr, stateSpinnerstr, citySpinnerstr, zipCodestr;
+    String selectPlayersId;
+
     public CreateTeamFragment() {
         // Required empty public constructor
     }
@@ -133,7 +137,6 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
         //   ss1.setSpan(new ForegroundColorSpan(Color.RED), 0, 5, 0);// set color
         addplayelbl.setText(ss1);
         getTeamFormData();
-        addMorePLayer();
     }
 
 
@@ -147,15 +150,9 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addMoreView:
-               /* fnNewDialog = new SearchDialog(getContext()) {
-                    @Override
-                    public void actionPerform() {
-
-                    }
-                };
-
-                fnNewDialog.show();*/
-                addMorePLayer();
+                Intent intent1 = new Intent(getContext(), AddPlayersActivity.class);
+                intent1.putExtra("CreateTeam", true);
+                startActivityForResult(intent1, Contants.REQ_PAGE_COMMUNICATOR);
                 break;
 
             case R.id.addMoreViewImage:
@@ -169,18 +166,17 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public void addMorePLayer() {
+    public void addMorePLayer(Data datavalue) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View inflatedLayout = inflater.inflate(R.layout.add_row, null);
-        addviewedtxt = inflatedLayout.findViewById(R.id.addviewedtxt);
-        TextView labelName = inflatedLayout.findViewById(R.id.labelName);
-        labelName.setText("Enter Unique Id");
+        View inflatedLayout = inflater.inflate(R.layout.create_match_team_layout, null);
+        ImageView imageView = inflatedLayout.findViewById(R.id.imageView);
+        TextView name = inflatedLayout.findViewById(R.id.name);
+        name.setText(datavalue.getFull_name());
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        userId.setText(datavalue.getUnique_id());
+        Picasso.with(getContext()).load(Contants.BASE_URL + datavalue.getProfile_picture()).placeholder(R.drawable.ic_cricket_player).into(imageView);
         addPlayerLayout.addView(inflatedLayout);
-        AddViewDynamically addViewDynamically = new AddViewDynamically();
-        addViewDynamically.setFullname(addviewedtxt);
-        addPlayerview.add(addViewDynamically);
     }
-
 
     private void getTeamFormData() {
         if (Utility.isOnline(getContext())) {
@@ -323,6 +319,17 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
                 onCaptureImageResult(data);
             }
         }
+        if (data != null && requestCode == Contants.REQ_PAGE_COMMUNICATOR) {
+            String selectedTeam = data.getExtras().getString("selectedData");
+            if (selectedTeam != null && !selectedTeam.equals("")) {
+                selectPlayersId = data.getExtras().getString("selectId");
+                ArrayList<Data> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Data>>() {
+                }.getType());
+                for (Data datavalue : teamList) {
+                    addMorePLayer(datavalue);
+                }
+            }
+        }
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -411,7 +418,6 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
     }
 
 
-
     public boolean isvalidateSignup() {
         name = teameName.getText().toString();
         aboutTeamstr = aboutTeam.getText().toString();
@@ -433,6 +439,9 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
         } else if (zipCodestr.equals("")) {
             Toast.makeText(getContext(), "Please Enter Zip Code", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (selectPlayersId == null || selectPlayersId.equals("")) {
+            Toast.makeText(getContext(), "Please Select Players!", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         return true;
@@ -452,7 +461,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
                 payloadList.put("team_state", stateId);
                 payloadList.put("team_city", cityId);
                 payloadList.put("team_zipcode", zipCodestr);
-                payloadList.put("team_player", "aku001,aku002,aku003");
+                payloadList.put("team_player", selectPlayersId);
             } catch (Exception e) {
                 //e.printStackTrace();
             }

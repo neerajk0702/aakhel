@@ -1,22 +1,18 @@
-package com.kredivation.aakhale.activity;
-
+package com.kredivation.aakhale.fragments;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,9 +21,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.UmpireAdapter;
-import com.kredivation.aakhale.components.ASTFontTextIconView;
-import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.adapter.PlayerAdapter;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.ContentDataAsArray;
@@ -41,40 +35,30 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
-public class UmpireListActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
-    ASTFontTextIconView sortBy;
+public class AddPlayersActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    private Toolbar toolbar;
+    boolean selectFlag = false;
     RecyclerView rvList;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     LinearLayoutManager mLayoutManager;
     int currentPage = 1;
-    ArrayList<Data> umpireList;
+    ArrayList<Data> playerList;
+    private PlayerAdapter playerAdapter;
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    private UmpireAdapter adapter;
-    private Toolbar toolbar;
-    boolean selectFlag = false;
-    int total_pages = 1;
-
-    public UmpireListActivity() {
-        // Required empty public constructor
-    }
+    long total_pages = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_umpire_list);
+        setContentView(R.layout.activity_add_players);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         init();
     }
 
-    private void init() {
-        selectFlag = getIntent().getBooleanExtra("CreateMatch", false);
+    public void init() {
         Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
         TextView back = toolbar.findViewById(R.id.back);
         back.setTypeface(materialdesignicons_font);
@@ -85,16 +69,14 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
                 onBackPressed();
             }
         });
-        sortBy = findViewById(R.id.sortBy);
-        sortBy.setOnClickListener(this);
-        rvList = findViewById(R.id.rvList);
-        mLayoutManager = new LinearLayoutManager(UmpireListActivity.this);
-        rvList.setLayoutManager(mLayoutManager);
-        loaddataProgress = findViewById(R.id.loaddataProgress);
-        umpireList = new ArrayList<>();
-        adapter = new UmpireAdapter(UmpireListActivity.this, umpireList, selectFlag);
-        rvList.setAdapter(adapter);
+        selectFlag = getIntent().getBooleanExtra("CreateTeam", false);
 
+        rvList = findViewById(R.id.rvList);
+        mLayoutManager = new LinearLayoutManager(AddPlayersActivity.this);
+
+        loaddataProgress = findViewById(R.id.loaddataProgress);
+        playerList = new ArrayList<>();
+        rvList.setLayoutManager(mLayoutManager);
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -111,7 +93,7 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
                             loading = false;
                             currentPage += 1;
                             if (currentPage <= total_pages) {
-                                getUmireList();
+                                getPlayerListData();
                             }
                         }
                     }
@@ -127,6 +109,7 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
             }
 
         });
+
 
         // SwipeRefreshLayout
         mSwipeRefreshLayout = findViewById(R.id.swipe_container);
@@ -146,82 +129,75 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
 
                 mSwipeRefreshLayout.setRefreshing(true);
 
-                // Fetching data from server first time
-                getUmireList();
+                // Fetching data from server
+                getPlayerListData();
             }
         });
+        playerAdapter = new PlayerAdapter(AddPlayersActivity.this, playerList, true);
+        rvList.setAdapter(playerAdapter);
     }
 
-    private void getUmireList() {
-        if (Utility.isOnline(UmpireListActivity.this)) {
+    //get players list
+    private void getPlayerListData() {
+        if (Utility.isOnline(AddPlayersActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            ASTProgressBar dotDialog = new ASTProgressBar(UmpireListActivity.this);
-            // dotDialog.show();
-            String serviceURL = Contants.BASE_URL + Contants.UserList + "umpire&page=" + currentPage;
+            String serviceURL = Contants.BASE_URL + Contants.UserList + "player&page=" + currentPage;
             JSONObject object = new JSONObject();
 
-            ServiceCaller serviceCaller = new ServiceCaller(UmpireListActivity.this);
-            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getUmireList", new IAsyncWorkCompletedCallback() {
+            ServiceCaller serviceCaller = new ServiceCaller(AddPlayersActivity.this);
+            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getPlayerListData", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete) {
                         if (result != null) {
                             final ContentDataAsArray serviceData = new Gson().fromJson(result, ContentDataAsArray.class);
                             if (serviceData != null && serviceData.isStatus()) {
-                                total_pages = (int) serviceData.getTotal_pages();
+                                total_pages = serviceData.getTotal_pages();
                                 if (serviceData.getData() != null) {
-                                    umpireList.addAll(serviceData.getData());
-                                    adapter.notifyDataSetChanged();
+                                    playerList.addAll(serviceData.getData());
+                                    playerAdapter.notifyDataSetChanged();
                                     loading = true;
                                     loaddataProgress.setVisibility(View.GONE);
                                     mSwipeRefreshLayout.setRefreshing(false);
                                 }
                             }
                         } else {
-                            Toast.makeText(UmpireListActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddPlayersActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(UmpireListActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddPlayersActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
                         loaddataProgress.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, UmpireListActivity.this);//off line msg....
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sortBy:
-                break;
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, AddPlayersActivity.this);//off line msg....
         }
     }
 
     @Override
     public void onRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
-        umpireList.clear();
-        getUmireList();
+        playerList.clear();
+        getPlayerListData();
     }
 
     @Override
     public void onBackPressed() {
-        getUmpireValue();
+        getValue();
     }
 
-    private void getUmpireValue() {
-        ArrayList<Data> selectedumpireList = new ArrayList<>();
+    private void getValue() {
+        ArrayList<Data> teamList = new ArrayList<>();
         String IdsStr = "";
-        if (umpireList != null && umpireList.size() > 0) {
+        if (playerList != null && playerList.size() > 0) {
             String separatorComm = ",";
             StringBuilder stringBuilders = new StringBuilder();
-            for (int i = 0; i < umpireList.size(); i++) {
-                if (umpireList.get(i).isSelectValue()) {
-                    selectedumpireList.add(umpireList.get(i));
-                    stringBuilders.append(String.valueOf(umpireList.get(i).getId()));
+            for (int i = 0; i < playerList.size(); i++) {
+                if (playerList.get(i).isSelectValue()) {
+                    teamList.add(playerList.get(i));
+                    stringBuilders.append(String.valueOf(playerList.get(i).getUnique_id()));
                     stringBuilders.append(",");
                 }
             }
@@ -231,8 +207,8 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
             }
         }
         Intent output = new Intent();
-        output.putExtra("selectUmpireId", IdsStr);
-        output.putExtra("selectedUmpire", new Gson().toJson(selectedumpireList));
+        output.putExtra("selectId", IdsStr);
+        output.putExtra("selectedData", new Gson().toJson(teamList));
         setResult(RESULT_OK, output);
         finish();
     }
@@ -253,5 +229,10 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
             }
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

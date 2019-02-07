@@ -1,12 +1,10 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -14,13 +12,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -32,8 +31,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.AddAcademicsImageAdapter;
-import com.kredivation.aakhale.adapter.RecycleViewAdapter;
-import com.kredivation.aakhale.adapter.SelectSportsAdapter;
 import com.kredivation.aakhale.adapter.SportsServiceGridViewAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
@@ -69,9 +66,7 @@ import okhttp3.RequestBody;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateGroundFragment extends Fragment implements View.OnClickListener {
-
-    View view;
+public class CreateGroundActivity extends AppCompatActivity implements View.OnClickListener {
 
     RecyclerView addImageView;
     private ArrayList<String> stateIdList;
@@ -82,6 +77,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     List<City> cityInfoList;
     int serviceCount = 0;
     int termsCount = 0;
+    int AchievementsCount = 0;
     ASTEditText gName, venueAddress, zipCode, capacitytxt, dimesionTxt, noofMatchtxt, surfaceTxt, costtext;
     Spinner stateSpinner, citySpinner, floodlightSpinner, TimeZoneSpinner, dayorNightSpiner;
     ASTButton continuebtn, canclebtn;
@@ -92,6 +88,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     LinearLayout container_add_freeservices, container_add_term_condtion;
     List<AddViewDynamically> allFreeSertvice = new ArrayList<AddViewDynamically>();
     List<AddViewDynamically> allTermCondication = new ArrayList<AddViewDynamically>();
+    List<AddViewDynamically> allAchievements = new ArrayList<AddViewDynamically>();
     private TextView addMoretermcondtion, addmorfreeServices, addPicture;
     public final int SELECT_PHOTO = 102;
     public final int REQUEST_CAMERA = 101;
@@ -101,74 +98,84 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     ArrayList<ImageItem> acImgList;
     AddAcademicsImageAdapter imageAdapater;
     GridView sportsgridView;
+    private Toolbar toolbar;
+    TextView addStaffView, addMoreAchievements;
+    LinearLayout addStaffLayout, AchievementsLayout;
 
-    public CreateGroundFragment() {
+    public CreateGroundActivity() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_create_ground, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_create_ground);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        getActivity().setTitle("Create Ground");
-        return view;
     }
 
     public void init() {
-        gName = view.findViewById(R.id.gName);
-        costtext = view.findViewById(R.id.cost);
-        venueAddress = view.findViewById(R.id.venueAddress);
-        zipCode = view.findViewById(R.id.zipCode);
-        capacitytxt = view.findViewById(R.id.capacity);
-        dimesionTxt = view.findViewById(R.id.dimesionTxt);
-        noofMatchtxt = view.findViewById(R.id.noofMatchtxt);
-        surfaceTxt = view.findViewById(R.id.surfaceTxt);
-        stateSpinner = view.findViewById(R.id.stateSpinner);
-        citySpinner = view.findViewById(R.id.citySpinner);
-        floodlightSpinner = view.findViewById(R.id.floodlightSpinner);
-        TimeZoneSpinner = view.findViewById(R.id.TimeZoneSpinner);
-        dayorNightSpiner = view.findViewById(R.id.dayorNightSpiner);
-        continuebtn = view.findViewById(R.id.continuebtn);
+        addStaffView = findViewById(R.id.addStaffView);
+        addStaffView.setOnClickListener(this);
+        addMoreAchievements = findViewById(R.id.addMoreAchievements);
+        addMoreAchievements.setOnClickListener(this);
+        addStaffLayout = findViewById(R.id.addStaffLayout);
+        AchievementsLayout = findViewById(R.id.AchievementsLayout);
+
+        gName = findViewById(R.id.gName);
+        costtext = findViewById(R.id.cost);
+        venueAddress = findViewById(R.id.venueAddress);
+        zipCode = findViewById(R.id.zipCode);
+        capacitytxt = findViewById(R.id.capacity);
+        dimesionTxt = findViewById(R.id.dimesionTxt);
+        noofMatchtxt = findViewById(R.id.noofMatchtxt);
+        surfaceTxt = findViewById(R.id.surfaceTxt);
+        stateSpinner = findViewById(R.id.stateSpinner);
+        citySpinner = findViewById(R.id.citySpinner);
+        floodlightSpinner = findViewById(R.id.floodlightSpinner);
+        TimeZoneSpinner = findViewById(R.id.TimeZoneSpinner);
+        dayorNightSpiner = findViewById(R.id.dayorNightSpiner);
+        continuebtn = findViewById(R.id.continuebtn);
         continuebtn.setOnClickListener(this);
-        canclebtn = view.findViewById(R.id.canclebtn);
+        canclebtn = findViewById(R.id.canclebtn);
         canclebtn.setOnClickListener(this);
-        addImageView = view.findViewById(R.id.addImageView);
+        addImageView = findViewById(R.id.addImageView);
         setLinearLayoutManager(addImageView);
         addImageView.setNestedScrollingEnabled(false);
         addImageView.setHasFixedSize(false);
-        sportsgridView = view.findViewById(R.id.sportsgridView);
-        container_add_freeservices = view.findViewById(R.id.container_add_freeservices);
-        container_add_term_condtion = view.findViewById(R.id.container_add_term_condtion);
-        addmorfreeServices = view.findViewById(R.id.addmorfreeServices);
-        addMoretermcondtion = view.findViewById(R.id.addMoretermcondtion);
+        sportsgridView = findViewById(R.id.sportsgridView);
+        container_add_freeservices = findViewById(R.id.container_add_freeservices);
+        container_add_term_condtion = findViewById(R.id.container_add_term_condtion);
+        addmorfreeServices = findViewById(R.id.addmorfreeServices);
+        addMoretermcondtion = findViewById(R.id.addMoretermcondtion);
         addmorfreeServices.setOnClickListener(this);
         addMoretermcondtion.setOnClickListener(this);
-        addPicture = view.findViewById(R.id.addPicture);
+        addPicture = findViewById(R.id.addPicture);
         addPicture.setOnClickListener(this);
         acImgList = new ArrayList<>();
-        imageAdapater = new AddAcademicsImageAdapter(getContext(), R.layout.image_item_layout, acImgList);
+        imageAdapater = new AddAcademicsImageAdapter(CreateGroundActivity.this, R.layout.image_item_layout, acImgList);
         addImageView.setAdapter(imageAdapater);
         getGroundData();
         addTermsAndCondition();
         addFreeService();
+        addAchievements();
     }
 
     private void setLinearLayoutManager(RecyclerView recyclerView) {
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(CreateGroundActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(LayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void getGroundData() {
-        if (Utility.isOnline(getContext())) {
-            ASTProgressBar dotDialog = new ASTProgressBar(getContext());
+        if (Utility.isOnline(CreateGroundActivity.this)) {
+            ASTProgressBar dotDialog = new ASTProgressBar(CreateGroundActivity.this);
             dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.groundFormApi;
             JSONObject object = new JSONObject();
 
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(CreateGroundActivity.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getGroundData", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -181,10 +188,10 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                                 setSportsSpinner(serviceData);
                             }
                         } else {
-                            Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateGroundActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateGroundActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -192,7 +199,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                 dotDialog.dismiss();
             }
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, CreateGroundActivity.this);//off line msg....
         }
     }
 
@@ -210,7 +217,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                     cityInfoList.add(city);
                 }
             }
-            ArrayAdapter<String> statedapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_row, stateList);
+            ArrayAdapter<String> statedapter = new ArrayAdapter<String>(CreateGroundActivity.this, R.layout.spinner_row, stateList);
             stateSpinner.setAdapter(statedapter);
             stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -240,7 +247,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                     cityIdList.add(cityInfoList.get(i).getId());
                 }
             }
-            ArrayAdapter<String> citydapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_row, cityList);
+            ArrayAdapter<String> citydapter = new ArrayAdapter<String>(CreateGroundActivity.this, R.layout.spinner_row, cityList);
             citySpinner.setAdapter(citydapter);
             citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -266,7 +273,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                 timeZoneListt.add(timezone.getTimezone_name());
                 timeZoneList.add(timezone.getId());
             }
-            ArrayAdapter<String> statedapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_row, timeZoneListt);
+            ArrayAdapter<String> statedapter = new ArrayAdapter<String>(CreateGroundActivity.this, R.layout.spinner_row, timeZoneListt);
             TimeZoneSpinner.setAdapter(statedapter);
 
             TimeZoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -288,7 +295,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
         if (serviceData.getSports() != null) {
             sportsList = new ArrayList<>();
             sportsList.addAll(serviceData.getSports());
-            SportsServiceGridViewAdapter sportsServiceGridViewAdapter = new SportsServiceGridViewAdapter(getContext(), R.layout.sports_row, sportsList);
+            SportsServiceGridViewAdapter sportsServiceGridViewAdapter = new SportsServiceGridViewAdapter(CreateGroundActivity.this, R.layout.sports_row, sportsList);
             sportsgridView.setAdapter(sportsServiceGridViewAdapter);
             sportsgridView.setFocusable(true);
         }
@@ -297,7 +304,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     //add free service layout in runtime
     public void addFreeService() {
         serviceCount++;
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(CreateGroundActivity.this);
         View inflatedLayout = inflater.inflate(R.layout.add_editbox, null);
         ASTEditText edittext = inflatedLayout.findViewById(R.id.edittext);
         TextView count = inflatedLayout.findViewById(R.id.count);
@@ -311,7 +318,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     //add term and condition in run time
     public void addTermsAndCondition() {
         termsCount++;
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(CreateGroundActivity.this);
         View inflatedLayout = inflater.inflate(R.layout.add_editbox, null);
         ASTEditText edittext = inflatedLayout.findViewById(R.id.edittext);
         TextView count = inflatedLayout.findViewById(R.id.count);
@@ -320,6 +327,20 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
         AddViewDynamically addViewDynamically = new AddViewDynamically();
         addViewDynamically.setAddEditText(edittext);
         allTermCondication.add(addViewDynamically);
+    }
+
+    //add Achievements in run time
+    public void addAchievements() {
+        AchievementsCount++;
+        LayoutInflater inflater = LayoutInflater.from(CreateGroundActivity.this);
+        View inflatedLayout = inflater.inflate(R.layout.add_editbox, null);
+        ASTEditText edittext = inflatedLayout.findViewById(R.id.edittext);
+        TextView count = inflatedLayout.findViewById(R.id.count);
+        count.setText(AchievementsCount + "-");
+        AchievementsLayout.addView(inflatedLayout);
+        AddViewDynamically addViewDynamically = new AddViewDynamically();
+        addViewDynamically.setAddEditText(edittext);
+        allAchievements.add(addViewDynamically);
     }
 
     public boolean isValidate() {
@@ -346,49 +367,49 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
         }
         coststr = costtext.getText().toString();
         if (name.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Ground Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Ground Name", Toast.LENGTH_SHORT).show();
             return false;
         } else if (ground_address.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Ground Address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Ground Address", Toast.LENGTH_SHORT).show();
             return false;
         } else if (ground_zipcode.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Ground Zipcode", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Ground Zipcode", Toast.LENGTH_SHORT).show();
             return false;
         } else if (capacity.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Ground Capacity", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Ground Capacity", Toast.LENGTH_SHORT).show();
             return false;
         } else if (Dimension.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Ground Dimension", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Ground Dimension", Toast.LENGTH_SHORT).show();
             return false;
         } else if (noofMatchStr.equals("")) {
-            Toast.makeText(getContext(), "Please Enter No of Match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter No of Match", Toast.LENGTH_SHORT).show();
             return false;
         } else if (surface.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Ground surface", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Ground surface", Toast.LENGTH_SHORT).show();
             return false;
         } else if (coststr.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Cost", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Cost", Toast.LENGTH_SHORT).show();
             return false;
         } else if (noofMatchStr.equals("")) {
-            Toast.makeText(getContext(), "Please Enter No of Match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter No of Match", Toast.LENGTH_SHORT).show();
             return false;
         } else if (stateId == null || stateId.equals("") || stateId.equals("0")) {
-            Toast.makeText(getContext(), "Please Select State!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Select State!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (cityId == null || cityId.equals("") || cityId.equals("0")) {
-            Toast.makeText(getContext(), "Please Select City!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Select City!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (floodlight == -1) {
-            Toast.makeText(getContext(), "Please Select Flood Light!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Select Flood Light!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (timeZoneId == null || timeZoneId.equals("") || timeZoneId.equals("0")) {
-            Toast.makeText(getContext(), "Please Select Time Zone!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Select Time Zone!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (day_or_night == -1) {
-            Toast.makeText(getContext(), "Please Select Day / Night!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Select Day / Night!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (coststr.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Ground Cost!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateGroundActivity.this, "Please Enter Ground Cost!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -398,7 +419,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
 
 
     private void saveGroundData() {
-        if (ASTUIUtil.isOnline(getContext())) {
+        if (ASTUIUtil.isOnline(CreateGroundActivity.this)) {
             String serviceURL = Contants.BASE_URL + Contants.SaveGround;
             HashMap<String, String> payloadList = new HashMap<String, String>();
             payloadList.put("name", name);
@@ -428,6 +449,13 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                 }
             }
             payloadList.put("terms_conditions", jsonArraTermCondication.toString());
+            JSONArray jsonArraAchievement = new JSONArray();
+            if (allAchievements != null && allAchievements.size() > 0) {
+                for (AddViewDynamically viewDynamically : allAchievements) {
+                    jsonArraAchievement.put(viewDynamically.getAddEditText().getText().toString());
+                }
+            }
+            payloadList.put("achievements", jsonArraAchievement.toString());
             String sportsIdsStr = "";
             if (sportsList != null && sportsList.size() > 0) {
                 String separatorComm = ",";
@@ -443,21 +471,21 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
             }
             payloadList.put("sports", sportsIdsStr);
             MultipartBody.Builder multipartBody = setMultipartBodyVaule();
-            FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, serviceURL) {
+            FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(CreateGroundActivity.this, payloadList, multipartBody, serviceURL) {
                 @Override
                 public void receiveData(String result) {
                     // ContentData data = new Gson().fromJson(result, ContentData.class);
                     if (result != null) {
-                        ASTUIUtil.showToast(getContext(), "Ground added successfully");
+                        ASTUIUtil.showToast(CreateGroundActivity.this, "Ground added successfully");
                     } else {
-                        ASTUIUtil.showToast(getContext(), "Ground not added successfully!");
+                        ASTUIUtil.showToast(CreateGroundActivity.this, "Ground not added successfully!");
                     }
 
                 }
             };
             fileUploaderHelper.execute();
         } else {
-            ASTUIUtil.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            ASTUIUtil.alertForErrorMessage(Contants.OFFLINE_MESSAGE, CreateGroundActivity.this);//off line msg....
         }
 
 
@@ -476,7 +504,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
     }
 
     private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(CreateGroundActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
 
@@ -492,7 +520,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                 if (jsonStatus.equals("success")) {
                     JSONObject object = jsonRootObject.optJSONObject("data");
                     String userName = object.optString("name").toString();
-                    Toast.makeText(getContext(), "Ground added successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateGroundActivity.this, "Ground added successfully", Toast.LENGTH_LONG).show();
                 } else {
                 }
 
@@ -516,21 +544,25 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.addmorfreeServices:
                 addFreeService();
-                ASTUIUtil.showToast(getContext(), "One More Free Services Added.");
+                ASTUIUtil.showToast(CreateGroundActivity.this, "One More Free Services Added.");
                 break;
             case R.id.addMoretermcondtion:
                 addTermsAndCondition();
-                ASTUIUtil.showToast(getContext(), "One More Term and Condition Added.");
+                ASTUIUtil.showToast(CreateGroundActivity.this, "One More Term and Condition Added.");
                 break;
             case R.id.addPicture:
                 selectImage();
+                break;
+            case R.id.addMoreAchievements:
+                addAchievements();
+                ASTUIUtil.showToast(CreateGroundActivity.this, "One More Achievement Added.");
                 break;
         }
     }
 
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(CreateGroundActivity.this);
         builder.setTitle("Select File!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -579,7 +611,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
 
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        Uri uri = Utility.getImageUri(getContext(), thumbnail);
+        Uri uri = Utility.getImageUri(CreateGroundActivity.this, thumbnail);
 
         if (uri != null) {
             setImageName(uri, thumbnail);
@@ -596,7 +628,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
         if (data != null) {
             try {
                 uri = data.getData();
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), data.getData());
+                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(CreateGroundActivity.this.getContentResolver(), data.getData());
                 if (uri != null) {
                     setImageName(uri, imageBitmap);
                 }
@@ -615,7 +647,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                astProgressBar = new ASTProgressBar(getContext());
+                astProgressBar = new ASTProgressBar(CreateGroundActivity.this);
                 astProgressBar.show();
             }
 
@@ -623,7 +655,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
             protected Boolean doInBackground(Void... voids) {
 
                 Boolean flag = false;
-                File sdcardPath = Utility.getExternalStorageFilePath(getContext());
+                File sdcardPath = Utility.getExternalStorageFilePath(CreateGroundActivity.this);
                 sdcardPath.mkdirs();
                 //File imgFile = new File(sdcardPath, System.currentTimeMillis() + ".png");
                 imgFile = new File(sdcardPath, fileName);
@@ -638,7 +670,7 @@ public class CreateGroundFragment extends Fragment implements View.OnClickListen
                     e.printStackTrace();
                     return false;
                 }
-                MediaScannerConnection.scanFile(getContext(), new String[]{imgFile.toString()}, null,
+                MediaScannerConnection.scanFile(CreateGroundActivity.this, new String[]{imgFile.toString()}, null,
                         new MediaScannerConnection.OnScanCompletedListener() {
                             public void onScanCompleted(String path, Uri uri) {
                                 if (Contants.IS_DEBUG_LOG) {

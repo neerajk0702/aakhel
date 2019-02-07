@@ -12,11 +12,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.AcadamicsDetailFragment;
 import com.kredivation.aakhale.fragments.MatchDetailsFragment;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Match;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -27,15 +31,16 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, address, date, time;
+        TextView matchname, matchteam, address, date, time;
         LinearLayout MainLayout;
 
         public ViewHolder(View v) {
             super(v);
-            name = v.findViewById(R.id.name);
+            matchname = v.findViewById(R.id.matchname);
+            matchteam = v.findViewById(R.id.matchteam);
             address = v.findViewById(R.id.address);
-            date = v.findViewById(R.id.date);
             MainLayout = v.findViewById(R.id.MainLayout);
+            date = v.findViewById(R.id.date);
             time = v.findViewById(R.id.time);
         }
     }
@@ -57,8 +62,15 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(matchArrayList.get(position).getName() + "");
-        holder.address.setText(matchArrayList.get(position).getMatch_address() + "");
+        holder.matchname.setText(matchArrayList.get(position).getName() + "");
+        try {
+            JSONObject cityObj = new JSONObject(matchArrayList.get(position).getMatchCity());
+            JSONObject stateObj = new JSONObject(matchArrayList.get(position).getMatchState());
+            String completeAddress = matchArrayList.get(position).getMatch_address() + "," + cityObj.optString("city_name") + "," + stateObj.optString("state_name") + "," + matchArrayList.get(position).getMatch_zipcode();
+            holder.address.setText(completeAddress + "");
+        } catch (JSONException e) {
+            // e.printStackTrace();
+        }
         holder.date.setText(matchArrayList.get(position).getDate() + "");
         holder.time.setText(matchArrayList.get(position).getTime() + "");
 
@@ -67,7 +79,7 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
             public void onClick(View v) {
                 MatchDetailsFragment matchDetailsFragment = new MatchDetailsFragment();
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", matchArrayList.get(position).getId());
+                bundle.putString("MatchDetail", new Gson().toJson(matchArrayList.get(position)));
                 matchDetailsFragment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
