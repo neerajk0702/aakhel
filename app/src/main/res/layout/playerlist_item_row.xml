@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
-    app:cardUseCompatPadding="true"
-    app:cardElevation="@dimen/_5dp"
-    app:cardCornerRadius="@dimen/_5dp"
-    android:minHeight="@dimen/_30dp"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:minHeight="@dimen/_40dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/_5dp"
+    app:cardElevation="@dimen/_5dp"
+    app:cardUseCompatPadding="true">
 
 
     <LinearLayout
@@ -23,24 +23,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/nameTameInfo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_3dp"
+                android:layout_gravity="center"
                 android:text="Text Umpire "
-                android:padding="@dimen/_3dp"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/dateInfo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
                 android:text="30(2013-2018)"
-                android:padding="@dimen/_3dp"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
         </LinearLayout>

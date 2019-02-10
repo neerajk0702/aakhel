@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/_5dp"
     android:orientation="vertical"
     tools:context=".activity.SelectUserTypeActivity">
 
@@ -16,14 +16,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_12dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:padding="@dimen/_5dp"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
                 android:text="Team Name"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -32,8 +31,7 @@
                 android:id="@+id/teameName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5dp"
-                android:layout_marginRight="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_4dp"
                 android:background="@drawable/round_boder"
                 android:padding="@dimen/_12dp"
                 android:textSize="@dimen/_12dp" />
@@ -42,8 +40,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:padding="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
                 android:text="About Team"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -52,30 +51,30 @@
                 android:id="@+id/aboutTeam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5dp"
-                android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:minHeight="@dimen/_90dp"
-                android:padding="@dimen/_5dp"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
                 android:textSize="@dimen/_12dp" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_6dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/_5dp"
+                    android:paddingBottom="@dimen/_5dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:layout_weight="1"
                         android:text="Select State"
                         android:textSize="@dimen/_12dp"
@@ -85,7 +84,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:layout_weight="1"
                         android:text="Select City"
                         android:textSize="@dimen/_12dp"
@@ -98,9 +96,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40dp"
-                    android:layout_marginLeft="@dimen/_12dp"
-                    android:layout_marginTop="@dimen/_12dp"
-                    android:layout_marginRight="@dimen/_12dp"
                     android:orientation="horizontal">
 
 
@@ -112,7 +107,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/edittextround"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/_5dp">
 
 
                         <Spinner
@@ -131,7 +127,6 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/_5dp"
                         android:layout_weight="1"
                         android:background="@drawable/edittextround"
                         android:gravity="center"
@@ -157,8 +152,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:padding="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
                 android:text="Zipcode"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -167,29 +163,30 @@
                 android:id="@+id/zipCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5dp"
-                android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:padding="@dimen/_12dp"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
                 android:textSize="@dimen/_12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/_5dp"
+                    android:paddingBottom="@dimen/_5dp">
 
                     <TextView
                         android:id="@+id/addplayelbl"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_4dp"
                         android:layout_weight=".6"
-                        android:padding="@dimen/_5dp"
                         android:text="Add Player(Enter Unique Id)"
                         android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
@@ -199,10 +196,8 @@
                         android:id="@+id/addMoreView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_2dp"
                         android:layout_weight=".4"
                         android:gravity="right"
-                        android:padding="@dimen/_5dp"
                         android:text="+Add More"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/_12dp"
@@ -224,19 +219,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/_5dp"
+                    android:paddingBottom="@dimen/_5dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:layout_weight=".6"
-                        android:padding="@dimen/_5dp"
                         android:text="Team Thumblin"
                         android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
@@ -246,10 +242,8 @@
                         android:id="@+id/addMoreViewImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:layout_weight=".4"
                         android:gravity="right"
-                        android:padding="@dimen/_5dp"
                         android:text="+ Select Photo"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/_12dp"

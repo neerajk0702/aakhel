@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_5dp"
+    android:layout_margin="@dimen/_8dp"
     android:orientation="vertical"
-    android:padding="@dimen/_3dp"
-    tools:context=".fragments.TournamentDetails">]
+    tools:context=".fragments.TournamentDetails">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -68,7 +67,6 @@
                 android:id="@+id/dateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5dp"
                 android:textSize="@dimen/_12dp" />
 
             <LinearLayout
@@ -76,14 +74,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/round_boder"
-                android:orientation="vertical"
-                android:padding="@dimen/_5dp">
+                android:orientation="vertical">
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_4dp"
                     android:text="About Tournament"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -95,7 +91,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="5"
-                    android:padding="@dimen/_5dp"
                     android:textSize="@dimen/_12dp" />
 
 
@@ -104,13 +99,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
                     android:text="Teams"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -124,8 +118,7 @@
                         android:id="@+id/teamesView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_3dp" />
+                        android:orientation="horizontal" />
 
                 </HorizontalScrollView>
 
@@ -136,7 +129,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5dp"
-                android:padding="@dimen/_4dp"
                 android:text="Details"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12dp"
@@ -146,14 +138,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_5dp">
+                android:layout_marginTop="@dimen/_5dp"
+                android:orientation="vertical">
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5dp"
                     android:text="Game Formates"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -268,6 +259,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:orientation="vertical">
 
@@ -275,7 +267,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5dp"
                     android:text="Facilites"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -302,7 +293,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5dp"
                     android:text="Price:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -329,7 +319,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5dp"
                     android:text="Rule Regulation:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -357,7 +346,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="5"
-                    android:padding="@dimen/_5dp"
                     android:text="Umpire"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
