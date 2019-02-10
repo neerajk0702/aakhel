@@ -3,6 +3,7 @@ package com.kredivation.aakhale.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView matchname, matchteam, address, date, time;
-        LinearLayout MainLayout;
+        MaterialCardView MainLayout;
 
         public ViewHolder(View v) {
             super(v);

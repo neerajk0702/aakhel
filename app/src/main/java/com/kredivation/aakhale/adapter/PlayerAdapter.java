@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -36,7 +37,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, teamName, ratingTxt, selectCheck, userId;
         ImageView imageView, menumore;
-        LinearLayout root_layout;
+        MaterialCardView root_layout;
 
         public ViewHolder(View v) {
             super(v);

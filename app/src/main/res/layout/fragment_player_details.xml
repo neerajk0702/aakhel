@@ -4,9 +4,8 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_5dp"
-    android:orientation="vertical"
-    android:padding="@dimen/_3dp">
+    android:layout_margin="@dimen/_3dp"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,13 +58,14 @@
                                 android:text="Sacin Ji"
                                 android:textSize="@dimen/_14dp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/userId"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=""
                                 android:layout_marginTop="@dimen/_3dp"
                                 android:layout_marginBottom="@dimen/_3dp"
+                                android:text=""
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
@@ -97,13 +97,13 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_4dp">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -127,6 +127,7 @@
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -150,6 +151,7 @@
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -197,6 +199,7 @@
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -242,6 +245,7 @@
                                 android:text=""
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -275,8 +279,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
                     android:text="Team Information"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -287,8 +291,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5dp" />
+                    android:orientation="vertical" />
 
 
                 <LinearLayout
@@ -300,10 +303,10 @@
                     <com.kredivation.aakhale.components.ASTTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5dp"
                         android:text="Gallery"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12dp"
+                        android:layout_marginLeft="@dimen/_5dp"
                         android:textStyle="bold" />
 
                     <HorizontalScrollView
@@ -315,8 +318,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/_5dp" />
+                            android:orientation="horizontal" />
                     </HorizontalScrollView>
 
 
@@ -333,7 +335,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:minHeight="@dimen/_30dp"
+        android:minHeight="@dimen/_45dp"
         android:orientation="horizontal">
 
         <TextView
@@ -345,6 +347,7 @@
             android:layout_weight="1"
             android:background="@drawable/txtbxcolor"
             android:gravity="center"
+
             android:padding="@dimen/_4dp"
             android:text="CHALLENGE"
             android:textColor="@color/white"
