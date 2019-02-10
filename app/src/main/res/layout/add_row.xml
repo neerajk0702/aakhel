@@ -9,7 +9,6 @@
         android:id="@+id/labelName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5dp"
         android:padding="@dimen/_5dp"
         android:textSize="@dimen/_12dp"
         android:textStyle="bold" />
@@ -18,8 +17,6 @@
         android:id="@+id/addviewedtxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_5dp"
-        android:layout_marginRight="@dimen/_5dp"
         android:background="@drawable/round_boder"
         android:minHeight="@dimen/_40dp"
         android:padding="@dimen/_5dp"

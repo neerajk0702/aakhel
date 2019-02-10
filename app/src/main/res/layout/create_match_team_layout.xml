@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="@dimen/_50dp"
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/_5dp"
     app:cardElevation="@dimen/_5dp"
@@ -11,7 +12,9 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:minHeight="@dimen/_40dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,7 +25,6 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/_3dp"
                 android:layout_weight="0.2"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -54,7 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_2dp"
-                    android:text="UP"
                     android:textSize="@dimen/_10dp"
                     android:textStyle="bold"
                     android:visibility="visible" />
@@ -67,4 +68,4 @@
     </LinearLayout>
 
 
-</android.support.v7.widget.CardView>
+</android.support.design.card.MaterialCardView>

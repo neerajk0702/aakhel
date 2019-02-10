@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView userName, locationIcon, location;
         ImageView userImage;
-        CardView cardView;
+        MaterialCardView cardView;
 
         public MyViewHolder(View view) {
             super(view);

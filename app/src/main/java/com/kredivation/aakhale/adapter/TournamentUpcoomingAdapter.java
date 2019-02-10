@@ -3,6 +3,7 @@ package com.kredivation.aakhale.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ public class TournamentUpcoomingAdapter extends RecyclerView.Adapter<TournamentU
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, address, date;
         ImageView imageView;
-        LinearLayout root_layout;
+        MaterialCardView root_layout;
         ASTButton avilableTxt;
 
 

@@ -3,6 +3,7 @@ package com.kredivation.aakhale.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class AcadamicAdapter extends RecyclerView.Adapter<AcadamicAdapter.ViewHo
         TextView name, address, ratingTxt, moreGamesTxt;
         ImageView imageView;
         ASTFontTextIconView matchIcon;
-        LinearLayout root_layout;
+        MaterialCardView root_layout;
 
         public ViewHolder(View v) {
             super(v);

@@ -3,6 +3,7 @@ package com.kredivation.aakhale.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class AddChatAdapter extends RecyclerView.Adapter<AddChatAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView teameName, teameAdress;
         ImageView imageSports;
-        LinearLayout MainLayout;
+        MaterialCardView MainLayout;
 
         public ViewHolder(View v) {
             super(v);
