@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_5dp"
+    android:layout_margin="@dimen/_4dp"
     android:orientation="vertical"
-    android:padding="@dimen/_2dp"
     tools:context=".fragments.AcadamicsDetailFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -21,21 +20,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_5dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_2dp"
                         android:textStyle="bold" />
 
 
@@ -43,7 +39,6 @@
                         android:id="@+id/ratingTxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_2dp"
                         android:text="* * * * *"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/_12dp"
@@ -56,7 +51,6 @@
                     android:layout_width="@dimen/_30dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="@dimen/_2dp"
                     android:src="@drawable/ic_favorite" />
 
 
@@ -66,7 +60,6 @@
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -82,7 +75,6 @@
                 android:id="@+id/uniqueId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_2dp"
                 android:text="Unique ID: 898765F"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12dp"
@@ -94,7 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4dp"
                 android:maxLines="5"
-                android:padding="@dimen/_5dp"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -171,7 +162,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:text="Manager"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -198,7 +188,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
                     android:text="Coach"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -243,13 +232,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/teamLiastView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:orientation="vertical" />
 
 

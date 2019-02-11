@@ -75,7 +75,7 @@ public class AcadamicsDetailFragment extends Fragment {
         sportsView = view.findViewById(R.id.sportsView);
         ownerLayout = view.findViewById(R.id.ownerLayout);
         coachLayout = view.findViewById(R.id.coachLayout);
-
+        getActivity().setTitle("Academics Details");
 
         dataToView();
 
