@@ -3,6 +3,7 @@ package com.kredivation.aakhale.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class AddUmpireAdapter extends RecyclerView.Adapter<AddUmpireAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView umpireName, matchUmpite, uniqeId;
         ImageView imageSports, closeList;
-        LinearLayout MainLayout;
+        MaterialCardView MainLayout;
 
         public ViewHolder(View v) {
             super(v);
@@ -36,7 +37,7 @@ public class AddUmpireAdapter extends RecyclerView.Adapter<AddUmpireAdapter.View
             uniqeId = v.findViewById(R.id.uniqeId);
             imageSports = v.findViewById(R.id.imageSports);
             closeList = v.findViewById(R.id.closeList);
-            MainLayout = v.findViewById(R.id.MainLayout);
+            MainLayout = v.findViewById(R.id.root_layout);
         }
     }
 

@@ -3,6 +3,7 @@ package com.kredivation.aakhale.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.design.card.MaterialCardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,6 @@ public class SportsServiceGridViewAdapter extends ArrayAdapter {
 
     static class ViewHolder {
         ASTTextView sportsName;
-        LinearLayout MainLayout;
+        MaterialCardView MainLayout;
     }
 }
