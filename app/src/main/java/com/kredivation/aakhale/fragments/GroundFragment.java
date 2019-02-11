@@ -54,7 +54,7 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
     private GroundAdapter groundAdapter;
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
-
+    int total_pages = 1;
     public GroundFragment() {
         // Required empty public constructor
     }
@@ -96,7 +96,9 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getGroundlist();
+                            if (currentPage <= total_pages) {
+                                getGroundlist();
+                            }
                         }
                     }
                 }
@@ -152,7 +154,7 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                int total_pages = mainObj.optInt("total_pages");
+                                 total_pages = mainObj.optInt("total_pages");
                                 JSONArray dataArray = mainObj.optJSONArray("data");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {

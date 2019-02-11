@@ -62,6 +62,12 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/userid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_3dp"
+                android:textSize="@dimen/_12dp" />
 
             <TextView
                 android:id="@+id/capacity"

@@ -385,13 +385,15 @@
                             android:background="@drawable/edittextround"
                             android:gravity="center"
                             android:orientation="horizontal">
-
-                            <Spinner
-                                android:id="@+id/TimeZoneSpinner"
+                            <TextView
+                                android:id="@+id/selectTimeZone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center" />
+                                android:text=""
+                                android:gravity="center"
+                                android:textSize="@dimen/_12dp"
+                                android:textColor="@color/secondry_txt_color"
+                                android:hint="Select Time Zone" />
 
 
                         </LinearLayout>
@@ -668,9 +670,9 @@
                     android:id="@+id/addStaffView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_2dp"
                     android:padding="@dimen/_5dp"
                     android:text="Add Staff"
+                    android:gravity="right"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -679,6 +681,7 @@
                     android:id="@+id/addStaffLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
                     android:orientation="vertical" />
 
 

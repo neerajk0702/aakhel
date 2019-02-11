@@ -22,7 +22,7 @@
                 android:id="@+id/displayImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_120dp"
-                android:padding="@dimen/_3dp" />
+                android:scaleType="fitXY" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/name"
                     android:padding="@dimen/_3dp"
-                    android:text="Tyr567"
+                    android:text=""
                     android:textSize="@dimen/_12dp" />
             </RelativeLayout>
 
@@ -80,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/light_grey"
-                        android:padding="@dimen/_3dp"
+                        android:padding="@dimen/_5dp"
                         android:text="About Tournament"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12dp"
@@ -114,7 +114,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight=".7"
                                 android:padding="@dimen/_5dp"
-                                android:text="650000"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -142,7 +142,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight=".7"
                                 android:padding="@dimen/_5dp"
-                                android:text="65m*120m"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -170,7 +170,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight=".7"
                                 android:padding="@dimen/_5dp"
-                                android:text="Both day and Night"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -195,7 +195,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:padding="@dimen/_5dp"
-                                android:text="Yes"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -221,7 +221,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:padding="@dimen/_5dp"
-                                android:text="04"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -248,7 +248,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight=".7"
                                 android:padding="@dimen/_5dp"
-                                android:text="IST"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -275,7 +275,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight=".7"
                                 android:padding="@dimen/_5dp"
-                                android:text="All Wether "
+                                android:text=" "
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -302,7 +302,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/_4dp"
-                                android:text="Noida Sec 135 BAst Tower"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
 
 
@@ -437,6 +437,60 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5dp"
+                    android:text="Ground Staff"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/staffLayoutView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="@drawable/round_boder"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5dp"
+                    android:text="Achievements"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/achievementsLayoutView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
 
             <CalendarView
                 android:id="@+id/calanderView"

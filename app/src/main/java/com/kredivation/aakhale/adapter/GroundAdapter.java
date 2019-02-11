@@ -22,7 +22,12 @@ import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.GroundData;
+import com.kredivation.aakhale.utility.Contants;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +38,7 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView stadiunName, capacity, addressTxt;
+        TextView stadiunName, capacity, addressTxt, userid;
         ImageView sportsIcon;
         CardView root_layout;
         ASTButton avilableTxt;
@@ -47,6 +52,7 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
             avilableTxt = v.findViewById(R.id.avilableTxt);
             root_layout = v.findViewById(R.id.root_layout);
             sportsIcon = v.findViewById(R.id.imageView);
+            userid = v.findViewById(R.id.userid);
         }
     }
 
@@ -68,16 +74,24 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull GroundAdapter.ViewHolder holder, final int position) {
         holder.stadiunName.setText(sportsList.get(position).getName());
-
+        holder.userid.setText(sportsList.get(position).getUnique_id());
         holder.addressTxt.setText(sportsList.get(position).getGround_address());
-        holder.capacity.setText(sportsList.get(position).getCapacity());
+        holder.capacity.setText("capacity : " + sportsList.get(position).getCapacity());
         if (sportsList.get(position).getAvailable() == 1) {
             holder.avilableTxt.setText("Available");
         } else {
             holder.avilableTxt.setText("Not Available");
         }
+        try {
+            JSONArray jsonArray = new JSONArray(sportsList.get(position).getDisplay_picture());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Picasso.with(context).load(Contants.BASE_URL + jsonArray.get(i).toString()).placeholder(R.drawable.noimage).into(holder.sportsIcon);
+                break;
+            }
+        } catch (JSONException e) {
 
-        Picasso.with(context).load(sportsList.get(position).getDisplay_picture()).placeholder(R.drawable.noimage).into(holder.sportsIcon);
+        }
+
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

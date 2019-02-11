@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ import com.kredivation.aakhale.model.Timezone;
 import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,16 +72,19 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
 
     RecyclerView addImageView;
     private ArrayList<String> stateIdList;
-    private ArrayList<String> timeZoneList;
+    private ArrayList<String> timeZoneIdList;
+    String[] timeZoneArray;
+    ArrayList<String> timeZoneListt;
     private ArrayList<Sports> sportsList;
     private ArrayList<String> cityIdList;
-    private String stateId, cityId, timeZoneId;
+    private String stateId, cityId;
     List<City> cityInfoList;
     int serviceCount = 0;
     int termsCount = 0;
     int AchievementsCount = 0;
+    int staffCount = 0;
     ASTEditText gName, venueAddress, zipCode, capacitytxt, dimesionTxt, noofMatchtxt, surfaceTxt, costtext;
-    Spinner stateSpinner, citySpinner, floodlightSpinner, TimeZoneSpinner, dayorNightSpiner;
+    Spinner stateSpinner, citySpinner, floodlightSpinner, dayorNightSpiner;
     ASTButton continuebtn, canclebtn;
     String name, ground_address, ground_zipcode, capacity, Dimension, noofMatchStr,
             match_per_day, surface, free_services, terms_conditions, coststr;
@@ -89,6 +94,7 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
     List<AddViewDynamically> allFreeSertvice = new ArrayList<AddViewDynamically>();
     List<AddViewDynamically> allTermCondication = new ArrayList<AddViewDynamically>();
     List<AddViewDynamically> allAchievements = new ArrayList<AddViewDynamically>();
+    List<AddViewDynamically> allStaff = new ArrayList<AddViewDynamically>();
     private TextView addMoretermcondtion, addmorfreeServices, addPicture;
     public final int SELECT_PHOTO = 102;
     public final int REQUEST_CAMERA = 101;
@@ -101,6 +107,10 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
     private Toolbar toolbar;
     TextView addStaffView, addMoreAchievements;
     LinearLayout addStaffLayout, AchievementsLayout;
+    boolean selectPicFlag = true;
+    private TextView selectTimeZone;
+    protected ArrayList<CharSequence> selectedTimeZoneItem;
+    protected ArrayList<CharSequence> selectedTimeZoneID;
 
     public CreateGroundActivity() {
         // Required empty public constructor
@@ -134,7 +144,8 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
         stateSpinner = findViewById(R.id.stateSpinner);
         citySpinner = findViewById(R.id.citySpinner);
         floodlightSpinner = findViewById(R.id.floodlightSpinner);
-        TimeZoneSpinner = findViewById(R.id.TimeZoneSpinner);
+        selectTimeZone = findViewById(R.id.selectTimeZone);
+        selectTimeZone.setOnClickListener(this);
         dayorNightSpiner = findViewById(R.id.dayorNightSpiner);
         continuebtn = findViewById(R.id.continuebtn);
         continuebtn.setOnClickListener(this);
@@ -160,6 +171,7 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
         addTermsAndCondition();
         addFreeService();
         addAchievements();
+        addStaff();
     }
 
     private void setLinearLayoutManager(RecyclerView recyclerView) {
@@ -265,30 +277,67 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
 
     private void setTimeZoneSpinner(ContentData serviceData) {
         if (serviceData.getTimezone() != null) {
-            ArrayList<String> timeZoneListt = new ArrayList<>();
-            timeZoneList = new ArrayList<String>();
-            timeZoneListt.add("Select Time Zone");
-            timeZoneList.add("0");
-            for (Timezone timezone : serviceData.getTimezone()) {
-                timeZoneListt.add(timezone.getTimezone_name());
-                timeZoneList.add(timezone.getId());
+            timeZoneListt = new ArrayList<>();
+            selectedTimeZoneItem = new ArrayList<CharSequence>();
+            selectedTimeZoneID = new ArrayList<CharSequence>();
+            timeZoneIdList = new ArrayList<String>();
+            //timeZoneListt.add("Select Time Zone");
+            //  timeZoneIdList.add("0");
+            timeZoneArray = new String[serviceData.getTimezone().size()];
+            for (int i = 0; i < serviceData.getTimezone().size(); i++) {
+                timeZoneListt.add(serviceData.getTimezone().get(i).getTimezone_name());
+                timeZoneIdList.add(serviceData.getTimezone().get(i).getId());
+                timeZoneArray[i] = serviceData.getTimezone().get(i).getTimezone_name();
             }
-            ArrayAdapter<String> statedapter = new ArrayAdapter<String>(CreateGroundActivity.this, R.layout.spinner_row, timeZoneListt);
-            TimeZoneSpinner.setAdapter(statedapter);
-
-            TimeZoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-                    timeZoneId = timeZoneList.get(pos);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
         }
 
+    }
+
+    protected void showSelectRCASubDialog() {
+        boolean[] checkedItems = new boolean[timeZoneListt.size()];
+        int count = timeZoneListt.size();
+        for (int i = 0; i < count; i++)
+            checkedItems[i] = selectedTimeZoneItem.contains(timeZoneListt.get(i));
+        DialogInterface.OnMultiChoiceClickListener coloursDialogListener = new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    selectedTimeZoneItem.add(timeZoneListt.get(which));
+                    selectedTimeZoneID.add(timeZoneIdList.get(which));
+                } else {
+                    for (int i = 0; i < selectedTimeZoneItem.size(); i++) {
+                        if (selectedTimeZoneItem.get(i).equals(timeZoneListt.get(which))) {
+                            selectedTimeZoneItem.remove(i);
+                            selectedTimeZoneID.remove(i);
+                            break;
+                        }
+                    }
+                }
+                onChangeSelectedItem();
+            }
+
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(CreateGroundActivity.this);
+        builder.setTitle("Select Time Zone");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setMultiChoiceItems(timeZoneArray, checkedItems, coloursDialogListener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    //on select or deselect sub rca
+    protected void onChangeSelectedItem() {
+        StringBuilder stringBuilder = new StringBuilder();
+        String separatorComm = ",";
+        for (CharSequence selectitem : selectedTimeZoneItem)
+            stringBuilder.append(selectitem);
+        stringBuilder.append(separatorComm);
+        selectTimeZone.setText(stringBuilder.toString());
     }
 
     private void setSportsSpinner(ContentData serviceData) {
@@ -341,6 +390,34 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
         AddViewDynamically addViewDynamically = new AddViewDynamically();
         addViewDynamically.setAddEditText(edittext);
         allAchievements.add(addViewDynamically);
+    }
+
+    //add staff in run time
+    public void addStaff() {
+        staffCount++;
+        LayoutInflater inflater = LayoutInflater.from(CreateGroundActivity.this);
+        View inflatedLayout = inflater.inflate(R.layout.add_staff_layout, null);
+        ASTEditText nameedittext = inflatedLayout.findViewById(R.id.nameedittext);
+        nameedittext.setHint("Enter Staff Name");
+        ASTEditText degiganationedittext = inflatedLayout.findViewById(R.id.degiganationedittext);
+        degiganationedittext.setHint("Enter Staff Designation");
+        TextView count = inflatedLayout.findViewById(R.id.count);
+        count.setText("Staff " + staffCount + " Details");
+        ImageView imageView = inflatedLayout.findViewById(R.id.imageView);
+        addStaffLayout.addView(inflatedLayout);
+        AddViewDynamically addViewDynamically = new AddViewDynamically();
+        addViewDynamically.setFullname(nameedittext);
+        addViewDynamically.setDegiganationEditText(degiganationedittext);
+        addViewDynamically.setImageView(imageView);
+        allStaff.add(addViewDynamically);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectPicFlag = false;
+                selectImage();
+            }
+        });
     }
 
     public boolean isValidate() {
@@ -402,7 +479,7 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
         } else if (floodlight == -1) {
             Toast.makeText(CreateGroundActivity.this, "Please Select Flood Light!", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (timeZoneId == null || timeZoneId.equals("") || timeZoneId.equals("0")) {
+        } else if (selectedTimeZoneID == null || selectedTimeZoneID.size() == 0) {
             Toast.makeText(CreateGroundActivity.this, "Please Select Time Zone!", Toast.LENGTH_SHORT).show();
             return false;
         } else if (day_or_night == -1) {
@@ -430,7 +507,6 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
             payloadList.put("floodlight", String.valueOf(floodlight));
             payloadList.put("capacity", capacity);
             payloadList.put("Dimension", Dimension);
-            payloadList.put("timezone", String.valueOf(timeZoneId));
             payloadList.put("match_per_day", match_per_day);
             payloadList.put("day_or_night", String.valueOf(day_or_night));
             payloadList.put("surface", surface);
@@ -461,8 +537,10 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
                 String separatorComm = ",";
                 StringBuilder stringBuilders = new StringBuilder();
                 for (int i = 0; i < sportsList.size(); i++) {
-                    stringBuilders.append(String.valueOf(sportsList.get(i).getId()));
-                    stringBuilders.append(",");
+                    if (sportsList.get(i).isSelected()) {
+                        stringBuilders.append(String.valueOf(sportsList.get(i).getId()));
+                        stringBuilders.append(",");
+                    }
                 }
                 sportsIdsStr = stringBuilders.toString();
                 if (sportsIdsStr != null && !sportsIdsStr.equals("")) {
@@ -470,13 +548,42 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
                 }
             }
             payloadList.put("sports", sportsIdsStr);
+
+            JSONArray jsonArraStaff = new JSONArray();
+            if (allStaff != null && allStaff.size() > 0) {
+                for (AddViewDynamically viewDynamically : allStaff) {
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("name", viewDynamically.getFullname().getText().toString());
+                        jsonObject.put("designation", viewDynamically.getDegiganationEditText().getText().toString());
+                        jsonArraStaff.put(jsonObject);
+                    } catch (JSONException e) {
+                    }
+                }
+            }
+            payloadList.put("staff", jsonArraStaff.toString());
+            String timeZoneStr = "";
+            if (selectedTimeZoneID != null && selectedTimeZoneID.size() > 0) {
+                String separatorComm = ",";
+                StringBuilder stringBuilders = new StringBuilder();
+                for (int i = 0; i < selectedTimeZoneID.size(); i++) {
+                    stringBuilders.append(selectedTimeZoneID.get(i));
+                    stringBuilders.append(",");
+                }
+                timeZoneStr = stringBuilders.toString();
+                if (timeZoneStr != null && !timeZoneStr.equals("")) {
+                    timeZoneStr = timeZoneStr.substring(0, timeZoneStr.length() - separatorComm.length());
+                }
+            }
+            payloadList.put("timezone", timeZoneStr);
+
             MultipartBody.Builder multipartBody = setMultipartBodyVaule();
             FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(CreateGroundActivity.this, payloadList, multipartBody, serviceURL) {
                 @Override
                 public void receiveData(String result) {
-                    // ContentData data = new Gson().fromJson(result, ContentData.class);
-                    if (result != null) {
-                        ASTUIUtil.showToast(CreateGroundActivity.this, "Ground added successfully");
+                    ContentData data = new Gson().fromJson(result, ContentData.class);
+                    if (data != null && data.isStatus()) {
+                        ASTUIUtil.showToast(CreateGroundActivity.this, data.getMessage());
                     } else {
                         ASTUIUtil.showToast(CreateGroundActivity.this, "Ground not added successfully!");
                     }
@@ -498,6 +605,11 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
         for (ImageItem imageItem : acImgList) {
             if (imageItem.getImagFile() != null && imageItem.getImagFile().exists()) {
                 multipartBody.addFormDataPart("display_picture[]", imageItem.getImagFile().getName(), RequestBody.create(MEDIA_TYPE, imageItem.getImagFile()));
+            }
+        }
+        for (AddViewDynamically viewDynamically : allStaff) {
+            if (viewDynamically.getImageFile() != null && viewDynamically.getImageFile().exists()) {
+                multipartBody.addFormDataPart("staff_photos[]", viewDynamically.getImageFile().getName(), RequestBody.create(MEDIA_TYPE, viewDynamically.getImageFile()));
             }
         }
         return multipartBody;
@@ -551,13 +663,22 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
                 ASTUIUtil.showToast(CreateGroundActivity.this, "One More Term and Condition Added.");
                 break;
             case R.id.addPicture:
+                selectPicFlag = true;
                 selectImage();
                 break;
             case R.id.addMoreAchievements:
                 addAchievements();
                 ASTUIUtil.showToast(CreateGroundActivity.this, "One More Achievement Added.");
                 break;
+            case R.id.addStaffView:
+                addStaff();
+                ASTUIUtil.showToast(CreateGroundActivity.this, "One More Staff Added.");
+                break;
+            case R.id.selectTimeZone:
+                showSelectRCASubDialog();
+                break;
         }
+
     }
 
     private void selectImage() {
@@ -619,8 +740,14 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setImageName(Uri uri, Bitmap imageBitmap) {
-        String homeStr = "academicPic" + System.currentTimeMillis() + ".png";
-        addBitmapAsFile(imageBitmap, homeStr);
+        if (selectPicFlag) {//show ground image
+            String homeStr = "groundPic" + System.currentTimeMillis() + ".png";
+            addBitmapAsFile(imageBitmap, homeStr);
+        } else {//show ground staff pics
+            String homeStr = "groundStaffPic" + System.currentTimeMillis() + ".png";
+            addBitmapAsFile(imageBitmap, homeStr);
+        }
+
     }
 
     private void onSelectFromGalleryResult(Intent data) {
@@ -689,11 +816,16 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
                 super.onPostExecute(flag);
                 // Picasso.with(context).load(imgFile).into(faultImage);
                 // setImageIntoList(imgFile);
-                ImageItem imageItem = new ImageItem();
-                imageItem.setImagFile(imgFile);
-                imageItem.setImageStr(imgFile.getAbsolutePath());
-                acImgList.add(imageItem);
-                imageAdapater.notifyDataSetChanged();
+                if (selectPicFlag) {//ground pics
+                    ImageItem imageItem = new ImageItem();
+                    imageItem.setImagFile(imgFile);
+                    imageItem.setImageStr(imgFile.getAbsolutePath());
+                    acImgList.add(imageItem);
+                    imageAdapater.notifyDataSetChanged();
+                } else {//ground staff pics
+                    allStaff.get(staffCount - 1).setImageFile(imgFile);
+                    Picasso.with(CreateGroundActivity.this).load(imgFile).placeholder(R.drawable.ic_uuuser).into(allStaff.get(staffCount - 1).getImageView());
+                }
                 astProgressBar.dismiss();
             }
         }.execute();

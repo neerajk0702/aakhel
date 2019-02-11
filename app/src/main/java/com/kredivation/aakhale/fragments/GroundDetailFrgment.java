@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.UmpireDetailActivity;
 import com.kredivation.aakhale.adapter.MatchPlayedAdapter;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
@@ -41,8 +42,9 @@ public class GroundDetailFrgment extends Fragment {
     TextView nametxt,
             statustxt, uniqeId, capacityTxt, Dimensionstxt, dayNightTxt, fllodLightTxt, capacitymatchPerDayTxt, timeZoneTxt,
             surfaceTxt, venueTxt, costTxt;
-    LinearLayout spoetsLayoyView, freServiceesLayoutView, termCondtionLayoutView;
-    int serviceCount, termsCount;
+    LinearLayout spoetsLayoyView, freServiceesLayoutView, termCondtionLayoutView, achievementsLayoutView, staffLayoutView;
+    int serviceCount, termsCount, achivement;
+    ASTProgressBar astProgressBar;
 
     public GroundDetailFrgment() {
         // Required empty public constructor
@@ -76,6 +78,8 @@ public class GroundDetailFrgment extends Fragment {
         spoetsLayoyView = view.findViewById(R.id.spoetsLayoyView);
         freServiceesLayoutView = view.findViewById(R.id.freServiceesLayoutView);
         termCondtionLayoutView = view.findViewById(R.id.termCondtionLayoutView);
+        achievementsLayoutView = view.findViewById(R.id.achievementsLayoutView);
+        staffLayoutView = view.findViewById(R.id.staffLayoutView);
         dataToView();
 
     }
@@ -84,7 +88,6 @@ public class GroundDetailFrgment extends Fragment {
         getGroundDetail();
     }
 
-    ASTProgressBar astProgressBar;
 
     // getGroundDetail
     private void getGroundDetail() {
@@ -130,38 +133,44 @@ public class GroundDetailFrgment extends Fragment {
                                     String user_id = jsonObject.optString("user_id");
                                     String name = jsonObject.optString("name");
 
-                                    nametxt.setText(name);
+                                    nametxt.setText(name + "");
                                     if (available == 1) {
                                         statustxt.setText("Avilable");
 
                                     } else {
                                         statustxt.setText("Not Avilable");
                                     }
-
-
                                     uniqeId.setText(unique_id);
-                                    capacityTxt.setText(capacity);
-                                    Dimensionstxt.setText(dimension);
+                                    capacityTxt.setText(capacity + "");
+                                    Dimensionstxt.setText(dimension + "");
 
                                     if (day_or_night == 1) {
                                         dayNightTxt.setText("Day");
-
                                     } else if (day_or_night == 2) {
                                         dayNightTxt.setText("Night");
                                     } else {
                                         dayNightTxt.setText("Day or Night");
                                     }
+                                    if (floodlight == 1) {
+                                        fllodLightTxt.setText("Yes");
+                                    } else {
+                                        fllodLightTxt.setText("No");
+                                    }
 
-
-                                    fllodLightTxt.setText(floodlight + "");
-                                    capacitymatchPerDayTxt.setText(match_per_day);
+                                    capacitymatchPerDayTxt.setText(match_per_day + "");
                                     timeZoneTxt.setText(timezone);
                                     surfaceTxt.setText(surface);
-                                    venueTxt.setText(ground_address + "," + ground_city + "," + ground_zipcode);
-                                    costTxt.setText(cost);
+                                    venueTxt.setText(ground_address + "," + ground_city + "," + ground_state + "," + ground_country + "," + ground_zipcode);
+                                    costTxt.setText(cost + " Per Match");
+                                    try {
+                                        JSONArray jsonArray = new JSONArray(display_picture);
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            Picasso.with(getContext()).load(Contants.BASE_URL + jsonArray.get(i).toString()).placeholder(R.drawable.noimage).into(displAyImage);
+                                            break;
+                                        }
+                                    } catch (JSONException e) {
 
-                                    Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + display_picture)
-                                            .placeholder(R.drawable.noimage).into(displAyImage);
+                                    }
 
                                     JSONArray sportsArray = jsonObject.optJSONArray("sports");
                                     if (sportsArray != null) {
@@ -173,51 +182,43 @@ public class GroundDetailFrgment extends Fragment {
                                                 addSportmatchView(pname, idp);
 
                                             } catch (JSONException e) {
-                                                e.printStackTrace();
                                             }
                                         }
 
                                     }
 
                                     String terms_conditions = jsonObject.optString("terms_conditions");
-                                    String newterms_conditions = terms_conditions.substring(1, terms_conditions.length() - 1);
-
-
-                                    JSONArray jsonArray = new JSONArray(newterms_conditions);
+                                    JSONArray jsonArray = new JSONArray(terms_conditions);
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         addTermsAndCondition(jsonArray.get(i).toString());
                                     }
-                                /*    String[] terms_conditionsList = terms_conditions.split(",");
-                                    List<String> academy_photosArayList = Arrays.asList(terms_conditionsList);
-                                    if (academy_photosArayList != null) {
-                                        for (int i = 0; i < academy_photosArayList.size(); i++) {
-                                            addTermsAndCondition(academy_photosArayList.get(i));
-                                        }*/
-
-                                    //}
-
-
                                     String free_services = jsonObject.optString("free_services");
-                                    String newfree_services = free_services.substring(1, free_services.length() - 1);
-
-
-                                    JSONArray free_servicesjsonArray = new JSONArray(newfree_services);
+                                    JSONArray free_servicesjsonArray = new JSONArray(free_services);
                                     for (int i = 0; i < free_servicesjsonArray.length(); i++) {
                                         addFreeService(free_servicesjsonArray.get(i).toString());
                                     }
+                                    String achievements = jsonObject.optString("achievements");
+                                    JSONArray achievementsjsonArray = new JSONArray(achievements);
+                                    for (int i = 0; i < achievementsjsonArray.length(); i++) {
+                                        achievements(achievementsjsonArray.get(i).toString());
+                                    }
 
-                                   /* String free_services = jsonObject.optString("free_services");
-                                    String[] free_servicesList = free_services.split(",");
-                                    List<String> free_servicesLis = Arrays.asList(free_servicesList);
-                                    if (free_servicesLis != null) {
-                                        for (int i = 0; i < free_servicesLis.size(); i++) {
-                                            addFreeService(free_servicesLis.get(i));
+                                    String staffstr = jsonObject.optString("staff");
+                                    JSONArray staffArray = new JSONArray(staffstr);
+                                    if (staffArray != null) {
+                                        for (int i = 0; i < staffArray.length(); i++) {
+                                            try {
+                                                JSONObject object = staffArray.getJSONObject(i);
+                                                String pname = object.optString("name");
+                                                String designation = object.optString("designation");
+                                                String photo = object.optString("photo");
+                                                addStaffinfo(pname, designation, photo);
+                                            } catch (JSONException e) {
+                                                //e.printStackTrace();
+                                            }
                                         }
                                     }
-*/
-
                                 }
-
                             }
 
                         } catch (JSONException e) {
@@ -239,10 +240,9 @@ public class GroundDetailFrgment extends Fragment {
     //add free service layout in runtime
     public void addSportmatchView(String name, int id) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View inflatedLayout = inflater.inflate(R.layout.sports_item_row, null);
-        TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
-        ImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
-        teamneName.setText(name);
+        View inflatedLayout = inflater.inflate(R.layout.sports_row, null);
+        TextView sportsName = inflatedLayout.findViewById(R.id.sportsName);
+        sportsName.setText(name);
         spoetsLayoyView.addView(inflatedLayout);
 
     }
@@ -271,6 +271,31 @@ public class GroundDetailFrgment extends Fragment {
         count.setText(termsCount + "-");
         servicesName.setText(name);
         termCondtionLayoutView.addView(inflatedLayout);
+    }
+
+    public void achievements(String name) {
+        achivement++;
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.freeservices_item_row, null);
+        TextView servicesName = inflatedLayout.findViewById(R.id.name);
+        TextView count = inflatedLayout.findViewById(R.id.count);
+        count.setText(achivement + "-");
+        servicesName.setText(name);
+        achievementsLayoutView.addView(inflatedLayout);
+
+    }
+
+    public void addStaffinfo(String name, String designation, String photo) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.sports_item_row, null);
+        TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        ImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
+        teamneName.setText(name);
+        userId.setText(designation);
+        Picasso.with(getActivity()).load(Contants.BASE_URL + photo).placeholder(R.drawable.ic_cricket_player).into(matchPerview);
+        staffLayoutView.addView(inflatedLayout);
+
     }
 
 }

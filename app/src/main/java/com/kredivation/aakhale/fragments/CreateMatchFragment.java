@@ -433,7 +433,7 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
                 String message = jsonRootObject.optString("message");
                 if (jsonStatus) {
                     Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                 }
 

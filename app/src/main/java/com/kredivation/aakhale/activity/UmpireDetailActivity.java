@@ -134,7 +134,6 @@ public class UmpireDetailActivity extends AppCompatActivity {
                                             // ge.setText("Open");
                                         }
 
-
                                         JSONArray umpire_matchArray = jsonObject.optJSONArray("umpire_match");
                                         if (umpire_matchArray != null) {
                                             for (int i = 0; i < umpire_matchArray.length(); i++) {
@@ -147,10 +146,7 @@ public class UmpireDetailActivity extends AppCompatActivity {
                                                     //e.printStackTrace();
                                                 }
                                             }
-
                                         }
-
-
                                     }
                                 }
 
