@@ -51,6 +51,7 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private CoachAdapter adapter;
+    long total_pages = 1;
 
     public CoachesFragments() {
     }
@@ -92,7 +93,9 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getCoachListData();
+                            if (currentPage <= total_pages) {
+                                getCoachListData();
+                            }
                         }
                     }
                 }
@@ -148,6 +151,7 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
                         if (result != null) {
                             final ContentDataAsArray serviceData = new Gson().fromJson(result, ContentDataAsArray.class);
                             if (serviceData != null && serviceData.isStatus()) {
+                                total_pages = serviceData.getTotal_pages();
                                 if (serviceData.getData() != null) {
                                     coachList.addAll(serviceData.getData());
                                     adapter.notifyDataSetChanged();

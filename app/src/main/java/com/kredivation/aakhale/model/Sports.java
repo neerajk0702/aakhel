@@ -8,13 +8,11 @@ public class Sports {
     private int is_active;
 
 
-    public String getSports_name ()
-    {
+    public String getSports_name() {
         return sports_name;
     }
 
-    public void setSports_name (String sports_name)
-    {
+    public void setSports_name(String sports_name) {
         this.sports_name = sports_name;
     }
 
@@ -33,7 +31,8 @@ public class Sports {
     public void setIs_active(int is_active) {
         this.is_active = is_active;
     }
-private  boolean isSelected=false;
+
+    private boolean isSelected = false;
 
     public boolean isSelected() {
         return isSelected;
@@ -43,10 +42,19 @@ private  boolean isSelected=false;
         isSelected = selected;
     }
 
+    private String SportServiceDetail;
+
+    public String getSportServiceDetail() {
+        return SportServiceDetail;
+    }
+
+    public void setSportServiceDetail(String sportServiceDetail) {
+        SportServiceDetail = sportServiceDetail;
+    }
+
     @Override
-    public String toString()
-    {
-        return "ClassPojo [id = "+id+", sports_name = "+sports_name+", is_active = "+is_active+"]";
+    public String toString() {
+        return "ClassPojo [id = " + id + ", sports_name = " + sports_name + ", is_active = " + is_active + "]";
     }
 }
 

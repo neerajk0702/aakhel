@@ -33,11 +33,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.fragments.AddAcademicsFragments;
 import com.kredivation.aakhale.fragments.AddScoreFragment;
 import com.kredivation.aakhale.fragments.AddSportsFragment;
-import com.kredivation.aakhale.fragments.AddTeamFragment;
-import com.kredivation.aakhale.fragments.AddTournament;
 import com.kredivation.aakhale.fragments.AddUmpiresFragment;
 import com.kredivation.aakhale.fragments.ChatFragment;
 import com.kredivation.aakhale.fragments.ChatListFragment;
@@ -190,13 +187,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             CreateTeamFragment createTeamFragment = new CreateTeamFragment();
             updateFragment(createTeamFragment, null);
         } else if (id == R.id.nav_gallery) {
-            AddAcademicsFragments academicsFragment = new AddAcademicsFragments();
-            updateFragment(academicsFragment, null);
 
         } else if (id == R.id.nav_slideshow) {
-            AddTournament academicsFragment = new AddTournament();
-            updateFragment(academicsFragment, null);
-
         } else if (id == R.id.nav_manage) {
             AddScoreFragment addScoreFragment = new AddScoreFragment();
             updateFragment(addScoreFragment, null);
@@ -232,8 +224,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             updateFragment(scheduleFragment, null);
 
         } else if (id == R.id.addTeam) {
-            AddTeamFragment addTeamFragment = new AddTeamFragment();
-            updateFragment(addTeamFragment, null);
 
         } else if (id == R.id.profile) {
             MyProfileFragment profileFragment = new MyProfileFragment();
@@ -265,19 +255,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onClick(View v) {
-
-
         if (v.getId() == R.id.createTeame) {
             CreateTeamFragment createTeamFragment = new CreateTeamFragment();
             updateFragment(createTeamFragment, null);
         } else if (v.getId() == R.id.aaAcademics) {
-            AddAcademicsFragments academicsFragment = new AddAcademicsFragments();
-            updateFragment(academicsFragment, null);
-
+            Intent accintent = new Intent(DashboardActivity.this, AddAcademicsActivity.class);
+            startActivity(accintent);
         } else if (v.getId() == R.id.addTournament) {
-            AddTournament academicsFragment = new AddTournament();
-            updateFragment(academicsFragment, null);
-
+            Intent intentto = new Intent(DashboardActivity.this, AddTournament.class);
+            startActivity(intentto);
         } else if (v.getId() == R.id.addScore) {
             AddScoreFragment addScoreFragment = new AddScoreFragment();
             updateFragment(addScoreFragment, null);
@@ -314,8 +300,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             updateFragment(scheduleFragment, null);
 
         } else if (v.getId() == R.id.addTeam) {
-            AddTeamFragment addTeamFragment = new AddTeamFragment();
-            updateFragment(addTeamFragment, null);
+
 
         } else if (v.getId() == R.id.profile) {
             MyProfileFragment profileFragment = new MyProfileFragment();
@@ -340,9 +325,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (v.getId() == R.id.setting) {
 
         } else if (v.getId() == R.id.logout) {
-
+            SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+            UserInfo.edit().clear().commit();
+            Contants.auth_token = "";
+            Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 

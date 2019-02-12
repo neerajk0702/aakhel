@@ -121,7 +121,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             try {
                 object.put("api_key", Contants.API_KEY);
             } catch (JSONException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
             }
             ServiceCaller serviceCaller = new ServiceCaller(SplashScreenActivity.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "MasterData", new IAsyncWorkCompletedCallback() {

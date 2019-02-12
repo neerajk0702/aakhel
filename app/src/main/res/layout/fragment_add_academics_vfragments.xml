@@ -1,16 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.AddAcademicsFragments">
+    tools:context=".activity.AddAcademicsActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay"
+        android:visibility="visible">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/back"
+                    android:layout_width="@dimen/_40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20dp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_35dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Create Academic"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16dp" />
+
+
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
 
         <LinearLayout
@@ -74,8 +121,8 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_5dp"
                     android:minHeight="@dimen/_40dp"
+                    android:padding="@dimen/_5dp"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -94,10 +141,60 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_5dp"
                     android:minHeight="@dimen/_40dp"
+                    android:padding="@dimen/_5dp"
                     android:textSize="@dimen/_12dp" />
 
+                <LinearLayout
+                    android:id="@+id/doblayouut"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:background="@drawable/edittextround"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+
+                    <com.kredivation.aakhale.components.ASTTextView
+                        android:id="@+id/dobEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:hint="Select Establishment Date"
+                        android:padding="@dimen/_10dp"
+                        android:textSize="@dimen/_12dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <View
+                            android:layout_width="@dimen/_1dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@color/darkBlack_color"
+                            android:backgroundTint="@color/darkBlack_color"
+                            android:padding="@dimen/_3dp" />
+
+
+                        <ImageView
+                            android:id="@+id/dateIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_5dp"
+                            android:padding="@dimen/_5dp"
+                            android:src="@drawable/ic_calendar" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -180,9 +277,9 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_5dp"
-                    android:minHeight="@dimen/_40dp"
                     android:inputType="number"
+                    android:minHeight="@dimen/_40dp"
+                    android:padding="@dimen/_5dp"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -268,17 +365,54 @@
                         android:columnWidth="100dp"
                         android:drawSelectorOnTop="true"
                         android:focusable="true"
-                        android:minHeight="@dimen/_90dp"
                         android:gravity="center"
+                        android:minHeight="@dimen/_90dp"
                         android:numColumns="3"
                         android:stretchMode="columnWidth"
                         android:verticalSpacing="5dp" />
-
 
                 </LinearLayout>
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Achievements"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addMoreAchievements"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Add More"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/AchievementsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_5dp" />
 
             <LinearLayout
                 android:id="@+id/academiesMemberLayout"
@@ -376,8 +510,8 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_12dp"
                     android:inputType="textEmailAddress"
+                    android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -396,8 +530,8 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_12dp"
                     android:inputType="number"
+                    android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
 
 
@@ -456,8 +590,8 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_12dp"
                     android:inputType="textEmailAddress"
+                    android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -476,8 +610,8 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_12dp"
                     android:inputType="number"
+                    android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
 
 
@@ -536,8 +670,8 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:padding="@dimen/_12dp"
                     android:inputType="textEmailAddress"
+                    android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
@@ -555,8 +689,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
-                    android:inputType="number"
                     android:background="@drawable/round_boder"
+                    android:inputType="number"
                     android:padding="@dimen/_12dp"
                     android:textSize="@dimen/_12dp" />
 

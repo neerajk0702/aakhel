@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.TeamListActivity;
+import com.kredivation.aakhale.activity.TournamentList;
 import com.kredivation.aakhale.activity.UmpireListActivity;
 import com.kredivation.aakhale.adapter.FullMetalAdapter;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
@@ -225,8 +226,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 updateFragment(playerFragment, null);
                 break;
             case R.id.tournamentLayout:
-                TournamentList tournamentList = new TournamentList();
-                updateFragment(tournamentList, null);
+                Intent tintent = new Intent(getActivity(), TournamentList.class);
+                startActivity(tintent);
                 break;
             case R.id.UPCOMMINGLayout:
                 MatchListFragment matchListFragment = new MatchListFragment();

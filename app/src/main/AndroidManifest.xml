@@ -87,9 +87,25 @@
         <activity
             android:name=".activity.UmpireDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".fragments.AddPlayersActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.CreateGroundActivity"
+        <activity
+            android:name=".fragments.AddPlayersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CreateGroundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TournamentList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TournamentDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddTournament"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddAcademicsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.AddSportDetailForAcademicActivity"
             android:screenOrientation="portrait"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"

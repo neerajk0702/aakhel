@@ -27,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:gravity="center"
+                android:padding="@dimen/_3dp"
                 android:orientation="horizontal">
 
                 <com.kredivation.aakhale.components.CircleImageView

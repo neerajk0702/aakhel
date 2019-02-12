@@ -1,6 +1,7 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,11 +9,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.fragments.OngingMatchFragment;
+import com.kredivation.aakhale.fragments.PastMatchFragment;
+import com.kredivation.aakhale.fragments.UpcommingMatchFragment;
+import com.kredivation.aakhale.utility.FontManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,34 +31,41 @@ import java.util.List;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TournamentList extends Fragment {
+public class TournamentList extends AppCompatActivity {
 
-    View view;
     ViewPager viewPager;
     TabLayout tabLayout;
+    private Toolbar toolbar;
 
     public TournamentList() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_tournament_list, container, false);
-        viewPager = view.findViewById(R.id.pager);
-        tabLayout = view.findViewById(R.id.tabs);
-        getActivity().setTitle("Tournament");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_tournament_list);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        viewPager = findViewById(R.id.pager);
+        tabLayout = findViewById(R.id.tabs);
         dataToView();
-        return view;
     }
 
-
     protected void dataToView() {
-        TournamentList.ViewPagerAdapter adapter = new TournamentList.ViewPagerAdapter(getFragmentManager());
-        adapter.addFragment(new UpcommingMatchFragment(), "UPCOMMING");
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new OngingMatchFragment(), "ONGOING");
+        adapter.addFragment(new UpcommingMatchFragment(), "UPCOMMING");
         adapter.addFragment(new PastMatchFragment(), "PAST");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -86,6 +102,11 @@ public class TournamentList extends Fragment {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
 

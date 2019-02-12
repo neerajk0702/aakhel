@@ -1,44 +1,47 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.AddAcademicsImageAdapter;
-import com.kredivation.aakhale.adapter.AddTeamsAdapter;
-import com.kredivation.aakhale.adapter.AddTournamentImageAdapter;
-import com.kredivation.aakhale.adapter.RecycleViewAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
@@ -55,6 +58,7 @@ import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FilePickerHelper;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
 
@@ -66,7 +70,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -77,11 +80,10 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {} subclass.
  */
-public class AddTournament extends Fragment implements View.OnClickListener {
+public class AddTournament extends AppCompatActivity implements View.OnClickListener {
 
-    View view;
     ASTEditText tournamentName, venueAddress, zipCode, noofOver, enteryFee, aboutTournament;
 
     Spinner stateSpinner, citySpinner, formateSpinner, statusSpinner;
@@ -114,64 +116,70 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
     DatePickerDialog startdatepicker, enddatepicker;
     Calendar myCalendar;
-    RecyclerView teamList;
-    LinearLayout addTeameLayout;
+    LinearLayout addTeameLayout, TeamViewLayout;
     ArrayList<Team> teamlist = new ArrayList<>();
-    SearchDialog fnNewDialog;
+    private Toolbar toolbar;
+    String selectTeamId;
 
     public AddTournament() {
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_tournament, container, false);
-
-        getActivity().setTitle("Add Tournament");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_add_tournament);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
     }
 
     public void init() {
-        tournamentName = view.findViewById(R.id.tournamentName);
-        venueAddress = view.findViewById(R.id.venueAddress);
-        zipCode = view.findViewById(R.id.zipCode);
-        noofOver = view.findViewById(R.id.noofOver);
-        enteryFee = view.findViewById(R.id.enteryFee);
-        aboutTournament = view.findViewById(R.id.aboutTournament);
-        addMoreFacilites = view.findViewById(R.id.addMoreFacilites);
-        addMorerule_regulation = view.findViewById(R.id.addMorerule_regulation);
-        stateSpinner = view.findViewById(R.id.stateSpinner);
-        citySpinner = view.findViewById(R.id.citySpinner);
-        formateSpinner = view.findViewById(R.id.formateSpinner);
-        statusSpinner = view.findViewById(R.id.statusSpinner);
-        container_add_facilities = view.findViewById(R.id.container_add_facilities);
-        container_add_rule_regulation = view.findViewById(R.id.container_add_rule_regulation);
-        container_add_rule_price = view.findViewById(R.id.container_add_rule_price);
-        addsisplayPicture = view.findViewById(R.id.addsisplayPicture);
-        addMoreprice = view.findViewById(R.id.addMoreprice);
-        addMoreFacilites = view.findViewById(R.id.addMoreFacilites);
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        tournamentName = findViewById(R.id.tournamentName);
+        venueAddress = findViewById(R.id.venueAddress);
+        zipCode = findViewById(R.id.zipCode);
+        noofOver = findViewById(R.id.noofOver);
+        enteryFee = findViewById(R.id.enteryFee);
+        aboutTournament = findViewById(R.id.aboutTournament);
+        addMoreFacilites = findViewById(R.id.addMoreFacilites);
+        addMorerule_regulation = findViewById(R.id.addMorerule_regulation);
+        stateSpinner = findViewById(R.id.stateSpinner);
+        citySpinner = findViewById(R.id.citySpinner);
+        formateSpinner = findViewById(R.id.formateSpinner);
+        statusSpinner = findViewById(R.id.statusSpinner);
+        container_add_facilities = findViewById(R.id.container_add_facilities);
+        container_add_rule_regulation = findViewById(R.id.container_add_rule_regulation);
+        container_add_rule_price = findViewById(R.id.container_add_rule_price);
+        addsisplayPicture = findViewById(R.id.addsisplayPicture);
+        addMoreprice = findViewById(R.id.addMoreprice);
+        addMoreFacilites = findViewById(R.id.addMoreFacilites);
 
-        startdateTxt = view.findViewById(R.id.startdateTxt);
-        enddateTxt = view.findViewById(R.id.enddateTxt);
-        startdateIcon = view.findViewById(R.id.startdateIcon);
-        enddateIcon = view.findViewById(R.id.enddateIcon);
+        startdateTxt = findViewById(R.id.startdateTxt);
+        enddateTxt = findViewById(R.id.enddateTxt);
+        startdateIcon = findViewById(R.id.startdateIcon);
+        enddateIcon = findViewById(R.id.enddateIcon);
         startdateIcon.setOnClickListener(this);
         enddateIcon.setOnClickListener(this);
-        addImageView = view.findViewById(R.id.addImageView);
+        addImageView = findViewById(R.id.addImageView);
 
         addImageView.setOnClickListener(this);
         addsisplayPicture.setOnClickListener(this);
         addMoreprice.setOnClickListener(this);
         addMoreFacilites.setOnClickListener(this);
         addMorerule_regulation.setOnClickListener(this);
-        continuebtn = view.findViewById(R.id.continuebtn);
+        continuebtn = findViewById(R.id.continuebtn);
 
-        teamList = view.findViewById(R.id.teamList);
-        teamList.setLayoutManager(new LinearLayoutManager(getContext()));
-        addTeameLayout = view.findViewById(R.id.addTeameLayout);
-
+        TeamViewLayout = findViewById(R.id.TeamViewLayout);
+        addTeameLayout = findViewById(R.id.addTeameLayout);
         addTeameLayout.setOnClickListener(this);
         continuebtn.setOnClickListener(this);
         addMoreFacilites("Facilites Name\t" + Facilitescount);
@@ -180,8 +188,6 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         getAddTournamentData();
         setendDate();
         setstartDate();
-
-        setTeameAdapter();
     }
 
     @Override
@@ -217,28 +223,13 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 enddatepicker.show();
                 break;
             case R.id.addTeameLayout:
-                //    AddTeamFragment addTeamFragment = new AddTeamFragment();
-                //  updateFragment(addTeamFragment, null);
-                fnNewDialog = new SearchDialog(getContext()) {
-                    @Override
-                    public void actionPerform() {
-
-                    }
-                };
-
-                fnNewDialog.show();
+                Intent intent1 = new Intent(AddTournament.this, TeamListActivity.class);
+                intent1.putExtra("CreateMatch", true);
+                startActivityForResult(intent1, Contants.REQ_PAGE_COMMUNICATOR);
                 break;
 
 
         }
-    }
-
-    public void updateFragment(Fragment pageFragment, Bundle bundle) {
-        android.support.v4.app.FragmentManager fm = getFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        pageFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.mainView, pageFragment).addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
     private void setstartDate() {
@@ -257,7 +248,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 startdateTxt.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        startdatepicker = new DatePickerDialog(getContext(), todate, myCalendar
+        startdatepicker = new DatePickerDialog(AddTournament.this, todate, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -278,13 +269,13 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 enddateTxt.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        enddatepicker = new DatePickerDialog(getContext(), todate, myCalendar
+        enddatepicker = new DatePickerDialog(AddTournament.this, todate, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
     public void addMoreFacilites(String lblName) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(AddTournament.this);
         View inflatedLayout = inflater.inflate(R.layout.add_row, null);
         addviewedtxt = inflatedLayout.findViewById(R.id.addviewedtxt);
         TextView labelName = inflatedLayout.findViewById(R.id.labelName);
@@ -297,7 +288,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
 
     public void addMorerule_regulation(String lblName) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(AddTournament.this);
         View inflatedLayout = inflater.inflate(R.layout.add_row, null);
         addviewedtxt = inflatedLayout.findViewById(R.id.addviewedtxt);
         TextView labelName = inflatedLayout.findViewById(R.id.labelName);
@@ -312,7 +303,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
 
     public void addMoreprice(String lblName) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(AddTournament.this);
         View inflatedLayout = inflater.inflate(R.layout.add_row, null);
         addviewedtxt = inflatedLayout.findViewById(R.id.addviewedtxt);
         TextView labelName = inflatedLayout.findViewById(R.id.labelName);
@@ -323,33 +314,14 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         price.add(addViewDynamically);
     }
 
-    // Prepare some dummy data for gridview
-    private ArrayList<ImageItem> getData() {
-        final ArrayList<ImageItem> imageItems = new ArrayList<>();
-        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
-        for (int i = 0; i < imgs.length(); i++) {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            // imageItems.add(new ImageItem(bitmap, "Image#" + i));
-        }
-        return imageItems;
-    }
-
-
-    private void setLinearLayoutManager(RecyclerView recyclerView) {
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-
     private void getAddTournamentData() {
-        if (Utility.isOnline(getContext())) {
-            ASTProgressBar dotDialog = new ASTProgressBar(getContext());
+        if (Utility.isOnline(AddTournament.this)) {
+            ASTProgressBar dotDialog = new ASTProgressBar(AddTournament.this);
             dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.tournamentForm;
             JSONObject object = new JSONObject();
 
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(AddTournament.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getAddTournamentData", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -360,10 +332,10 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                                 setStateSpinnerValue(serviceData);
                             }
                         } else {
-                            Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddTournament.this, "No Data Found!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddTournament.this, Contants.Error, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -371,7 +343,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 dotDialog.dismiss();
             }
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, AddTournament.this);//off line msg....
         }
     }
 
@@ -389,7 +361,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                     cityInfoList.add(city);
                 }
             }
-            ArrayAdapter<String> statedapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_row, stateList);
+            ArrayAdapter<String> statedapter = new ArrayAdapter<String>(AddTournament.this, R.layout.spinner_row, stateList);
             stateSpinner.setAdapter(statedapter);
             stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -419,7 +391,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                     cityIdList.add(cityInfoList.get(i).getId());
                 }
             }
-            ArrayAdapter<String> citydapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_row, cityList);
+            ArrayAdapter<String> citydapter = new ArrayAdapter<String>(AddTournament.this, R.layout.spinner_row, cityList);
             citySpinner.setAdapter(citydapter);
             citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -447,18 +419,12 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         }
 
         String statuss = "0";
-
         if (status.equals("Open")) {
             statuss = "1";
         } else if (format.equals("Close")) {
             statuss = "2";
         }
-
-
-        if (ASTUIUtil.isOnline(getContext())) {
-            final ASTProgressBar dotDialog = new ASTProgressBar(getContext());
-            dotDialog.show();
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+        if (ASTUIUtil.isOnline(AddTournament.this)) {
             final String url = Contants.BASE_URL + Contants.tournamentAPi;
             HashMap<String, String> payloadList = new HashMap<String, String>();
             try {
@@ -477,13 +443,11 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
                 JSONArray jsonArrayfacilities = new JSONArray();
                 if (allfacilites != null && allfacilites.size() > 0) {
-                    ArrayList<String> facilitylist = new ArrayList<>();
                     for (AddViewDynamically viewDynamically : allfacilites) {
                         jsonArrayfacilities.put(viewDynamically.getFullname().getText().toString());
                     }
                 }
                 payloadList.put("facilities", jsonArrayfacilities.toString());
-
 
                 JSONArray jsonArrayrules_regulations = new JSONArray();
                 if (rulesregulations != null && rulesregulations.size() > 0) {
@@ -493,7 +457,6 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 }
                 payloadList.put("rules_regulations", jsonArrayrules_regulations.toString());
 
-
                 JSONArray jsonArrayrulesprizes = new JSONArray();
                 if (price != null && price.size() > 0) {
                     for (AddViewDynamically viewDynamically : price) {
@@ -501,32 +464,19 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                     }
                 }
                 payloadList.put("prizes", jsonArrayrulesprizes.toString());
-
-
-                JSONArray teamsArray = new JSONArray();
-                if (price != null && price.size() > 0) {
-                    for (Team team : teamlist) {
-                        teamsArray.put(team.getName());
-                    }
-                }
-                // payloadList.put("teams", teamsArray.toString());
-                payloadList.put("teams", "1,2");
+                payloadList.put("teams", selectTeamId);
             } catch (Exception e) {
                 //e.printStackTrace();
             }
             MultipartBody.Builder multipartBody = setMultipartBodyVaule();
-            FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, url) {
+            FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(AddTournament.this, payloadList, multipartBody, url) {
                 @Override
                 public void receiveData(String result) {
                     ContentData data = new Gson().fromJson(result, ContentData.class);
-                    if (data != null) {
-                        ASTUIUtil.showToast(getContext(), "Tournament Add successfully!");
-
+                    if (data != null && data.isStatus()) {
+                        ASTUIUtil.showToast(AddTournament.this, data.getMessage());
                     } else {
-                        ASTUIUtil.showToast(getContext(), "Tournament not add!");
-                    }
-                    if (dotDialog.isShowing()) {
-                        dotDialog.dismiss();
+                        ASTUIUtil.showToast(AddTournament.this, "Tournament not added!");
                     }
                 }
             };
@@ -541,7 +491,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         if (imgFile != null && imgFile.exists()) {
-            multipartBody.addFormDataPart(imgFile.getName(), imgFile.getName(), RequestBody.create(MEDIA_TYPE, imgFile));
+            multipartBody.addFormDataPart("display_picture", imgFile.getName(), RequestBody.create(MEDIA_TYPE, imgFile));
         }
 
         return multipartBody;
@@ -549,7 +499,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
 
     private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(AddTournament.this, message, Toast.LENGTH_LONG).show();
     }
 
 
@@ -574,37 +524,37 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
 
         if (name.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Tournament Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Enter Tournament Name", Toast.LENGTH_SHORT).show();
             return false;
         } else if (tournament_address.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Tournament Venue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Enter Tournament Venue", Toast.LENGTH_SHORT).show();
             return false;
         } else if (tournament_state.equals("") || tournament_state.equalsIgnoreCase("Select State")) {
-            Toast.makeText(getContext(), "Please Select State", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Select State", Toast.LENGTH_SHORT).show();
             return false;
         } else if (tournament_city.equals("") || tournament_city.equalsIgnoreCase("Select City")) {
-            Toast.makeText(getContext(), "Please Select City", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Select City", Toast.LENGTH_SHORT).show();
             return false;
         } else if (tournament_zipcode.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Zip Code", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Enter Zip Code", Toast.LENGTH_SHORT).show();
             return false;
         } else if (overs.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Over", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Enter Over", Toast.LENGTH_SHORT).show();
             return false;
         } else if (format.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Match Formate", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Enter Match Formate", Toast.LENGTH_SHORT).show();
             return false;
         } else if (start_date.equals("")) {
-            Toast.makeText(getContext(), "Please Select Start Date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Select Start Date", Toast.LENGTH_SHORT).show();
             return false;
         } else if (end_date.equals("")) {
-            Toast.makeText(getContext(), "Please Select End Date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Select End Date", Toast.LENGTH_SHORT).show();
             return false;
         } else if (entry_fees.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Entry Fees", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Enter Entry Fees", Toast.LENGTH_SHORT).show();
             return false;
         } else if (about_tournament.equals("")) {
-            Toast.makeText(getContext(), "Please Enter About Tournament", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTournament.this, "Please Enter About Tournament", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -624,7 +574,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 if (jsonStatus.equals("success")) {
                     JSONObject object = jsonRootObject.optJSONObject("data");
                     String userName = object.optString("name").toString();
-                    Toast.makeText(getContext(), "Tournament added successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddTournament.this, "Tournament added successfully", Toast.LENGTH_LONG).show();
                 } else {
                 }
 
@@ -639,7 +589,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
 
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddTournament.this);
         builder.setTitle("Select File!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -662,17 +612,17 @@ public class AddTournament extends Fragment implements View.OnClickListener {
     //open camera
     public void OpenCameraIntent(String fileName) {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File file = new File(Utility.getExternalStorageFilePathCreateAppDirectory(getContext()) + File.separator + fileName);
-        String providerName = String.format(Locale.ENGLISH, "%s%s", getContext().getPackageName(), ".imagepicker.provider");
-        Uri uri = FileProvider.getUriForFile(getContext(), providerName, file);
-        FilePickerHelper.grantAppPermission(getContext(), intent, uri);
+        File file = new File(Utility.getExternalStorageFilePathCreateAppDirectory(AddTournament.this) + File.separator + fileName);
+        String providerName = String.format(Locale.ENGLISH, "%s%s", AddTournament.this.getPackageName(), ".imagepicker.provider");
+        Uri uri = FileProvider.getUriForFile(AddTournament.this, providerName, file);
+        FilePickerHelper.grantAppPermission(AddTournament.this, intent, uri);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, FilePickerHelper.CAPTURE_IMAGE_FULLSIZE_ACTIVITY_REQUEST_CODE);
     }
 
     private void setImageView() {
         String academicPic = "academicPic" + System.currentTimeMillis() + ".png";
-        File file = new File(Utility.getExternalStorageFilePathCreateAppDirectory(getContext()) + File.separator + "academic.png");
+        File file = new File(Utility.getExternalStorageFilePathCreateAppDirectory(AddTournament.this) + File.separator + "academic.png");
         if (file.exists()) {
             //compresImage(file, academicPic);
         }
@@ -702,15 +652,35 @@ public class AddTournament extends Fragment implements View.OnClickListener {
             } else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
             }
-            /* else if (requestCode == FilePickerHelper.CAPTURE_IMAGE_FULLSIZE_ACTIVITY_REQUEST_CODE) {
-                setImageView();
-            }*/
         }
+        if (data != null) {
+            String selectedTeam = data.getExtras().getString("selectedTeam");
+            if (selectedTeam != null && !selectedTeam.equals("")) {
+                selectTeamId = data.getExtras().getString("selectTeamId");
+                ArrayList<Team> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Team>>() {
+                }.getType());
+                for (Team team : teamList) {
+                    showSelectedTeam(team);
+                }
+            }
+        }
+    }
+
+    public void showSelectedTeam(Team team) {
+        LayoutInflater inflater = LayoutInflater.from(AddTournament.this);
+        View inflatedLayout = inflater.inflate(R.layout.create_match_team_layout, null);
+        ImageView imageView = inflatedLayout.findViewById(R.id.imageView);
+        TextView name = inflatedLayout.findViewById(R.id.name);
+        name.setText(team.getName());
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        userId.setText(team.getUnique_id());
+        Picasso.with(AddTournament.this).load(Contants.BASE_URL + team.getTeam_thumbnail()).placeholder(R.drawable.ic_uuuser).into(imageView);
+        TeamViewLayout.addView(inflatedLayout);
     }
 
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        Uri uri = Utility.getImageUri(getContext(), thumbnail);
+        Uri uri = Utility.getImageUri(AddTournament.this, thumbnail);
 
         if (uri != null) {
             setImageName(uri, thumbnail);
@@ -727,7 +697,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
         if (data != null) {
             try {
                 uri = data.getData();
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), data.getData());
+                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(AddTournament.this.getContentResolver(), data.getData());
                 if (uri != null) {
                     setImageName(uri, imageBitmap);
                 }
@@ -745,7 +715,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                astProgressBar = new ASTProgressBar(getContext());
+                astProgressBar = new ASTProgressBar(AddTournament.this);
                 astProgressBar.show();
             }
 
@@ -753,7 +723,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
             protected Boolean doInBackground(Void... voids) {
 
                 Boolean flag = false;
-                File sdcardPath = Utility.getExternalStorageFilePath(getContext());
+                File sdcardPath = Utility.getExternalStorageFilePath(AddTournament.this);
                 sdcardPath.mkdirs();
                 //File imgFile = new File(sdcardPath, System.currentTimeMillis() + ".png");
                 imgFile = new File(sdcardPath, fileName);
@@ -768,7 +738,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                     e.printStackTrace();
                     return false;
                 }
-                MediaScannerConnection.scanFile(getContext(), new String[]{imgFile.toString()}, null,
+                MediaScannerConnection.scanFile(AddTournament.this, new String[]{imgFile.toString()}, null,
                         new MediaScannerConnection.OnScanCompletedListener() {
                             public void onScanCompleted(String path, Uri uri) {
                                 if (Contants.IS_DEBUG_LOG) {
@@ -787,7 +757,7 @@ public class AddTournament extends Fragment implements View.OnClickListener {
                 super.onPostExecute(flag);
                 // Picasso.with(context).load(imgFile).into(faultImage);
                 // setImageIntoList(imgFile);
-                Picasso.with(getContext()).load(imgFile).into(addImageView);
+                Picasso.with(AddTournament.this).load(imgFile).into(addImageView);
                 astProgressBar.dismiss();
             }
         }.execute();
@@ -796,16 +766,26 @@ public class AddTournament extends Fragment implements View.OnClickListener {
     }
 
 
-    //set data into recycle view
-    private void setTeameAdapter() {
-        Team data = new Team();
-        for (int i = 1; i < 2; i++) {
-            data.setName("Noida Fresher");
-            teamlist.add(data);
-        }
-
-        AddTeamsAdapter addTeamsAdapter = new AddTeamsAdapter(getContext(), teamlist);
-        teamList.setAdapter(addTeamsAdapter);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
+    //for hid keyboard when tab outside edittext box
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
 }

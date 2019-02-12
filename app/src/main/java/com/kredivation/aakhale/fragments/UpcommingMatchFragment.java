@@ -55,7 +55,7 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
     private TournamentUpcoomingAdapter tournamentUpcoomingAdapter;
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
-
+    int total_pages = 1;
     public UpcommingMatchFragment() {
         // Required empty public constructor
     }
@@ -94,7 +94,9 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            getTournamentMatch();
+                            if (currentPage <= total_pages) {
+                                getTournamentMatch();
+                            }
                         }
                     }
                 }
@@ -133,7 +135,6 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
             }
         });
     }
-
     //get GgetTournamentMatch
     private void getTournamentMatch() {
         if (Utility.isOnline(getContext())) {
@@ -150,49 +151,38 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                int total_pages = mainObj.optInt("total_pages");
+                                total_pages = mainObj.optInt("total_pages");
                                 JSONArray dataArray = mainObj.optJSONArray("data");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {
                                         Tournament tournament = new Tournament();
-                                        JSONObject jsonObject = dataArray.getJSONObject(i);
-                                        String end_date = jsonObject.optString("end_date");
-                                        String unique_id = jsonObject.optString("unique_id");
-                                        int is_active = jsonObject.optInt("is_active");
-                                        String rules_regulations = jsonObject.optString("rules_regulations");
-                                        String tournament_zipcode = jsonObject.optString("tournament_zipcode");
-                                        String format = jsonObject.optString("format");
-                                        String display_picture = jsonObject.optString("display_picture");
-                                        String created_at = jsonObject.optString("created_at");
-                                        String tournament_country = jsonObject.optString("tournament_country");
-                                        String overs = jsonObject.optString("overs");
-
-                                        String tournament_city = jsonObject.optString("tournament_city");
-
-                                        String entry_fees = jsonObject.optString("entry_fees");
-
-                                        String updated_at = jsonObject.optString("updated_at");
-
-                                        String about_tournament = jsonObject.optString("about_tournament");
-
-                                        String user_id = jsonObject.optString("user_id");
-
-                                        String tournament_state = jsonObject.optString("tournament_state");
-
-                                        String tournament_address = jsonObject.optString("tournament_address");
-
-                                        String prizes = jsonObject.optString("prizes");
-
-                                        String name = jsonObject.optString("name");
-
+                                        JSONObject mainData = dataArray.getJSONObject(i);
+                                        JSONObject innerDataObject = mainData.optJSONObject("data");
+                                        JSONObject jsonObject = innerDataObject.optJSONObject("basic_info");
                                         int id = jsonObject.optInt("id");
-
-                                        String facilities = jsonObject.optString("facilities");
-
+                                        String name = jsonObject.optString("name");
+                                        String unique_id = jsonObject.optString("unique_id");
+                                        String created_at = jsonObject.optString("created_at");
+                                        String updated_at = jsonObject.optString("updated_at");
+                                        int is_active = jsonObject.optInt("is_active");
+                                        String about_tournament = jsonObject.optString("about_tournament");
+                                        String tournament_address = jsonObject.optString("tournament_address");
+                                        String format = jsonObject.optString("format");
+                                        String overs = jsonObject.optString("overs");
                                         String start_date = jsonObject.optString("start_date");
-
-                                        //   int status = jsonObject.optInt("status");
-
+                                        String end_date = jsonObject.optString("end_date");
+                                        String entry_fees = jsonObject.optString("entry_fees");
+                                        String tournament_zipcode = jsonObject.optString("tournament_zipcode");
+                                        int statusValue = jsonObject.optInt("status");
+                                        String display_picture = jsonObject.optString("display_picture");
+                                        String rules_regulations = jsonObject.optString("rules_regulations");
+                                        JSONObject tournament_country = jsonObject.optJSONObject("tournament_country");
+                                        JSONObject tournament_city = jsonObject.optJSONObject("tournament_city");
+                                        JSONObject tournament_state = jsonObject.optJSONObject("tournament_state");
+                                        String user_id = jsonObject.optString("user_id");
+                                        String prizes = jsonObject.optString("prizes");
+                                        String facilities = jsonObject.optString("facilities");
+                                        JSONArray tournament_teamArray = innerDataObject.optJSONArray("tournament_team");
 
                                         tournament.setId(id);
                                         tournament.setEnd_date(end_date);
@@ -204,17 +194,22 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
                                         tournament.setRules_regulations(rules_regulations);
                                         tournament.setTournament_zipcode(tournament_zipcode);
                                         tournament.setFormat(format);
-                                        tournament.setTournament_country(tournament_country);
+                                        tournament.setTournament_country(tournament_country.toString());
                                         tournament.setOvers(overs);
-                                        tournament.setTournament_city(tournament_city);
+                                        tournament.setTournament_city(tournament_city.toString());
                                         tournament.setEntry_fees(entry_fees);
                                         tournament.setAbout_tournament(about_tournament);
-                                        tournament.setTournament_state(tournament_state);
+                                        tournament.setTournament_state(tournament_state.toString());
                                         tournament.setTournament_address(tournament_address);
                                         tournament.setName(name);
                                         tournament.setPrizes(prizes);
                                         tournament.setPrizes(facilities);
                                         tournament.setStart_date(start_date);
+                                        tournament.setDisplay_picture(display_picture);
+                                        tournament.setStatus(statusValue);
+                                        String completeAdd = tournament_address + "," + tournament_city.optString("city_name") + "," + tournament_state.optString("state_name") + "," + tournament_country.optString("country_name") + "," + tournament_zipcode;
+                                        tournament.setCompleteAddress(completeAdd);
+                                        tournament.setTournamentTeam(tournament_teamArray);
                                         tournamentArrayList.add(tournament);
                                     }
                                     tournamentUpcoomingAdapter.notifyDataSetChanged();
@@ -237,6 +232,7 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
     }
+
 
 
     @Override

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.AddChatAdapter;
-import com.kredivation.aakhale.adapter.AddTeamsAdapter;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.model.Team;

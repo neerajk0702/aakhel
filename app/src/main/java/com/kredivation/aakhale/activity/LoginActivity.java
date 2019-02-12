@@ -55,12 +55,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         forgotPassword.setOnClickListener(this);
         btn_gsign_in.setOnClickListener(this);
         loginText.setOnClickListener(this);
-        UserInfo = getSharedPreferences("SharedPref", MODE_PRIVATE);
-        userId = UserInfo.getString("USER_ID", "");
-        if (!userId.equals("")) {
-            Intent intentHome = new Intent(LoginActivity.this, DashboardActivity.class);
-            startActivity(intentHome);
-        }
     }
 
     @Override

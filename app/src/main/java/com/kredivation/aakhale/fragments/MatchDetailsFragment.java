@@ -114,7 +114,7 @@ public class MatchDetailsFragment extends Fragment {
                 }
 
             } catch (JSONException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
             }
         }
 

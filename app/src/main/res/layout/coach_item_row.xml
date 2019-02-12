@@ -15,14 +15,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.kredivation.aakhale.components.CircleImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="@dimen/_10dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_4dp"
-            android:layout_weight=".2"
-            android:src="@drawable/tropy1" />
+            android:padding="@dimen/_3dp"
+            android:gravity="center"
+            android:layout_weight=".2">
+
+
+            <com.kredivation.aakhale.components.CircleImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                android:layout_gravity="center"
+                android:layout_weight=".2"
+                android:src="@drawable/tropy1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -36,12 +44,19 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_14dp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/userid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
 
             <TextView
-                android:id="@+id/coachType"
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_12dp"

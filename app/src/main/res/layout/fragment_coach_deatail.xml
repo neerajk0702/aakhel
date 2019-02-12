@@ -49,7 +49,7 @@
                             android:id="@+id/nametxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1 June 2018,04:09 PM"
+                            android:text=""
                             android:textSize="@dimen/_14dp"
                             android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
 
                     <ImageView
                         android:id="@+id/fab"
-                        android:layout_width="@dimen/_30dp"
+                        android:layout_width="@dimen/_25dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_favorite" />
@@ -129,11 +129,56 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="456XyDFR"
+                                android:text=""
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
 
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="Email ID: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/email"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp"
+                              />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="Phone No: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/phone"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp"
+                               />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -153,7 +198,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="43 Years"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
@@ -176,7 +221,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="10 Years"
+                                android:text=""
                                 android:textSize="7pt" />
                         </LinearLayout>
 
@@ -190,7 +235,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".3"
-                                android:text="Batting: "
+                                android:text="Sports: "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
@@ -199,7 +244,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="Right hand Batting"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
@@ -213,16 +258,16 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".3"
-                                android:text="Bowling: "
+                                android:text="Fee : "
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/taskId"
+                                android:id="@+id/fee"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
-                                android:text="Show left arm bowler"
+                                android:text=""
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
@@ -249,7 +294,28 @@
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
 
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:text="Address: "
+                                android:textSize="@dimen/_12dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/address"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".7"
+                                android:text=""
+                                android:textSize="@dimen/_12dp" />
+                        </LinearLayout>
                     </LinearLayout>
 
 

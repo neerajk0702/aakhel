@@ -1,5 +1,7 @@
 package com.kredivation.aakhale.model;
 
+import org.json.JSONArray;
+
 public class Tournament {
 
     private String end_date;
@@ -210,10 +212,14 @@ public class Tournament {
         this.start_date = start_date;
     }
 
+    String CompleteAddress;
 
-    @Override
-    public String toString() {
-        return "ClassPojo [end_date = " + end_date + ", unique_id = " + unique_id + ", is_active = " + is_active + ", rules_regulations = " + rules_regulations + ", tournament_zipcode = " + tournament_zipcode + ", format = " + format + ", display_picture = " + display_picture + ", created_at = " + created_at + ", tournament_country = " + tournament_country + ", overs = " + overs + ", tournament_city = " + tournament_city + ", entry_fees = " + entry_fees + ", updated_at = " + updated_at + ", about_tournament = " + about_tournament + ", user_id = " + user_id + ", tournament_state = " + tournament_state + ", tournament_address = " + tournament_address + ", prizes = " + prizes + ", name = " + name + ", id = " + id + ", facilities = " + facilities + ", start_date = " + start_date + ", status = " + status + "]";
+    public String getCompleteAddress() {
+        return CompleteAddress;
+    }
+
+    public void setCompleteAddress(String completeAddress) {
+        CompleteAddress = completeAddress;
     }
 
     public int getIs_active() {
@@ -239,4 +245,20 @@ public class Tournament {
     public void setStatus(int status) {
         this.status = status;
     }
+private JSONArray tournamentTeam;
+
+    public JSONArray getTournamentTeam() {
+        return tournamentTeam;
+    }
+
+    public void setTournamentTeam(JSONArray tournamentTeam) {
+        this.tournamentTeam = tournamentTeam;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassPojo [end_date = " + end_date + ", unique_id = " + unique_id + ", is_active = " + is_active + ", rules_regulations = " + rules_regulations + ", tournament_zipcode = " + tournament_zipcode + ", format = " + format + ", display_picture = " + display_picture + ", created_at = " + created_at + ", tournament_country = " + tournament_country + ", overs = " + overs + ", tournament_city = " + tournament_city + ", entry_fees = " + entry_fees + ", updated_at = " + updated_at + ", about_tournament = " + about_tournament + ", user_id = " + user_id + ", tournament_state = " + tournament_state + ", tournament_address = " + tournament_address + ", prizes = " + prizes + ", name = " + name + ", id = " + id + ", facilities = " + facilities + ", start_date = " + start_date + ", status = " + status + "]";
+    }
+
+
 }

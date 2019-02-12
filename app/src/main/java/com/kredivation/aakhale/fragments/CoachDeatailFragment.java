@@ -30,7 +30,7 @@ public class CoachDeatailFragment extends Fragment {
 
     View view;
     ImageView imageView, fab;
-    TextView nametxt, ratingTxt, uniqueIdTxt, ageTxt, ExperienceTxt, OdieTxt, taskId, coachRole;
+    TextView nametxt, ratingTxt, uniqueIdTxt, ageTxt, ExperienceTxt, OdieTxt, fee, coachRole, phone, email, address;
     LinearLayout coachInformation;
     Bundle bundle;
 
@@ -54,10 +54,13 @@ public class CoachDeatailFragment extends Fragment {
         ageTxt = view.findViewById(R.id.ageTxt);
         ExperienceTxt = view.findViewById(R.id.ExperienceTxt);
         OdieTxt = view.findViewById(R.id.OdieTxt);
-        taskId = view.findViewById(R.id.taskId);
+        fee = view.findViewById(R.id.fee);
         coachRole = view.findViewById(R.id.coachRole);
         fab = view.findViewById(R.id.fab);
         coachInformation = view.findViewById(R.id.coachInformation);
+        phone = view.findViewById(R.id.phone);
+        email = view.findViewById(R.id.email);
+        address = view.findViewById(R.id.address);
         getUmpireDetails();
     }
 
@@ -89,7 +92,7 @@ public class CoachDeatailFragment extends Fragment {
                                     JSONObject basic_info = jsonObject.optJSONObject("basic_info");
                                     if (basic_info != null) {
                                         int id = basic_info.optInt("id");
-                                        String email = basic_info.optString("email");
+                                        String emailstr = basic_info.optString("email");
                                         String unique_id = basic_info.optString("unique_id");
                                         String created_at = basic_info.optString("created_at");
                                         String updated_at = basic_info.optString("updated_at");
@@ -99,7 +102,7 @@ public class CoachDeatailFragment extends Fragment {
                                         String mobile = basic_info.optString("mobile");
                                         String date_of_birth = basic_info.optString("date_of_birth");
                                         int gender = basic_info.optInt("gender");
-                                        String address = basic_info.optString("address");
+                                        String addressstr = basic_info.optString("address");
                                         String city = basic_info.optString("city");
                                         String state = basic_info.optString("state");
                                         String country = basic_info.optString("country");
@@ -109,43 +112,29 @@ public class CoachDeatailFragment extends Fragment {
                                         String experience = basic_info.optString("experience");
                                         String player_role = basic_info.optString("player_role");
                                         String profile_picture = basic_info.optString("profile_picture");
+                                        String fee_per = basic_info.optString("fee_per_match_day");
 
 
                                         if (profile_picture != null && !profile_picture.equals("")) {
-                                            Picasso.with(getContext()).load("http://cricket.vikaskumar.info/" + profile_picture)
+                                            Picasso.with(getContext()).load(Contants.BASE_URL + profile_picture)
                                                     .placeholder(R.drawable.noimage).into(imageView);
                                         }
 
                                         nametxt.setText(full_name);
-                                        ratingTxt.setText("");
+                                        // ratingTxt.setText("");
                                         uniqueIdTxt.setText(unique_id);
-                                        ageTxt.setText("");
-                                        ExperienceTxt.setText(experience);
-                                        OdieTxt.setText("");
-                                        taskId.setText("");
+                                        ageTxt.setText(date_of_birth);
+                                        ExperienceTxt.setText(experience + " Years");
+                                        OdieTxt.setText(users_sports + "");
+                                        fee.setText(fee_per + "");
                                         coachRole.setText(role);
+                                        phone.setText(mobile);
+                                        email.setText(emailstr);
+                                        address.setText(addressstr + "," + city + "," + state + "," + country + "," + zipcode);
 
                                         if (gender == 1) {
                                             // ge.setText("Open");
                                         }
-
-
-                                        JSONArray umpire_matchArray = jsonObject.optJSONArray("umpire_match");
-                                        if (umpire_matchArray != null) {
-                                            for (int i = 0; i < umpire_matchArray.length(); i++) {
-                                                try {
-                                                    JSONObject object = umpire_matchArray.getJSONObject(i);
-                                                    String pname = object.optString("name");
-                                                    String statusp = object.optString("status");
-                                                    addUmpireInfo(pname, statusp);
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-
-                                        }
-
-
                                     }
                                 }
 
@@ -164,22 +153,4 @@ public class CoachDeatailFragment extends Fragment {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
     }
-
-
-    //add free service layout in runtime
-    public void addUmpireInfo(String name, String status) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View inflatedLayout = inflater.inflate(R.layout.coachelist_item_row, null);
-        TextView matchType = inflatedLayout.findViewById(R.id.matchType);
-        TextView odiesInfo = inflatedLayout.findViewById(R.id.odiesInfo);
-        TextView statusTxt = inflatedLayout.findViewById(R.id.statusTxt);
-
-
-        matchType.setText(name);
-        odiesInfo.setText(name);
-        coachInformation.addView(inflatedLayout);
-
-    }
-
-
 }

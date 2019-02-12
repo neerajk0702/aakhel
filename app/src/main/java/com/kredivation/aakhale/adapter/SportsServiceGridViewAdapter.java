@@ -2,6 +2,7 @@ package com.kredivation.aakhale.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.card.MaterialCardView;
 import android.view.LayoutInflater;
@@ -12,9 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.AddAcademicsActivity;
+import com.kredivation.aakhale.activity.AddSportDetailForAcademicActivity;
 import com.kredivation.aakhale.components.ASTTextView;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Sports;
+import com.kredivation.aakhale.utility.Contants;
 
 import java.util.ArrayList;
 
@@ -63,7 +67,15 @@ public class SportsServiceGridViewAdapter extends ArrayAdapter {
                     data.get(position).setSelected(false);
                 } else {
                     data.get(position).setSelected(true);
+                   // ((AddAcademicsActivity) context).openSportService(position);
+                    Intent intent1 = new Intent(context, AddSportDetailForAcademicActivity.class);
+                    intent1.putExtra("Id", data.get(position).getId());
+                    intent1.putExtra("SportName", data.get(position).getSports_name());
+                    intent1.putExtra("SporSelected", data.get(position).isSelected());
+                    intent1.putExtra("position", position);
+                    ((Activity) context).startActivityForResult(intent1, Contants.REQ_PAGE_COMMUNICATOR);
                 }
+
                 notifyDataSetChanged();
             }
         });

@@ -22,6 +22,7 @@ import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.GroundData;
+import com.kredivation.aakhale.utility.Contants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, coachType, ratingTxt;
+        TextView name, address, ratingTxt, userid;
         ImageView sportsIcon, menumore, imageView;
         MaterialCardView root_layout;
 
@@ -40,12 +41,13 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.name);
-            coachType = v.findViewById(R.id.coachType);
+            address = v.findViewById(R.id.address);
             ratingTxt = v.findViewById(R.id.ratingTxt);
             sportsIcon = v.findViewById(R.id.sportsIcon);
             root_layout = v.findViewById(R.id.root_layout);
             menumore = v.findViewById(R.id.menumore);
             imageView = v.findViewById(R.id.imageView);
+            userid = v.findViewById(R.id.userid);
         }
     }
 
@@ -67,12 +69,10 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull CoachAdapter.ViewHolder holder, final int position) {
         holder.name.setText(sportsList.get(position).getFull_name());
-
-        holder.coachType.setText(sportsList.get(position).getAddress());
+        holder.userid.setText(sportsList.get(position).getUnique_id());
+        holder.address.setText(sportsList.get(position).getAddress());
         // holder.ratingTxt.setText(sportsList.get(position).getCapacity());
-
-
-        Picasso.with(context).load(sportsList.get(position).getProfile_picture()).placeholder(R.drawable.noimage).into(holder.imageView);
+        Picasso.with(context).load(Contants.BASE_URL + sportsList.get(position).getProfile_picture()).placeholder(R.drawable.ic_uuuser).into(holder.imageView);
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
