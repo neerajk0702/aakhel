@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/MainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_6dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Sport Name : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:id="@+id/sportsName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Cricket"
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_6dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Trainer Name : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:id="@+id/trainername"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Cricket"
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_6dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Gender : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:id="@+id/trainergender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Cricket"
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_6dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Age : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:id="@+id/trainerage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Cricket"
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_6dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Trainer Experience :"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:id="@+id/exp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Cricket"
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_6dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Timing : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:id="@+id/timing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text=""
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_6dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="Fees : "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12dp"
+                android:textStyle="bold" />
+
+            <com.kredivation.aakhale.components.ASTTextView
+                android:id="@+id/fees"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text=""
+                android:textColor="@color/secondry_txt_color"
+                android:textSize="@dimen/_12dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_margin="@dimen/_10dp"
+            android:background="@color/secondry_txt_color" />
+    </LinearLayout>
+
+
+</android.support.design.card.MaterialCardView>

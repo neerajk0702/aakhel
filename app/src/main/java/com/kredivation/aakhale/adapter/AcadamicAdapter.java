@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class AcadamicAdapter extends RecyclerView.Adapter<AcadamicAdapter.ViewHo
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, address, ratingTxt, moreGamesTxt;
+        TextView name, address, ratingTxt, moreGamesTxt, userId;
         ImageView imageView;
         ASTFontTextIconView matchIcon;
         MaterialCardView root_layout;
@@ -44,6 +46,8 @@ public class AcadamicAdapter extends RecyclerView.Adapter<AcadamicAdapter.ViewHo
             root_layout = v.findViewById(R.id.root_layout);
             imageView = v.findViewById(R.id.imageView);
             moreGamesTxt = v.findViewById(R.id.moreGamesTxt);
+            userId = v.findViewById(R.id.userId);
+            matchIcon = v.findViewById(R.id.matchIcon);
         }
     }
 
@@ -65,8 +69,34 @@ public class AcadamicAdapter extends RecyclerView.Adapter<AcadamicAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull AcadamicAdapter.ViewHolder holder, final int position) {
         holder.name.setText(academicsArrayList.get(position).getAcademy_name());
+        holder.userId.setText(academicsArrayList.get(position).getUnique_id());
         holder.address.setText(academicsArrayList.get(position).getStreet_address());
+
         try {
+            String separatorComm = ",";
+            String sportName;
+            StringBuilder stringBuilders = new StringBuilder();
+            if (academicsArrayList.get(position).getAcademyServices() != null && !academicsArrayList.get(position).getAcademyServices().equals("")) {
+                JSONArray jsonArray = new JSONArray(academicsArrayList.get(position).getAcademyServices());
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String jsonStr = jsonArray.optString(i);
+                        if (jsonStr != null) {
+                            JSONObject jsonObject = new JSONObject(jsonStr);
+                            Log.d(Contants.LOG_TAG, "academicsArrayList  **" + jsonObject.toString());
+                            JSONObject sportObj = jsonObject.optJSONObject("sports");
+                            String name = sportObj.optString("name");
+                            stringBuilders.append(name);
+                            stringBuilders.append(",");
+                        }
+                    }
+                    sportName = stringBuilders.toString();
+                    if (sportName != null && !sportName.equals("")) {
+                        sportName = sportName.substring(0, sportName.length() - separatorComm.length());
+                        holder.moreGamesTxt.setText(sportName);
+                    }
+                }
+            }
             JSONArray jsonArray = new JSONArray(academicsArrayList.get(position).getAcademy_photos());
             for (int i = 0; i < jsonArray.length(); i++) {
                 Picasso.with(context).load(Contants.BASE_URL + jsonArray.get(i).toString()).placeholder(R.drawable.noimage).into(holder.imageView);

@@ -2,6 +2,7 @@ package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ public class AddTournamnetPAdapter extends RecyclerView.Adapter<AddTournamnetPAd
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, address, date;
         ImageView imageSports;
-        LinearLayout MainLayout;
+        MaterialCardView MainLayout;
 
         public ViewHolder(View v) {
             super(v);

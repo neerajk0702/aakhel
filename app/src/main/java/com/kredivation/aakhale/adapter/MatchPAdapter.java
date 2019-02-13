@@ -65,9 +65,17 @@ public class MatchPAdapter extends RecyclerView.Adapter<MatchPAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.matchname.setText(matchArrayList.get(position).getName() + "");
         try {
-            JSONObject cityObj = new JSONObject(matchArrayList.get(position).getMatchCity());
-            JSONObject stateObj = new JSONObject(matchArrayList.get(position).getMatchState());
-            String completeAddress = matchArrayList.get(position).getMatch_address() + "," + cityObj.optString("city_name") + "," + stateObj.optString("state_name") + "," + matchArrayList.get(position).getMatch_zipcode();
+            String city = "";
+            String state = "";
+            if (matchArrayList.get(position).getMatchCity() != null) {
+                JSONObject cityObj = new JSONObject(matchArrayList.get(position).getMatchCity());
+                city = cityObj.optString("city_name");
+            }
+            if (matchArrayList.get(position).getMatchState() != null) {
+                JSONObject stateObj = new JSONObject(matchArrayList.get(position).getMatchState());
+                state = stateObj.optString("state_name");
+            }
+            String completeAddress = matchArrayList.get(position).getMatch_address() + "," + city + "," + state + "," + matchArrayList.get(position).getMatch_zipcode();
             holder.address.setText(completeAddress + "");
         } catch (JSONException e) {
             // e.printStackTrace();

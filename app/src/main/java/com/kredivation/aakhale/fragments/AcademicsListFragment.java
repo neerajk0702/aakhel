@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,7 +98,8 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
     }
 
     private Context context;
-    int total_pages=1;
+    int total_pages = 1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getActivity();
@@ -133,7 +136,7 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             currentPage += 1;
-                            if(currentPage <=total_pages) {
+                            if (currentPage <= total_pages) {
                                 getAcademyList();
                             }
                         }
@@ -191,7 +194,7 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                 total_pages = mainObj.optInt("total_pages");
+                                total_pages = mainObj.optInt("total_pages");
                                 JSONArray dataArray = mainObj.optJSONArray("data");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {
@@ -217,6 +220,7 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
                                         String academy_coach = jsonObject.optString("academy_coach");
                                         String academy_sports = jsonObject.optString("academy_sports");
                                         String street_address = jsonObject.optString("street_address");
+                                        String academy_services = jsonObject.optString("academy_services");
 
                                         academicsData.setId(id);
                                         academicsData.setAcademy_owner(academy_owner);
@@ -237,13 +241,14 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
                                         academicsData.setAcademy_coach(academy_coach);
                                         academicsData.setAcademy_sports(academy_sports);
                                         academicsData.setStreet_address(street_address);
+                                        academicsData.setAcademyServices(academy_services);
                                         academicsArrayList.add(academicsData);
                                     }
-                                    acadamicAdapter.notifyDataSetChanged();
-                                    loading = true;
-                                    loaddataProgress.setVisibility(View.GONE);
-                                    mSwipeRefreshLayout.setRefreshing(false);
                                 }
+                                acadamicAdapter.notifyDataSetChanged();
+                                loading = true;
+                                loaddataProgress.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
                             }
                         } catch (JSONException e) {
                             // e.printStackTrace();
@@ -275,5 +280,6 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
         academicsArrayList.clear();
         getAcademyList();
     }
+
 
 }

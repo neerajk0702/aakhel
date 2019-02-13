@@ -11,6 +11,7 @@ public class Academics {
     String scapacity;
     String saddress;
     String sstatus;
+    String academyServices;
 
     public Academics() {
     }
@@ -20,6 +21,14 @@ public class Academics {
         this.address = address;
         this.moregame = moregame;
         this.gameicon = gameicon;
+    }
+
+    public String getAcademyServices() {
+        return academyServices;
+    }
+
+    public void setAcademyServices(String academyServices) {
+        this.academyServices = academyServices;
     }
 
     public String getSname() {
