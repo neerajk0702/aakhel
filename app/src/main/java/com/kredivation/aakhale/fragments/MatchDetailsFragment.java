@@ -74,9 +74,9 @@ public class MatchDetailsFragment extends Fragment {
                 datetime.setText(MatchDetail.getDate());
                 uniqueId.setText(MatchDetail.getUnique_id());
                 if (MatchDetail.getIs_active().equals("1")) {
-                    statustxt.setText("Avilable");
+                    statustxt.setText("OPEN");
                 } else {
-                    statustxt.setText("Not Avilable");
+                    statustxt.setText("CLOSE");
                 }
                 overtxt.setText(MatchDetail.getOver() + "");
                 formateMatch.setText(MatchDetail.getFormat());
@@ -114,7 +114,7 @@ public class MatchDetailsFragment extends Fragment {
                 }
 
             } catch (JSONException e) {
-               // e.printStackTrace();
+                // e.printStackTrace();
             }
         }
 

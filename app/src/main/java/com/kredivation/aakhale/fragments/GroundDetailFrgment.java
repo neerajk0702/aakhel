@@ -240,7 +240,7 @@ public class GroundDetailFrgment extends Fragment {
     //add free service layout in runtime
     public void addSportmatchView(String name, int id) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View inflatedLayout = inflater.inflate(R.layout.sports_row, null);
+        View inflatedLayout = inflater.inflate(R.layout.sportsnew, null);
         TextView sportsName = inflatedLayout.findViewById(R.id.sportsName);
         sportsName.setText(name);
         spoetsLayoyView.addView(inflatedLayout);

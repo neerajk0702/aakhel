@@ -56,7 +56,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8dp"
+        android:layout_margin="@dimen/_5dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -71,46 +71,43 @@
                 android:layout_height="@dimen/_130dp"
                 android:scaleType="fitXY" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center"
                 android:orientation="horizontal"
+                android:padding="@dimen/_5dp"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_4dp"
-                    android:text=""
+                    android:layout_weight=".8"
+                    android:padding="@dimen/_3dp"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/_12dp" />
 
 
                 <TextView
                     android:id="@+id/status"
-                    android:layout_width="@dimen/_80dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_gravity="center"
-                    android:background="@drawable/round_boder"
-                    android:padding="@dimen/_5dp"
-                    android:text=""
+                    android:layout_weight=".2"
+                    android:background="@drawable/round_boder_green"
+                    android:gravity="center"
+                    android:text="OPEN"
                     android:textAlignment="center"
-                    android:textColor="@color/green"
-                    android:textSize="@dimen/_12dp" />
+                    android:textColor="@color/white" />
 
-
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/uniqeId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_4dp"
+                android:padding="@dimen/_3dp"
                 android:text=""
                 android:textSize="@dimen/_12dp" />
 
@@ -118,6 +115,7 @@
                 android:id="@+id/dateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/_3dp"
                 android:textSize="@dimen/_12dp" />
 
             <LinearLayout
@@ -125,16 +123,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
                 android:background="@drawable/round_boder"
-                android:orientation="vertical"
-              >
+                android:minHeight="@dimen/_90dp"
+                android:orientation="vertical">
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/gray2"
+                    android:background="@color/light_grey"
+                    android:padding="@dimen/_8dp"
                     android:text="About Tournament"
-                    android:padding="@dimen/_5dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -144,6 +142,7 @@
                     android:id="@+id/aboutTournament"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_5dp"
                     android:textSize="@dimen/_12dp" />
 
@@ -159,6 +158,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/_8dp"
                     android:text="Teams"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -183,6 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5dp"
+                android:padding="@dimen/_8dp"
                 android:text="Details"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12dp"
@@ -192,13 +193,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5dp"
                 android:layout_marginTop="@dimen/_5dp"
-                android:orientation="vertical">
+                android:background="@drawable/edittextround"
+                android:orientation="vertical"
+                android:padding="@dimen/_3dp">
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/_8dp"
                     android:text="Game Formates"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -212,6 +217,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
+                        android:padding="@dimen/_8dp"
                         android:text="Over" />
 
                     <TextView
@@ -219,7 +225,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".7"
-                        android:padding="@dimen/_5dp" />
+                        android:padding="@dimen/_5dp"
+                        android:textColor="@color/black" />
 
 
                 </LinearLayout>
@@ -233,6 +240,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
+                        android:padding="@dimen/_8dp"
                         android:text="Teams:" />
 
                     <TextView
@@ -240,7 +248,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".7"
-                        android:padding="@dimen/_5dp" />
+                        android:padding="@dimen/_5dp"
+                        android:textColor="@color/black" />
 
 
                 </LinearLayout>
@@ -254,6 +263,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
+                        android:padding="@dimen/_8dp"
                         android:text="Formate:" />
 
                     <TextView
@@ -261,7 +271,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".7"
-                        android:padding="@dimen/_5dp" />
+                        android:padding="@dimen/_5dp"
+                        android:textColor="@color/black" />
 
 
                 </LinearLayout>
@@ -275,6 +286,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
+                        android:padding="@dimen/_8dp"
                         android:text="Venue:" />
 
                     <TextView
@@ -283,7 +295,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".7"
                         android:padding="@dimen/_5dp"
-                        android:text="" />
+                        android:text=""
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -295,6 +308,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".3"
+                        android:padding="@dimen/_8dp"
                         android:text="Entery Fee:" />
 
                     <TextView
@@ -303,7 +317,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".7"
                         android:padding="@dimen/_5dp"
-                        android:text="Enter Fee:" />
+                        android:text="Enter Fee:"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -321,6 +336,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:padding="@dimen/_8dp"
                     android:text="Facilites"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -347,6 +364,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:padding="@dimen/_8dp"
                     android:text="Price:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -373,6 +392,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:padding="@dimen/_8dp"
                     android:text="Rule Regulation:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -399,7 +420,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
                     android:maxLines="5"
+                    android:padding="@dimen/_8dp"
                     android:text="Umpire"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"

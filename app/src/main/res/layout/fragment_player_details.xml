@@ -4,7 +4,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_3dp"
+    android:layout_margin="@dimen/_5dp"
     android:orientation="vertical">
 
     <ScrollView
@@ -26,13 +26,12 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_4dp">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_60dp"
                         android:layout_gravity="center"
                         android:layout_weight=".2"
                         android:src="@drawable/tropy1" />
@@ -64,7 +63,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_3dp"
-                                android:layout_marginBottom="@dimen/_3dp"
                                 android:text=""
                                 android:textSize="@dimen/_12dp"
                                 android:textStyle="bold" />
@@ -124,8 +122,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:text=""
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_12dp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -149,7 +148,8 @@
                                 android:layout_weight=".7"
                                 android:text=""
                                 android:textSize="@dimen/_12dp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -172,8 +172,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:text="30"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_12dp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -196,8 +197,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:text=""
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_12dp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -220,6 +222,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:text="10 Years"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
@@ -243,6 +246,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:text=""
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
@@ -266,6 +270,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".7"
                                 android:text="Head Coach"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
@@ -280,8 +285,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5dp"
                     android:text="Team Information"
-                    android:layout_marginLeft="@dimen/_5dp"
                     android:textColor="@color/black"
+                    android:padding="@dimen/_5dp"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
@@ -290,6 +295,7 @@
                     android:id="@+id/teamInfoLayoutView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:layout_gravity="center"
                     android:orientation="vertical" />
 
@@ -298,6 +304,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5dp"
+                    android:padding="@dimen/_5dp"
                     android:orientation="vertical">
 
                     <com.kredivation.aakhale.components.ASTTextView
@@ -306,7 +313,6 @@
                         android:text="Gallery"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12dp"
-                        android:layout_marginLeft="@dimen/_5dp"
                         android:textStyle="bold" />
 
                     <HorizontalScrollView
@@ -335,7 +341,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:minHeight="@dimen/_45dp"
+        android:minHeight="@dimen/_30dp"
         android:orientation="horizontal">
 
         <TextView
@@ -343,12 +349,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_3dp"
             android:layout_weight="1"
             android:background="@drawable/txtbxcolor"
             android:gravity="center"
-
-            android:padding="@dimen/_4dp"
             android:text="CHALLENGE"
             android:textColor="@color/white"
             android:textSize="@dimen/_12dp"
@@ -359,13 +363,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_5dp"
             android:layout_weight="1"
             android:background="@drawable/txtbxcolor"
             android:gravity="center"
-            android:padding="@dimen/_4dp"
             android:text="REQUEST"
             android:textColor="@color/white"
+            android:layout_marginRight="@dimen/_3dp"
             android:textSize="@dimen/_12dp"
             android:textStyle="bold" />
 
@@ -375,11 +378,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_5dp"
             android:layout_weight="1"
             android:background="@drawable/txtbxcolor"
             android:gravity="center"
-            android:padding="@dimen/_4dp"
             android:text="INVITE"
             android:textColor="@color/white"
             android:textSize="@dimen/_12dp"

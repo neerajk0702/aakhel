@@ -27,30 +27,29 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_3dp"
             android:layout_weight=".8"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
                 android:orientation="horizontal"
-                android:padding="@dimen/_5dp">
+                android:padding="@dimen/_3dp">
 
                 <TextView
                     android:id="@+id/stadiunName"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight=".7"
-                    android:padding="@dimen/_3dp"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
                 <com.kredivation.aakhale.components.ASTButton
                     android:id="@+id/avilableTxt"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/_30dp"
                     android:layout_gravity="center"
                     android:layout_weight=".3"
                     android:background="@drawable/round_boder_green"
@@ -73,7 +72,6 @@
                 android:id="@+id/capacity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_3dp"
                 android:textSize="@dimen/_12dp" />
 
 
@@ -81,8 +79,6 @@
                 android:id="@+id/addressTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3dp"
-                android:padding="@dimen/_3dp"
                 android:textSize="@dimen/_12dp" />
 
         </LinearLayout>

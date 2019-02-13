@@ -94,8 +94,8 @@
             android:layout_margin="@dimen/_5dp"
             android:layout_weight=".7"
             android:padding="@dimen/_5dp"
-            android:text="TOP Umpires"
-            android:textColor="@color/black"
+            android:text="TOP UMPIRES"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/_14dp" />
 
 

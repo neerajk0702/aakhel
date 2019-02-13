@@ -16,21 +16,20 @@
         <LinearLayout
             android:layout_width="@dimen/_10dp"
             android:layout_height="match_parent"
+            android:layout_weight=".2"
             android:gravity="center"
-            android:padding="@dimen/_2dp"
-            android:layout_weight=".2">
+            android:padding="@dimen/_2dp">
 
             <com.kredivation.aakhale.components.CircleImageView
                 android:id="@+id/imageView"
-                android:layout_width="@dimen/_50dp"
-                android:layout_height="@dimen/_50dp"
+                android:layout_width="@dimen/_65dp"
+                android:layout_height="@dimen/_65dp"
                 android:src="@drawable/tropy1" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5dp"
             android:layout_weight=".6"
             android:orientation="vertical"
             android:padding="@dimen/_5dp">
@@ -39,31 +38,34 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_14dp"
                 android:text=""
+                android:textSize="@dimen/_14dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/userId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12dp"
                 android:text=""
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/coachType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12dp"
                 android:text=""
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12dp"
                 android:text=""
+                android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/ratingTxt"
                 android:layout_width="wrap_content"
@@ -105,16 +107,15 @@
                 android:padding="@dimen/_5dp"
                 android:src="@drawable/ic_cricket"
                 android:textSize="@dimen/_20dp"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
 
             <ImageView
                 android:id="@+id/menumore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
+                android:layout_gravity="bottom|right"
                 android:layout_weight="1"
-                android:padding="@dimen/_5dp"
                 android:src="@drawable/ic_menu"
                 android:textSize="@dimen/_18dp" />
 

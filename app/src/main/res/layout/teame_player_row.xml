@@ -2,7 +2,7 @@
 <android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
-    android:layout_width="@dimen/_150dp"
+    android:layout_width="@dimen/_110dp"
     android:layout_height="@dimen/_110dp"
     android:layout_gravity="center"
     card_view:cardCornerRadius="@dimen/_8dp"
@@ -29,14 +29,13 @@
             android:id="@+id/playeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_3dp"
-            android:layout_marginTop="@dimen/_3dp"
+            android:layout_marginLeft="@dimen/_2dp"
+            android:layout_marginTop="@dimen/_2dp"
             android:background="@android:color/transparent"
             android:maxLines="2"
-            android:padding="@dimen/_3dp"
             android:text="Sachin Ram Semwal"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/_12dp"
+            android:textSize="@dimen/_10dp"
             android:textStyle="bold" />
 
 
@@ -44,11 +43,11 @@
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_3dp"
+            android:layout_marginLeft="@dimen/_2dp"
             android:maxLines="2"
             android:text="PENDING"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/_12dp"
+            android:textSize="@dimen/_10dp"
             android:textStyle="bold" />
 
     </LinearLayout>

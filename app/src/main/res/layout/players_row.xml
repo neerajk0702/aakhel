@@ -107,7 +107,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="@dimen/_5dp"
                     android:src="@drawable/ic_cricket"
                     android:textSize="@dimen/_20dp" />
 
@@ -118,7 +117,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_weight="1"
-                    android:padding="@dimen/_5dp"
                     android:src="@drawable/ic_menu"
                     android:textSize="@dimen/_20dp" />
 
@@ -151,7 +149,7 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="WON:"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
@@ -163,7 +161,9 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="25"
-                        android:textColor="@color/black"
+                        android:textColor="@color/orange"
+                        android:background="@color/white"
+
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
@@ -173,7 +173,7 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="Matches:"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
@@ -185,7 +185,8 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="99"
-                        android:textColor="@color/black"
+                        android:textColor="@color/orange"
+                        android:background="@color/white"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
@@ -196,7 +197,7 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="tournament:"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
@@ -208,7 +209,8 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="5"
-                        android:textColor="@color/black"
+                        android:textColor="@color/orange"
+                        android:background="@color/white"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
@@ -218,7 +220,7 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="Challange:"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 
@@ -230,7 +232,8 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
                         android:text="0"
-                        android:textColor="@color/black"
+                        android:textColor="@color/orange"
+                        android:background="@color/white"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/_5dp"
-    app:cardElevation="@dimen/_5dp"
+    android:padding="@dimen/_3dp"
+    android:layout_marginTop="@dimen/_5dp"
     app:cardUseCompatPadding="true">
 
 
@@ -13,15 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/_5dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/matchType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5dp"
+            android:paddingLeft="@dimen/_5dp"
             android:text="Odis Umpire "
+
             android:textSize="@dimen/_12dp"
             android:textStyle="bold" />
 
@@ -29,11 +29,11 @@
             android:id="@+id/odiesInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5dp"
+            android:paddingLeft="@dimen/_5dp"
             android:text="35(2013-2018)"
             android:textSize="@dimen/_12dp"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
     </LinearLayout>
 
 
-</android.support.design.card.MaterialCardView>
+</LinearLayout>

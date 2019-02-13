@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/_5dp"
-    android:padding="@dimen/_3dp"
     android:orientation="vertical"
     tools:context=".fragments.AcadamicsDetailFragment">
 
@@ -21,15 +20,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_5dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_5dp">
+                    android:layout_weight=".8"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/name"
@@ -68,8 +65,8 @@
                     android:id="@+id/status"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_4dp"
-                    android:layout_weight=".3"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:layout_weight=".2"
                     android:background="@drawable/round_boder_green"
                     android:padding="@dimen/_5dp"
                     android:text="OPEN"
@@ -126,8 +123,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/light_grey"
-                    android:padding="@dimen/_6dp"
-                    android:text="BatsMan"
+                    android:padding="@dimen/_8dp"
+                    android:text="Game Formate"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -136,7 +133,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="@dimen/_6dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -163,7 +161,7 @@
                             android:layout_weight=".7"
                             android:padding="@dimen/_5dp"
                             android:text="45"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/_12dp"
                             android:textStyle="bold" />
 
@@ -195,7 +193,7 @@
                             android:layout_weight=".7"
                             android:padding="@dimen/_5dp"
                             android:text=""
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/_12dp"
                             android:textStyle="bold" />
 
@@ -227,7 +225,7 @@
                             android:layout_weight=".7"
                             android:padding="@dimen/_5dp"
                             android:text="T-20 First"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/_12dp"
                             android:textStyle="bold" />
 
@@ -253,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/light_grey"
-                    android:padding="@dimen/_6dp"
+                    android:padding="@dimen/_8dp"
                     android:text="Venue"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
@@ -264,7 +262,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="@dimen/_5dp">
+                    android:padding="@dimen/_6dp">
 
                     <TextView
                         android:id="@+id/venueAddress"
@@ -284,7 +282,7 @@
                         android:text="Noida Sec 135 "
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal" />
 
 
                 </LinearLayout>
@@ -297,14 +295,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5dp"
-                android:orientation="vertical"
-                android:padding="@dimen/_5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
+                    android:padding="@dimen/_8dp"
                     android:text="Umpires"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"

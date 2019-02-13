@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/MainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/_10dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:minWidth="@dimen/_100dp"
+        android:minHeight="@dimen/_45dp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".3"
+            android:background="@color/light_grey"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_cricket" />
+
+        <View
+            android:layout_width="@dimen/_2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_grey" />
+
+
+        <com.kredivation.aakhale.components.ASTTextView
+            android:id="@+id/sportsName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight=".7"
+            android:padding="@dimen/_5dp"
+            android:text="Cricket"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+</android.support.design.card.MaterialCardView>

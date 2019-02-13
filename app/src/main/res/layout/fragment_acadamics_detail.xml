@@ -127,6 +127,7 @@
                     android:text="Gallery"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12dp"
+                    android:padding="@dimen/_8dp"
                     android:textStyle="bold" />
 
 
@@ -138,7 +139,6 @@
                         android:id="@+id/galeeryImageView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_3dp"
                         android:orientation="horizontal" />
                 </HorizontalScrollView>
 
@@ -156,16 +156,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5dp"
                         android:text="Services(Sports)"
+                        android:background="@color/light_grey"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12dp"
+                        android:padding="@dimen/_5dp"
                         android:textStyle="bold" />
 
 
@@ -195,8 +196,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Achievements"
+                        android:background="@color/light_grey"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12dp"
+                        android:padding="@dimen/_5dp"
                         android:textStyle="bold" />
 
 
