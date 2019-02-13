@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.components.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,9 @@ public class MyProfileFragment extends Fragment {
     View view;
     ViewPager viewPager;
     TabLayout tabLayout;
+
+
+    CircleImageView profileImg;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -66,6 +71,7 @@ public class MyProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         viewPager = view.findViewById(R.id.pager);
         tabLayout = view.findViewById(R.id.tabs);
+        profileImg = view.findViewById(R.id.profileImg);
         dataToView();
         return view;
     }
@@ -77,6 +83,16 @@ public class MyProfileFragment extends Fragment {
         adapter.addFragment(new MatchFragmentP(), "MATCH");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditProfileFragment editProfileFragment = new EditProfileFragment();
+                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.mainView, editProfileFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     /**
