@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
+import com.kredivation.aakhale.components.CircleImageView;
 import com.kredivation.aakhale.fragments.GroundDetailFrgment;
 import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
 import com.kredivation.aakhale.model.Academics;
@@ -39,7 +40,7 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView stadiunName, capacity, addressTxt, userid;
-        ImageView sportsIcon;
+        CircleImageView sportsIcon;
         CardView root_layout;
         ASTButton avilableTxt;
 

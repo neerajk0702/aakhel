@@ -17,6 +17,7 @@ import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.TournamentList;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.activity.TournamentDetails;
+import com.kredivation.aakhale.components.CircleImageView;
 import com.kredivation.aakhale.model.Tournament;
 import com.kredivation.aakhale.utility.Contants;
 import com.squareup.picasso.Picasso;
@@ -30,7 +31,7 @@ public class TournamentUpcoomingAdapter extends RecyclerView.Adapter<TournamentU
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, address, date, userId;
-        ImageView imageView;
+        CircleImageView imageView;
         MaterialCardView root_layout;
         ASTButton avilableTxt;
 

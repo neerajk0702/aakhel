@@ -27,7 +27,7 @@
             <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/matchName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_5dp"
                 android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
@@ -47,7 +47,7 @@
             <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/venueAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_5dp"
                 android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
@@ -101,7 +101,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_5dp"
                         android:layout_weight="1"
@@ -113,7 +113,7 @@
                         <Spinner
                             android:id="@+id/stateSpinner"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40dp"
                             android:layout_gravity="center"
                             android:entries="@array/state"
                             android:gravity="center" />
@@ -124,7 +124,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5dp"
                         android:layout_weight="1"
@@ -136,7 +136,7 @@
                         <Spinner
                             android:id="@+id/citySpinner"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_40dp"
                             android:layout_gravity="center"
                             android:entries="@array/state"
                             android:gravity="center" />
@@ -153,7 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5dp"
-                android:padding="@dimen/_5dp"
+                android:paddingLeft="@dimen/_5dp"
                 android:text="Zip Code"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -161,7 +161,7 @@
             <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/zipCode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_5dp"
                 android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
@@ -320,7 +320,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -332,11 +332,7 @@
                     <Spinner
                         android:id="@+id/groundSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:minHeight="@dimen/_30dp"
-                        android:padding="@dimen/_5dp" />
+                        android:layout_height="@dimen/_40dp" />
 
 
                 </LinearLayout>
@@ -387,7 +383,7 @@
 
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/_40dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="@dimen/_5dp"
                             android:layout_weight="1"
@@ -398,7 +394,7 @@
                             <Spinner
                                 android:id="@+id/matchtype"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/_40dp"
                                 android:layout_gravity="center"
                                 android:entries="@array/matchtype"
                                 android:gravity="center" />
@@ -409,7 +405,7 @@
 
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/_40dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="@dimen/_5dp"
                             android:layout_weight="1"
@@ -420,7 +416,7 @@
                             <com.kredivation.aakhale.components.ASTEditText
                                 android:id="@+id/overtxt"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/_40dp"
                                 android:layout_marginLeft="@dimen/_5dp"
                                 android:layout_marginRight="@dimen/_5dp"
                                 android:background="@drawable/edittextround"
@@ -447,7 +443,7 @@
                 <com.kredivation.aakhale.components.ASTEditText
                     android:id="@+id/formate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -478,8 +474,7 @@
                     android:id="@+id/addTeamLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                  />
+                    android:orientation="vertical" />
 
 
             </LinearLayout>
@@ -507,8 +502,7 @@
                     android:id="@+id/addUmpireLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                     />
+                    android:orientation="vertical" />
 
 
             </LinearLayout>

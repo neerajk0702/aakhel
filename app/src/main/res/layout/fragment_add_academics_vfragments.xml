@@ -70,14 +70,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4dp"
-                android:elevation="@dimen/_5dp"
-                android:orientation="horizontal"
-                android:padding="@dimen/_5dp">
+                android:orientation="horizontal">
 
                 <com.kredivation.aakhale.components.ASTTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:layout_weight=".7"
                     android:padding="@dimen/_5dp"
                     android:text="Academies Information"
@@ -108,7 +105,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
                     android:text="Academies Name"
                     android:textSize="@dimen/_12dp"
@@ -117,7 +113,7 @@
                 <com.kredivation.aakhale.components.ASTEditText
                     android:id="@+id/acdName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -128,10 +124,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
                     android:text="Academies Street Address"
                     android:textSize="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:textStyle="bold" />
 
                 <com.kredivation.aakhale.components.ASTEditText
@@ -149,9 +146,9 @@
                     android:id="@+id/doblayouut"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40dp"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_5dp"
+                    android:layout_marginRight="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:background="@drawable/edittextround"
                     android:orientation="horizontal"
                     android:visibility="visible">
@@ -199,15 +196,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="Select State"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -231,15 +229,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="Select City"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -264,8 +263,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="ZipCode"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -273,7 +273,7 @@
                 <com.kredivation.aakhale.components.ASTEditText
                     android:id="@+id/zipcode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -285,8 +285,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
-                    android:padding="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="Description"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -298,7 +299,7 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
-                    android:minHeight="@dimen/_90dp"
+                    android:minHeight="@dimen/_80dp"
                     android:padding="@dimen/_5dp"
                     android:textSize="@dimen/_12dp" />
 
@@ -384,9 +385,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_weight=".6"
-                    android:padding="@dimen/_5dp"
+                    android:textColor="@color/text_color"
                     android:text="Achievements"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -420,17 +423,17 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4dp"
                 android:elevation="@dimen/_5dp"
-                android:orientation="horizontal"
-                android:padding="@dimen/_5dp">
+                android:orientation="horizontal">
 
                 <com.kredivation.aakhale.components.ASTTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5dp"
                     android:layout_weight=".7"
-                    android:padding="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="Academies Member"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/_14dp" />
 
 
@@ -458,7 +461,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_4dp"
                     android:elevation="@dimen/_5dp"
                     android:orientation="horizontal"
                     android:padding="@dimen/_5dp">
@@ -466,7 +468,6 @@
                     <com.kredivation.aakhale.components.ASTTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5dp"
                         android:text="Manager"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/_14dp" />
@@ -486,7 +487,7 @@
                 <com.kredivation.aakhale.components.ASTEditText
                     android:id="@+id/managerfullName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -506,7 +507,7 @@
                 <com.kredivation.aakhale.components.ASTEditText
                     android:id="@+id/manageremail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -526,7 +527,7 @@
                 <com.kredivation.aakhale.components.ASTEditText
                     android:id="@+id/mamangercontactno"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
@@ -546,7 +547,6 @@
                     <com.kredivation.aakhale.components.ASTTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5dp"
                         android:text="Coach"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/_14dp" />
@@ -626,7 +626,6 @@
                     <com.kredivation.aakhale.components.ASTTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5dp"
                         android:text="Owner"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/_14dp" />

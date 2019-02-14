@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="@dimen/_60dp"
     android:padding="@dimen/_3dp"
-    android:layout_marginTop="@dimen/_5dp"
+    app:cardCornerRadius="@dimen/_6dp"
+    app:cardElevation="@dimen/_5dp"
     app:cardUseCompatPadding="true">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:minHeight="@dimen/_60dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/matchType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/_5dp"
+            android:padding="@dimen/_4dp"
             android:text="Odis Umpire "
-
             android:textSize="@dimen/_12dp"
             android:textStyle="bold" />
 
@@ -36,4 +38,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</android.support.design.card.MaterialCardView>

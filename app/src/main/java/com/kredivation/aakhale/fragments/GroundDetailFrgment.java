@@ -254,7 +254,7 @@ public class GroundDetailFrgment extends Fragment {
         View inflatedLayout = inflater.inflate(R.layout.freeservices_item_row, null);
         TextView servicesName = inflatedLayout.findViewById(R.id.name);
         TextView count = inflatedLayout.findViewById(R.id.count);
-        count.setText(serviceCount + "-");
+        count.setText(serviceCount+"");
         servicesName.setText(name);
         freServiceesLayoutView.addView(inflatedLayout);
 
@@ -279,7 +279,7 @@ public class GroundDetailFrgment extends Fragment {
         View inflatedLayout = inflater.inflate(R.layout.freeservices_item_row, null);
         TextView servicesName = inflatedLayout.findViewById(R.id.name);
         TextView count = inflatedLayout.findViewById(R.id.count);
-        count.setText(achivement + "-");
+        count.setText(achivement + "");
         servicesName.setText(name);
         achievementsLayoutView.addView(inflatedLayout);
 

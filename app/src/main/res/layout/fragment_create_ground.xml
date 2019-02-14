@@ -75,7 +75,7 @@
             <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/gName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_5dp"
                 android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
@@ -95,7 +95,7 @@
             <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/venueAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_5dp"
                 android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
@@ -114,7 +114,7 @@
             <com.kredivation.aakhale.components.ASTEditText
                 android:id="@+id/zipCode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_5dp"
                 android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
@@ -166,7 +166,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_5dp"
                         android:layout_weight="1"
@@ -189,7 +189,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5dp"
                         android:layout_weight="1"
@@ -260,7 +260,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_5dp"
                         android:layout_weight="1"
@@ -282,7 +282,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5dp"
                         android:layout_weight="1"
