@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_margin="@dimen/_4dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.SelectUserTypeActivity">
@@ -16,15 +17,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_12dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:padding="@dimen/_5dp"
                 android:text="Post Title"
+                android:layout_margin="@dimen/_3dp"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
 
@@ -32,8 +31,7 @@
                 android:id="@+id/postName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5dp"
-                android:layout_marginRight="@dimen/_5dp"
+                android:layout_margin="@dimen/_3dp"
                 android:background="@drawable/round_boder"
                 android:padding="@dimen/_12dp"
                 android:textSize="@dimen/_12dp" />
@@ -42,8 +40,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5dp"
-                android:padding="@dimen/_5dp"
+                android:layout_margin="@dimen/_3dp"
                 android:text="Description"
                 android:textSize="@dimen/_12dp"
                 android:textStyle="bold" />
@@ -52,11 +49,9 @@
                 android:id="@+id/descriptionTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5dp"
-                android:layout_marginRight="@dimen/_5dp"
+                android:layout_margin="@dimen/_3dp"
                 android:background="@drawable/round_boder"
                 android:minHeight="@dimen/_120dp"
-                android:padding="@dimen/_5dp"
                 android:textSize="@dimen/_12dp" />
 
 
@@ -69,14 +64,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_3dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:layout_weight=".6"
-                        android:padding="@dimen/_5dp"
                         android:text="Add Photos"
                         android:textSize="@dimen/_12dp"
                         android:textStyle="bold" />
@@ -86,7 +80,6 @@
                         android:id="@+id/addMoreViewImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:layout_weight=".4"
                         android:gravity="right"
                         android:padding="@dimen/_5dp"

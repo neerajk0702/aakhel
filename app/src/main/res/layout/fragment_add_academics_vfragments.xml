@@ -69,6 +69,7 @@
                 android:id="@+id/acadmicViewinfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/_4dp"
                 android:layout_margin="@dimen/_4dp"
                 android:orientation="horizontal">
 
@@ -76,7 +77,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".7"
-                    android:padding="@dimen/_5dp"
                     android:text="Academies Information"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14dp" />
@@ -148,7 +148,7 @@
                     android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
-                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:background="@drawable/edittextround"
                     android:orientation="horizontal"
                     android:visibility="visible">
@@ -380,6 +380,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/_4dp"
                 android:orientation="horizontal">
 
                 <TextView
