@@ -34,7 +34,7 @@ public class Data {
         this.selectValue = selectValue;
     }
 
-    private boolean selectValue=false;
+    private boolean selectValue = false;
 
     public long getId() {
         return id;
@@ -243,10 +243,130 @@ public class Data {
     }
 
 
+    private String umpireMatchArray;
+    private String playerTeamArray;
+    private String roleObj;
+
+    public String getUmpireMatchArray() {
+        return umpireMatchArray;
+    }
+
+    public void setUmpireMatchArray(String umpireMatchArray) {
+        this.umpireMatchArray = umpireMatchArray;
+    }
+
+    public String getPlayerTeamArray() {
+        return playerTeamArray;
+    }
+
+    public void setPlayerTeamArray(String playerTeamArray) {
+        this.playerTeamArray = playerTeamArray;
+    }
+
+    public String getRoleObj() {
+        return roleObj;
+    }
+
+    public void setRoleObj(String roleObj) {
+        this.roleObj = roleObj;
+    }
+
+    private String complateAddress;
+
+    public String getComplateAddress() {
+        return complateAddress;
+    }
+
+    public void setComplateAddress(String complateAddress) {
+        this.complateAddress = complateAddress;
+    }
+
+    private String cityObj;
+    private String stateObj;
+    private String countryObj;
+
+    public String getCityObj() {
+        return cityObj;
+    }
+
+    public void setCityObj(String cityObj) {
+        this.cityObj = cityObj;
+    }
+
+    public String getStateObj() {
+        return stateObj;
+    }
+
+    public void setStateObj(String stateObj) {
+        this.stateObj = stateObj;
+    }
+
+    public String getCountryObj() {
+        return countryObj;
+    }
+
+    public void setCountryObj(String countryObj) {
+        this.countryObj = countryObj;
+    }
+
+    private String usersSportArray;
+    private String playerRoleObj;
+
+    public String getUsersSportArray() {
+        return usersSportArray;
+    }
+
+    public void setUsersSportArray(String usersSportArray) {
+        this.usersSportArray = usersSportArray;
+    }
+
+    public String getPlayerRoleObj() {
+        return playerRoleObj;
+    }
+
+    public void setPlayerRoleObj(String playerRoleObj) {
+        this.playerRoleObj = playerRoleObj;
+    }
+
+    String about;
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+String fee_per_match_day;
+    String estdDate;
+
+    public String getFee_per_match_day() {
+        return fee_per_match_day;
+    }
+
+    public void setFee_per_match_day(String fee_per_match_day) {
+        this.fee_per_match_day = fee_per_match_day;
+    }
+
+    public String getEstdDate() {
+        return estdDate;
+    }
+
+    public void setEstdDate(String estdDate) {
+        this.estdDate = estdDate;
+    }
+String umpire_tournament;
+
+    public String getUmpire_tournament() {
+        return umpire_tournament;
+    }
+
+    public void setUmpire_tournament(String umpire_tournament) {
+        this.umpire_tournament = umpire_tournament;
+    }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [player_roles = "+player_roles+", users_roles = "+users_roles+", sports = "+sports+"]";
+    public String toString() {
+        return "ClassPojo [player_roles = " + player_roles + ", users_roles = " + users_roles + ", sports = " + sports + "]";
     }
 }

@@ -12,10 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
@@ -29,7 +31,7 @@ import org.json.JSONObject;
  */
 public class UmpireDetailActivity extends AppCompatActivity {
     TextView nametxt, ratingTxt, uniqueIdTxt, ageTxt, ExperienceTxt, OdieTxt, taskId, Roletxt, usersport, phone, email, fee, address;
-    LinearLayout umpireInfoLayout;
+    LinearLayout umpireInfoLayout,tournamentInfoLayout;
     ImageView imageView, fab;
     private Toolbar toolbar;
 
@@ -62,13 +64,77 @@ public class UmpireDetailActivity extends AppCompatActivity {
         Roletxt = findViewById(R.id.Roletxt);
         fab = findViewById(R.id.fab);
         umpireInfoLayout = findViewById(R.id.umpireInfoLayout);
-        getUmpireDetails();
+        tournamentInfoLayout = findViewById(R.id.tournamentInfoLayout);
+        String Detail = getIntent().getStringExtra("Detail");
+        // getUmpireDetails();
+        if (Detail != null) {
+            setValue(Detail);
+        }
     }
 
+    private void setValue(String detail) {
+        Data data = new Gson().fromJson(detail, Data.class);
+        if (data != null) {
+            if (data.getProfile_picture() != null && !data.getProfile_picture().equals("")) {
+                Picasso.with(UmpireDetailActivity.this).load(Contants.BASE_URL + data.getProfile_picture())
+                        .placeholder(R.drawable.ic_cricket_player).into(imageView);
+            }
+
+            nametxt.setText(data.getFull_name());
+            //ratingTxt.setText("");
+            uniqueIdTxt.setText(data.getUnique_id());
+            ageTxt.setText(data.getDate_of_birth());
+            ExperienceTxt.setText(data.getExperience());
+            taskId.setText("");
+            phone.setText(data.getMobile());
+            email.setText(data.getEmail());
+            fee.setText(data.getFee_per_match_day() + "");
+            address.setText(data.getComplateAddress());
+
+            try {
+                if (data.getUsersSportArray() != null) {
+                    JSONArray jsonArray = new JSONArray(data.getUsersSportArray());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.optJSONObject(i);
+                        usersport.setText(jsonObject.optString("sports_name"));
+                    }
+                }
+                if (data.getRoleObj() != null) {
+                    JSONObject jsonObject = new JSONObject(data.getRoleObj());
+                    Roletxt.setText(jsonObject.optString("user_type"));
+                }
+                if (data.getUmpire_tournament() != null) {
+                    JSONArray jsonArray = new JSONArray(data.getUmpire_tournament());
+                    if (jsonArray != null) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                addTournamentInfo(object);
+                            } catch (JSONException e) {
+                            }
+                        }
+                    }
+                }
+                if (data.getUmpireMatchArray() != null) {
+                    JSONArray jsonArray = new JSONArray(data.getUmpireMatchArray());
+                    if (jsonArray != null) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                addMatchnfo(object);
+                            } catch (JSONException e) {
+                            }
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+            }
+        }
+    }
 
     ASTProgressBar astProgressBar;
 
-    //get getUmpireDetails
+   /* //get getUmpireDetails
     private void getUmpireDetails() {
         long id = getIntent().getLongExtra("id", 0);
         if (Utility.isOnline(UmpireDetailActivity.this)) {
@@ -141,7 +207,7 @@ public class UmpireDetailActivity extends AppCompatActivity {
                                                     JSONObject object = umpire_matchArray.getJSONObject(i);
                                                     String pname = object.optString("name");
                                                     String statusp = object.optString("status");
-                                                    addUmpireInfo(pname, statusp);
+                                                    addTournamentInfo(pname, statusp);
                                                 } catch (JSONException e) {
                                                     //e.printStackTrace();
                                                 }
@@ -164,20 +230,36 @@ public class UmpireDetailActivity extends AppCompatActivity {
         } else {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, UmpireDetailActivity.this);//off line msg....
         }
-    }
+    }*/
 
 
     //add free service layout in runtime
-    public void addUmpireInfo(String name, String status) {
+    public void addTournamentInfo(JSONObject object) {
+        String pname = object.optString("name");
+        String unique_id = object.optString("unique_id");
+        String display_picture = object.optString("display_picture");
         LayoutInflater inflater = LayoutInflater.from(UmpireDetailActivity.this);
         View inflatedLayout = inflater.inflate(R.layout.umpirelist_item_row, null);
-        TextView matchType = inflatedLayout.findViewById(R.id.matchType);
-        TextView odiesInfo = inflatedLayout.findViewById(R.id.odiesInfo);
-        matchType.setText(name);
-        odiesInfo.setText(name);
-        umpireInfoLayout.addView(inflatedLayout);
+        TextView name = inflatedLayout.findViewById(R.id.name);
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        name.setText(pname);
+        userId.setText(unique_id);
+        tournamentInfoLayout.addView(inflatedLayout);
 
     }
 
+    //add free service layout in runtime
+    public void addMatchnfo(JSONObject object) {
+        String pname = object.optString("name");
+        String unique_id = object.optString("unique_id");
+        LayoutInflater inflater = LayoutInflater.from(UmpireDetailActivity.this);
+        View inflatedLayout = inflater.inflate(R.layout.umpirelist_item_row, null);
+        TextView name = inflatedLayout.findViewById(R.id.name);
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        name.setText(pname);
+        userId.setText(unique_id);
+        umpireInfoLayout.addView(inflatedLayout);
+
+    }
 
 }

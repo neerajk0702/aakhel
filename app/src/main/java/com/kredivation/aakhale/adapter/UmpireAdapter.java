@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -14,11 +16,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.UmpireDetailActivity;
 import com.kredivation.aakhale.model.Data;
+import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FontManager;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -68,19 +76,33 @@ public class UmpireAdapter extends RecyclerView.Adapter<UmpireAdapter.ViewHolder
         return vh;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onBindViewHolder(@NonNull UmpireAdapter.ViewHolder holder, final int position) {
         holder.name.setText(sportsList.get(position).getFull_name());
-        String completeAdd = sportsList.get(position).getAddress() + "," + sportsList.get(position).getCity() + "," + sportsList.get(position).getState() + "," + sportsList.get(position).getZipcode();
-        holder.address.setText(completeAdd);
-        holder.coachType.setText(sportsList.get(position).getUsers_sports() + "");
+        holder.address.setText(sportsList.get(position).getComplateAddress());
+        try {
+            if (sportsList.get(position).getUsersSportArray() != null) {
+                JSONArray jsonArray = new JSONArray(sportsList.get(position).getUsersSportArray());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.optJSONObject(i);
+                    String sports_name = obj.optString("sports_name");
+                    holder.coachType.setText(sports_name + "");
+                }
+            }
+
+        } catch (JSONException e) {
+        }
+
         holder.userId.setText(sportsList.get(position).getUnique_id());
-        Picasso.with(context).load(sportsList.get(position).getProfile_picture()).placeholder(R.drawable.ic_uuuser).into(holder.imageView);
+        Picasso.with(context).load(Contants.BASE_URL + sportsList.get(position).getProfile_picture()).placeholder(R.drawable.ic_uuuser).into(holder.imageView);
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String dataValue = new Gson().toJson(sportsList.get(position));
                 Intent intent = new Intent(context, UmpireDetailActivity.class);
                 intent.putExtra("id", sportsList.get(position).getId());
+                intent.putExtra("Detail", dataValue);
                 context.startActivity(intent);
             }
         });

@@ -37,6 +37,8 @@ import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -164,21 +166,113 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getUmireList", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
-                    if (isComplete) {
-                        if (result != null) {
-                            final ContentDataAsArray serviceData = new Gson().fromJson(result, ContentDataAsArray.class);
-                            if (serviceData != null && serviceData.isStatus()) {
-                                total_pages = (int) serviceData.getTotal_pages();
-                                if (serviceData.getData() != null) {
-                                    umpireList.addAll(serviceData.getData());
-                                    adapter.notifyDataSetChanged();
-                                    loading = true;
-                                    loaddataProgress.setVisibility(View.GONE);
-                                    mSwipeRefreshLayout.setRefreshing(false);
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject mainObj = new JSONObject(result);
+                            boolean status = mainObj.optBoolean("status");
+                            total_pages = mainObj.optInt("total_pages");
+                            if (status) {
+                                JSONArray mainDataArray = mainObj.getJSONArray("data");
+                                if (mainDataArray != null) {
+                                    for (int i = 0; i < mainDataArray.length(); i++) {
+                                        JSONObject obj = mainDataArray.optJSONObject(i);
+                                        JSONObject dataArray = obj.optJSONObject("data");
+                                        Data data = new Data();
+                                        JSONArray umpire_match = dataArray.getJSONArray("umpire_match");
+                                        JSONArray player_team = dataArray.getJSONArray("player_team");
+                                        JSONArray umpire_tournament = dataArray.getJSONArray("umpire_tournament");
+                                        if (umpire_tournament != null) {
+                                            data.setUmpire_tournament(umpire_tournament.toString());
+                                        }
+                                        if (umpire_match != null) {
+                                            data.setUmpireMatchArray(umpire_match.toString());
+                                        }
+                                        if (player_team != null) {
+                                            data.setPlayerTeamArray(player_team.toString());
+                                        }
+                                        JSONObject jsonObject = dataArray.getJSONObject("basic_info");
+                                        int id = jsonObject.optInt("id");
+                                        String unique_id = jsonObject.optString("unique_id");
+                                        String email = jsonObject.optString("email");
+                                        String created_at = jsonObject.optString("created_at");
+                                        String updated_at = jsonObject.optString("updated_at");
+                                        JSONObject role = jsonObject.optJSONObject("role");
+                                        int is_active = jsonObject.optInt("is_active");
+                                        String full_name = jsonObject.optString("full_name");
+                                        String mobile = jsonObject.optString("mobile");
+                                        String date_of_birth = jsonObject.optString("date_of_birth");
+                                        int gender = jsonObject.optInt("gender");
+                                        String address = jsonObject.optString("address");
+                                        JSONObject city = jsonObject.optJSONObject("city");
+                                        JSONObject state = jsonObject.optJSONObject("state");
+                                        JSONObject country = jsonObject.optJSONObject("country");
+                                        String zipcode = jsonObject.optString("zipcode");
+                                        JSONArray users_sports = jsonObject.optJSONArray("users_sports");
+                                        String about = jsonObject.optString("about");
+                                        String experience = jsonObject.optString("experience");
+                                        String profile_picture = jsonObject.optString("profile_picture");
+                                        String auth_token = jsonObject.optString("auth_token");
+                                        JSONObject player_role = jsonObject.optJSONObject("player_role");
+                                        String fee_per_match_day = jsonObject.optString("fee_per_match_day");
+                                        data.setFee_per_match_day(fee_per_match_day);
+
+
+                                        String cityStr = "";
+                                        String countryNameStr = "";
+                                        String stateNameStr = "";
+                                        if (city != null) {
+                                            cityStr = city.optString("city_name");
+                                            data.setCityObj(city.toString());
+                                        }
+                                        if (state != null) {
+                                            stateNameStr = state.optString("state_name");
+                                            data.setStateObj(state.toString());
+                                        }
+                                        if (country != null) {
+                                            countryNameStr = country.optString("country_name");
+                                            data.setCountry(country.toString());
+                                        }
+                                        data.setId(id);
+                                        data.setUnique_id(unique_id);
+                                        data.setEmail(email);
+                                        data.setCreated_at(created_at);
+                                        data.setUpdated_at(updated_at);
+                                        data.setRoleObj(role.toString());
+                                        data.setIs_active(is_active);
+                                        data.setFull_name(full_name);
+                                        data.setMobile(mobile);
+                                        data.setDate_of_birth(date_of_birth);
+                                        data.setGender(gender);
+                                        data.setAddress(address);
+                                        String completeAdd = address + "," + cityStr + "," + stateNameStr + "," + countryNameStr + "," + zipcode;
+                                        data.setComplateAddress(completeAdd);
+                                        data.setZipcode(zipcode);
+                                        if (users_sports != null) {
+                                            data.setUsersSportArray(users_sports.toString());
+                                        }
+                                        data.setAbout(about);
+                                        data.setExperience(experience);
+                                        data.setProfile_picture(profile_picture);
+                                        data.setAuth_token(auth_token);
+                                        if (player_role != null) {
+                                            data.setPlayerRoleObj(player_role.toString());
+                                        }
+                                        umpireList.add(data);
+                                    }
                                 }
+                                adapter.notifyDataSetChanged();
+                                loading = true;
+                                loaddataProgress.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
+                            } else {
+                                Toast.makeText(UmpireListActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
+                                loaddataProgress.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
                             }
-                        } else {
-                            Toast.makeText(UmpireListActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            // e.printStackTrace();
+                            loaddataProgress.setVisibility(View.GONE);
+                            mSwipeRefreshLayout.setRefreshing(false);
                         }
                     } else {
                         Toast.makeText(UmpireListActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();

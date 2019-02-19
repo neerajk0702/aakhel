@@ -419,13 +419,35 @@
                 android:textSize="@dimen/_14dp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5dp"
+                android:text="Match Information"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:id="@+id/umpireInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5dp"
+                android:text="Tournament Information"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
 
+            <LinearLayout
+                android:id="@+id/tournamentInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
 

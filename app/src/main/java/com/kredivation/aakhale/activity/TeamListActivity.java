@@ -187,7 +187,8 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {
                                         Team teamdata = new Team();
-                                        JSONObject jsonObject = dataArray.getJSONObject(i);
+                                        JSONObject obj = dataArray.getJSONObject(i);
+                                        JSONObject jsonObject = obj.getJSONObject("basic_info");
                                         int is_active = jsonObject.optInt("is_active");
                                         String team_zipcode = jsonObject.optString("team_zipcode");
                                         String team_country = jsonObject.optString("team_country");
@@ -200,6 +201,8 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
                                         String updated_at = jsonObject.optString("updated_at");
                                         String unique_id = jsonObject.optString("unique_id");
                                         String team_state = jsonObject.optString("team_state");
+                                        String about_team = jsonObject.optString("about_team");
+
                                         teamdata.setId(id);
                                         teamdata.setIs_active(is_active);
                                         teamdata.setTeam_zipcode(team_zipcode);

@@ -4,22 +4,19 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/_60dp"
     android:padding="@dimen/_3dp"
     app:cardCornerRadius="@dimen/_6dp"
     app:cardElevation="@dimen/_5dp"
     app:cardUseCompatPadding="true">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:minHeight="@dimen/_60dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/matchType"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_4dp"
@@ -28,13 +25,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/odiesInfo"
+            android:id="@+id/userId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/_5dp"
+            android:paddingBottom="@dimen/_5dp"
             android:text="35(2013-2018)"
             android:textSize="@dimen/_12dp"
-            android:textStyle="normal" />
+            android:textColor="@color/secondry_txt_color" />
     </LinearLayout>
 
 

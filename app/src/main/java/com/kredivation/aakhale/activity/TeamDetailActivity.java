@@ -113,7 +113,6 @@ public class TeamDetailActivity extends AppCompatActivity {
                             if (status) {
                                 JSONObject jsonObject = mainObj.optJSONObject("basic_info");
                                 if (jsonObject != null) {
-                                    astProgressBar.dismiss();
                                     int id = jsonObject.optInt("id");
                                     String name = jsonObject.optString("name");
                                     String unique_id = jsonObject.optString("unique_id");
@@ -189,8 +188,8 @@ public class TeamDetailActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(TeamDetailActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
-                        astProgressBar.dismiss();
                     }
+                    astProgressBar.dismiss();
                 }
             });
         } else {

@@ -16,11 +16,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.CoachDeatailFragment;
 import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
+import com.kredivation.aakhale.model.ContentDataAsArray;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.ImageItem;
+import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FontManager;
 import com.squareup.picasso.Picasso;
 
@@ -79,10 +82,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.name.setText(playerList.get(position).getFull_name());
-        holder.teamName.setText(playerList.get(position).getAddress());
+        holder.teamName.setText(playerList.get(position).getComplateAddress());
         holder.userId.setText(playerList.get(position).getUnique_id());
         if (playerList.get(position).getProfile_picture() != null && !playerList.get(position).getProfile_picture().equals("")) {
-            Picasso.with(context).load(playerList.get(position).getProfile_picture())
+            Picasso.with(context).load(Contants.BASE_URL + playerList.get(position).getProfile_picture())
                     .placeholder(R.drawable.noimage).into(holder.imageView);
         }
 
@@ -100,8 +103,11 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 if (!addPlayerFlag) {
+
+                    String dataValue = new Gson().toJson(playerList.get(position));
                     Bundle bundle = new Bundle();
                     bundle.putLong("id", playerList.get(position).getId());
+                    bundle.putString("Detail", dataValue);
                     PlayerDetailsFragment coachDeatailFragment = new PlayerDetailsFragment();
                     coachDeatailFragment.setArguments(bundle);
                     android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();

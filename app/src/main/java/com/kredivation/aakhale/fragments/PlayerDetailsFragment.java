@@ -13,12 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.ContentDataAsArray;
+import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
@@ -46,7 +49,7 @@ public class PlayerDetailsFragment extends Fragment {
     private String mParam2;
     View view;
     TextView nametxt, ratingTxt, agetxt, ExperienceTxt, OdieTxt, roleTxt, challange, REQUEST, INVITE, gender, phoneno, mail, userId;
-    LinearLayout teamInfoLayoutView, galleryView;
+    LinearLayout teamInfoLayoutView, galleryView, userSsportsLayoutView;
     Bundle bundle;
     MetalRecyclerViewPager topperformanceviewPager;
     ImageView fab, imageView;
@@ -109,15 +112,78 @@ public class PlayerDetailsFragment extends Fragment {
         teamInfoLayoutView = view.findViewById(R.id.teamInfoLayoutView);
         galleryView = view.findViewById(R.id.galleryView);
         imageView = view.findViewById(R.id.imageView);
-        getPlayerList();
+        userSsportsLayoutView = view.findViewById(R.id.userSsportsLayoutView);
+        bundle = getArguments();
+        String Detail = bundle.getString("Detail");
+        if (Detail != null) {
+            setValue(Detail);
+        }
+        //getPlayerList();
     }
 
+    private void setValue(String detail) {
+        Data data = new Gson().fromJson(detail, Data.class);
+        if(data!=null) {
+            if (data.getProfile_picture() != null && !data.getProfile_picture().equals("")) {
+                Picasso.with(getContext()).load(Contants.BASE_URL + data.getProfile_picture())
+                        .placeholder(R.drawable.ic_cricket_player).into(imageView);
+            }
+            userId.setText(data.getUnique_id());
+            phoneno.setText(data.getMobile() + "");
+            mail.setText(data.getEmail());
+            nametxt.setText(data.getFull_name());
+            //  ratingTxt.setText("");
+            agetxt.setText(data.getDate_of_birth());
+            ExperienceTxt.setText(data.getExperience() + " Years");
+            try {
+                if (data.getPlayerRoleObj() != null) {
+                    JSONObject jsonObject = new JSONObject(data.getPlayerRoleObj());
+                    OdieTxt.setText(jsonObject.optString("role_name"));
+                }
+                if (data.getRoleObj() != null) {
+                    JSONObject jsonObject = new JSONObject(data.getRoleObj());
+                    roleTxt.setText(jsonObject.optString("user_type"));
+                }
+                if (data.getPlayerTeamArray() != null) {
+                    JSONArray playerTeamArray = new JSONArray(data.getPlayerTeamArray());
+                    if (playerTeamArray != null) {
+                        for (int i = 0; i < playerTeamArray.length(); i++) {
+                            try {
+                                JSONObject object = playerTeamArray.getJSONObject(i);
+                                addTeameInfoView(object);
+                            } catch (JSONException e) {
+                            }
+                        }
+                    }
+                }
+                if (data.getUsersSportArray() != null) {
+                    JSONArray dataArray = new JSONArray(data.getUsersSportArray());
+                    if (dataArray != null) {
+                        for (int i = 0; i < dataArray.length(); i++) {
+                            try {
+                                JSONObject object = dataArray.getJSONObject(i);
+                                String sports_name = object.optString("sports_name");
+                                addUserSports(sports_name);
+                            } catch (JSONException e) {
+                            }
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+            }
+            if (data.getGender() == 1) {
+                gender.setText("Male");
+            } else {
+                gender.setText("Female");
+            }
+        }
+    }
 
     ASTProgressBar astProgressBar;
 
-    //get getPlayerList
+   /* //get getPlayerList
     private void getPlayerList() {
-        bundle = getArguments();
+
         long id = getArguments().getLong("id");
         if (Utility.isOnline(getContext())) {
             astProgressBar = new ASTProgressBar(getContext());
@@ -210,26 +276,53 @@ public class PlayerDetailsFragment extends Fragment {
         } else {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
-    }
+    }*/
 
 
     //add free service layout in runtime
-    public void addTeameInfoView(String name, String statuss, String date) {
+    public void addTeameInfoView(JSONObject object) {
+        String pname = object.optString("name");
+        String image = object.optString("image");
+        String unique_id = object.optString("unique_id");
+        String city = object.optString("city");
+        String state = object.optString("state");
+        String country = object.optString("country");
+        String zipcode = object.optString("zipcode");
+        String status = object.optString("status");
+
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View inflatedLayout = inflater.inflate(R.layout.playerlist_item_row, null);
-        TextView nameTameInfo = inflatedLayout.findViewById(R.id.nameTameInfo);
-        TextView dateInfo = inflatedLayout.findViewById(R.id.dateInfo);
-        TextView status = inflatedLayout.findViewById(R.id.status);
-        nameTameInfo.setText(name);
-        dateInfo.setText(date);
-        if (statuss.equals("0")) {
-            status.setText("Panding");
+        ImageView imageView = inflatedLayout.findViewById(R.id.image);
+        TextView nameView = inflatedLayout.findViewById(R.id.name);
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        TextView address = inflatedLayout.findViewById(R.id.address);
+        TextView statusview = inflatedLayout.findViewById(R.id.status);
+        nameView.setText(pname);
+        userId.setText(unique_id);
+        String completeAdd = city + "," + state + "," + country + "," + zipcode;
+        address.setText(completeAdd);
+        userId.setText(unique_id);
+        if (status.equals("0")) {
+            statusview.setText("Panding");
         } else {
-            status.setText("Approved");
+            statusview.setText("Approved");
+        }
+        if (image != null && !image.equals("")) {
+            Picasso.with(getActivity()).load(image)
+                    .placeholder(R.drawable.noimage).into(imageView);
         }
         teamInfoLayoutView.addView(inflatedLayout);
     }
 
+    //add user sports
+    public void addUserSports(String name) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.area_row, null);
+        TextView nameView = inflatedLayout.findViewById(R.id.namearea);
+        nameView.setText(name);
+        userSsportsLayoutView.addView(inflatedLayout);
+
+    }
 
     //add free service layout in runtime
     public void addGaleryView(String name, String statuss, String date) {
@@ -238,8 +331,6 @@ public class PlayerDetailsFragment extends Fragment {
         ImageView bgimage = inflatedLayout.findViewById(R.id.bgimage);
         TextView title = inflatedLayout.findViewById(R.id.title);
         title.setText(name);
-
-
         galleryView.addView(inflatedLayout);
 
     }

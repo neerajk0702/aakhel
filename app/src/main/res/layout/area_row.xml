@@ -20,7 +20,7 @@
         android:layout_marginTop="@dimen/_4dp"
         android:layout_marginRight="@dimen/_5dp"
         android:padding="@dimen/_8dp"
-        android:text="Player"
+        android:text=""
         android:textColor="@color/text_color"
         android:textSize="@dimen/_14dp" />
 
