@@ -68,22 +68,20 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         holder.rightArrowIcon.setText(Html.fromHtml("&#xf142;"));
         holder.leftArrowIcon.setTypeface(materialdesignicons_font);
         holder.leftArrowIcon.setText(Html.fromHtml("&#xf141;"));*/
-
-
-        if (userId.equals(megList.get(position).getId())) {
+        if (userId.equals(megList.get(position).getSender_id())) {
             holder.myside.setVisibility(View.VISIBLE);
             holder.serverside.setVisibility(View.GONE);
             // Picasso.with(mContext).load(megList.get(position).getProfile_image()).placeholder(R.drawable.avter).resize(45, 45).into(holder.myImage);
             holder.myName.setText(megList.get(position).getFull_name());
-            //     holder.mycomment.setText(megList.get(position).getMessage());
-            //   holder.mytiming.setText(megList.get(position).getMsg_add_date());
+            holder.mycomment.setText(megList.get(position).getMessage());
+            holder.mytiming.setText(megList.get(position).getCreated_at());
         } else {
             holder.myside.setVisibility(View.GONE);
             holder.serverside.setVisibility(View.VISIBLE);
             // Picasso.with(mContext).load(megList.get(position).getProfile_image()).placeholder(R.drawable.avter).resize(45, 45).into(holder.userImage);
             holder.serveruserName.setText(megList.get(position).getFull_name());
-            //   holder.servermsg.setText(megList.get(position).getMessage());
-            //  holder.servertiming.setText(megList.get(position).getMsg_add_date());
+            holder.servermsg.setText(megList.get(position).getMessage());
+            holder.servertiming.setText(megList.get(position).getUpdated_at());
         }
 
 

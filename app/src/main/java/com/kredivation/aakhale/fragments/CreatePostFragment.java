@@ -281,7 +281,7 @@ public class CreatePostFragment extends Fragment implements View.OnClickListener
             String serviceURL = Contants.BASE_URL + Contants.post;
             HashMap<String, String> payloadList = new HashMap<String, String>();
             payloadList.put("title", postNameStr);
-            payloadList.put("Description", postDes);
+            payloadList.put("description", postDes);
 
             MultipartBody.Builder multipartBody = setMultipartBodyVaule();
             FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(getContext(), payloadList, multipartBody, serviceURL) {

@@ -3,8 +3,10 @@ package com.kredivation.aakhale.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -60,6 +62,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
     Bundle bundle;
     MetalRecyclerViewPager topperformanceviewPager;
     ImageView fab, imageView;
+    FloatingActionButton chat;
 
     public PlayerDetailsFragment() {
         // Required empty public constructor
@@ -129,6 +132,8 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
         galleryView = view.findViewById(R.id.galleryView);
         imageView = view.findViewById(R.id.imageView);
         userSsportsLayoutView = view.findViewById(R.id.userSsportsLayoutView);
+        chat = view.findViewById(R.id.chat);
+        chat.setOnClickListener(this);
         bundle = getArguments();
         String Detail = bundle.getString("Detail");
         if (Detail != null) {
@@ -364,7 +369,21 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
             case R.id.INVITE:
                 openActionDilaog();
                 break;
+            case R.id.chat:
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", playerId);
+                ChatDetailFragment chatFragment = new ChatDetailFragment();
+                chatFragment.setArguments(bundle);
+                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.mainView, chatFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+
+
+                break;
         }
+
+
     }
 
     //show action taken popup
@@ -441,6 +460,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getActivity());//off line msg....
         }
     }
+
     private void teamrequest() {
         if (Utility.isOnline(getActivity())) {
             final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());

@@ -11,18 +11,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kredivation.aakhale.Constants;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.PostDetailFragment;
 import com.kredivation.aakhale.fragments.dummy.DummyContent;
+import com.kredivation.aakhale.model.Data;
+import com.kredivation.aakhale.model.Post_info;
+import com.kredivation.aakhale.utility.Contants;
+import com.squareup.picasso.Picasso;
 
+import java.util.Date;
 import java.util.List;
 
 public class MyPostItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPostItemRecyclerViewAdapter.ViewHolder> {
 
-    List<DummyContent> Itemlist;
+    List<Post_info> Itemlist;
     Context context;
 
-    public MyPostItemRecyclerViewAdapter(List<DummyContent> gaggeredList, Context ctx) {
+    public MyPostItemRecyclerViewAdapter(List<Post_info> gaggeredList, Context ctx) {
         Itemlist = gaggeredList;
         context = ctx;
     }
@@ -36,9 +42,16 @@ public class MyPostItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPostIt
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.lblTxt.setText(Itemlist.get(position).getLblTxt());
-        holder.image.setImageResource(Itemlist.get(position).getImgPayhl());
-        holder.descrition.setText(Itemlist.get(position).getLblTxt());
+        holder.lblTxt.setText(Itemlist.get(position).getTitle());
+
+        for (int i = 0; i < Itemlist.get(position).getFeatured_image().length(); i++) {
+
+            Picasso.with(context).load(Contants.BASE_URL +  Itemlist.get(position).getFeatured_image().optString(i))
+                    .placeholder(R.drawable.noimage).into(holder.image);
+        }
+
+
+        holder.descrition.setText(Itemlist.get(position).getDescription());
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

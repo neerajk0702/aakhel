@@ -306,10 +306,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             MyProfileFragment profileFragment = new MyProfileFragment();
             updateFragment(profileFragment, null);
 
-        }
-
-
-        if (v.getId() == R.id.chat) {
         } else if (v.getId() == R.id.Notification) {
             NotificationListFragment notificationListFragment = new NotificationListFragment();
             updateFragment(notificationListFragment, null);

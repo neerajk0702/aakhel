@@ -25,6 +25,42 @@ public class Data {
     private int player_role;
     private String profile_picture;
     private String auth_token;
+    private String sender_id;
+    private String receiver_id;
+    private String message;
+    private String message_media;
+
+    public String getSender_id() {
+        return sender_id;
+    }
+
+    public void setSender_id(String sender_id) {
+        this.sender_id = sender_id;
+    }
+
+    public String getReceiver_id() {
+        return receiver_id;
+    }
+
+    public void setReceiver_id(String receiver_id) {
+        this.receiver_id = receiver_id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage_media() {
+        return message_media;
+    }
+
+    public void setMessage_media(String message_media) {
+        this.message_media = message_media;
+    }
 
     public boolean isSelectValue() {
         return selectValue;
@@ -246,7 +282,7 @@ public class Data {
     private String umpireMatchArray;
     private String playerTeamArray;
     private String roleObj;
-private String coach_team;
+    private String coach_team;
 
     public String getCoach_team() {
         return coach_team;
@@ -346,7 +382,8 @@ private String coach_team;
     public void setAbout(String about) {
         this.about = about;
     }
-String fee_per_match_day;
+
+    String fee_per_match_day;
     String estdDate;
 
     public String getFee_per_match_day() {
@@ -364,7 +401,8 @@ String fee_per_match_day;
     public void setEstdDate(String estdDate) {
         this.estdDate = estdDate;
     }
-String umpire_tournament;
+
+    String umpire_tournament;
 
     public String getUmpire_tournament() {
         return umpire_tournament;
@@ -378,4 +416,25 @@ String umpire_tournament;
     public String toString() {
         return "ClassPojo [player_roles = " + player_roles + ", users_roles = " + users_roles + ", sports = " + sports + "]";
     }
+
+    private Post_info post_info;
+
+    private Writer_info writer_info;
+
+    public Post_info getPost_info() {
+        return post_info;
+    }
+
+    public void setPost_info(Post_info post_info) {
+        this.post_info = post_info;
+    }
+
+    public Writer_info getWriter_info() {
+        return writer_info;
+    }
+
+    public void setWriter_info(Writer_info writer_info) {
+        this.writer_info = writer_info;
+    }
+
 }

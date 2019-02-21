@@ -13,7 +13,7 @@ public class Contants {
     public static final String Error = "Server Side Error!";
     public static final String loginFirst = "Please Login First!";
     public static final String DEFAULT_APPLICATION_NAME = "AAkhel";
-   // public static String auth_token = "$2y$13$tEadYuhdLYrA9qKCK/Za5eUCnddcDNS36IUyL9G3.by8SZoL/NITW";
+    // public static String auth_token = "$2y$13$tEadYuhdLYrA9qKCK/Za5eUCnddcDNS36IUyL9G3.by8SZoL/NITW";
     public static String auth_token = "";
     public static final String APP_DIRECTORY = "/E" + DEFAULT_APPLICATION_NAME + "Directory/";
 
@@ -27,7 +27,7 @@ public class Contants {
     public static String academyForm = "academy/form";
     public static String addAcademy = "academy";
     public static String teamForm = "team/form";
-    public static String teamCreate= "team";
+    public static String teamCreate = "team";
     public static String UsersApi = "users";
     public static String matchFormApi = "match/form";
     public static String creatematchApi = "match";
@@ -46,10 +46,8 @@ public class Contants {
     public static String tournament_umpire_request = "tournament/umpire-request";
     public static String post = "post";
 
-
-
-
-
+    public static String CHATMSG = "chat-message";
+    public static String RESPONDCHALLENGE = "users/respond-challenge";
 
 
 }

@@ -66,7 +66,7 @@
                     android:background="@color/divider" />
 
                 <TextView
-                    android:id="@+id/add_comment"
+                    android:id="@+id/send_comment"
                     android:layout_width="@dimen/_30dp"
                     android:layout_height="@dimen/_30dp"
                     android:layout_gravity="center"
