@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "501032969709",
-    "firebase_url": "https://aakhel-c5579.firebaseio.com",
-    "project_id": "aakhel-c5579",
-    "storage_bucket": "aakhel-c5579.appspot.com"
+    "project_number": "418088696988",
+    "firebase_url": "https://aakhel-7bfd2.firebaseio.com",
+    "project_id": "aakhel-7bfd2",
+    "storage_bucket": "aakhel-7bfd2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:501032969709:android:e99b89643614dfde",
+        "mobilesdk_app_id": "1:418088696988:android:e99b89643614dfde",
         "android_client_info": {
           "package_name": "com.kredivation.aakhale"
         }
       },
       "oauth_client": [
         {
-          "client_id": "501032969709-9plartqr80v0ei8udq1j76lk81klsi04.apps.googleusercontent.com",
+          "client_id": "418088696988-2q8ef9p4m0c5ucnm1mvski2rbgffgu16.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kredivation.aakhale",
+            "certificate_hash": "61d6818ae1bbaff0d951afdbfb214ec89f45d293"
+          }
+        },
+        {
+          "client_id": "418088696988-f5f61opc985fj1c7gmee8cmc99t1rord.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAlcti-2J84pH230WgACp59nBGx0lv5WDQ"
+          "current_key": "AIzaSyC4utT9UKZHZGINs_Vhw1jC8Ec5BBcIwoM"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418088696988-f5f61opc985fj1c7gmee8cmc99t1rord.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
