@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.UmpireDetailActivity;
 import com.kredivation.aakhale.adapter.MatchPlayedAdapter;
@@ -19,6 +21,8 @@ import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.AddViewDynamically;
+import com.kredivation.aakhale.model.Data;
+import com.kredivation.aakhale.model.GroundData;
 import com.kredivation.aakhale.model.Match_played;
 import com.kredivation.aakhale.model.Team_player;
 import com.kredivation.aakhale.utility.Contants;
@@ -40,9 +44,9 @@ public class GroundDetailFrgment extends Fragment {
     View view;
     ImageView displAyImage;
     TextView nametxt,
-            statustxt, uniqeId, capacityTxt, Dimensionstxt, dayNightTxt, fllodLightTxt, capacitymatchPerDayTxt, timeZoneTxt,
+            statustxt, uniqeId, capacityTxt, Dimensionstxt, dayNightTxt, fllodLightTxt, capacitymatchPerDayTxt,
             surfaceTxt, venueTxt, costTxt;
-    LinearLayout spoetsLayoyView, freServiceesLayoutView, termCondtionLayoutView, achievementsLayoutView, staffLayoutView;
+    LinearLayout spoetsLayoyView, freServiceesLayoutView, termCondtionLayoutView, achievementsLayoutView, staffLayoutView, timeZoneLayoutView;
     int serviceCount, termsCount, achivement;
     ASTProgressBar astProgressBar;
 
@@ -71,7 +75,7 @@ public class GroundDetailFrgment extends Fragment {
         dayNightTxt = view.findViewById(R.id.dayNightTxt);
         fllodLightTxt = view.findViewById(R.id.fllodLightTxt);
         capacitymatchPerDayTxt = view.findViewById(R.id.capacitymatchPerDayTxt);
-        timeZoneTxt = view.findViewById(R.id.timeZoneTxt);
+        timeZoneLayoutView = view.findViewById(R.id.timeZoneLayoutView);
         surfaceTxt = view.findViewById(R.id.surfaceTxt);
         venueTxt = view.findViewById(R.id.venueTxt);
         costTxt = view.findViewById(R.id.costTxt);
@@ -85,13 +89,96 @@ public class GroundDetailFrgment extends Fragment {
     }
 
     public void dataToView() {
-        getGroundDetail();
+        bundle = getArguments();
+        String Detail = bundle.getString("Detail");
+        GroundData data = new Gson().fromJson(Detail, GroundData.class);
+        if (data != null) {
+            nametxt.setText(data.getName() + "");
+            if (data.getAvailable() == 1) {
+                statustxt.setText("Avilable");
+            } else {
+                statustxt.setText("Not Avilable");
+            }
+            uniqeId.setText(data.getUnique_id());
+            capacityTxt.setText(data.getCapacity() + "");
+            Dimensionstxt.setText(data.getDimension() + "");
+
+            if (data.getDay_or_night() == 1) {
+                dayNightTxt.setText("Day");
+            } else if (data.getDay_or_night() == 2) {
+                dayNightTxt.setText("Night");
+            } else {
+                dayNightTxt.setText("Day or Night");
+            }
+            if (data.getFloodlight() == 1) {
+                fllodLightTxt.setText("Yes");
+            } else {
+                fllodLightTxt.setText("No");
+            }
+
+            capacitymatchPerDayTxt.setText(data.getMatch_per_day() + "");
+
+            surfaceTxt.setText(data.getSurface());
+            venueTxt.setText(data.getCompleteAddress());
+            costTxt.setText(data.getCost() + " Per Match");
+            try {
+                JSONArray timeArray = new JSONArray(data.getTimezone());
+                for (int i = 0; i < timeArray.length(); i++) {
+                    JSONObject obj = timeArray.optJSONObject(i);
+                    addTimeZome(obj.optString("name"));
+                }
+                JSONArray jsonArray = new JSONArray(data.getDisplay_picture());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Picasso.with(getContext()).load(Contants.BASE_URL + jsonArray.get(i).toString()).placeholder(R.drawable.noimage).into(displAyImage);
+                    break;
+                }
+
+                JSONArray sportsArray = new JSONArray(data.getSports());
+                if (sportsArray != null) {
+                    for (int i = 0; i < sportsArray.length(); i++) {
+                        JSONObject object = sportsArray.getJSONObject(i);
+                        String pname = object.optString("name");
+                        int idp = object.optInt("id");
+                        addSportmatchView(pname, idp);
+                    }
+                }
+                JSONArray terjsonArray = new JSONArray(data.getTerms_conditions());
+                for (int i = 0; i < terjsonArray.length(); i++) {
+                    addTermsAndCondition(terjsonArray.get(i).toString());
+                }
+                JSONArray free_servicesjsonArray = new JSONArray(data.getFree_services());
+                for (int i = 0; i < free_servicesjsonArray.length(); i++) {
+                    addFreeService(free_servicesjsonArray.get(i).toString());
+                }
+                JSONArray achievementsjsonArray = new JSONArray(data.getAchievements());
+                for (int i = 0; i < achievementsjsonArray.length(); i++) {
+                    achievements(achievementsjsonArray.get(i).toString());
+                }
+                JSONArray staffArray = new JSONArray(data.getStaff());
+                if (staffArray != null) {
+                    for (int i = 0; i < staffArray.length(); i++) {
+                        try {
+                            JSONObject object = staffArray.getJSONObject(i);
+                            String pname = object.optString("name");
+                            String designation = object.optString("designation");
+                            String photo = object.optString("photo");
+                            addStaffinfo(pname, designation, photo);
+                        } catch (JSONException e) {
+                            //e.printStackTrace();
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+
+            }
+        }
+        //getGroundDetail();
     }
 
 
-    // getGroundDetail
+    /*// getGroundDetail
     private void getGroundDetail() {
-        bundle = getArguments();
+
         int id = getArguments().getInt("id");
 
         if (Utility.isOnline(getContext())) {
@@ -234,8 +321,17 @@ public class GroundDetailFrgment extends Fragment {
         } else {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
-    }
+    }*/
 
+    // addTimeZome
+    public void addTimeZome(String name) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View inflatedLayout = inflater.inflate(R.layout.area_row, null);
+        TextView nameView = inflatedLayout.findViewById(R.id.namearea);
+        nameView.setText(name);
+        timeZoneLayoutView.addView(inflatedLayout);
+
+    }
 
     //add free service layout in runtime
     public void addSportmatchView(String name, int id) {
@@ -254,7 +350,7 @@ public class GroundDetailFrgment extends Fragment {
         View inflatedLayout = inflater.inflate(R.layout.freeservices_item_row, null);
         TextView servicesName = inflatedLayout.findViewById(R.id.name);
         TextView count = inflatedLayout.findViewById(R.id.count);
-        count.setText(serviceCount+"");
+        count.setText(serviceCount + "");
         servicesName.setText(name);
         freServiceesLayoutView.addView(inflatedLayout);
 

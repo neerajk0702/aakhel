@@ -448,7 +448,7 @@
     </ScrollView>
 
     <com.kredivation.aakhale.components.ASTButton
-        android:id="@+id/facilitesBtn"
+        android:id="@+id/submit"
         android:layout_width="@dimen/_190dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -254,6 +254,15 @@ private JSONArray tournamentTeam;
     public void setTournamentTeam(JSONArray tournamentTeam) {
         this.tournamentTeam = tournamentTeam;
     }
+    private JSONArray tournament_umpire;
+
+    public JSONArray getTournament_umpire() {
+        return tournament_umpire;
+    }
+
+    public void setTournament_umpire(JSONArray tournament_umpire) {
+        this.tournament_umpire = tournament_umpire;
+    }
 
     @Override
     public String toString() {

@@ -19,16 +19,22 @@ public class GroundData {
     private String dimension;
     private String timezone;
     private String match_per_day;
-    private String day_or_night;
+    private int day_or_night;
     private String surface;
     private String free_services;
     private String terms_conditions;
     private String cost;
     private String display_picture;
     private String sports;
+private String completeAddress;
 
+    public String getCompleteAddress() {
+        return completeAddress;
+    }
 
-
+    public void setCompleteAddress(String completeAddress) {
+        this.completeAddress = completeAddress;
+    }
 
     public String getName() {
         return name;
@@ -134,11 +140,11 @@ public class GroundData {
         this.match_per_day = match_per_day;
     }
 
-    public String getDay_or_night() {
+    public int getDay_or_night() {
         return day_or_night;
     }
 
-    public void setDay_or_night(String day_or_night) {
+    public void setDay_or_night(int day_or_night) {
         this.day_or_night = day_or_night;
     }
 
@@ -228,5 +234,23 @@ public class GroundData {
 
     public void setSports(String sports) {
         this.sports = sports;
+    }
+    private String staff;
+    private String achievements;
+
+    public String getStaff() {
+        return staff;
+    }
+
+    public void setStaff(String staff) {
+        this.staff = staff;
+    }
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
     }
 }

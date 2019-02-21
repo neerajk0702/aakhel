@@ -244,6 +244,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                         }
                     } else {
                         Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        loading = true;
                         loaddataProgress.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }

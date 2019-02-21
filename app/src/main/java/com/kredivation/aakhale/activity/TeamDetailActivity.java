@@ -1,5 +1,6 @@
 package com.kredivation.aakhale.activity;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -36,7 +38,7 @@ import java.util.ArrayList;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class TeamDetailActivity extends AppCompatActivity {
+public class TeamDetailActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView imageView, fab;
     TextView nametxt, ratingTxt, wonmatch, Tournamentwon, userid, aboutteam, address;
     ListView matchPlayeList;
@@ -44,10 +46,15 @@ public class TeamDetailActivity extends AppCompatActivity {
     ArrayList<Match_played> match_playedList = new ArrayList<>();
     LinearLayout teameMemberImageView, matchPlayedView;
     private Toolbar toolbar;
+    int teamId;
+    long userIdValue;
+    int userRoleId;
 
     public TeamDetailActivity() {
         // Required empty public constructor
     }
+
+    SharedPreferences UserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,11 @@ public class TeamDetailActivity extends AppCompatActivity {
         init();
     }
 
+
     public void init() {
+        UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        userIdValue = UserInfo.getLong("id", 0);
+        userRoleId = UserInfo.getInt("role", 0);
         Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
         TextView back = toolbar.findViewById(R.id.back);
         back.setTypeface(materialdesignicons_font);
@@ -82,6 +93,8 @@ public class TeamDetailActivity extends AppCompatActivity {
         matchPlayedView = findViewById(R.id.matchPlayedView);
         imageView = findViewById(R.id.imageView);
         teameMemberImageView = findViewById(R.id.teameMemberImageView);
+        Button submit = findViewById(R.id.submit);
+        submit.setOnClickListener(this);
         dataToView();
     }
 
@@ -113,7 +126,7 @@ public class TeamDetailActivity extends AppCompatActivity {
                             if (status) {
                                 JSONObject jsonObject = mainObj.optJSONObject("basic_info");
                                 if (jsonObject != null) {
-                                    int id = jsonObject.optInt("id");
+                                    teamId = jsonObject.optInt("id");
                                     String name = jsonObject.optString("name");
                                     String unique_id = jsonObject.optString("unique_id");
                                     String user_id = jsonObject.optString("user_id");
@@ -131,7 +144,7 @@ public class TeamDetailActivity extends AppCompatActivity {
                                     aboutteam.setText(about_team + "");
                                     userid.setText(unique_id);
                                     nametxt.setText(name);
-                                  //  ratingTxt.setText("");
+                                    //  ratingTxt.setText("");
                                     wonmatch.setText("");
                                     Tournamentwon.setText("");
 
@@ -234,5 +247,65 @@ public class TeamDetailActivity extends AppCompatActivity {
         date.setText(datetxt);
         matchPlayedView.addView(inflatedLayout);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.submit:
+                teamrequest();
+                break;
+        }
+    }
+
+    private void teamrequest() {
+        if (Utility.isOnline(TeamDetailActivity.this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(TeamDetailActivity.this);
+            dotDialog.show();
+            String serviceURL = "";
+            if (userRoleId == 1) {//Player
+                serviceURL = Contants.BASE_URL + Contants.team_player_request;
+            } else if (userRoleId == 2) {//Coach
+                serviceURL = Contants.BASE_URL + Contants.team_coach_request;
+            } else if (userRoleId == 3) {//Umpire
+                serviceURL = Contants.BASE_URL + Contants.team_coach_request;
+            }
+
+            JSONObject object = new JSONObject();
+            try {
+                object.put("team_id", teamId);
+            } catch (JSONException e) {
+                // e.printStackTrace();
+            }
+            ServiceCaller serviceCaller = new ServiceCaller(TeamDetailActivity.this);
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "teamrequest", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            String message = jsonObject.optString("message");
+                            if (status) {
+                                Toast.makeText(TeamDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(TeamDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                        }
+                    } else {
+                        if (dotDialog.isShowing()) {
+                            dotDialog.dismiss();
+                        }
+                        Utility.alertForErrorMessage(Contants.Error, TeamDetailActivity.this);
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, TeamDetailActivity.this);//off line msg....
+        }
     }
 }

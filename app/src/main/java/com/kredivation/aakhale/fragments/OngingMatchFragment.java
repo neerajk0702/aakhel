@@ -191,6 +191,7 @@ public class OngingMatchFragment extends Fragment implements View.OnClickListene
                                         String prizes = jsonObject.optString("prizes");
                                         String facilities = jsonObject.optString("facilities");
                                         JSONArray tournament_teamArray = innerDataObject.optJSONArray("tournament_team");
+                                        JSONArray tournament_umpire = innerDataObject.optJSONArray("tournament_umpire");
 
                                         tournament.setId(id);
                                         tournament.setEnd_date(end_date);
@@ -218,6 +219,7 @@ public class OngingMatchFragment extends Fragment implements View.OnClickListene
                                         String completeAdd = tournament_address + "," + tournament_city.optString("city_name") + "," + tournament_state.optString("state_name") + "," + tournament_country.optString("country_name") + "," + tournament_zipcode;
                                         tournament.setCompleteAddress(completeAdd);
                                         tournament.setTournamentTeam(tournament_teamArray);
+                                        tournament.setTournament_umpire(tournament_umpire);
                                         tournamentArrayList.add(tournament);
                                     }
                                     tournamentUpcoomingAdapter.notifyDataSetChanged();

@@ -246,6 +246,15 @@ public class Data {
     private String umpireMatchArray;
     private String playerTeamArray;
     private String roleObj;
+private String coach_team;
+
+    public String getCoach_team() {
+        return coach_team;
+    }
+
+    public void setCoach_team(String coach_team) {
+        this.coach_team = coach_team;
+    }
 
     public String getUmpireMatchArray() {
         return umpireMatchArray;

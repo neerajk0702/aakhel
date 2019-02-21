@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
@@ -76,7 +77,7 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
     public void onBindViewHolder(@NonNull GroundAdapter.ViewHolder holder, final int position) {
         holder.stadiunName.setText(sportsList.get(position).getName());
         holder.userid.setText(sportsList.get(position).getUnique_id());
-        holder.addressTxt.setText(sportsList.get(position).getGround_address());
+        holder.addressTxt.setText(sportsList.get(position).getCompleteAddress());
         holder.capacity.setText("capacity : " + sportsList.get(position).getCapacity());
         if (sportsList.get(position).getAvailable() == 1) {
             holder.avilableTxt.setText("Available");
@@ -96,9 +97,11 @@ public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String dataValue = new Gson().toJson(sportsList.get(position));
                 GroundDetailFrgment groundDetailFrgment = new GroundDetailFrgment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", sportsList.get(position).getId());
+                bundle.putString("Detail", dataValue);
                 groundDetailFrgment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();

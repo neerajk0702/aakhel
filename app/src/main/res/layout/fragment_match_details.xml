@@ -321,7 +321,21 @@
 
 
             </LinearLayout>
-
+            <com.kredivation.aakhale.components.ASTButton
+                android:id="@+id/submit"
+                android:layout_width="@dimen/_190dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_20dp"
+                android:background="@drawable/button_login"
+                android:gravity="center"
+                android:paddingTop="@dimen/_10dp"
+                android:paddingBottom="@dimen/_10dp"
+                android:text="Request for Add"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10dp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

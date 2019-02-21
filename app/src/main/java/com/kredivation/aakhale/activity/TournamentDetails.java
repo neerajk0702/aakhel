@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.activity;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +32,8 @@ import org.json.JSONObject;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TournamentDetails extends AppCompatActivity {
+public class TournamentDetails extends AppCompatActivity implements View.OnClickListener {
+
 
     ImageView displayImage;
     TextView nametxt, statusttxt, uniqeIdtxt, dateTime,
@@ -38,6 +41,9 @@ public class TournamentDetails extends AppCompatActivity {
             venueAddress, enteryFee;
     LinearLayout facilitiesesView, priceView, UmpireView, ruleRegulationView, teamesView;
     private Toolbar toolbar;
+    int tournamentId, teamId;
+    long userIdValue;
+    int userRoleId;
 
     public TournamentDetails() {
         // Required empty public constructor
@@ -53,6 +59,9 @@ public class TournamentDetails extends AppCompatActivity {
     }
 
     private void init() {
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        userIdValue = UserInfo.getLong("id", 0);
+        userRoleId = UserInfo.getInt("role", 0);
         Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
         TextView back = toolbar.findViewById(R.id.back);
         back.setTypeface(materialdesignicons_font);
@@ -75,7 +84,8 @@ public class TournamentDetails extends AppCompatActivity {
         facilitiesesView = findViewById(R.id.facilitiesesView);
         enteryFee = findViewById(R.id.enteryFee);
         venueAddress = findViewById(R.id.venueAddress);
-
+        Button submit = findViewById(R.id.submit);
+        submit.setOnClickListener(this);
 
         ruleRegulationView = findViewById(R.id.ruleRegulationView);
         facilitiesesView = findViewById(R.id.facilitiesesView);
@@ -111,7 +121,7 @@ public class TournamentDetails extends AppCompatActivity {
                                 if (datajsonObject != null) {
                                     JSONObject jsonObject = datajsonObject.optJSONObject("basic_info");
                                     if (jsonObject != null) {
-                                        int id = jsonObject.optInt("id");
+                                        tournamentId = jsonObject.optInt("id");
                                         String name = jsonObject.optString("name");
                                         String unique_id = jsonObject.optString("unique_id");
                                         String created_at = jsonObject.optString("created_at");
@@ -135,6 +145,7 @@ public class TournamentDetails extends AppCompatActivity {
                                         String prizes = jsonObject.optString("prizes");
                                         String facilities = jsonObject.optString("facilities");
                                         JSONArray tournament_teamArray = datajsonObject.optJSONArray("tournament_team");
+                                        JSONArray tournament_umpire = datajsonObject.optJSONArray("tournament_umpire");
                                         if (display_picture != null && !display_picture.equals("")) {
                                             Picasso.with(TournamentDetails.this).load(Contants.BASE_URL + display_picture)
                                                     .placeholder(R.drawable.noimage).into(displayImage);
@@ -160,7 +171,19 @@ public class TournamentDetails extends AppCompatActivity {
                                         enteryFee.setText(entry_fees);
                                         String completeAdd = tournament_address + "," + tournament_city.optString("city_name") + "," + tournament_state.optString("state_name") + "," + tournament_country.optString("country_name") + "," + tournament_zipcode;
                                         venueAddress.setText(completeAdd);
-
+                                        if (tournament_umpire != null) {
+                                            for (int i = 0; i < tournament_umpire.length(); i++) {
+                                                try {
+                                                    JSONObject object = tournament_umpire.getJSONObject(i);
+                                                    String teamname = object.optString("name");
+                                                    String teamunique_id = object.optString("unique_id");
+                                                    String statusp = object.optString("status");
+                                                    String team_thumbnail = object.optString("team_thumbnail");
+                                                    addTeamView(teamname, teamunique_id, team_thumbnail, statusp, false);
+                                                } catch (JSONException e) {
+                                                }
+                                            }
+                                        }
                                         if (tournament_teamArray != null) {
                                             for (int i = 0; i < tournament_teamArray.length(); i++) {
                                                 try {
@@ -169,7 +192,7 @@ public class TournamentDetails extends AppCompatActivity {
                                                     String teamunique_id = object.optString("unique_id");
                                                     String statusp = object.optString("status");
                                                     String team_thumbnail = object.optString("team_thumbnail");
-                                                    addTeamView(teamname, teamunique_id, team_thumbnail, statusp);
+                                                    addTeamView(teamname, teamunique_id, team_thumbnail, statusp, true);
                                                 } catch (JSONException e) {
                                                 }
                                             }
@@ -207,7 +230,7 @@ public class TournamentDetails extends AppCompatActivity {
 
 
     //add team layout in runtime
-    public void addTeamView(String teamname, String teamunique_id, String team_thumbnail, String statusp) {
+    public void addTeamView(String teamname, String teamunique_id, String team_thumbnail, String statusp, boolean flage) {
         LayoutInflater inflater = LayoutInflater.from(TournamentDetails.this);
         View inflatedLayout = inflater.inflate(R.layout.sports_item_row, null);
         TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
@@ -217,7 +240,11 @@ public class TournamentDetails extends AppCompatActivity {
         userId.setText(teamunique_id);
         Picasso.with(TournamentDetails.this).load(Contants.BASE_URL + team_thumbnail)
                 .placeholder(R.drawable.noimage).into(matchPerview);
-        teamesView.addView(inflatedLayout);
+        if (flage) {
+            teamesView.addView(inflatedLayout);
+        } else {
+            UmpireView.addView(inflatedLayout);
+        }
 
     }
 
@@ -269,5 +296,121 @@ public class TournamentDetails extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.submit:
+                if (userRoleId == 3) {//umpire
+                    umriprerequestTournament();
+                } else {
+                    if (isValidate()) {
+                        ParticipateTournament();
+                    }
+                }
+                break;
+        }
+    }
+
+    public boolean isValidate() {
+        String emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        if (teamId == 0) {
+            Toast.makeText(TournamentDetails.this, "Please select Team first!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+
+    }
+
+    private void ParticipateTournament() {
+        if (Utility.isOnline(TournamentDetails.this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(TournamentDetails.this);
+            dotDialog.show();
+            String serviceURL = Contants.BASE_URL + Contants.tournament_participate;
+            JSONObject object = new JSONObject();
+            try {
+                object.put("tournament_id", tournamentId);
+                object.put("team_id", teamId);
+            } catch (JSONException e) {
+                // e.printStackTrace();
+            }
+            ServiceCaller serviceCaller = new ServiceCaller(TournamentDetails.this);
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "ParticipateTournament", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            String message = jsonObject.optString("message");
+                            if (status) {
+                                Toast.makeText(TournamentDetails.this, message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(TournamentDetails.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                        }
+                    } else {
+                        if (dotDialog.isShowing()) {
+                            dotDialog.dismiss();
+                        }
+                        Utility.alertForErrorMessage(Contants.Error, TournamentDetails.this);
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, TournamentDetails.this);//off line msg....
+        }
+    }
+
+    private void umriprerequestTournament() {
+        if (Utility.isOnline(TournamentDetails.this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(TournamentDetails.this);
+            dotDialog.show();
+            String serviceURL = "";
+            if (userRoleId == 3) {//Umpire
+                serviceURL = Contants.BASE_URL + Contants.tournament_umpire_request;
+            }
+
+            JSONObject object = new JSONObject();
+            try {
+                object.put("team_id", teamId);
+            } catch (JSONException e) {
+                // e.printStackTrace();
+            }
+            ServiceCaller serviceCaller = new ServiceCaller(TournamentDetails.this);
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "umriprerequestTournament", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            String message = jsonObject.optString("message");
+                            if (status) {
+                                Toast.makeText(TournamentDetails.this, message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(TournamentDetails.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                        }
+                    } else {
+                        if (dotDialog.isShowing()) {
+                            dotDialog.dismiss();
+                        }
+                        Utility.alertForErrorMessage(Contants.Error, TournamentDetails.this);
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, TournamentDetails.this);//off line msg....
+        }
     }
 }

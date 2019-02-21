@@ -317,16 +317,17 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
                 onSelectFromGalleryResult(data);
             } else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
-            }
-        }
-        if (data != null && requestCode == Contants.REQ_PAGE_COMMUNICATOR) {
-            String selectedTeam = data.getExtras().getString("selectedData");
-            if (selectedTeam != null && !selectedTeam.equals("")) {
-                selectPlayersId = data.getExtras().getString("selectId");
-                ArrayList<Data> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Data>>() {
-                }.getType());
-                for (Data datavalue : teamList) {
-                    addMorePLayer(datavalue);
+            } else if (requestCode == Contants.REQ_PAGE_COMMUNICATOR) {
+                if (data != null && data.getExtras() != null) {
+                    String selectedTeam = data.getExtras().getString("selectedData");
+                    if (selectedTeam != null && !selectedTeam.equals("")) {
+                        selectPlayersId = data.getExtras().getString("selectId");
+                        ArrayList<Data> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Data>>() {
+                        }.getType());
+                        for (Data datavalue : teamList) {
+                            addMorePLayer(datavalue);
+                        }
+                    }
                 }
             }
         }

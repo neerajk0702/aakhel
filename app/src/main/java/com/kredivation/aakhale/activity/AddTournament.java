@@ -52,6 +52,7 @@ import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.AddViewDynamically;
 import com.kredivation.aakhale.model.City;
 import com.kredivation.aakhale.model.ContentData;
+import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.State;
 import com.kredivation.aakhale.model.Team;
@@ -116,10 +117,10 @@ public class AddTournament extends AppCompatActivity implements View.OnClickList
 
     DatePickerDialog startdatepicker, enddatepicker;
     Calendar myCalendar;
-    LinearLayout addTeameLayout, TeamViewLayout;
+    LinearLayout addTeameLayout, TeamViewLayout, UmpireViewLayout, addumpireLayout;
     ArrayList<Team> teamlist = new ArrayList<>();
     private Toolbar toolbar;
-    String selectTeamId;
+    String selectTeamId, selectUmpireId;
 
     public AddTournament() {
     }
@@ -182,6 +183,10 @@ public class AddTournament extends AppCompatActivity implements View.OnClickList
         addTeameLayout = findViewById(R.id.addTeameLayout);
         addTeameLayout.setOnClickListener(this);
         continuebtn.setOnClickListener(this);
+        UmpireViewLayout = findViewById(R.id.UmpireViewLayout);
+        addumpireLayout = findViewById(R.id.addumpireLayout);
+        addumpireLayout.setOnClickListener(this);
+
         addMoreFacilites("Facilites Name\t" + Facilitescount);
         addMorerule_regulation("Rule Regulation Name\t" + Regulationcount);
         addMoreprice("Price\t" + priceCount);
@@ -227,7 +232,11 @@ public class AddTournament extends AppCompatActivity implements View.OnClickList
                 intent1.putExtra("CreateMatch", true);
                 startActivityForResult(intent1, Contants.REQ_PAGE_COMMUNICATOR);
                 break;
-
+            case R.id.addumpireLayout:
+                Intent umintent = new Intent(AddTournament.this, UmpireListActivity.class);
+                umintent.putExtra("CreateMatch", true);
+                startActivityForResult(umintent, Contants.REQ_PAGE_COMMUNICATOR);
+                break;
 
         }
     }
@@ -465,6 +474,7 @@ public class AddTournament extends AppCompatActivity implements View.OnClickList
                 }
                 payloadList.put("prizes", jsonArrayrulesprizes.toString());
                 payloadList.put("teams", selectTeamId);
+                payloadList.put("umpires", selectUmpireId);
             } catch (Exception e) {
                 //e.printStackTrace();
             }
@@ -651,19 +661,42 @@ public class AddTournament extends AppCompatActivity implements View.OnClickList
                 onSelectFromGalleryResult(data);
             } else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
-            }
-        }
-        if (data != null) {
-            String selectedTeam = data.getExtras().getString("selectedTeam");
-            if (selectedTeam != null && !selectedTeam.equals("")) {
-                selectTeamId = data.getExtras().getString("selectTeamId");
-                ArrayList<Team> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Team>>() {
-                }.getType());
-                for (Team team : teamList) {
-                    showSelectedTeam(team);
+            } else if (requestCode == Contants.REQ_PAGE_COMMUNICATOR) {
+                if (data != null && data.getExtras() != null) {
+                    String selectedTeam = data.getExtras().getString("selectedTeam");
+                    if (selectedTeam != null && !selectedTeam.equals("")) {
+                        selectTeamId = data.getExtras().getString("selectTeamId");
+                        ArrayList<Team> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Team>>() {
+                        }.getType());
+                        for (Team team : teamList) {
+                            showSelectedTeam(team);
+                        }
+                    }
+
+                    String selectedUmpire = data.getExtras().getString("selectedUmpire");
+                    if (selectedUmpire != null && !selectedUmpire.equals("")) {
+                        selectUmpireId = data.getExtras().getString("selectUmpireId");
+                        ArrayList<Data> teamList = new Gson().fromJson(selectedUmpire, new TypeToken<ArrayList<Data>>() {
+                        }.getType());
+                        for (Data umpire : teamList) {
+                            showSelectedUmpire(umpire);
+                        }
+                    }
                 }
             }
         }
+    }
+
+    public void showSelectedUmpire(Data data) {
+        LayoutInflater inflater = LayoutInflater.from(AddTournament.this);
+        View inflatedLayout = inflater.inflate(R.layout.create_match_team_layout, null);
+        ImageView imageView = inflatedLayout.findViewById(R.id.imageView);
+        TextView name = inflatedLayout.findViewById(R.id.name);
+        name.setText(data.getFull_name());
+        TextView userId = inflatedLayout.findViewById(R.id.userId);
+        userId.setText(data.getUnique_id());
+        Picasso.with(AddTournament.this).load(Contants.BASE_URL + data.getProfile_picture()).placeholder(R.drawable.ic_uuuser).into(imageView);
+        UmpireViewLayout.addView(inflatedLayout);
     }
 
     public void showSelectedTeam(Team team) {

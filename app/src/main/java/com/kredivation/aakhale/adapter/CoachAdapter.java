@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
@@ -70,14 +71,16 @@ public class CoachAdapter extends RecyclerView.Adapter<CoachAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull CoachAdapter.ViewHolder holder, final int position) {
         holder.name.setText(sportsList.get(position).getFull_name());
         holder.userid.setText(sportsList.get(position).getUnique_id());
-        holder.address.setText(sportsList.get(position).getAddress());
+        holder.address.setText(sportsList.get(position).getComplateAddress());
         // holder.ratingTxt.setText(sportsList.get(position).getCapacity());
         Picasso.with(context).load(Contants.BASE_URL + sportsList.get(position).getProfile_picture()).placeholder(R.drawable.ic_uuuser).into(holder.imageView);
         holder.root_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String dataValue = new Gson().toJson(sportsList.get(position));
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", sportsList.get(position).getId());
+                bundle.putString("Detail", dataValue);
                 CoachDeatailFragment coachDeatailFragment = new CoachDeatailFragment();
                 coachDeatailFragment.setArguments(bundle);
                 android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();

@@ -1,14 +1,17 @@
 package com.kredivation.aakhale.fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,8 +19,11 @@ import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.TeamDetailActivity;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.components.CircleImageView;
+import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
+import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Match;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -27,7 +33,7 @@ import org.json.JSONObject;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MatchDetailsFragment extends Fragment {
+public class MatchDetailsFragment extends Fragment implements View.OnClickListener {
 
     View view;
     TextView nametxt, datetime, uniqueId, statustxt, overtxt, teams, formateMatch, venueAddress, venueAddress1;
@@ -39,6 +45,9 @@ public class MatchDetailsFragment extends Fragment {
 
     Match MatchDetail;
     ASTProgressBar astProgressBar;
+    long userIdValue;
+    int userRoleId;
+    int matchId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +59,9 @@ public class MatchDetailsFragment extends Fragment {
     }
 
     public void init() {
+        SharedPreferences UserInfo = getActivity().getSharedPreferences("UserInfoSharedPref", getActivity().MODE_PRIVATE);
+        userIdValue = UserInfo.getLong("id", 0);
+        userRoleId = UserInfo.getInt("role", 0);
         String MatchDetailStr = getArguments().getString("MatchDetail");
         MatchDetail = new Gson().fromJson(MatchDetailStr, new TypeToken<Match>() {
         }.getType());
@@ -64,12 +76,18 @@ public class MatchDetailsFragment extends Fragment {
         venueAddress1 = view.findViewById(R.id.venueAddress1);
         umpireView = view.findViewById(R.id.umpireView);
         teamsView = view.findViewById(R.id.teamsView);
+        Button button = view.findViewById(R.id.submit);
+        button.setOnClickListener(this);
+        if (userRoleId == 3) {
+            button.setVisibility(View.VISIBLE);
+        }
         dataToView();
     }
 
     public void dataToView() {
         if (MatchDetail != null) {
             try {
+                matchId = MatchDetail.getId();
                 nametxt.setText(MatchDetail.getName());
                 datetime.setText(MatchDetail.getDate());
                 uniqueId.setText(MatchDetail.getUnique_id());
@@ -243,4 +261,63 @@ public class MatchDetailsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.submit:
+                request();
+                break;
+        }
+    }
+
+    private void request() {
+        if (Utility.isOnline(getActivity())) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());
+            dotDialog.show();
+            String serviceURL = "";
+            if (userRoleId == 1) {//Player
+                serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
+            } else if (userRoleId == 2) {//Coach
+                serviceURL = Contants.BASE_URL + Contants.team_coach_request;
+            } else if (userRoleId == 3) {//Umpire
+                serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
+            }
+
+            JSONObject object = new JSONObject();
+            try {
+                object.put("match_id", matchId);
+            } catch (JSONException e) {
+                // e.printStackTrace();
+            }
+            ServiceCaller serviceCaller = new ServiceCaller(getActivity());
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "MatchRequestumpire", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            String message = jsonObject.optString("message");
+                            if (status) {
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            }
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                        }
+                    } else {
+                        if (dotDialog.isShowing()) {
+                            dotDialog.dismiss();
+                        }
+                        Utility.alertForErrorMessage(Contants.Error, getActivity());
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getActivity());//off line msg....
+        }
+    }
 }

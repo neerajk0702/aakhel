@@ -1,13 +1,17 @@
 package com.kredivation.aakhale.fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.TournamentDetails;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTProgressBar;
@@ -34,12 +39,14 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PlayerDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayerDetailsFragment extends Fragment {
+public class PlayerDetailsFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -85,6 +92,10 @@ public class PlayerDetailsFragment extends Fragment {
         }
     }
 
+    SharedPreferences UserInfo;
+    long userIdValue;
+    long playerId;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,6 +106,8 @@ public class PlayerDetailsFragment extends Fragment {
     }
 
     public void init() {
+        UserInfo = getActivity().getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        userIdValue = UserInfo.getLong("id", 0);
         userId = view.findViewById(R.id.userId);
         phoneno = view.findViewById(R.id.phoneno);
         mail = view.findViewById(R.id.mail);
@@ -106,8 +119,11 @@ public class PlayerDetailsFragment extends Fragment {
         gender = view.findViewById(R.id.gender);
         roleTxt = view.findViewById(R.id.roleTxt);
         challange = view.findViewById(R.id.challange);
+        challange.setOnClickListener(this);
         REQUEST = view.findViewById(R.id.REQUEST);
+        REQUEST.setOnClickListener(this);
         INVITE = view.findViewById(R.id.INVITE);
+        INVITE.setOnClickListener(this);
         fab = view.findViewById(R.id.fab);
         teamInfoLayoutView = view.findViewById(R.id.teamInfoLayoutView);
         galleryView = view.findViewById(R.id.galleryView);
@@ -123,11 +139,12 @@ public class PlayerDetailsFragment extends Fragment {
 
     private void setValue(String detail) {
         Data data = new Gson().fromJson(detail, Data.class);
-        if(data!=null) {
+        if (data != null) {
             if (data.getProfile_picture() != null && !data.getProfile_picture().equals("")) {
                 Picasso.with(getContext()).load(Contants.BASE_URL + data.getProfile_picture())
                         .placeholder(R.drawable.ic_cricket_player).into(imageView);
             }
+            playerId = data.getId();
             userId.setText(data.getUnique_id());
             phoneno.setText(data.getMobile() + "");
             mail.setText(data.getEmail());
@@ -308,7 +325,7 @@ public class PlayerDetailsFragment extends Fragment {
             statusview.setText("Approved");
         }
         if (image != null && !image.equals("")) {
-            Picasso.with(getActivity()).load(image)
+            Picasso.with(getActivity()).load(Contants.BASE_URL + image)
                     .placeholder(R.drawable.noimage).into(imageView);
         }
         teamInfoLayoutView.addView(inflatedLayout);
@@ -335,4 +352,135 @@ public class PlayerDetailsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.challange:
+                openActionDilaog();
+                break;
+            case R.id.REQUEST:
+                teamrequest();
+                break;
+            case R.id.INVITE:
+                openActionDilaog();
+                break;
+        }
+    }
+
+    //show action taken popup
+    public void openActionDilaog() {
+        final View myview = LayoutInflater.from(getActivity()).inflate(R.layout.actiontaken_dilaog, null);
+        final EditText messageedit = myview.findViewById(R.id.messageedit);
+        Button btnSubmit = myview.findViewById(R.id.btnSubmit);
+        Button btncancel = myview.findViewById(R.id.btncancel);
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).setIcon(R.mipmap.ic_launcher).setCancelable(false)
+                .setView(myview).create();
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String msgStr = messageedit.getText().toString();
+                if (msgStr.length() == 0) {
+                    Toast.makeText(getActivity(), "Please enter Your Message!", Toast.LENGTH_LONG).show();
+                } else {
+                    alertDialog.dismiss();
+                    player_challenge(msgStr);
+                }
+            }
+        });
+        btncancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+
+
+    }
+
+    private void player_challenge(String message) {
+        if (Utility.isOnline(getActivity())) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());
+            dotDialog.show();
+            String serviceURL = Contants.BASE_URL + Contants.player_challenge;
+            JSONObject object = new JSONObject();
+            try {
+                object.put("acceptor_player", playerId);
+                object.put("comment", message);
+            } catch (JSONException e) {
+                // e.printStackTrace();
+            }
+            ServiceCaller serviceCaller = new ServiceCaller(getActivity());
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "player_challenge", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            String message = jsonObject.optString("message");
+                            if (status) {
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            }
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                        }
+                    } else {
+                        if (dotDialog.isShowing()) {
+                            dotDialog.dismiss();
+                        }
+                        Utility.alertForErrorMessage(Contants.Error, getActivity());
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getActivity());//off line msg....
+        }
+    }
+    private void teamrequest() {
+        if (Utility.isOnline(getActivity())) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());
+            dotDialog.show();
+            String serviceURL = Contants.BASE_URL + Contants.team_player_request;
+            JSONObject object = new JSONObject();
+            try {
+                object.put("team_id", 0);
+            } catch (JSONException e) {
+                // e.printStackTrace();
+            }
+            ServiceCaller serviceCaller = new ServiceCaller(getActivity());
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "teamrequest", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            String message = jsonObject.optString("message");
+                            if (status) {
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            }
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                        }
+                    } else {
+                        if (dotDialog.isShowing()) {
+                            dotDialog.dismiss();
+                        }
+                        Utility.alertForErrorMessage(Contants.Error, getActivity());
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getActivity());//off line msg....
+        }
+    }
 }

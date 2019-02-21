@@ -11,6 +11,7 @@ public class Contants {
     public static boolean IS_DEBUG_LOG = true;
     public static final String OFFLINE_MESSAGE = "Oops! You are Offline. Please check your Internet Connection.";
     public static final String Error = "Server Side Error!";
+    public static final String loginFirst = "Please Login First!";
     public static final String DEFAULT_APPLICATION_NAME = "AAkhel";
    // public static String auth_token = "$2y$13$tEadYuhdLYrA9qKCK/Za5eUCnddcDNS36IUyL9G3.by8SZoL/NITW";
     public static String auth_token = "";
@@ -36,6 +37,14 @@ public class Contants {
     public static String SaveGround = "ground?";
     public static String UserList = "users?filter[role]=";
     public static String Ground = "ground";
+    public static String tournament_participate = "tournament/participate";
+    public static String player_challenge = "users/player-challenge";
+    public static String team_player_request = "team/player-request";
+    public static String team_challenge = "team/challenge";
+    public static String team_coach_request = "team/coach-request";
+    public static String match_umpire_request = "match/umpire-request";
+    public static String tournament_umpire_request = "tournament/umpire-request";
+    public static String post = "post";
 
 
 

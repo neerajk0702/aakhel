@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.fragments;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -446,23 +447,28 @@ public class CreateMatchFragment extends Fragment implements View.OnClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            String selectedTeam = data.getExtras().getString("selectedTeam");
-            if (selectedTeam != null && !selectedTeam.equals("")) {
-                selectTeamId = data.getExtras().getString("selectTeamId");
-                ArrayList<Team> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Team>>() {
-                }.getType());
-                for (Team team : teamList) {
-                    showSelectedTeam(team);
-                }
-            }
-            String selectedUmpire = data.getExtras().getString("selectedUmpire");
-            if (selectedUmpire != null && !selectedUmpire.equals("")) {
-                selectUmpireId = data.getExtras().getString("selectUmpireId");
-                ArrayList<Data> teamList = new Gson().fromJson(selectedUmpire, new TypeToken<ArrayList<Data>>() {
-                }.getType());
-                for (Data umpire : teamList) {
-                    showSelectedUmpire(umpire);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Contants.REQ_PAGE_COMMUNICATOR) {
+                if (data != null && data.getExtras()!=null) {
+                    String selectedTeam = data.getExtras().getString("selectedTeam");
+                    if (selectedTeam != null && !selectedTeam.equals("")) {
+                        selectTeamId = data.getExtras().getString("selectTeamId");
+                        ArrayList<Team> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Team>>() {
+                        }.getType());
+                        for (Team team : teamList) {
+                            showSelectedTeam(team);
+                        }
+                    }
+                    String selectedUmpire = data.getExtras().getString("selectedUmpire");
+                    if (selectedUmpire != null && !selectedUmpire.equals("")) {
+                        selectUmpireId = data.getExtras().getString("selectUmpireId");
+                        ArrayList<Data> teamList = new Gson().fromJson(selectedUmpire, new TypeToken<ArrayList<Data>>() {
+                        }.getType());
+                        for (Data umpire : teamList) {
+                            showSelectedUmpire(umpire);
+                        }
+                    }
                 }
             }
         }

@@ -55,6 +55,7 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
     int total_pages = 1;
+
     public GroundFragment() {
         // Required empty public constructor
     }
@@ -154,12 +155,13 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
                             JSONObject mainObj = new JSONObject(result);
                             boolean status = mainObj.optBoolean("status");
                             if (status) {
-                                 total_pages = mainObj.optInt("total_pages");
+                                total_pages = mainObj.optInt("total_pages");
                                 JSONArray dataArray = mainObj.optJSONArray("data");
                                 if (dataArray != null) {
                                     for (int i = 0; i < dataArray.length(); i++) {
                                         GroundData groundData = new GroundData();
-                                        JSONObject jsonObject = dataArray.getJSONObject(i);
+                                        JSONObject obj = dataArray.getJSONObject(i);
+                                        JSONObject jsonObject = obj.optJSONObject("data");
                                         int id = jsonObject.optInt("id");
                                         String name = jsonObject.optString("name");
                                         String unique_id = jsonObject.optString("unique_id");
@@ -169,22 +171,24 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
                                         int is_active = jsonObject.optInt("is_active");
                                         int available = jsonObject.optInt("available");
                                         String ground_address = jsonObject.optString("ground_address");
-                                        String ground_city = jsonObject.optString("ground_city");
-                                        String ground_state = jsonObject.optString("ground_state");
-                                        String ground_country = jsonObject.optString("ground_country");
+                                        JSONObject city = jsonObject.optJSONObject("ground_city");
+                                        JSONObject state = jsonObject.optJSONObject("ground_state");
+                                        JSONObject country = jsonObject.optJSONObject("ground_country");
                                         String ground_zipcode = jsonObject.optString("ground_zipcode");
                                         int floodlight = jsonObject.optInt("floodlight");
                                         String capacity = jsonObject.optString("capacity");
                                         String dimension = jsonObject.optString("dimension");
-                                        String timezone = jsonObject.optString("timezone");
+                                        JSONArray timezone = jsonObject.optJSONArray("timezone");
                                         String match_per_day = jsonObject.optString("match_per_day");
-                                        String day_or_night = jsonObject.optString("day_or_night");
+                                        int day_or_night = jsonObject.optInt("day_or_night");
                                         String surface = jsonObject.optString("surface");
                                         String free_services = jsonObject.optString("free_services");
                                         String terms_conditions = jsonObject.optString("terms_conditions");
                                         String cost = jsonObject.optString("cost");
                                         String display_picture = jsonObject.optString("display_picture");
-                                        String sports = jsonObject.optString("sports");
+                                        JSONArray sports = jsonObject.optJSONArray("sports");
+                                        String achievements = jsonObject.optString("achievements");
+                                        String staff = jsonObject.optString("staff");
                                         groundData.setId(id);
                                         groundData.setName(name);
                                         groundData.setUnique_id(unique_id);
@@ -194,14 +198,30 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
                                         groundData.setIs_active(is_active);
                                         groundData.setAvailable(available);
                                         groundData.setGround_address(ground_address);
-                                        groundData.setGround_city(ground_city);
-                                        groundData.setGround_state(ground_state);
-                                        groundData.setGround_country(ground_country);
+                                        String cityStr = "";
+                                        String countryNameStr = "";
+                                        String stateNameStr = "";
+                                        if (city != null) {
+                                            groundData.setGround_city(city.toString());
+                                            cityStr = city.optString("city_name");
+                                        }
+                                        if (state != null) {
+                                            groundData.setGround_state(state.toString());
+                                            stateNameStr = state.optString("state_name");
+                                        }
+                                        if (country != null) {
+                                            groundData.setGround_country(country.toString());
+                                            countryNameStr = country.optString("country_name");
+                                        }
+                                        String completeAdd = ground_address + "," + cityStr + "," + stateNameStr + "," + countryNameStr + "," + ground_zipcode;
+                                        groundData.setCompleteAddress(completeAdd);
                                         groundData.setGround_zipcode(ground_zipcode);
                                         groundData.setFloodlight(floodlight);
                                         groundData.setCapacity(capacity);
                                         groundData.setDimension(dimension);
-                                        groundData.setTimezone(timezone);
+                                        if (timezone != null) {
+                                            groundData.setTimezone(timezone.toString());
+                                        }
                                         groundData.setMatch_per_day(match_per_day);
                                         groundData.setDay_or_night(day_or_night);
                                         groundData.setSurface(surface);
@@ -209,20 +229,33 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
                                         groundData.setTerms_conditions(terms_conditions);
                                         groundData.setCost(cost);
                                         groundData.setDisplay_picture(display_picture);
-                                        groundData.setSports(sports);
+                                        if (sports != null) {
+                                            groundData.setSports(sports.toString());
+                                        }
+                                        groundData.setStaff(staff);
+                                        groundData.setAchievements(achievements);
                                         groundList.add(groundData);
                                     }
                                     groundAdapter.notifyDataSetChanged();
                                     loading = true;
                                     loaddataProgress.setVisibility(View.GONE);
                                     mSwipeRefreshLayout.setRefreshing(false);
+                                }else{
+                                    loading = true;
+                                    loaddataProgress.setVisibility(View.GONE);
+                                    mSwipeRefreshLayout.setRefreshing(false);
                                 }
+                            }else{
+                                loading = true;
+                                loaddataProgress.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
                             }
                         } catch (JSONException e) {
                             // e.printStackTrace();
                         }
                     } else {
                         Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        loading = true;
                         loaddataProgress.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }

@@ -739,7 +739,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
+            <LinearLayout
+                android:id="@+id/addumpireLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".6"
+                    android:padding="@dimen/_5dp"
+                    android:text="Add Umpire"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/addumpire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5dp"
+                    android:layout_weight=".4"
+                    android:gravity="right"
+                    android:padding="@dimen/_5dp"
+                    android:text="+ Select Umpire"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/UmpireViewLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -775,7 +811,7 @@
             <ImageView
                 android:id="@+id/addImageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_150dp"
                 android:layout_margin="@dimen/_5dp"
                 android:background="@color/white"
                 android:scaleType="fitXY"

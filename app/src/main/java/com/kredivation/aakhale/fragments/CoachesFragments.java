@@ -147,24 +147,106 @@ public class CoachesFragments extends Fragment implements View.OnClickListener, 
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getPlayerListData", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
-                    if (isComplete) {
-                        if (result != null) {
-                            final ContentDataAsArray serviceData = new Gson().fromJson(result, ContentDataAsArray.class);
-                            if (serviceData != null && serviceData.isStatus()) {
-                                total_pages = serviceData.getTotal_pages();
-                                if (serviceData.getData() != null) {
-                                    coachList.addAll(serviceData.getData());
-                                    adapter.notifyDataSetChanged();
-                                    loading = true;
-                                    loaddataProgress.setVisibility(View.GONE);
-                                    mSwipeRefreshLayout.setRefreshing(false);
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject mainObj = new JSONObject(result);
+                            boolean status = mainObj.optBoolean("status");
+                            total_pages = mainObj.optInt("total_pages");
+                            if (status) {
+                                JSONArray mainDataArray = mainObj.getJSONArray("data");
+                                if (mainDataArray != null) {
+                                    for (int i = 0; i < mainDataArray.length(); i++) {
+                                        JSONObject obj = mainDataArray.optJSONObject(i);
+                                        JSONObject dataArray = obj.optJSONObject("data");
+                                        Data data = new Data();
+                                        JSONArray coach_team = dataArray.getJSONArray("coach_team");
+                                        if (coach_team != null) {
+                                            data.setCoach_team(coach_team.toString());
+                                        }
+                                        JSONObject jsonObject = dataArray.getJSONObject("basic_info");
+                                        int id = jsonObject.optInt("id");
+                                        String unique_id = jsonObject.optString("unique_id");
+                                        String email = jsonObject.optString("email");
+                                        String created_at = jsonObject.optString("created_at");
+                                        String updated_at = jsonObject.optString("updated_at");
+                                        JSONObject role = jsonObject.optJSONObject("role");
+                                        int is_active = jsonObject.optInt("is_active");
+                                        String full_name = jsonObject.optString("full_name");
+                                        String mobile = jsonObject.optString("mobile");
+                                        String date_of_birth = jsonObject.optString("date_of_birth");
+                                        int gender = jsonObject.optInt("gender");
+                                        String address = jsonObject.optString("address");
+                                        JSONObject city = jsonObject.optJSONObject("city");
+                                        JSONObject state = jsonObject.optJSONObject("state");
+                                        JSONObject country = jsonObject.optJSONObject("country");
+                                        String zipcode = jsonObject.optString("zipcode");
+                                        JSONArray users_sports = jsonObject.optJSONArray("users_sports");
+                                        String about = jsonObject.optString("about");
+                                        String experience = jsonObject.optString("experience");
+                                        String profile_picture = jsonObject.optString("profile_picture");
+                                        String auth_token = jsonObject.optString("auth_token");
+                                        JSONObject player_role = jsonObject.optJSONObject("player_role");
+                                        String fee_per = jsonObject.optString("fee_per_match_day");
+                                        String cityStr = "";
+                                        String countryNameStr = "";
+                                        String stateNameStr = "";
+                                        if (city != null) {
+                                            cityStr = city.optString("city_name");
+                                            data.setCityObj(city.toString());
+                                        }
+                                        if (state != null) {
+                                            stateNameStr = state.optString("state_name");
+                                            data.setStateObj(state.toString());
+                                        }
+                                        if (country != null) {
+                                            countryNameStr = country.optString("country_name");
+                                            data.setCountry(country.toString());
+                                        }
+                                        data.setId(id);
+                                        data.setUnique_id(unique_id);
+                                        data.setEmail(email);
+                                        data.setCreated_at(created_at);
+                                        data.setUpdated_at(updated_at);
+                                        data.setRoleObj(role.toString());
+                                        data.setIs_active(is_active);
+                                        data.setFull_name(full_name);
+                                        data.setMobile(mobile);
+                                        data.setDate_of_birth(date_of_birth);
+                                        data.setGender(gender);
+                                        data.setAddress(address);
+                                        String completeAdd = address + "," + cityStr + "," + stateNameStr + "," + countryNameStr + "," + zipcode;
+                                        data.setComplateAddress(completeAdd);
+                                        data.setZipcode(zipcode);
+                                        if (users_sports != null) {
+                                            data.setUsersSportArray(users_sports.toString());
+                                        }
+                                        data.setAbout(about);
+                                        data.setExperience(experience);
+                                        data.setProfile_picture(profile_picture);
+                                        data.setAuth_token(auth_token);
+                                        if (player_role != null) {
+                                            data.setPlayerRoleObj(player_role.toString());
+                                        }
+                                        data.setFee_per_match_day(fee_per);
+                                        coachList.add(data);
+                                    }
                                 }
+                                adapter.notifyDataSetChanged();
+                                loading = true;
+                                loaddataProgress.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
+                            } else {
+                                Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
+                                loading = true;
+                                loaddataProgress.setVisibility(View.GONE);
+                                mSwipeRefreshLayout.setRefreshing(false);
                             }
-                        } else {
-                            Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            // e.printStackTrace();
                         }
                     } else {
                         Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        loading = true;
                         loaddataProgress.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
