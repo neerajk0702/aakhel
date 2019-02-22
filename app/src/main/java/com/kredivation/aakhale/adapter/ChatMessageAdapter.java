@@ -25,7 +25,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     private ArrayList<Data> megList;
     Context mContext;
     Typeface materialdesignicons_font;
-    private String userId;
+    private long userId;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView servermsg, servertiming, serveruserName;
@@ -47,7 +47,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     }
 
 
-    public ChatMessageAdapter(Context mContext, ArrayList<Data> list, String userId) {
+    public ChatMessageAdapter(Context mContext, ArrayList<Data> list, long userId) {
         this.megList = list;
         this.mContext = mContext;
         this.userId = userId;
@@ -68,7 +68,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         holder.rightArrowIcon.setText(Html.fromHtml("&#xf142;"));
         holder.leftArrowIcon.setTypeface(materialdesignicons_font);
         holder.leftArrowIcon.setText(Html.fromHtml("&#xf141;"));*/
-        if (userId.equals(megList.get(position).getSender_id())) {
+        if (String.valueOf(userId).equals(megList.get(position).getSender_id())) {
             holder.myside.setVisibility(View.VISIBLE);
             holder.serverside.setVisibility(View.GONE);
             // Picasso.with(mContext).load(megList.get(position).getProfile_image()).placeholder(R.drawable.avter).resize(45, 45).into(holder.myImage);

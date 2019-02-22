@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.ResetPasswordActivity;
+import com.kredivation.aakhale.activity.TeamListActivity;
 import com.kredivation.aakhale.adapter.ChatListAdapter;
 import com.kredivation.aakhale.adapter.ChatMessageAdapter;
 import com.kredivation.aakhale.components.ASTProgressBar;
@@ -32,6 +35,7 @@ import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,12 +50,12 @@ import okhttp3.MultipartBody;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChatDetailFragment extends Fragment implements View.OnClickListener {
+public class ChatDetailFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     RecyclerView recyclerView;
+    LinearLayoutManager mLayoutManager;
     View view;
     EditText et_comment;
     TextView send_comment;
-    ArrayList<Data> dataModels;
     String stret_comment;
     ChatMessageAdapter mAdapter;
     ASTProgressBar chatlistProgress;
@@ -59,10 +63,15 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
     Timer timer;
     Bundle bundle;
     long id;
+    int currentPage = 1;
+    private ProgressBar loaddataProgress;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    private boolean loading = true;
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    int total_pages = 1;
 
     public ChatDetailFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,24 +86,77 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
         bundle = getArguments();
         id = bundle.getLong("id");
         recyclerView = view.findViewById(R.id.recycler_view);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        loaddataProgress = view.findViewById(R.id.loaddataProgress);
 
         getActivity().setTitle("Chat Details");
         et_comment = view.findViewById(R.id.et_comment);
         send_comment = view.findViewById(R.id.send_comment);
         send_comment.setOnClickListener(this);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+                            currentPage += 1;
+                            if (currentPage <= total_pages) {
+                                getAllChatMessage();
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING || newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // playerAdapter.onScrolled(recyclerView);
+                }
+            }
+
+        });
+
+        // SwipeRefreshLayout
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+                // Fetching data from server first time
+                getAllChatMessage();
+            }
+        });
         dataToView();
     }
 
 
     public void dataToView() {
-        dataModels = new ArrayList<>();
-        if (megList != null && megList.size() > 0) {
-            mAdapter = new ChatMessageAdapter(getContext(), megList, "1");
-            recyclerView.setAdapter(mAdapter);
-        }
+        megList = new ArrayList<>();
+        mAdapter = new ChatMessageAdapter(getContext(), megList, id);
+        recyclerView.setAdapter(mAdapter);
         callGetMessageService();
     }
 
@@ -131,6 +193,7 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
                 handler.post(new Runnable() {
                     public void run() {
                         try {
+                            megList.clear();
                             getAllChatMessage();
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -152,27 +215,16 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
 
     private void getAllChatMessage() {
         if (Utility.isOnline(getContext())) {
-            chatlistProgress = new ASTProgressBar(getContext());
-            //chatlistProgress.show();
             JSONObject object = new JSONObject();
-            try {
-                object.put("user_id", id);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            String serviceURL = Contants.BASE_URL + Contants.CHATMSG;
+            String serviceURL = Contants.BASE_URL + Contants.CHATMSG + "?user_id=" + id;
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getAllChatMessage", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
-                    if (isComplete) {
+                    if (isComplete && result != null) {
                         parseMessageData(result);
                     } else {
-                        if (chatlistProgress.isShowing()) {
-                            chatlistProgress.dismiss();
-                        }
                         Utility.alertForErrorMessage(Contants.Error, getContext());
                     }
                 }
@@ -183,49 +235,39 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
     }
 
     public void parseMessageData(String result) {
-        if (result != null) {
-            final ContentData serviceData = new Gson().fromJson(result, ContentData.class);
-            if (serviceData != null) {
-                if (serviceData.isStatus()) {
-                    if (serviceData.getData() != null) {
-                        new AsyncTask<Void, Void, Boolean>() {
-                            @Override
-                            protected Boolean doInBackground(Void... voids) {
-                                Boolean flag = false;
-                                megList.clear();
-                               /* for (Data data : serviceData.getData()) {
-                                    megList.add(serviceData.getData());
-                                }*/
-                                megList.add(serviceData.getData());
-                                flag = true;
-                                return flag;
-                            }
-
-                            @Override
-                            protected void onPostExecute(Boolean flag) {
-                                super.onPostExecute(flag);
-                                if (flag) {
-                                    Collections.reverse(megList);
-                                    int pos = recyclerView.getAdapter().getItemCount() - 1;
-                                    recyclerView.smoothScrollToPosition(pos);
-                                    mAdapter.notifyDataSetChanged();
-                                }
-                                if (chatlistProgress.isShowing()) {
-                                    chatlistProgress.dismiss();
-                                }
-                            }
-                        }.execute();
-                    } else {
-                        if (chatlistProgress.isShowing()) {
-                            chatlistProgress.dismiss();
-                        }
+        try {
+            JSONObject mainObj = new JSONObject(result);
+            boolean status = mainObj.optBoolean("status");
+            if (status) {
+                total_pages = mainObj.optInt("total_pages");
+                JSONArray dataArray = mainObj.optJSONArray("data");
+                if (dataArray != null) {
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        JSONObject obj = dataArray.getJSONObject(i);
+                        int id = obj.optInt("id");
+                        String sender_id = obj.optString("sender_id");
+                        String receiver_id = obj.optString("receiver_id");
+                        String message = obj.optString("message");
+                        String message_media = obj.optString("message_media");
+                        String created_at = obj.optString("created_at");
+                        String updated_at = obj.optString("updated_at");
+                        Data data = new Data();
+                        data.setId(id);
+                        data.setSender_id(sender_id);
+                        data.setReceiver_id(receiver_id);
+                        data.setMessage(message);
+                        data.setMessage_media(message_media);
+                        data.setCreated_at(created_at);
+                        data.setUpdated_at(updated_at);
+                        megList.add(data);
                     }
-                } else {
-                    if (chatlistProgress.isShowing()) {
-                        chatlistProgress.dismiss();
-                    }
+                    mAdapter.notifyDataSetChanged();
+                    loading = true;
+                    loaddataProgress.setVisibility(View.GONE);
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
             }
+        } catch (JSONException e) {
         }
     }
 
@@ -269,7 +311,7 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
             if (serviceData != null) {
                 if (serviceData.isStatus()) {
                     et_comment.setText("");
-                    Toast.makeText(getContext(), "Message  Send!", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "Message Send!", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getContext(), "Message not Send!", Toast.LENGTH_LONG).show();
                 }
@@ -278,5 +320,12 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
         if (chatlistProgress.isShowing()) {
             chatlistProgress.dismiss();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        megList.clear();
+        getAllChatMessage();
     }
 }
