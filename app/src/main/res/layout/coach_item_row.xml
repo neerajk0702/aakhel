@@ -4,7 +4,6 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/_100dp"
     app:cardCornerRadius="@dimen/_5dp"
     app:cardElevation="@dimen/_5dp"
     app:cardUseCompatPadding="true">

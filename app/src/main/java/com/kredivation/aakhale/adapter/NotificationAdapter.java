@@ -2,6 +2,7 @@ package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,17 +23,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     String userId;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, address, date;
+        TextView name, time, date, accept, reject;
         ImageView imageSports;
-        LinearLayout MainLayout;
+        MaterialCardView MainLayout;
 
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.name);
-            address = v.findViewById(R.id.address);
+            time = v.findViewById(R.id.time);
             date = v.findViewById(R.id.date);
             imageSports = v.findViewById(R.id.imageSports);
             MainLayout = v.findViewById(R.id.MainLayout);
+            accept = v.findViewById(R.id.accept);
+            reject = v.findViewById(R.id.reject);
         }
     }
 
@@ -46,7 +49,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                          int viewType) {
         LayoutInflater inflater = LayoutInflater.from(
                 parent.getContext());
-        View v = inflater.inflate(R.layout.match_row, parent, false);
+        View v = inflater.inflate(R.layout.notofication_row, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
