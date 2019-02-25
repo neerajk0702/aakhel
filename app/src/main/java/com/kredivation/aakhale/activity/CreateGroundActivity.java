@@ -4,6 +4,7 @@ package com.kredivation.aakhale.activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -172,8 +173,20 @@ public class CreateGroundActivity extends AppCompatActivity implements View.OnCl
         addFreeService();
         addAchievements();
         addStaff();
+        setValue();
     }
-
+    private void setValue() {
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        Contants.auth_token = UserInfo.getString("auth_token", "");
+        int role = UserInfo.getInt("role", 0);
+        String email = UserInfo.getString("email", "");
+        String full_name = UserInfo.getString("full_name", "");
+        String mobile = UserInfo.getString("mobile", "");
+        String profile_picture = UserInfo.getString("profile_picture", "");
+        String users_sports = UserInfo.getString("users_sports", "");
+        String unique_id = UserInfo.getString("unique_id", "");
+        gName.setText(full_name + "");
+    }
     private void setLinearLayoutManager(RecyclerView recyclerView) {
         RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(CreateGroundActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(LayoutManager);

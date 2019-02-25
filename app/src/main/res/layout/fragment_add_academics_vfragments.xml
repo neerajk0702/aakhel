@@ -69,9 +69,9 @@
                 android:id="@+id/acadmicViewinfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_4dp"
                 android:layout_margin="@dimen/_4dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/_4dp">
 
                 <com.kredivation.aakhale.components.ASTTextView
                     android:layout_width="0dp"
@@ -119,16 +119,17 @@
                     android:background="@drawable/round_boder"
                     android:minHeight="@dimen/_40dp"
                     android:padding="@dimen/_5dp"
+                    android:enabled="false"
                     android:textSize="@dimen/_12dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Academies Street Address"
-                    android:textSize="@dimen/_12dp"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_5dp"
-                    android:layout_marginLeft="@dimen/_5dp"
+                    android:text="Academies Street Address"
+                    android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
                 <com.kredivation.aakhale.components.ASTEditText
@@ -147,8 +148,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40dp"
                     android:layout_marginLeft="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_15dp"
                     android:layout_marginRight="@dimen/_5dp"
-                    android:layout_marginTop="@dimen/_10dp"
                     android:background="@drawable/edittextround"
                     android:orientation="horizontal"
                     android:visibility="visible">
@@ -196,32 +197,29 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_5dp"
-                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="Select State"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40dp"
+                    android:layout_height="@dimen/_45dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
+                    android:orientation="horizontal">
 
 
                     <Spinner
                         android:id="@+id/stateSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:minHeight="@dimen/_30dp"
-                        android:padding="@dimen/_5dp" />
+                        android:gravity="center" />
 
 
                 </LinearLayout>
@@ -229,32 +227,30 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_5dp"
-                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="Select City"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40dp"
+                    android:layout_height="@dimen/_45dp"
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@drawable/round_boder"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
+                >
 
 
                     <Spinner
                         android:id="@+id/citySpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:minHeight="@dimen/_30dp"
-                        android:padding="@dimen/_5dp" />
+                        android:gravity="center" />
 
 
                 </LinearLayout>
@@ -263,9 +259,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_5dp"
-                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="ZipCode"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -285,9 +281,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_5dp"
-                    android:layout_marginLeft="@dimen/_5dp"
                     android:text="Description"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
@@ -380,18 +376,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_4dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/_4dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_5dp"
-                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_weight=".6"
-                    android:textColor="@color/text_color"
                     android:text="Achievements"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/_12dp"
                     android:textStyle="bold" />
 
@@ -429,10 +425,10 @@
                 <com.kredivation.aakhale.components.ASTTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7"
+                    android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_5dp"
-                    android:layout_marginLeft="@dimen/_5dp"
+                    android:layout_weight=".7"
                     android:text="Academies Member"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_14dp" />

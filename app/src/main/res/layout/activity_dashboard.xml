@@ -42,194 +42,339 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-
-                    <TextView
-                        android:id="@+id/createTeame"
+                    <LinearLayout
+                        android:id="@+id/createTeamlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Create Team"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/createTeamIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/aaAcademics"
+                        <TextView
+                            android:id="@+id/createTeame"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="Create Team"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/addacadmiclayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Add Academics"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/accIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/addTournament"
+                        <TextView
+                            android:id="@+id/aaAcademics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Add Academics"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/addTournamentlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Add Tournament"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
-                    <TextView
-                        android:id="@+id/addScore"
+                        <TextView
+                            android:id="@+id/addTournamentIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
+
+                        <TextView
+                            android:id="@+id/addTournament"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Add Tournament"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/addScorelayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Add Score"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/addScoreIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/createMatch"
+                        <TextView
+                            android:id="@+id/addScore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Add Score"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/addmatchlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Create Match"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/addmatchIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/addSportsMAtch"
+                        <TextView
+                            android:id="@+id/createMatch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Create Match"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/addGroundlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Add Spoerts Match"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/addGroundIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/createGround"
+                        <TextView
+                            android:id="@+id/createGround"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Create Ground"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/addscorecardlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Create Ground"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/addscorecardIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/cretescorecard"
+                        <TextView
+                            android:id="@+id/cretescorecard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Create Score Card"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/scoreCardlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Create Score Card"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/scoreCardIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/scoreCard"
+                        <TextView
+                            android:id="@+id/scoreCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Score Card"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/createPostlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Score Card"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
-                    <TextView
-                        android:id="@+id/createPost"
+                        <TextView
+                            android:id="@+id/createPostIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
+
+                        <TextView
+                            android:id="@+id/createPost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Create Post"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Notificationlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Create Post"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
 
+                        <TextView
+                            android:id="@+id/NotificationIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
 
-                    <TextView
-                        android:id="@+id/adumpire"
+                        <TextView
+                            android:id="@+id/Notification"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Notification"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/postItemlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Add Umpires"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_5dp"
+                        android:paddingRight="@dimen/_5dp">
+
+                        <TextView
+                            android:id="@+id/postItemIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp" />
+
+
+                        <TextView
+                            android:id="@+id/postItem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:text="Post List"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/schedule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
                         android:padding="@dimen/_5dp"
                         android:text="Schedule"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/_12dp" />
-
-
-                    <TextView
-                        android:id="@+id/addTeam"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Add Team"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
-
-
-                    <TextView
-                        android:id="@+id/chat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Chat"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
-
-                    <TextView
-                        android:id="@+id/Notification"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Notification"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
-
-
-                    <TextView
-                        android:id="@+id/postItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5dp"
-                        android:padding="@dimen/_5dp"
-                        android:text="Post List"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_12dp" />
-
 
                     <View
                         android:layout_width="match_parent"

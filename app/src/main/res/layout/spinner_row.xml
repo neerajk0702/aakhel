@@ -10,4 +10,5 @@
     android:paddingTop="@dimen/_10dp"
     android:paddingBottom="@dimen/_10dp"
     android:paddingLeft="@dimen/_5dp"
+    android:text=""
     android:textIsSelectable="false"/>

@@ -30,6 +30,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kredivation.aakhale.R;
@@ -51,6 +53,7 @@ import com.kredivation.aakhale.fragments.ScoreCardFragment;
 import com.kredivation.aakhale.runtimepermission.PermissionResultCallback;
 import com.kredivation.aakhale.runtimepermission.PermissionUtils;
 import com.kredivation.aakhale.utility.Contants;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -61,10 +64,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1;
     private int REQUEST_CODE_GPS_PERMISSIONS = 2;
 
-    TextView createTeame, aaAcademics, addTournament, addScore, createMatch, addSportsMAtch, createGround, cretescorecard,
-            scoreCard, createPost, adumpire, schedule, addTeam, Chat, Notification, postItem, sghareApp, rateApp, privacy,
-            termUSe;
+    TextView createTeame, aaAcademics, addTournament, addScore, createMatch, createGround, cretescorecard,
+            scoreCard, createPost, schedule, Notification, postItem, sghareApp, rateApp, privacy,
+            termUSe, name;
     MaterialCardView profile, setting, logout;
+    LinearLayout createTeamlayout, addacadmiclayout, addTournamentlayout, addmatchlayout, addGroundlayout, addscorecardlayout, scoreCardlayout, createPostlayout, Notificationlayout, postItemlayout;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,28 +91,22 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         runTimePermission();
-        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
-        Contants.auth_token = UserInfo.getString("auth_token", "");
         init();
     }
 
-
     public void init() {
-
+        name = findViewById(R.id.name);
+        imageView = findViewById(R.id.imageView);
         createTeame = findViewById(R.id.createTeame);
         aaAcademics = findViewById(R.id.aaAcademics);
         addTournament = findViewById(R.id.addTournament);
         addScore = findViewById(R.id.addScore);
         createMatch = findViewById(R.id.createMatch);
-        addSportsMAtch = findViewById(R.id.addSportsMAtch);
         createGround = findViewById(R.id.createGround);
         cretescorecard = findViewById(R.id.cretescorecard);
         scoreCard = findViewById(R.id.scoreCard);
         createPost = findViewById(R.id.createPost);
-        adumpire = findViewById(R.id.adumpire);
         schedule = findViewById(R.id.schedule);
-        addTeam = findViewById(R.id.addTeam);
-        Chat = findViewById(R.id.chat);
         Notification = findViewById(R.id.Notification);
         postItem = findViewById(R.id.postItem);
         sghareApp = findViewById(R.id.sghareApp);
@@ -118,22 +117,30 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setting = findViewById(R.id.setting);
         logout = findViewById(R.id.logout);
 
-        createTeame.setOnClickListener(this);
-        aaAcademics.setOnClickListener(this);
-        addTournament.setOnClickListener(this);
+        createTeamlayout = findViewById(R.id.createTeamlayout);
+        addacadmiclayout = findViewById(R.id.addacadmiclayout);
+        addTournamentlayout = findViewById(R.id.addTournamentlayout);
+        addmatchlayout = findViewById(R.id.addmatchlayout);
+        addGroundlayout = findViewById(R.id.addGroundlayout);
+        addscorecardlayout = findViewById(R.id.addscorecardlayout);
+        scoreCardlayout = findViewById(R.id.scoreCardlayout);
+        createPostlayout = findViewById(R.id.createPostlayout);
+        Notificationlayout = findViewById(R.id.Notificationlayout);
+        postItemlayout = findViewById(R.id.postItemlayout);
+
+
+        createTeamlayout.setOnClickListener(this);
+        addacadmiclayout.setOnClickListener(this);
+        addTournamentlayout.setOnClickListener(this);
         addScore.setOnClickListener(this);
-        createMatch.setOnClickListener(this);
-        addSportsMAtch.setOnClickListener(this);
-        createGround.setOnClickListener(this);
-        cretescorecard.setOnClickListener(this);
-        scoreCard.setOnClickListener(this);
-        createPost.setOnClickListener(this);
-        adumpire.setOnClickListener(this);
+        addmatchlayout.setOnClickListener(this);
+        addGroundlayout.setOnClickListener(this);
+        addscorecardlayout.setOnClickListener(this);
+        scoreCardlayout.setOnClickListener(this);
+        createPostlayout.setOnClickListener(this);
         schedule.setOnClickListener(this);
-        addTeam.setOnClickListener(this);
-        Chat.setOnClickListener(this);
-        Notification.setOnClickListener(this);
-        postItem.setOnClickListener(this);
+        Notificationlayout.setOnClickListener(this);
+        postItemlayout.setOnClickListener(this);
         sghareApp.setOnClickListener(this);
         rateApp.setOnClickListener(this);
         privacy.setOnClickListener(this);
@@ -142,6 +149,82 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setting.setOnClickListener(this);
         logout.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUserValue();
+    }
+
+    private void setUserValue() {
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        Contants.auth_token = UserInfo.getString("auth_token", "");
+        int role = UserInfo.getInt("role", 0);
+        String email = UserInfo.getString("email", "");
+        String full_name = UserInfo.getString("full_name", "");
+        String mobile = UserInfo.getString("mobile", "");
+        String profile_picture = UserInfo.getString("profile_picture", "");
+        String users_sports = UserInfo.getString("users_sports", "");
+        String unique_id = UserInfo.getString("unique_id", "");
+        Picasso.with(DashboardActivity.this).load(Contants.BASE_URL + profile_picture).resize(60, 60).placeholder(R.drawable.ic_uuuser).into(imageView);
+        name.setText(full_name + "");
+        if (role == 1) {
+            createTeamlayout.setVisibility(View.VISIBLE);
+            addacadmiclayout.setVisibility(View.GONE);
+            addGroundlayout.setVisibility(View.GONE);
+            addTournamentlayout.setVisibility(View.VISIBLE);
+            addmatchlayout.setVisibility(View.VISIBLE);
+            addscorecardlayout.setVisibility(View.VISIBLE);
+            scoreCardlayout.setVisibility(View.VISIBLE);
+            createPostlayout.setVisibility(View.VISIBLE);
+            Notificationlayout.setVisibility(View.VISIBLE);
+            postItemlayout.setVisibility(View.VISIBLE);
+        } else if (role == 2 || role == 3) {
+            createTeamlayout.setVisibility(View.GONE);
+            addacadmiclayout.setVisibility(View.GONE);
+            addGroundlayout.setVisibility(View.GONE);
+            addTournamentlayout.setVisibility(View.GONE);
+            addmatchlayout.setVisibility(View.GONE);
+            addscorecardlayout.setVisibility(View.VISIBLE);
+            scoreCardlayout.setVisibility(View.VISIBLE);
+            createPostlayout.setVisibility(View.VISIBLE);
+            Notificationlayout.setVisibility(View.VISIBLE);
+            postItemlayout.setVisibility(View.VISIBLE);
+        } else if (role == 4) {
+            createTeamlayout.setVisibility(View.VISIBLE);
+            addacadmiclayout.setVisibility(View.VISIBLE);
+            addGroundlayout.setVisibility(View.GONE);
+            addTournamentlayout.setVisibility(View.VISIBLE);
+            addmatchlayout.setVisibility(View.VISIBLE);
+            addscorecardlayout.setVisibility(View.VISIBLE);
+            scoreCardlayout.setVisibility(View.VISIBLE);
+            createPostlayout.setVisibility(View.VISIBLE);
+            Notificationlayout.setVisibility(View.VISIBLE);
+            postItemlayout.setVisibility(View.VISIBLE);
+        } else if (role == 5) {
+            createTeamlayout.setVisibility(View.GONE);
+            addacadmiclayout.setVisibility(View.GONE);
+            addGroundlayout.setVisibility(View.VISIBLE);
+            addTournamentlayout.setVisibility(View.GONE);
+            addmatchlayout.setVisibility(View.GONE);
+            addscorecardlayout.setVisibility(View.GONE);
+            scoreCardlayout.setVisibility(View.GONE);
+            createPostlayout.setVisibility(View.VISIBLE);
+            Notificationlayout.setVisibility(View.VISIBLE);
+            postItemlayout.setVisibility(View.VISIBLE);
+        } else if (role == 6 || role == 7 || role == 8 || role == 9 || role == 10 || role == 11) {
+            createTeamlayout.setVisibility(View.VISIBLE);
+            addacadmiclayout.setVisibility(View.GONE);
+            addGroundlayout.setVisibility(View.GONE);
+            addTournamentlayout.setVisibility(View.VISIBLE);
+            addmatchlayout.setVisibility(View.VISIBLE);
+            addscorecardlayout.setVisibility(View.VISIBLE);
+            scoreCardlayout.setVisibility(View.VISIBLE);
+            createPostlayout.setVisibility(View.VISIBLE);
+            Notificationlayout.setVisibility(View.VISIBLE);
+            postItemlayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -223,8 +306,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             ScheduleFragment scheduleFragment = new ScheduleFragment();
             updateFragment(scheduleFragment, null);
 
-        } else if (id == R.id.addTeam) {
-
         } else if (id == R.id.profile) {
             MyProfileFragment profileFragment = new MyProfileFragment();
             updateFragment(profileFragment, null);
@@ -252,42 +333,37 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.createTeame) {
+        if (v.getId() == R.id.createTeamlayout) {
             CreateTeamFragment createTeamFragment = new CreateTeamFragment();
             updateFragment(createTeamFragment, null);
-        } else if (v.getId() == R.id.aaAcademics) {
+        } else if (v.getId() == R.id.addacadmiclayout) {
             Intent accintent = new Intent(DashboardActivity.this, AddAcademicsActivity.class);
             startActivity(accintent);
-        } else if (v.getId() == R.id.addTournament) {
+        } else if (v.getId() == R.id.addTournamentlayout) {
             Intent intentto = new Intent(DashboardActivity.this, AddTournament.class);
             startActivity(intentto);
         } else if (v.getId() == R.id.addScore) {
             AddScoreFragment addScoreFragment = new AddScoreFragment();
             updateFragment(addScoreFragment, null);
 
-        } else if (v.getId() == R.id.createMatch) {
+        } else if (v.getId() == R.id.addmatchlayout) {
             CreateMatchFragment createTeamFragment = new CreateMatchFragment();
             updateFragment(createTeamFragment, null);
 
-        } else if (v.getId() == R.id.addSportsMAtch) {
-            AddSportsFragment addSportsFragmentelse = new AddSportsFragment();
-            updateFragment(addSportsFragmentelse, null);
-
-        } else if (v.getId() == R.id.createGround) {
+        } else if (v.getId() == R.id.addGroundlayout) {
             Intent intent1 = new Intent(DashboardActivity.this, CreateGroundActivity.class);
             startActivity(intent1);
-        } else if (v.getId() == R.id.cretescorecard) {
+        } else if (v.getId() == R.id.addscorecardlayout) {
             CreateScoreCardFragment createScoreCardFragment = new CreateScoreCardFragment();
             updateFragment(createScoreCardFragment, null);
 
-        } else if (v.getId() == R.id.scoreCard) {
+        } else if (v.getId() == R.id.scoreCardlayout) {
             ScoreCardFragment scoreCardFragment = new ScoreCardFragment();
             updateFragment(scoreCardFragment, null);
 
-        } else if (v.getId() == R.id.createPost) {
+        } else if (v.getId() == R.id.createPostlayout) {
             CreatePostFragment createPostFragment = new CreatePostFragment();
             updateFragment(createPostFragment, null);
 
@@ -299,17 +375,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             ScheduleFragment scheduleFragment = new ScheduleFragment();
             updateFragment(scheduleFragment, null);
 
-        } else if (v.getId() == R.id.addTeam) {
-
-
         } else if (v.getId() == R.id.profile) {
             MyProfileFragment profileFragment = new MyProfileFragment();
             updateFragment(profileFragment, null);
 
-        } else if (v.getId() == R.id.Notification) {
+        } else if (v.getId() == R.id.Notificationlayout) {
             NotificationListFragment notificationListFragment = new NotificationListFragment();
             updateFragment(notificationListFragment, null);
-        } else if (v.getId() == R.id.postItem) {
+        } else if (v.getId() == R.id.postItemlayout) {
             PostItemFragment postItemFragment = new PostItemFragment();
             updateFragment(postItemFragment, null);
         } else if (v.getId() == R.id.chat) {

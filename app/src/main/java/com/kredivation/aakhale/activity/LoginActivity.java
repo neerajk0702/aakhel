@@ -137,6 +137,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.putInt("role", data.getRole());
                     editor.putInt("is_active", data.getIs_active());
                     editor.putString("auth_token", data.getAuth_token());
+                    editor.putString("full_name", data.getFull_name());
+                    editor.putString("mobile", data.getMobile());
+                    editor.putString("users_sports", String.valueOf(data.getUsers_sports()));
+                    editor.putString("profile_picture", data.getProfile_picture());
                     editor.commit();
                     Contants.auth_token = data.getAuth_token();
                     Toast.makeText(this, contentData.getMessage(), Toast.LENGTH_SHORT).show();

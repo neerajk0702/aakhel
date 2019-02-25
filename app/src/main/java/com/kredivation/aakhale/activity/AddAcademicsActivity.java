@@ -130,8 +130,9 @@ public class AddAcademicsActivity extends AppCompatActivity implements View.OnCl
     Calendar myCalendar;
     ASTTextView dobEdt;
     DatePickerDialog todatepicker;
-TextView addMoreAchievements;
-ImageView dateIcon;
+    TextView addMoreAchievements;
+    ImageView dateIcon;
+
     public AddAcademicsActivity() {
         // Required empty public constructor
     }
@@ -196,15 +197,29 @@ ImageView dateIcon;
         acadmicViewinfoLayout.setOnClickListener(this);
         academiesMemberLayout.setOnClickListener(this);
         acadmicmemberinfoLayout = findViewById(R.id.acadmicmemberinfoLayout);
-        addMoreAchievements=findViewById(R.id.addMoreAchievements);
+        addMoreAchievements = findViewById(R.id.addMoreAchievements);
         addMoreAchievements.setOnClickListener(this);
         sportsgridView = findViewById(R.id.sportsgridView);
-        dateIcon= findViewById(R.id.dateIcon);
+        dateIcon = findViewById(R.id.dateIcon);
         dateIcon.setOnClickListener(this);
         addMoreMember();
         getacademyFormData();
         setDate();
         addAchievements();
+        setValue();
+    }
+
+    private void setValue() {
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        Contants.auth_token = UserInfo.getString("auth_token", "");
+        int role = UserInfo.getInt("role", 0);
+        String email = UserInfo.getString("email", "");
+        String full_name = UserInfo.getString("full_name", "");
+        String mobile = UserInfo.getString("mobile", "");
+        String profile_picture = UserInfo.getString("profile_picture", "");
+        String users_sports = UserInfo.getString("users_sports", "");
+        String unique_id = UserInfo.getString("unique_id", "");
+        acdName.setText(full_name + "");
     }
 
     private void setLinearLayoutManager(RecyclerView recyclerView) {

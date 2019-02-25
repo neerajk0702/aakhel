@@ -80,6 +80,7 @@
                 android:layout_marginRight="@dimen/_5dp"
                 android:background="@drawable/round_boder"
                 android:padding="@dimen/_12dp"
+                android:enabled="false"
                 android:textSize="@dimen/_12dp" />
 
 
