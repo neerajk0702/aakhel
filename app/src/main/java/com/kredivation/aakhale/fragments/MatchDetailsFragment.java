@@ -277,9 +277,7 @@ public class MatchDetailsFragment extends Fragment implements View.OnClickListen
             String serviceURL = "";
             if (userRoleId == 1) {//Player
                 serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
-            } else if (userRoleId == 2) {//Coach
-                serviceURL = Contants.BASE_URL + Contants.team_coach_request;
-            } else if (userRoleId == 3) {//Umpire
+            }  else if (userRoleId == 3) {//Umpire
                 serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
             }
 

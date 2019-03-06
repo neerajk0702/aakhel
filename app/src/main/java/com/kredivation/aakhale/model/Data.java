@@ -1,5 +1,7 @@
 package com.kredivation.aakhale.model;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Data {
@@ -437,4 +439,31 @@ public class Data {
         this.writer_info = writer_info;
     }
 
+    private String userId;
+    private String notification_type;
+    private JSONObject notificationData;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getNotification_type() {
+        return notification_type;
+    }
+
+    public void setNotification_type(String notification_type) {
+        this.notification_type = notification_type;
+    }
+
+    public JSONObject getNotificationData() {
+        return notificationData;
+    }
+
+    public void setNotificationData(JSONObject notificationData) {
+        this.notificationData = notificationData;
+    }
 }

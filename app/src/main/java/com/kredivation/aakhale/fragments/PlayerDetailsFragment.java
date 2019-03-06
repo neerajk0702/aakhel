@@ -7,8 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +19,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.activity.TournamentDetails;
-import com.kredivation.aakhale.adapter.TopperformanceAdapter;
-import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
-import com.kredivation.aakhale.model.ContentDataAsArray;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 import com.kredivation.aakhale.utility.Contants;
@@ -37,9 +31,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -461,6 +452,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    //team request for add player in our team
     private void teamrequest() {
         if (Utility.isOnline(getActivity())) {
             final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());

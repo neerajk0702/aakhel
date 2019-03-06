@@ -139,7 +139,7 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
     private void getTournamentMatch() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage;
+            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage + "&" + "list=upcoming";
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());

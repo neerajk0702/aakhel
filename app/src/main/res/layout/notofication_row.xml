@@ -63,6 +63,7 @@
                     android:layout_marginLeft="@dimen/_5dp"
                     android:layout_marginRight="@dimen/_5dp"
                     android:background="@color/gray"
+                    android:visibility="gone"
                     android:padding="@dimen/_5dp" />
 
 
@@ -72,13 +73,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="01:21 PM"
+                    android:visibility="gone"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_10dp" />
 
             </LinearLayout>
 
 
-            <LinearLayout
+            <LinearLayout android:id="@+id/acceptrejectLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

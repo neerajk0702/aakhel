@@ -330,6 +330,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             payloadList.put("mobile", strcontactNo);
             payloadList.put("password", strpassword);
             payloadList.put("users_sports", String.valueOf(selectSportId));
+
+            String device_token = Utility.getDeviceIDFromSharedPreferences(RegisterActivity.this);
+            payloadList.put("device_token", device_token);
+
             MultipartBody.Builder multipartBody = setMultipartBodyVaule();
             FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(RegisterActivity.this, payloadList, multipartBody, url) {
                 @Override

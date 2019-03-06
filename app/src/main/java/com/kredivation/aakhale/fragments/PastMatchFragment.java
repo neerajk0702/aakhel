@@ -64,6 +64,7 @@ public class PastMatchFragment extends Fragment implements View.OnClickListener,
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
     int total_pages = 1;
+
     public PastMatchFragment() {
         // Required empty public constructor
     }
@@ -166,7 +167,7 @@ public class PastMatchFragment extends Fragment implements View.OnClickListener,
     private void getTournamentMatch() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage;
+            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage + "&" + "list=past";
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());
@@ -259,7 +260,6 @@ public class PastMatchFragment extends Fragment implements View.OnClickListener,
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
         }
     }
-
 
 
     @Override

@@ -50,6 +50,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         chechPortaitAndLandSacpe();//chech Portait And LandSacpe Orientation
         dotDialog = new ASTProgressBar(SplashScreenActivity.this);
+        Utility.getDeviceIDFromSharedPreferences(SplashScreenActivity.this);
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        Contants.auth_token = UserInfo.getString("auth_token", "");
         // navigate();
         getMsterData();
     }

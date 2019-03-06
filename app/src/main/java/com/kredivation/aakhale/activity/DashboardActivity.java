@@ -68,7 +68,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             scoreCard, createPost, schedule, Notification, postItem, sghareApp, rateApp, privacy,
             termUSe, name;
     MaterialCardView profile, setting, logout;
-    LinearLayout createTeamlayout, addacadmiclayout, addTournamentlayout, addmatchlayout, addGroundlayout, addscorecardlayout, scoreCardlayout, createPostlayout, Notificationlayout, postItemlayout;
+    LinearLayout homelayout, createTeamlayout, addacadmiclayout, addTournamentlayout, addmatchlayout, addGroundlayout, addscorecardlayout, scoreCardlayout, createPostlayout, Notificationlayout, postItemlayout;
     ImageView imageView;
 
     @Override
@@ -77,11 +77,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        HomeFragment homeFragment = new HomeFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.mainView, homeFragment);
-        fragmentTransaction.commit();
+        setHomeFrag();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -92,6 +88,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
         runTimePermission();
         init();
+    }
+
+    private void setHomeFrag() {
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.mainView, homeFragment);
+        fragmentTransaction.commit();
     }
 
     public void init() {
@@ -127,8 +131,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         createPostlayout = findViewById(R.id.createPostlayout);
         Notificationlayout = findViewById(R.id.Notificationlayout);
         postItemlayout = findViewById(R.id.postItemlayout);
+        homelayout = findViewById(R.id.homelayout);
 
-
+        homelayout.setOnClickListener(this);
         createTeamlayout.setOnClickListener(this);
         addacadmiclayout.setOnClickListener(this);
         addTournamentlayout.setOnClickListener(this);
@@ -159,7 +164,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     private void setUserValue() {
         SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
-        Contants.auth_token = UserInfo.getString("auth_token", "");
         int role = UserInfo.getInt("role", 0);
         String email = UserInfo.getString("email", "");
         String full_name = UserInfo.getString("full_name", "");
@@ -391,8 +395,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (v.getId() == R.id.profile) {
             MyProfileFragment chatListFragment = new MyProfileFragment();
             updateFragment(chatListFragment, null);
-        } else if (v.getId() == R.id.setting) {
-
+        } else if (v.getId() == R.id.homelayout) {
+            setHomeFrag();
         } else if (v.getId() == R.id.logout) {
             SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
             UserInfo.edit().clear().commit();

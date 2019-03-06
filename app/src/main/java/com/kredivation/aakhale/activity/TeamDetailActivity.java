@@ -95,6 +95,9 @@ public class TeamDetailActivity extends AppCompatActivity implements View.OnClic
         teameMemberImageView = findViewById(R.id.teameMemberImageView);
         Button submit = findViewById(R.id.submit);
         submit.setOnClickListener(this);
+        if (userRoleId == 3) {//Umpire
+            submit.setVisibility(View.GONE);
+        }
         dataToView();
     }
 
@@ -266,8 +269,6 @@ public class TeamDetailActivity extends AppCompatActivity implements View.OnClic
             if (userRoleId == 1) {//Player
                 serviceURL = Contants.BASE_URL + Contants.team_player_request;
             } else if (userRoleId == 2) {//Coach
-                serviceURL = Contants.BASE_URL + Contants.team_coach_request;
-            } else if (userRoleId == 3) {//Umpire
                 serviceURL = Contants.BASE_URL + Contants.team_coach_request;
             }
 

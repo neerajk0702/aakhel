@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -11,17 +13,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.TeamListActivity;
 import com.kredivation.aakhale.activity.TournamentList;
 import com.kredivation.aakhale.activity.UmpireListActivity;
-import com.kredivation.aakhale.adapter.FullMetalAdapter;
+import com.kredivation.aakhale.adapter.HomePostAdapter;
+import com.kredivation.aakhale.adapter.MatchPAdapter;
+import com.kredivation.aakhale.adapter.MyPostItemRecyclerViewAdapter;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
-import com.kredivation.aakhale.adapter.UpcommingMatchAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
+import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
+import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.Match;
+import com.kredivation.aakhale.model.Post_info;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
+import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.Utility;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -101,6 +117,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    ArrayList<Match> matchArrayList;
+    private MatchPAdapter matchPAdapter;
+    private boolean matchloading = true;
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    LinearLayoutManager mLayoutManager;
+    int currentPage = 1;
+    private ProgressBar matchProgress;
+    int match_total_pages = 1;
+    private ProgressBar postProgress;
+    ArrayList<Post_info> postList;
+    private boolean postloading = true;
+    int postpastVisiblesItems, postvisibleItemCount, posttotalItemCount;
+    int postcurrentPage = 1;
+    int post_total_pages = 1;
+    HomePostAdapter postAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -126,7 +158,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         UPCOMMINGLayout = view.findViewById(R.id.UPCOMMINGLayout);
         EVENTSLayout = view.findViewById(R.id.EVENTSLayout);
         ACADEMICSLayout = view.findViewById(R.id.ACADEMICSLayout);
-        settopViewPager();
+        setPostData();
         setMenuItem();
         setTopPerformanceViewPager();
         setUpcommingMatch();
@@ -135,14 +167,48 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void settopViewPager() {
-        DisplayMetrics metrics = getDisplayMetrics();
-        List<String> metalList = Arrays.asList("R.drawable.pager1", "R.drawable.pager2", "R.drawable.pager3", "aa");
-        FullMetalAdapter fullMetalAdapter = new FullMetalAdapter(metrics);
+    public void setPostData() {
+        postProgress = view.findViewById(R.id.postProgress);
+        RecyclerView rvList = view.findViewById(R.id.postrv);
+        rvList.setHasFixedSize(false);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvList.setLayoutManager(layoutManager);
+        postList = new ArrayList<>();
+        postAdapter = new HomePostAdapter(postList, getContext());
+        rvList.setAdapter(postAdapter);
 
-        MetalRecyclerViewPager viewPager = (MetalRecyclerViewPager) view.findViewById(R.id.viewPager);
-        viewPager.setAdapter(fullMetalAdapter);
+        rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
+                if (dy > 0) //check for scroll down
+                {
+                    postvisibleItemCount = layoutManager.getChildCount();
+                    posttotalItemCount = layoutManager.getItemCount();
+                    postpastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+
+                    if (postloading) {
+                        if ((postvisibleItemCount + postpastVisiblesItems) >= posttotalItemCount) {
+                            postloading = false;
+                            postcurrentPage += 1;
+                            if (postcurrentPage <= post_total_pages) {
+                                getPostLIst();
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING || newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // playerAdapter.onScrolled(recyclerView);
+                }
+            }
+        });
+        getPostLIst();
 
     }
 
@@ -190,14 +256,49 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return metrics;
     }
 
+    //set upcoming match
     public void setUpcommingMatch() {
-        DisplayMetrics metrics = getDisplayMetrics();
-        List<String> metalList = Arrays.asList("R.drawable.pager1", "R.drawable.pager2", "R.drawable.pager3", "aa");
-        UpcommingMatchAdapter upcommingMatchAdapter = new UpcommingMatchAdapter(metrics);
-        MetalRecyclerViewPager viewPager = view.findViewById(R.id.upcommingMatch);
-        viewPager.setAdapter(upcommingMatchAdapter);
+        matchProgress = view.findViewById(R.id.matchProgress);
+        RecyclerView rvList = view.findViewById(R.id.upcommingMatch);
+        rvList.setHasFixedSize(false);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvList.setLayoutManager(mLayoutManager);
+        matchArrayList = new ArrayList<>();
+        matchPAdapter = new MatchPAdapter(getContext(), matchArrayList);
+        rvList.setAdapter(matchPAdapter);
+
+        rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (matchloading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            matchloading = false;
+                            currentPage += 1;
+                            if (currentPage <= match_total_pages) {
+                                getMatchList();
+                            }
+                        }
+                    }
+                }
+            }
 
 
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING || newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // playerAdapter.onScrolled(recyclerView);
+                }
+            }
+        });
+        getMatchList();
     }
 
     @Override
@@ -250,4 +351,205 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fragmentTransaction.commit();
     }
 
+    //get getMatchList
+    private void getMatchList() {
+        if (Utility.isOnline(getContext())) {
+            matchProgress.setVisibility(View.VISIBLE);
+            String serviceURL = Contants.BASE_URL + Contants.creatematchApi + "?page=" + currentPage + "&" + "list=past";
+            JSONObject object = new JSONObject();
+
+            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getMatchList", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject mainObj = new JSONObject(result);
+                            boolean status = mainObj.optBoolean("status");
+                            match_total_pages = mainObj.optInt("total_pages");
+                            if (status) {
+                                JSONArray mainDataArray = mainObj.getJSONArray("data");
+                                if (mainDataArray != null) {
+                                    for (int i = 0; i < mainDataArray.length(); i++) {
+                                        JSONObject obj = mainDataArray.optJSONObject(i);
+                                        JSONObject dataArray = obj.optJSONObject("data");
+                                        Match matchdata = new Match();
+                                        JSONArray umpireArray = dataArray.getJSONArray("match_umpire");
+                                        JSONArray teamArray = dataArray.getJSONArray("match_team");
+                                        JSONObject ground_data = dataArray.getJSONObject("ground_data");
+                                        matchdata.setMatchUmpire(umpireArray.toString());
+                                        matchdata.setMatchteam(teamArray.toString());
+                                        matchdata.setMatchGround(ground_data.toString());
+
+                                        JSONObject jsonObject = dataArray.getJSONObject("basic_info");
+
+                                        int match_type = jsonObject.optInt("match_type");
+                                        int is_active = jsonObject.optInt("is_active");
+                                        JSONObject match_city = jsonObject.getJSONObject("match_city");
+                                        JSONObject match_state = jsonObject.getJSONObject("match_state");
+                                        JSONObject match_country = jsonObject.getJSONObject("match_country");
+                                        matchdata.setMatchCity(match_city.toString());
+                                        matchdata.setMatchState(match_state.toString());
+                                        matchdata.setMatchCountry(match_country.toString());
+
+                                        String format = jsonObject.optString("format");
+                                        String ground_id = jsonObject.optString("ground_id");
+                                        String date = jsonObject.optString("date");
+                                        int id = jsonObject.optInt("id");
+                                        String unique_id = jsonObject.optString("unique_id");
+                                        String match_zipcode = jsonObject.optString("match_zipcode");
+                                        String over = jsonObject.optString("over");
+                                        String time = jsonObject.optString("time");
+                                        String tournament_id = jsonObject.optString("tournament_id");
+                                        String name = jsonObject.optString("name");
+                                        String created_at = jsonObject.optString("created_at");
+                                        String user_id = jsonObject.optString("user_id");
+                                        String match_address = jsonObject.optString("match_address");
+                                        matchdata.setIs_active(String.valueOf(is_active));
+                                        matchdata.setId(id);
+                                        matchdata.setMatch_type(String.valueOf(match_type));
+                                        matchdata.setFormat(format);
+                                        matchdata.setGround_id(ground_id);
+                                        matchdata.setDate(date);
+                                        matchdata.setUnique_id(unique_id);
+                                        matchdata.setMatch_zipcode(match_zipcode);
+                                        matchdata.setOver(over);
+                                        matchdata.setTime(time);
+                                        matchdata.setTournament_id(tournament_id);
+                                        matchdata.setName(name);
+                                        matchdata.setCreated_at(created_at);
+                                        matchdata.setUser_id(user_id);
+                                        matchdata.setMatch_address(match_address);
+                                        matchArrayList.add(matchdata);
+                                    }
+                                }
+                                matchPAdapter.notifyDataSetChanged();
+                                matchloading = true;
+                                matchProgress.setVisibility(View.GONE);
+                                // mSwipeRefreshLayout.setRefreshing(false);
+
+                            } else {
+                                Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            // e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        matchProgress.setVisibility(View.GONE);
+                        // mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+        }
+    }
+
+    //get getpost
+    private void getPostLIst() {
+        if (Utility.isOnline(getContext())) {
+            postProgress.setVisibility(View.VISIBLE);
+            String serviceURL = Contants.BASE_URL + Contants.post + "?page=" + currentPage;
+            JSONObject object = new JSONObject();
+
+            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getAllPostList", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject mainObj = new JSONObject(result);
+                            boolean status = mainObj.optBoolean("status");
+                            if (status) {
+                                post_total_pages = mainObj.optInt("total_pages");
+                                JSONArray dataArray = mainObj.optJSONArray("data");
+                                if (dataArray != null) {
+                                    for (int i = 0; i < dataArray.length(); i++) {
+                                        Post_info postdata = new Post_info();
+                                        JSONObject obj = dataArray.getJSONObject(i);
+                                        JSONObject jsonObject = obj.getJSONObject("data");
+                                        JSONObject post_info = jsonObject.getJSONObject("post_info");
+
+
+                                        int id = post_info.optInt("id");
+                                        String title = post_info.optString("title");
+                                        String featured_image = post_info.optString("featured_image");
+                                        JSONArray featured_array = null;
+                                        if (featured_image != null) {
+                                            featured_array = new JSONArray(featured_image);
+                                        }
+                                        String description = post_info.optString("description");
+                                        String author_id = post_info.optString("author_id");
+                                        int is_author_admin = post_info.optInt("is_author_admin");
+                                        String created_at = post_info.optString("created_at");
+                                        String updated_at = post_info.optString("updated_at");
+                                        int is_active = post_info.optInt("is_active");
+                                        postdata.setId(String.valueOf(id));
+                                        postdata.setIs_active(String.valueOf(is_active));
+                                        postdata.setTitle(title);
+                                        postdata.setFeatured_image(featured_array);
+                                        postdata.setDescription(description);
+                                        postdata.setAuthor_id(author_id);
+                                        postdata.setIs_author_admin(String.valueOf(is_author_admin));
+                                        postdata.setCreated_at(created_at);
+                                        postdata.setUpdated_at(updated_at);
+                                        postdata.setIs_active(String.valueOf(is_active));
+                                        postList.add(postdata);
+
+                                        JSONObject writer_info = jsonObject.getJSONObject("writer_info");
+                                        int writer_infoid = writer_info.optInt("id");
+                                        String unique_id = writer_info.optString("unique_id");
+                                        String email = writer_info.optString("email");
+                                        String writer_infocreated_at = writer_info.optString("created_at");
+                                        String writer_infoupdated_at = writer_info.optString("updated_at");
+                                        int role = writer_info.optInt("role");
+                                        int writer_infois_active = writer_info.optInt("is_active");
+                                        int gender = writer_info.optInt("gender");
+                                        int player_role = writer_info.optInt("player_role");
+                                        String full_name = writer_info.optString("full_name");
+
+
+                                        String mobile = writer_info.optString("mobile");
+                                        String date_of_birth = writer_info.optString("date_of_birth");
+                                        String address = writer_info.optString("address");
+                                        String city = writer_info.optString("city");
+                                        String state = writer_info.optString("state");
+                                        String country = writer_info.optString("country");
+                                        String zipcode = writer_info.optString("zipcode");
+                                        String users_sports = writer_info.optString("users_sports");
+                                        String about = writer_info.optString("about");
+                                        String experience = writer_info.optString("experience");
+                                        String profile_picture = writer_info.optString("profile_picture");
+                                        String auth_token = writer_info.optString("auth_token");
+                                        String fee_per_match_day = writer_info.optString("fee_per_match_day");
+                                        String estd = writer_info.optString("estd");
+                                        String achievements = writer_info.optString("achievements");
+                                        String staff = writer_info.optString("staff");
+                                        String latest_photos = writer_info.optString("latest_photos");
+
+
+                                    }
+                                    if (postList != null && postList.size() > 0) {
+                                        postAdapter.notifyDataSetChanged();
+                                        postloading = true;
+                                        postProgress.setVisibility(View.GONE);
+                                    }
+                                    //mSwipeRefreshLayout.setRefreshing(false);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            // e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        postProgress.setVisibility(View.GONE);
+                        // mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+        }
+    }
 }

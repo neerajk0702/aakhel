@@ -118,10 +118,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             @Override
             protected Notification doInBackground(String... params) {
                 String notificationMessage = "";
-                String data = dataMap.get("data");
+               /* String strData = (String) dataMap.values().toArray()[0];
+                Map.Entry<String, String> entry = dataMap.entrySet().iterator().next();
+                String value = entry.getValue();
+                String key = entry.getKey();*/
+
+                String data = dataMap.get("notification_data");
                 try {
                     JSONObject object = new JSONObject(data);
-                    notificationMessage = object.opt("message").toString();
+                    String message = object.opt("message").toString();
+                    JSONObject sender = object.optJSONObject("sender");
+                    if (sender != null) {
+                        String name = sender.opt("name").toString();
+                        String unique_id = sender.opt("unique_id").toString();
+                        notificationMessage = name + "\n" + unique_id + "\n" + message;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

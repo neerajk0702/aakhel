@@ -378,7 +378,7 @@ public class TournamentDetails extends AppCompatActivity implements View.OnClick
 
             JSONObject object = new JSONObject();
             try {
-                object.put("team_id", teamId);
+                object.put("tournament_id", tournamentId);
             } catch (JSONException e) {
                 // e.printStackTrace();
             }

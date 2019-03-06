@@ -45,9 +45,20 @@ public class Contants {
     public static String match_umpire_request = "match/umpire-request";
     public static String tournament_umpire_request = "tournament/umpire-request";
     public static String post = "post";
-
     public static String CHATMSG = "chat-message";
     public static String RESPONDCHALLENGE = "users/respond-challenge";
-
+    public static String notification = "notification";
+    public static String respond_player_request = "users/respond-player-request";
+    public static String respond_coach_request = "users/respond-coach-request";
+    public static String umpire_tournament_request = "users/umpire-tournament-request";
+    public static String umpire_match_request = "users/umpire-match-request";
+    public static String respond_challenge = "team/respond-challenge";
+    public static String team_respond_player_request = "team/respond-player-request";
+    public static String team_respond_coach_request = "team/respond-coach-request";
+    public static String team_respond_match_request = "team/respond-match-request";
+    public static String team_respond_tournament_request = "team/respond-tournament-request";
+    public static String match_respond_umpire_request = "match/respond-umpire-request";
+    public static String tournament_respond_umpire_request = "tournament/respond-umpire-request";
+    public static String tournament_respond_team_request = "tournament/respond-team-request";
 
 }

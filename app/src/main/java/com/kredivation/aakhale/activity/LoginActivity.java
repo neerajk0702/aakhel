@@ -90,12 +90,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loginData(String userName, String password) {
         if (Utility.isOnline(LoginActivity.this)) {
+            String device_token = Utility.getDeviceIDFromSharedPreferences(LoginActivity.this);
             dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.LOGIN_URL;
             JSONObject object = new JSONObject();
             try {
                 object.put("email", userName);
                 object.put("password", password);
+                object.put("device_token", device_token);
             } catch (JSONException e) {
                 // e.printStackTrace();
             }

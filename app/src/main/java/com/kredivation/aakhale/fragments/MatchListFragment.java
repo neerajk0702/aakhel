@@ -175,7 +175,7 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
     private void getMatchList() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.creatematchApi + "?page=" + currentPage;
+            String serviceURL = Contants.BASE_URL + Contants.creatematchApi + "?page=" + currentPage + "&" + "list=upcoming";
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());

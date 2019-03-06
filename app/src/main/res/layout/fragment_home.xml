@@ -18,12 +18,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager
-                android:id="@+id/viewPager"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:itemMargin="@dimen/_35dp" />
+                android:orientation="horizontal">
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/postrv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ProgressBar
+                    android:id="@+id/postProgress"
+                    android:layout_width="@dimen/_40dp"
+                    android:layout_height="@dimen/_40dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/searchLayout"
@@ -590,16 +600,25 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5dp"
                     android:padding="@dimen/_5dp"
-                    android:text="UPCOMMING MATCh"
+                    android:text="UPCOMMING MATCH"
                     android:textSize="@dimen/_14dp" />
 
-
-                <com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager
-                    android:id="@+id/upcommingMatch"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:itemMargin="@dimen/_25dp" />
+                    android:orientation="horizontal">
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/upcommingMatch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ProgressBar
+                        android:id="@+id/matchProgress"
+                        android:layout_width="@dimen/_40dp"
+                        android:layout_height="@dimen/_40dp" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

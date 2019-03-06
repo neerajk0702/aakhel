@@ -147,7 +147,7 @@ public class OngingMatchFragment extends Fragment implements View.OnClickListene
     private void getTournamentMatch() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage;
+            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage + "&" + "list=ongoing";
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());
