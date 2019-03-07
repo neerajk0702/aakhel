@@ -45,7 +45,6 @@ import com.kredivation.aakhale.fragments.CreatePostFragment;
 import com.kredivation.aakhale.fragments.CreateScoreCardFragment;
 import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
-import com.kredivation.aakhale.fragments.MyProfileFragment;
 import com.kredivation.aakhale.fragments.NotificationListFragment;
 import com.kredivation.aakhale.fragments.PostItemFragment;
 import com.kredivation.aakhale.fragments.ScheduleFragment;
@@ -70,6 +69,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     MaterialCardView profile, setting, logout;
     LinearLayout homelayout, createTeamlayout, addacadmiclayout, addTournamentlayout, addmatchlayout, addGroundlayout, addscorecardlayout, scoreCardlayout, createPostlayout, Notificationlayout, postItemlayout;
     ImageView imageView;
+    LinearLayout myTournamentlayout, mymatchlayout, MyTeamlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +120,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         profile = findViewById(R.id.profile);
         setting = findViewById(R.id.setting);
         logout = findViewById(R.id.logout);
+        myTournamentlayout = findViewById(R.id.myTournamentlayout);
+        mymatchlayout = findViewById(R.id.mymatchlayout);
+        MyTeamlayout = findViewById(R.id.MyTeamlayout);
 
         createTeamlayout = findViewById(R.id.createTeamlayout);
         addacadmiclayout = findViewById(R.id.addacadmiclayout);
@@ -153,6 +156,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         profile.setOnClickListener(this);
         setting.setOnClickListener(this);
         logout.setOnClickListener(this);
+        myTournamentlayout.setOnClickListener(this);
+        mymatchlayout.setOnClickListener(this);
+        MyTeamlayout.setOnClickListener(this);
 
     }
 
@@ -311,8 +317,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             updateFragment(scheduleFragment, null);
 
         } else if (id == R.id.profile) {
-            MyProfileFragment profileFragment = new MyProfileFragment();
-            updateFragment(profileFragment, null);
 
         }
 
@@ -379,10 +383,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             ScheduleFragment scheduleFragment = new ScheduleFragment();
             updateFragment(scheduleFragment, null);
 
-        } else if (v.getId() == R.id.profile) {
-            MyProfileFragment profileFragment = new MyProfileFragment();
-            updateFragment(profileFragment, null);
-
         } else if (v.getId() == R.id.Notificationlayout) {
             NotificationListFragment notificationListFragment = new NotificationListFragment();
             updateFragment(notificationListFragment, null);
@@ -393,8 +393,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             ChatListFragment chatListFragment = new ChatListFragment();
             updateFragment(chatListFragment, null);
         } else if (v.getId() == R.id.profile) {
-            MyProfileFragment chatListFragment = new MyProfileFragment();
-            updateFragment(chatListFragment, null);
+            Intent intent1 = new Intent(DashboardActivity.this, MyProfileActivity.class);
+            startActivity(intent1);
         } else if (v.getId() == R.id.homelayout) {
             setHomeFrag();
         } else if (v.getId() == R.id.logout) {
@@ -404,12 +404,20 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        } else if (v.getId() == R.id.myTournamentlayout) {
+            Intent intent1 = new Intent(DashboardActivity.this, MyTournamentActivity.class);
+            startActivity(intent1);
+        } else if (v.getId() == R.id.mymatchlayout) {
+            Intent intent1 = new Intent(DashboardActivity.this, MyMatchActivity.class);
+            startActivity(intent1);
+        } else if (v.getId() == R.id.MyTeamlayout) {
+            Intent intent1 = new Intent(DashboardActivity.this, MyTeamActivity.class);
+            startActivity(intent1);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
     }
-
 
     public void updateFragment(Fragment pageFragment, Bundle bundle) {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();

@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.activity.UmpireDetailActivity;
-import com.kredivation.aakhale.adapter.MatchPlayedAdapter;
 import com.kredivation.aakhale.components.ASTEditText;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;

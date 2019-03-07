@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/MainLayout"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:minHeight="@dimen/_90dp"
-    app:cardCornerRadius="@dimen/_2dp"
-    app:cardElevation="@dimen/_3dp"
+    android:minHeight="@dimen/_50dp"
+    app:cardCornerRadius="@dimen/_5dp"
+    app:cardElevation="@dimen/_5dp"
     app:cardUseCompatPadding="true">
+
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
         android:orientation="horizontal">
+
+        <com.kredivation.aakhale.components.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_3dp"
+            android:layout_weight=".2"
+            android:src="@drawable/noimage" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            android:orientation="vertical">
-
+            android:layout_height="wrap_content"
+            android:layout_weight=".8"
+            android:orientation="vertical"
+            android:padding="@dimen/_5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/_3dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_3dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5dp">
+                    android:layout_gravity="center"
+                    android:layout_weight=".8"
+                    android:textSize="@dimen/_12dp"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/imageSports"
-                        android:layout_width="@dimen/_50dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/_5dp"
-                        android:src="@drawable/p4"
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:id="@+id/name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5dp"
-                            android:text="Tournament Name"
-                            android:textSize="@dimen/_14dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5dp"
-                            android:text="Cricket Umpire"
-                            android:textSize="@dimen/_14dp" />
-
-
-                        <TextView
-                            android:id="@+id/date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5dp"
-                            android:text="21 Aug 2018 12:89 PM"
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/_14dp" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
+                <com.kredivation.aakhale.components.ASTButton
+                    android:id="@+id/avilableTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_20dp"
+                    android:layout_gravity="center"
+                    android:layout_weight=".2"
+                    android:background="@drawable/round_boder_green"
+                    android:text="OPEN"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
+
+            <TextView
+                android:id="@+id/userId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:paddingBottom="@dimen/_5dp"
+                android:paddingTop="@dimen/_5dp"
+                android:textSize="@dimen/_12dp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/_12dp" />
+
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/_12dp" />
 
         </LinearLayout>
 

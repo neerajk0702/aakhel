@@ -41,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:id="@+id/homelayout"
                         android:layout_width="match_parent"
@@ -56,9 +57,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/home"
@@ -72,6 +73,103 @@
                             android:textSize="@dimen/_12dp" />
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/MyTeamlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_12dp"
+                        android:paddingRight="@dimen/_5dp">
+
+                        <TextView
+                            android:id="@+id/myTeamIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/myTeam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="My Team"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/mymatchlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_12dp"
+                        android:paddingRight="@dimen/_5dp">
+
+                        <TextView
+                            android:id="@+id/mymatchIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/mymatch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="My Match"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/myTournamentlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:paddingTop="@dimen/_12dp"
+                        android:paddingRight="@dimen/_5dp">
+
+                        <TextView
+                            android:id="@+id/mytournamentIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="ic"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/mytournament"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5dp"
+                            android:layout_weight="1"
+                            android:text="My Tournament"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/_12dp" />
+
+                    </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/createTeamlayout"
                         android:layout_width="match_parent"
@@ -87,9 +185,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/createTeame"
@@ -119,9 +217,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/aaAcademics"
@@ -149,9 +247,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/addTournament"
@@ -179,9 +277,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/addScore"
@@ -209,9 +307,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/createMatch"
@@ -239,9 +337,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/createGround"
@@ -269,9 +367,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/cretescorecard"
@@ -299,9 +397,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/scoreCard"
@@ -329,9 +427,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/createPost"
@@ -360,9 +458,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/Notification"
@@ -390,9 +488,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ic"
-                            android:visibility="gone"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/_14dp" />
+                            android:textSize="@dimen/_14dp"
+                            android:visibility="gone" />
 
 
                         <TextView

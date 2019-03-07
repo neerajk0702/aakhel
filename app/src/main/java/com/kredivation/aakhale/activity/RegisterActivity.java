@@ -58,7 +58,7 @@ import okhttp3.RequestBody;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback, PermissionResultCallback {
     ASTEditText fullName, email, contactNo, password, experience;
-    ASTTextView dobEdt, selectSports;
+    ASTTextView dobEdt, selectSports,login;
     ImageView dateIcon;
     Spinner gender, sportsSpinner, roleSpinner;
     DatePickerDialog todatepicker;
@@ -115,7 +115,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         doblayouut = findViewById(R.id.doblayouut);
         genderMainLayout = findViewById(R.id.genderMainLayout);
         selectSports = findViewById(R.id.selectSports);
-
+        login = findViewById(R.id.login);
+        login.setOnClickListener(this);
         feepermatch = findViewById(R.id.feepermatch);
         if (areaId == 1) {//Player
             roleLayout.setVisibility(View.VISIBLE);
@@ -241,6 +242,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.selectSports:
                 showSelectRCASubDialog();
+                break;
+            case R.id.login:
+                Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

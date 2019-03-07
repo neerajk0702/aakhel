@@ -105,7 +105,18 @@
         <activity
             android:name=".activity.AddAcademicsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.AddSportDetailForAcademicActivity"
+        <activity
+            android:name=".activity.AddSportDetailForAcademicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyTournamentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyMatchActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyTeamActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.MyProfileActivity"
             android:screenOrientation="portrait"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"

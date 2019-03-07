@@ -43,7 +43,7 @@
                     android:layout_marginRight="@dimen/_35dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="My Tournament"
+                    android:text="My Team"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_16dp" />
 

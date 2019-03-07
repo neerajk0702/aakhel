@@ -1,7 +1,5 @@
 package com.kredivation.aakhale.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,17 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.AddTournamnetPAdapter;
 import com.kredivation.aakhale.adapter.GroundAdapter;
 import com.kredivation.aakhale.adapter.TournamentUpcoomingAdapter;
-import com.kredivation.aakhale.components.ASTButton;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Academics;
-import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Tournament;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;

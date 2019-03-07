@@ -1,25 +1,25 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.adapter.GroundAdapter;
-import com.kredivation.aakhale.adapter.TournamentUpcoomingAdapter;
-import com.kredivation.aakhale.components.ASTFontTextIconView;
+import com.kredivation.aakhale.adapter.MyTournamnetAdapter;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
-import com.kredivation.aakhale.model.Academics;
 import com.kredivation.aakhale.model.Tournament;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 
 import org.json.JSONArray;
@@ -28,50 +28,48 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- */
-public class UpcommingMatchFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    View view;
-    ASTFontTextIconView sortBy;
+public class MyTournamentActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+
     RecyclerView rvList;
-
-    ArrayList<Academics> dataModels;
-    private static GroundAdapter adapter;
+    int total_pages = 1;
+    private Toolbar toolbar;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     LinearLayoutManager mLayoutManager;
     int currentPage = 1;
-    ArrayList<Tournament> tournamentArrayList;
-    private TournamentUpcoomingAdapter tournamentUpcoomingAdapter;
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    int total_pages = 1;
-    public UpcommingMatchFragment() {
-        // Required empty public constructor
-    }
-
+    MyTournamnetAdapter adapter;
+    ArrayList<Tournament> tournamentArrayList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_upcomming_match, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_tournament_fragment);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
     }
 
-    private void init() {
-        rvList = view.findViewById(R.id.rvList);
-        mLayoutManager = new LinearLayoutManager(getContext());
+    public void init() {
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        rvList = findViewById(R.id.rvList);
+        mLayoutManager = new LinearLayoutManager(MyTournamentActivity.this);
         rvList.setLayoutManager(mLayoutManager);
-        loaddataProgress = view.findViewById(R.id.loaddataProgress);
+        loaddataProgress = findViewById(R.id.loaddataProgress);
         tournamentArrayList = new ArrayList<>();
-        tournamentUpcoomingAdapter = new TournamentUpcoomingAdapter(getContext(), tournamentArrayList);
-        rvList.setAdapter(tournamentUpcoomingAdapter);
+        adapter = new MyTournamnetAdapter(MyTournamentActivity.this, tournamentArrayList);
+        rvList.setAdapter(adapter);
 
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -107,7 +105,7 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
         });
 
         // SwipeRefreshLayout
-        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_green_dark,
@@ -123,20 +121,34 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
             public void run() {
 
                 mSwipeRefreshLayout.setRefreshing(true);
-
                 // Fetching data from server first time
                 getTournamentMatch();
             }
         });
+
+        /*rvList.addOnItemTouchListener(
+                new RecyclerItemClickListener(TeamListActivity.this, rvList, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        teamArrayList.get(position);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );*/
     }
+
     //get GgetTournamentMatch
     private void getTournamentMatch() {
-        if (Utility.isOnline(getContext())) {
+        if (Utility.isOnline(MyTournamentActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage + "&" + "list=upcoming";
+            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage + "&" + "list=ongoing";
             JSONObject object = new JSONObject();
 
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(MyTournamentActivity.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getTournamentMatch", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -177,6 +189,7 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
                                         String prizes = jsonObject.optString("prizes");
                                         String facilities = jsonObject.optString("facilities");
                                         JSONArray tournament_teamArray = innerDataObject.optJSONArray("tournament_team");
+                                        JSONArray tournament_umpire = innerDataObject.optJSONArray("tournament_umpire");
 
                                         tournament.setId(id);
                                         tournament.setEnd_date(end_date);
@@ -204,9 +217,10 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
                                         String completeAdd = tournament_address + "," + tournament_city.optString("city_name") + "," + tournament_state.optString("state_name") + "," + tournament_country.optString("country_name") + "," + tournament_zipcode;
                                         tournament.setCompleteAddress(completeAdd);
                                         tournament.setTournamentTeam(tournament_teamArray);
+                                        tournament.setTournament_umpire(tournament_umpire);
                                         tournamentArrayList.add(tournament);
                                     }
-                                    tournamentUpcoomingAdapter.notifyDataSetChanged();
+                                    adapter.notifyDataSetChanged();
                                     loading = true;
                                     loaddataProgress.setVisibility(View.GONE);
                                     mSwipeRefreshLayout.setRefreshing(false);
@@ -216,24 +230,14 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
                             // e.printStackTrace();
                         }
                     } else {
-                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyTournamentActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
                         loaddataProgress.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
-        }
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sortBy:
-                break;
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, MyTournamentActivity.this);//off line msg....
         }
     }
 
@@ -242,5 +246,10 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
         mSwipeRefreshLayout.setRefreshing(true);
         tournamentArrayList.clear();
         getTournamentMatch();
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
