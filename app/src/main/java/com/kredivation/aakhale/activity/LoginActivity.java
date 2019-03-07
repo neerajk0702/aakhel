@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "Please Provide Correct Credentials", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please Verify Your Ac check Your mail!", Toast.LENGTH_SHORT).show();
                 }
                 if (dotDialog.isShowing()) {
                     dotDialog.dismiss();

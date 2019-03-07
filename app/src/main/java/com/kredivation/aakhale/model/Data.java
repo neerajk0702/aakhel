@@ -21,7 +21,7 @@ public class Data {
     private String state;
     private String country;
     private String zipcode;
-    private int users_sports;
+    private String users_sports;
     private String profile;
     private String experience;
     private int player_role;
@@ -202,11 +202,11 @@ public class Data {
         this.zipcode = zipcode;
     }
 
-    public int getUsers_sports() {
+    public String getUsers_sports() {
         return users_sports;
     }
 
-    public void setUsers_sports(int users_sports) {
+    public void setUsers_sports(String users_sports) {
         this.users_sports = users_sports;
     }
 

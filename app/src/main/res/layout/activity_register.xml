@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/_5dp"
-            android:text="SIGN UP"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_14dp" />
 
@@ -190,7 +190,8 @@
             </LinearLayout>
 
 
-            <LinearLayout android:id="@+id/genderMainLayout"
+            <LinearLayout
+                android:id="@+id/genderMainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40dp"
                 android:layout_marginLeft="@dimen/_10dp"
@@ -272,6 +273,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+                    <com.kredivation.aakhale.components.ASTTextView
+                        android:id="@+id/selectSports"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:padding="@dimen/_5dp"
+                        android:text="SELECT SPORTS"
+                        android:textColor="@color/secondry_txt_color"
+                        android:textSize="@dimen/_14dp" />
 
                     <Spinner
                         android:id="@+id/sportsSpinner"
@@ -279,7 +289,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:entries="@array/sportsname"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -327,21 +338,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_15dp"
                 android:background="@color/white" />
+
+            <com.kredivation.aakhale.components.ASTButton
+                android:id="@+id/registerBtn"
+                android:layout_width="@dimen/_190dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_5dp"
+                android:background="@drawable/button_login"
+                android:gravity="center"
+                android:padding="@dimen/_5dp"
+                android:text="REGISTER"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_15dp"
+                android:background="@color/white" />
         </LinearLayout>
     </ScrollView>
-
-    <com.kredivation.aakhale.components.ASTButton
-        android:id="@+id/registerBtn"
-        android:layout_width="@dimen/_190dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/_5dp"
-        android:background="@drawable/button_login"
-        android:gravity="center"
-        android:padding="@dimen/_5dp"
-        android:text="REGISTER"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_14dp" />
 
 
 </LinearLayout>

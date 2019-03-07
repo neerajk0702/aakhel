@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/_5dp"
-            android:text="SIGN IN"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/_14dp" />
 

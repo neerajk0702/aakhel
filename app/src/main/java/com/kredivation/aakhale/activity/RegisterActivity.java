@@ -34,10 +34,7 @@ import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.components.ASTTextView;
 import com.kredivation.aakhale.database.AakhelDBHelper;
 import com.kredivation.aakhale.framework.FileUploaderHelperWithProgress;
-import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
-import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.ContentData;
-import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.model.Player_roles;
 import com.kredivation.aakhale.model.Sports;
 import com.kredivation.aakhale.runtimepermission.PermissionResultCallback;
@@ -46,9 +43,6 @@ import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -64,16 +58,18 @@ import okhttp3.RequestBody;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback, PermissionResultCallback {
     ASTEditText fullName, email, contactNo, password, experience;
-    ASTTextView dobEdt;
+    ASTTextView dobEdt, selectSports;
     ImageView dateIcon;
     Spinner gender, sportsSpinner, roleSpinner;
     DatePickerDialog todatepicker;
     Calendar myCalendar;
     ArrayList<Long> sportIdList;
+    ArrayList<String> sportList;
     ArrayList<Long> roleIdList;
+    ArrayList<Sports> selectedSport;
     Button registerBtn;
     String strfullName, stremail, strcontactNo, strdobEdt, strgender, strexperience, strpassword, role, feepermatchStr;
-    long selectSportId, selectRoleId;
+    long selectRoleId;
     private long areaId = 0;
     ASTEditText feepermatch;
     ImageView profileImg;
@@ -86,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     PermissionUtils permissionUtils;
     private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1;
     private int REQUEST_CODE_GPS_PERMISSIONS = 2;
+    protected ArrayList<CharSequence> selectedSportItem;
+    String[] sportArry;
+    String sportIdStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         yearofexpLayout = findViewById(R.id.yearofexpLayout);
         doblayouut = findViewById(R.id.doblayouut);
         genderMainLayout = findViewById(R.id.genderMainLayout);
+        selectSports = findViewById(R.id.selectSports);
 
         feepermatch = findViewById(R.id.feepermatch);
         if (areaId == 1) {//Player
@@ -148,17 +148,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         AakhelDBHelper switchDBHelper = new AakhelDBHelper(RegisterActivity.this);
         ContentData contentData = switchDBHelper.getMasterDataById(1);
         if (contentData != null && contentData.getData() != null) {
-            ArrayList<String> sportList = new ArrayList<>();
+            selectedSport = new ArrayList<>();
+            sportList = new ArrayList<>();
             sportIdList = new ArrayList<>();
-            sportList.add("SELECT SPORTS");
-            sportIdList.add((long) 0);
+            // sportList.add("SELECT SPORTS");
+            //  sportIdList.add((long) 0);
             if (contentData.getData().getSports() != null) {
+                sportArry = new String[contentData.getData().getSports().size()];
                 for (Sports sports : contentData.getData().getSports()) {
                     sportList.add(sports.getSports_name());
                     sportIdList.add(sports.getId());
                 }
+                sportArry = sportList.toArray(sportArry);
             }
-            ArrayAdapter<String> homeadapter = new ArrayAdapter<String>(RegisterActivity.this, R.layout.spinner_row, sportList);
+            selectedSportItem = new ArrayList<CharSequence>();
+            selectSports.setOnClickListener(this);
+           /* ArrayAdapter<String> homeadapter = new ArrayAdapter<String>(RegisterActivity.this, R.layout.spinner_row, sportList);
             sportsSpinner.setAdapter(homeadapter);
             sportsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -170,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 public void onNothingSelected(AdapterView<?> adapterView) {
 
                 }
-            });
+            });*/
 
             ArrayList<String> roleList = new ArrayList<>();
             roleIdList = new ArrayList<>();
@@ -234,9 +239,85 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.profileImg:
                 selectImage();
                 break;
+            case R.id.selectSports:
+                showSelectRCASubDialog();
+                break;
         }
     }
 
+    protected void showSelectRCASubDialog() {
+        if (sportList != null && sportList.size() > 0) {
+            boolean[] checkedItems = new boolean[sportList.size()];
+            for (int i = 0; i < sportList.size(); i++)
+                checkedItems[i] = selectedSportItem.contains(sportList.get(i).toString());
+            DialogInterface.OnMultiChoiceClickListener coloursDialogListener = new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    if (isChecked) {
+                        selectedSportItem.add(sportList.get(which).toString());
+
+                        Sports sports = new Sports();
+                        sports.setSports_name(sportList.get(which).toString());
+                        sports.setId(sportIdList.get(which));
+                        selectedSport.add(sports);
+                    } else {
+                        removeselectvalue(sportIdList.get(which), sportList.get(which));
+                    }
+                    onChangeSelectedItem();
+                }
+
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setTitle("Select Sports");
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setMultiChoiceItems(sportArry, checkedItems, coloursDialogListener);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+    }
+
+    //remove selected value
+    private void removeselectvalue(long id, String sportStr) {
+        for (int i = 0; i < selectedSport.size(); i++) {
+            if (selectedSport.get(i).getId() == id) {
+                selectedSport.remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < selectedSportItem.size(); i++) {
+            if (selectedSportItem.get(i).equals(sportStr)) {
+                selectedSportItem.remove(i);
+                break;
+            }
+        }
+    }
+
+    //on select or deselect sub rca
+    protected void onChangeSelectedItem() {
+        StringBuilder stringBuilder = new StringBuilder();
+        String separatorComm = ",";
+        for (CharSequence selectitem : selectedSportItem) {
+            stringBuilder.append(selectitem);
+            stringBuilder.append(separatorComm);
+        }
+        selectSports.setText(stringBuilder.toString());
+
+        StringBuilder stringBuildersubRca = new StringBuilder();
+        for (int i = 0; i < selectedSport.size(); i++) {
+            stringBuildersubRca.append(String.valueOf(selectedSport.get(i).getId()));
+            stringBuildersubRca.append(separatorComm);
+        }
+        sportIdStr = stringBuildersubRca.toString();
+        if (sportIdStr != null && !sportIdStr.equals("")) {
+            sportIdStr = sportIdStr.substring(0, sportIdStr.length() - separatorComm.length());
+        }
+    }
 
     public boolean isvalidateSignup() {
         String emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
@@ -264,7 +345,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else if (strcontactNo.equals("")) {
             Toast.makeText(RegisterActivity.this, "Please Enter Phone Number", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (selectSportId == 0) {
+        } else if (sportIdStr == null || sportIdStr.equals("")) {
             Toast.makeText(RegisterActivity.this, "Please Select Sport", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -329,7 +410,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             payloadList.put("email", stremail);
             payloadList.put("mobile", strcontactNo);
             payloadList.put("password", strpassword);
-            payloadList.put("users_sports", String.valueOf(selectSportId));
+            payloadList.put("users_sports", sportIdStr);
 
             String device_token = Utility.getDeviceIDFromSharedPreferences(RegisterActivity.this);
             payloadList.put("device_token", device_token);
