@@ -277,6 +277,7 @@ public class MatchListFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         matchArrayList.clear();
         getMatchList();

@@ -152,7 +152,7 @@ public class MyMatchActivity extends AppCompatActivity implements View.OnClickLi
     private void getMatchList() {
         if (Utility.isOnline(MyMatchActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.creatematchApi + "?page=" + currentPage + "&" + "list=upcoming";
+            String serviceURL = Contants.BASE_URL + Contants.creatematchApi + "?page=" + currentPage + "&" + "my_match=1";
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(MyMatchActivity.this);
@@ -245,6 +245,7 @@ public class MyMatchActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         arrayList.clear();
         getMatchList();

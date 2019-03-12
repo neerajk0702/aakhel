@@ -243,6 +243,7 @@ public class NotificationListFragment extends Fragment implements SwipeRefreshLa
     }
 
     public void refreshAfterActionTaken() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         notificationList.clear();
         getNotificationListData();

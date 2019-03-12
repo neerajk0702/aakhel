@@ -257,6 +257,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onRefresh() {
+        currentPage = 1;
         mSwipeRefreshLayout.setRefreshing(true);
         playerList.clear();
         getPlayerListData();

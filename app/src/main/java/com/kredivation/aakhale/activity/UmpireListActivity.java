@@ -296,6 +296,7 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         umpireList.clear();
         getUmireList();

@@ -100,7 +100,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
     ImageView image;
     File imgFile;
     String name, aboutTeamstr, stateSpinnerstr, citySpinnerstr, zipCodestr;
-    String selectPlayersId;
+    ArrayList<Data> teamList = new ArrayList<>();
 
     public CreateTeamFragment() {
         // Required empty public constructor
@@ -321,16 +321,37 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
                 if (data != null && data.getExtras() != null) {
                     String selectedTeam = data.getExtras().getString("selectedData");
                     if (selectedTeam != null && !selectedTeam.equals("")) {
-                        selectPlayersId = data.getExtras().getString("selectId");
+                        addPlayerLayout.removeAllViews();
+                        String selectPlayersId = data.getExtras().getString("selectId");
                         ArrayList<Data> teamList = new Gson().fromJson(selectedTeam, new TypeToken<ArrayList<Data>>() {
                         }.getType());
-                        for (Data datavalue : teamList) {
-                            addMorePLayer(datavalue);
-                        }
+                        playerExistOrnot(teamList);
                     }
                 }
             }
         }
+    }
+
+    private void playerExistOrnot(ArrayList<Data> selectteamList) {
+        for (Data data : selectteamList) {
+            if (isExist(data.getId())) {
+                teamList.add(data);
+            }
+        }
+        for (Data datavalue : teamList) {
+            addMorePLayer(datavalue);
+        }
+    }
+
+    private boolean isExist(long id) {
+        boolean yes = true;
+        for (Data data : teamList) {
+            if (data.getId() == id) {
+                yes = false;
+                break;
+            }
+        }
+        return yes;
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -440,7 +461,7 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
         } else if (zipCodestr.equals("")) {
             Toast.makeText(getContext(), "Please Enter Zip Code", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (selectPlayersId == null || selectPlayersId.equals("")) {
+        } else if (teamList == null || teamList.size() == 0) {
             Toast.makeText(getContext(), "Please Select Players!", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -462,7 +483,23 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
                 payloadList.put("team_state", stateId);
                 payloadList.put("team_city", cityId);
                 payloadList.put("team_zipcode", zipCodestr);
-                payloadList.put("team_player", selectPlayersId);
+                String IdsStr = "";
+                if (teamList != null && teamList.size() > 0) {
+                    String separatorComm = ",";
+                    StringBuilder stringBuilders = new StringBuilder();
+                    for (int i = 0; i < teamList.size(); i++) {
+                        if (teamList.get(i).isSelectValue()) {
+                            teamList.add(teamList.get(i));
+                            stringBuilders.append(String.valueOf(teamList.get(i).getUnique_id()));
+                            stringBuilders.append(",");
+                        }
+                    }
+                    IdsStr = stringBuilders.toString();
+                    if (IdsStr != null && !IdsStr.equals("")) {
+                        IdsStr = IdsStr.substring(0, IdsStr.length() - separatorComm.length());
+                    }
+                }
+                payloadList.put("team_player", IdsStr);
             } catch (Exception e) {
                 //e.printStackTrace();
             }
@@ -472,7 +509,11 @@ public class CreateTeamFragment extends Fragment implements View.OnClickListener
                 public void receiveData(String result) {
                     ContentData data = new Gson().fromJson(result, ContentData.class);
                     if (data != null) {
-                        ASTUIUtil.showToast(getContext(), "Team  add! Success");
+                        if (data.isStatus()) {
+                            ASTUIUtil.showToast(getContext(), "Team  add! Success");
+                        } else {
+                            ASTUIUtil.showToast(getContext(), "Team not add!");
+                        }
                     } else {
                         ASTUIUtil.showToast(getContext(), "Team not add!");
                     }

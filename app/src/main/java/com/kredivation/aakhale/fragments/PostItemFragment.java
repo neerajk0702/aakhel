@@ -340,6 +340,7 @@ public class PostItemFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         postList.clear();
         getPostLIst();

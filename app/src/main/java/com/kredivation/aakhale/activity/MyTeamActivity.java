@@ -145,7 +145,7 @@ public class MyTeamActivity extends AppCompatActivity implements View.OnClickLis
     private void getTeamList() {
         if (Utility.isOnline(MyTeamActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.teamCreate + "?page=" + currentPage;
+            String serviceURL = Contants.BASE_URL + Contants.teamCreate + "?page=" + currentPage + "&" + "my_team=1";
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(MyTeamActivity.this);
@@ -224,6 +224,7 @@ public class MyTeamActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         teamArrayList.clear();
         getTeamList();

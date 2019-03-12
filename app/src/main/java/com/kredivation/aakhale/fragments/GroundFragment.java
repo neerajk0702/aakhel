@@ -277,6 +277,7 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         groundList.clear();
         getGroundlist();

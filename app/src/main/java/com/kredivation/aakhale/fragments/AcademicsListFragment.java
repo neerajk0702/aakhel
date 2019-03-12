@@ -276,6 +276,7 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         academicsArrayList.clear();
         getAcademyList();

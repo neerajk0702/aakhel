@@ -145,7 +145,7 @@ public class MyTournamentActivity extends AppCompatActivity implements View.OnCl
     private void getTournamentMatch() {
         if (Utility.isOnline(MyTournamentActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage + "&" + "list=ongoing";
+            String serviceURL = Contants.BASE_URL + Contants.tournamentAPi + "?page=" + currentPage + "&" + "my_tournament=1";
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(MyTournamentActivity.this);
@@ -243,6 +243,7 @@ public class MyTournamentActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         tournamentArrayList.clear();
         getTournamentMatch();

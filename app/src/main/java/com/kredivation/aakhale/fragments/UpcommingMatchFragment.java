@@ -239,6 +239,7 @@ public class UpcommingMatchFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         tournamentArrayList.clear();
         getTournamentMatch();

@@ -249,6 +249,7 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onRefresh() {
+        currentPage=1;
         mSwipeRefreshLayout.setRefreshing(true);
         teamArrayList.clear();
         getTeamList();
