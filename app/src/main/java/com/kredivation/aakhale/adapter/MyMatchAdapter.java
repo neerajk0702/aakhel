@@ -1,10 +1,9 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.card.MaterialCardView;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.fragments.MatchDetailsFragment;
+import com.kredivation.aakhale.activity.MatchDetailsActivity;
 import com.kredivation.aakhale.model.Match;
 
 import org.json.JSONException;
@@ -81,14 +80,10 @@ public class MyMatchAdapter extends RecyclerView.Adapter<MyMatchAdapter.ViewHold
         holder.MainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MatchDetailsFragment matchDetailsFragment = new MatchDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("MatchDetail", new Gson().toJson(matchArrayList.get(position)));
-                matchDetailsFragment.setArguments(bundle);
-                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, matchDetailsFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent1 = new Intent(context, MatchDetailsActivity.class);
+                intent1.putExtra("MatchDetail", new Gson().toJson(matchArrayList.get(position)));
+                intent1.putExtra("MyMatchFlag",true);
+                context.startActivity(intent1);
             }
         });
 

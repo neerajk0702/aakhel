@@ -1,12 +1,14 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,13 +18,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.activity.TeamDetailActivity;
 import com.kredivation.aakhale.components.ASTProgressBar;
 import com.kredivation.aakhale.components.CircleImageView;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Match;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
 
@@ -30,16 +32,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class MatchDetailsFragment extends Fragment implements View.OnClickListener {
 
-    View view;
+public class MatchDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+
     TextView nametxt, datetime, uniqueId, statustxt, overtxt, teams, formateMatch, venueAddress, venueAddress1;
     LinearLayout umpireView, teamsView;
 
-    public MatchDetailsFragment() {
+    public MatchDetailsActivity() {
         // Required empty public constructor
     }
 
@@ -48,39 +47,59 @@ public class MatchDetailsFragment extends Fragment implements View.OnClickListen
     long userIdValue;
     int userRoleId;
     int matchId;
+    private Toolbar toolbar;
+    boolean MyMatchFlag;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_match_details, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_match_details);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
     }
 
     public void init() {
-        SharedPreferences UserInfo = getActivity().getSharedPreferences("UserInfoSharedPref", getActivity().MODE_PRIVATE);
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
         userIdValue = UserInfo.getLong("id", 0);
         userRoleId = UserInfo.getInt("role", 0);
-        String MatchDetailStr = getArguments().getString("MatchDetail");
+        String MatchDetailStr = getIntent().getStringExtra("MatchDetail");
         MatchDetail = new Gson().fromJson(MatchDetailStr, new TypeToken<Match>() {
         }.getType());
-        nametxt = view.findViewById(R.id.name);
-        datetime = view.findViewById(R.id.datetime);
-        uniqueId = view.findViewById(R.id.uniqueId);
-        statustxt = view.findViewById(R.id.status);
-        overtxt = view.findViewById(R.id.over);
-        teams = view.findViewById(R.id.teams);
-        formateMatch = view.findViewById(R.id.formateMatch);
-        venueAddress = view.findViewById(R.id.venueAddress);
-        venueAddress1 = view.findViewById(R.id.venueAddress1);
-        umpireView = view.findViewById(R.id.umpireView);
-        teamsView = view.findViewById(R.id.teamsView);
-        Button button = view.findViewById(R.id.submit);
+        MyMatchFlag = getIntent().getBooleanExtra("MyMatchFlag", false);
+        nametxt = findViewById(R.id.name);
+        datetime = findViewById(R.id.datetime);
+        uniqueId = findViewById(R.id.uniqueId);
+        statustxt = findViewById(R.id.status);
+        overtxt = findViewById(R.id.over);
+        teams = findViewById(R.id.teams);
+        formateMatch = findViewById(R.id.formateMatch);
+        venueAddress = findViewById(R.id.venueAddress);
+        venueAddress1 = findViewById(R.id.venueAddress1);
+        umpireView = findViewById(R.id.umpireView);
+        teamsView = findViewById(R.id.teamsView);
+        Button button = findViewById(R.id.submit);
         button.setOnClickListener(this);
         if (userRoleId == 3) {
             button.setVisibility(View.VISIBLE);
         }
+        Button matchStart = findViewById(R.id.matchStart);
+        matchStart.setOnClickListener(this);
+        if (MyMatchFlag) {
+            matchStart.setVisibility(View.VISIBLE);
+        }
+
         dataToView();
     }
 
@@ -236,21 +255,21 @@ public class MatchDetailsFragment extends Fragment implements View.OnClickListen
 
     //add free service layout in runtime
     public void addTeamView(String name, String unique_id, String team_thumbnail, LinearLayout mainView) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(MatchDetailsActivity.this);
         View inflatedLayout = inflater.inflate(R.layout.sports_item_row, null);
         TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
         TextView userId = inflatedLayout.findViewById(R.id.userId);
         ImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
         teamneName.setText(name);
         userId.setText(unique_id);
-        Picasso.with(getActivity()).load(Contants.BASE_URL + team_thumbnail).placeholder(R.drawable.ic_cricket_player).into(matchPerview);
+        Picasso.with(MatchDetailsActivity.this).load(Contants.BASE_URL + team_thumbnail).placeholder(R.drawable.ic_cricket_player).into(matchPerview);
         mainView.addView(inflatedLayout);
     }
 
 
     //add free service layout in runtime
     public void addUmpire(String name, String country, String state) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(MatchDetailsActivity.this);
         View inflatedLayout = inflater.inflate(R.layout.umpire_itemm_row, null);
         TextView teamneName = inflatedLayout.findViewById(R.id.teamneName);
         CircleImageView matchPerview = inflatedLayout.findViewById(R.id.matchPerview);
@@ -267,17 +286,20 @@ public class MatchDetailsFragment extends Fragment implements View.OnClickListen
             case R.id.submit:
                 request();
                 break;
+            case R.id.matchStart:
+                request();
+                break;
         }
     }
 
     private void request() {
-        if (Utility.isOnline(getActivity())) {
-            final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());
+        if (Utility.isOnline(MatchDetailsActivity.this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(MatchDetailsActivity.this);
             dotDialog.show();
             String serviceURL = "";
             if (userRoleId == 1) {//Player
                 serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
-            }  else if (userRoleId == 3) {//Umpire
+            } else if (userRoleId == 3) {//Umpire
                 serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
             }
 
@@ -287,7 +309,7 @@ public class MatchDetailsFragment extends Fragment implements View.OnClickListen
             } catch (JSONException e) {
                 // e.printStackTrace();
             }
-            ServiceCaller serviceCaller = new ServiceCaller(getActivity());
+            ServiceCaller serviceCaller = new ServiceCaller(MatchDetailsActivity.this);
             serviceCaller.CallCommanServiceMethod(serviceURL, object, "MatchRequestumpire", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -297,9 +319,9 @@ public class MatchDetailsFragment extends Fragment implements View.OnClickListen
                             boolean status = jsonObject.optBoolean("status");
                             String message = jsonObject.optString("message");
                             if (status) {
-                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatchDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatchDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
                             if (dotDialog.isShowing()) {
                                 dotDialog.dismiss();
@@ -310,12 +332,12 @@ public class MatchDetailsFragment extends Fragment implements View.OnClickListen
                         if (dotDialog.isShowing()) {
                             dotDialog.dismiss();
                         }
-                        Utility.alertForErrorMessage(Contants.Error, getActivity());
+                        Utility.alertForErrorMessage(Contants.Error, MatchDetailsActivity.this);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getActivity());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, MatchDetailsActivity.this);//off line msg....
         }
     }
 }
