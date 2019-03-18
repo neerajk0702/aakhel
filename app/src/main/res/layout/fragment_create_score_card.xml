@@ -12,6 +12,35 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.kredivation.aakhale.components.CircleImageView
+                android:id="@+id/teameImage"
+                android:layout_width="@dimen/_60dp"
+                android:layout_height="@dimen/_60dp"
+                app:srcCompat="@drawable/noimage" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_3dp"
+                android:padding="@dimen/_5dp"
+                android:text="Team Name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -20,22 +49,9 @@
             app:cardElevation="@dimen/_6dp"
             app:cardUseCompatPadding="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_3dp"
-                    android:padding="@dimen/_5dp"
-                    android:text="Confirm Team"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14dp"
-                    android:textStyle="bold" />
+
 
 
                 <LinearLayout
@@ -50,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="@dimen/_5dp"
-                        android:text="Enyer Team 1 unique ID"
+                        android:text="Batsman Score"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14dp"
                         android:textStyle="bold" />
@@ -59,48 +75,255 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_5dp">
+                        android:orientation="vertical"
+                        android:padding="@dimen/_8dp">
 
 
-                        <com.kredivation.aakhale.components.ASTEditText
-                            android:id="@+id/teame1"
+                        <Spinner
+                            android:id="@+id/statusSpinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/round_boder"
-                            android:padding="@dimen/_12dp"
-                            android:textSize="@dimen/_12dp" />
+                            android:layout_gravity="center"
+                            android:entries="@array/status"
+                            android:gravity="center"
+                            android:padding="@dimen/_5dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"
+                            android:background="@color/gray" />
 
 
                     </LinearLayout>
 
-                    <TextView
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5dp"
                         android:padding="@dimen/_5dp"
-                        android:text="Enyer Team 1 unique ID"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
 
-                    <com.kredivation.aakhale.components.ASTEditText
-                        android:id="@+id/teame2"
+                        <ImageView
+                            android:id="@+id/run1"
+                            android:layout_width="@dimen/_50dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_5dp"
+                            app:srcCompat="@drawable/ic_one"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <ImageView
+                            android:id="@+id/run2"
+                            android:layout_width="@dimen/_50dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_5dp"
+                            app:srcCompat="@drawable/ic_two"
+                            tools:ignore="VectorDrawableCompat" />
+
+
+                        <ImageView
+                            android:id="@+id/run3"
+                            android:layout_width="@dimen/_50dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_5dp"
+                            app:srcCompat="@drawable/ic_three"
+                            tools:ignore="VectorDrawableCompat" />
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_5dp"
-                        android:layout_marginRight="@dimen/_5dp"
-                        android:background="@drawable/round_boder"
-                        android:padding="@dimen/_12dp"
-                        android:textSize="@dimen/_12dp" />
+                        android:padding="@dimen/_5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/run4"
+                            android:layout_width="@dimen/_50dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_5dp"
+                            app:srcCompat="@drawable/ic_four"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <ImageView
+                            android:id="@+id/run5"
+                            android:layout_width="@dimen/_50dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_5dp"
+                            app:srcCompat="@drawable/ic_five"
+                            tools:ignore="VectorDrawableCompat" />
 
 
+                        <ImageView
+                            android:id="@+id/run6"
+                            android:layout_width="@dimen/_50dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_5dp"
+                            app:srcCompat="@drawable/ic_six"
+                            tools:ignore="VectorDrawableCompat" />
+
+
+                    </LinearLayout>
                 </LinearLayout>
 
-            </LinearLayout>
+
+
+
+
+
 
         </android.support.v7.widget.CardView>
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5dp"
+            app:cardElevation="@dimen/_6dp"
+            app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_5dp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/_5dp"
+                android:text="Bowling Score"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_8dp">
+
+
+                <Spinner
+                    android:id="@+id/bowlerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:entries="@array/status"
+                    android:gravity="center"
+                    android:padding="@dimen/_5dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1dp"
+                    android:background="@color/gray" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/wcket1"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5dp"
+                    app:srcCompat="@drawable/boldwick"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/wcket2"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5dp"
+                    app:srcCompat="@drawable/caughtwickt"
+                    tools:ignore="VectorDrawableCompat" />
+
+
+                <ImageView
+                    android:id="@+id/wcket3"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5dp"
+                    app:srcCompat="@drawable/runout"
+                    tools:ignore="VectorDrawableCompat" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/wcket4"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5dp"
+                    app:srcCompat="@drawable/stuimpwict"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/wcket5"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5dp"
+                    app:srcCompat="@drawable/ic_cricket"
+                    tools:ignore="VectorDrawableCompat" />
+
+
+                <ImageView
+                    android:id="@+id/wcket6"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_5dp"
+                    app:srcCompat="@drawable/ic_cricket"
+                    tools:ignore="VectorDrawableCompat" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 
     </ScrollView>
 
