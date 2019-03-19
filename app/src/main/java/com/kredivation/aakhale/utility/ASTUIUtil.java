@@ -89,7 +89,6 @@ import java.util.Locale;
 public class ASTUIUtil {
 
 
-
     public static void showToast(Context context, String msg) {
         final Toast toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -102,9 +101,6 @@ public class ASTUIUtil {
             }
         }, 1500);
     }
-
-
-
 
 
     public static void resizingView(final View v, int duration, int targetHeight, final boolean isCollapse) {
@@ -505,8 +501,6 @@ public class ASTUIUtil {
     public static int getDimensionInt(@DimenRes int dimenId) {
         return (int) getDimension(dimenId);
     }
-
-
 
 
     public static void dismissDialog(Dialog dialog) {
@@ -1255,7 +1249,6 @@ public class ASTUIUtil {
     }
 
 
-
     public String[] concatinateStringArray(String[] a, String[] b) {
         int length = a.length + b.length;
         String[] result = new String[length];
@@ -1402,10 +1395,53 @@ public class ASTUIUtil {
 
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = df.format(c.getTime());
 
         return formattedDate;
+    }
+
+    public static boolean compareDate(String date) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = df.format(c.getTime());
+        boolean dflag = false;
+        try {
+            Date date1 = df.parse(date);
+            Date date2 = df.parse(formattedDate);
+            /*if (date1.compareTo(date2) > 0) {
+                System.out.println("Date1 is after Date2");
+            } else if (date1.compareTo(date2) < 0) {
+                System.out.println("Date1 is before Date2");
+            } else*/
+            if (date1.compareTo(date2) == 0) {
+                // System.out.println("Date1 is equal to Date2");
+                dflag = true;
+            }
+        } catch (ParseException e) {
+            //  e.printStackTrace();
+        }
+
+        return dflag;
+    }
+
+    public static long getRemainigTime(String Startdatetime) {
+        long finatime = 0;
+        try {
+            Date date = null;
+            //  String datetime = "2018-12-19 13:11:04";
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = df.parse(Startdatetime);
+            Date startdDate = new Date(date.getTime() + (48 * (3600 * 1000)));//add 48 hours in start time
+            long startFinalTime = startdDate.getTime();
+            long currentTime = System.currentTimeMillis();
+
+            if (startFinalTime > currentTime) {
+                finatime = startFinalTime - currentTime;
+            }
+        } catch (ParseException e) {
+        }
+        return finatime;
     }
 
     public static boolean checkGpsEnabled(final Context context) {
@@ -1474,8 +1510,6 @@ public class ASTUIUtil {
     }*/
 
 
-
-
     public String getFormattedDate(String dateFormat, long milliSeconds) {
         // Create a DateFormatter object for displaying date in specified format.
         DateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -1500,7 +1534,8 @@ public class ASTUIUtil {
         Log.d(Contants.LOG_TAG, "New file name and path __: " + newFileName.getPath() + "getName__" + newFileName.getName());
         return newFileName;
     }
-    public static void setUserId(Context context, String id,String password,String fname,String profileimage) {
+
+    public static void setUserId(Context context, String id, String password, String fname, String profileimage) {
         try {
             SharedPreferences prefs = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();

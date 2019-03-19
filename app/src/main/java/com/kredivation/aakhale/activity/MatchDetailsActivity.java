@@ -23,6 +23,7 @@ import com.kredivation.aakhale.components.CircleImageView;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Match;
+import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
@@ -49,6 +50,7 @@ public class MatchDetailsActivity extends AppCompatActivity implements View.OnCl
     int matchId;
     private Toolbar toolbar;
     boolean MyMatchFlag;
+    Button matchStart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,11 +96,8 @@ public class MatchDetailsActivity extends AppCompatActivity implements View.OnCl
         if (userRoleId == 3) {
             button.setVisibility(View.VISIBLE);
         }
-        Button matchStart = findViewById(R.id.matchStart);
+        matchStart = findViewById(R.id.matchStart);
         matchStart.setOnClickListener(this);
-        if (MyMatchFlag) {
-            matchStart.setVisibility(View.VISIBLE);
-        }
 
         dataToView();
     }
@@ -108,7 +107,7 @@ public class MatchDetailsActivity extends AppCompatActivity implements View.OnCl
             try {
                 matchId = MatchDetail.getId();
                 nametxt.setText(MatchDetail.getName());
-                datetime.setText(MatchDetail.getDate());
+                datetime.setText(MatchDetail.getDate() + ", " + MatchDetail.getTime());
                 uniqueId.setText(MatchDetail.getUnique_id());
                 if (MatchDetail.getIs_active().equals("1")) {
                     statustxt.setText("OPEN");
@@ -147,6 +146,12 @@ public class MatchDetailsActivity extends AppCompatActivity implements View.OnCl
                         String unique_id = jsonObject.optString("unique_id");
                         String status = jsonObject.optString("status");
                         addTeamView(uname, unique_id, profile_picture, umpireView);
+                    }
+                }
+                if (MyMatchFlag) {
+                    //if match date then show button for start match
+                    if (ASTUIUtil.compareDate(MatchDetail.getDate())) {
+                        matchStart.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -287,12 +292,60 @@ public class MatchDetailsActivity extends AppCompatActivity implements View.OnCl
                 request();
                 break;
             case R.id.matchStart:
-                request();
+                matchStart();
                 break;
         }
     }
 
     private void request() {
+        if (Utility.isOnline(MatchDetailsActivity.this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(MatchDetailsActivity.this);
+            dotDialog.show();
+            String serviceURL = "";
+            if (userRoleId == 1) {//Player
+                serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
+            } else if (userRoleId == 3) {//Umpire
+                serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
+            }
+
+            JSONObject object = new JSONObject();
+            try {
+                object.put("match_id", matchId);
+            } catch (JSONException e) {
+                // e.printStackTrace();
+            }
+            ServiceCaller serviceCaller = new ServiceCaller(MatchDetailsActivity.this);
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "MatchRequestumpire", new IAsyncWorkCompletedCallback() {
+                @Override
+                public void onDone(String result, boolean isComplete) {
+                    if (isComplete && result != null) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            boolean status = jsonObject.optBoolean("status");
+                            String message = jsonObject.optString("message");
+                            if (status) {
+                                Toast.makeText(MatchDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(MatchDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                            if (dotDialog.isShowing()) {
+                                dotDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                        }
+                    } else {
+                        if (dotDialog.isShowing()) {
+                            dotDialog.dismiss();
+                        }
+                        Utility.alertForErrorMessage(Contants.Error, MatchDetailsActivity.this);
+                    }
+                }
+            });
+        } else {
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, MatchDetailsActivity.this);//off line msg....
+        }
+    }
+    private void matchStart() {
         if (Utility.isOnline(MatchDetailsActivity.this)) {
             final ASTProgressBar dotDialog = new ASTProgressBar(MatchDetailsActivity.this);
             dotDialog.show();
