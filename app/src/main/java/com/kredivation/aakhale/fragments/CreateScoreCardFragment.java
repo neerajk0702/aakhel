@@ -36,8 +36,8 @@ public class CreateScoreCardFragment extends Fragment {
     }
 
     public void init() {
-        teame1 = view.findViewById(R.id.teame1);
-        teame2 = view.findViewById(R.id.teame2);
+      //  teame1 = view.findViewById(R.id.teame1);
+       // teame2 = view.findViewById(R.id.teame2);
         continuebtn = view.findViewById(R.id.continuebtn);
     }
 
