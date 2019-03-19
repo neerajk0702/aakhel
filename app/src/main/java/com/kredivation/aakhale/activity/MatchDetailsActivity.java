@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.activity;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -345,25 +346,23 @@ public class MatchDetailsActivity extends AppCompatActivity implements View.OnCl
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, MatchDetailsActivity.this);//off line msg....
         }
     }
+
     private void matchStart() {
         if (Utility.isOnline(MatchDetailsActivity.this)) {
             final ASTProgressBar dotDialog = new ASTProgressBar(MatchDetailsActivity.this);
             dotDialog.show();
             String serviceURL = "";
-            if (userRoleId == 1) {//Player
-                serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
-            } else if (userRoleId == 3) {//Umpire
-                serviceURL = Contants.BASE_URL + Contants.match_umpire_request;
-            }
+            serviceURL = Contants.BASE_URL + Contants.match_start_stop;
 
             JSONObject object = new JSONObject();
             try {
                 object.put("match_id", matchId);
+                object.put("match_status", 1);//(1:Start, 2:Stop)
             } catch (JSONException e) {
                 // e.printStackTrace();
             }
             ServiceCaller serviceCaller = new ServiceCaller(MatchDetailsActivity.this);
-            serviceCaller.CallCommanServiceMethod(serviceURL, object, "MatchRequestumpire", new IAsyncWorkCompletedCallback() {
+            serviceCaller.CallCommanServiceMethod(serviceURL, object, "matchStart", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete && result != null) {
@@ -372,7 +371,15 @@ public class MatchDetailsActivity extends AppCompatActivity implements View.OnCl
                             boolean status = jsonObject.optBoolean("status");
                             String message = jsonObject.optString("message");
                             if (status) {
+                                SharedPreferences infopre = getSharedPreferences("MatchInfoSharedPref", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = infopre.edit();
+                                editor.putString("TeamList", MatchDetail.getMatchteam());
+                                editor.putInt("matchId", matchId);
+                                editor.putString("MatchDate", MatchDetail.getDate());//check for today match or not
+                                editor.commit();
                                 Toast.makeText(MatchDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MatchDetailsActivity.this, CreateScoreCardActivity.class);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(MatchDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                             }

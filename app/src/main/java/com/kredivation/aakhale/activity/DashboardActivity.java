@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.fragments.AddScoreFragment;
@@ -42,15 +43,14 @@ import com.kredivation.aakhale.fragments.ChatFragment;
 import com.kredivation.aakhale.fragments.ChatListFragment;
 import com.kredivation.aakhale.fragments.CreateMatchFragment;
 import com.kredivation.aakhale.fragments.CreatePostFragment;
-import com.kredivation.aakhale.fragments.CreateScoreCardFragment;
 import com.kredivation.aakhale.fragments.CreateTeamFragment;
 import com.kredivation.aakhale.fragments.HomeFragment;
 import com.kredivation.aakhale.fragments.NotificationListFragment;
 import com.kredivation.aakhale.fragments.PostItemFragment;
 import com.kredivation.aakhale.fragments.ScheduleFragment;
-import com.kredivation.aakhale.fragments.ScoreCardFragment;
 import com.kredivation.aakhale.runtimepermission.PermissionResultCallback;
 import com.kredivation.aakhale.runtimepermission.PermissionUtils;
+import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
 import com.squareup.picasso.Picasso;
 
@@ -297,12 +297,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.createground) {
 
         } else if (id == R.id.cretescorecard) {
-            CreateScoreCardFragment createScoreCardFragment = new CreateScoreCardFragment();
-            updateFragment(createScoreCardFragment, null);
+            CreateScoreCardActivity createScoreCardFragment = new CreateScoreCardActivity();
 
         } else if (id == R.id.scoreCard) {
-            ScoreCardFragment scoreCardFragment = new ScoreCardFragment();
-            updateFragment(scoreCardFragment, null);
+            ScoreCardActivity scoreCardFragment = new ScoreCardActivity();
 
         } else if (id == R.id.createPost) {
             CreatePostFragment createPostFragment = new CreatePostFragment();
@@ -364,13 +362,19 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             Intent intent1 = new Intent(DashboardActivity.this, CreateGroundActivity.class);
             startActivity(intent1);
         } else if (v.getId() == R.id.addscorecardlayout) {
-            CreateScoreCardFragment createScoreCardFragment = new CreateScoreCardFragment();
-            updateFragment(createScoreCardFragment, null);
-
+            SharedPreferences infopre = getSharedPreferences("MatchInfoSharedPref", MODE_PRIVATE);
+            String MatchDate = infopre.getString("MatchDate", "");
+            if (ASTUIUtil.compareDate(MatchDate)) {
+                Intent intent = new Intent(DashboardActivity.this, CreateScoreCardActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(DashboardActivity.this, CreateScoreCardActivity.class);
+                startActivity(intent);
+                Toast.makeText(DashboardActivity.this, "Match not Started Yet!", Toast.LENGTH_SHORT).show();
+            }
         } else if (v.getId() == R.id.scoreCardlayout) {
-            ScoreCardFragment scoreCardFragment = new ScoreCardFragment();
-            updateFragment(scoreCardFragment, null);
-
+            Intent intent = new Intent(DashboardActivity.this, ScoreCardActivity.class);
+            startActivity(intent);
         } else if (v.getId() == R.id.createPostlayout) {
             CreatePostFragment createPostFragment = new CreatePostFragment();
             updateFragment(createPostFragment, null);

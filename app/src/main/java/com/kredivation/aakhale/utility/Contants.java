@@ -60,5 +60,10 @@ public class Contants {
     public static String match_respond_umpire_request = "match/respond-umpire-request";
     public static String tournament_respond_umpire_request = "tournament/respond-umpire-request";
     public static String tournament_respond_team_request = "tournament/respond-team-request";
+    public static String match_start_stop = "match/start-stop";
+    public static String score_add = "score/add";
+    public static String team_players = "team/active-player?team_id=";
+    public static String score_wicket = "score/wicket";
+
 
 }

@@ -120,6 +120,11 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".activity.MatchDetailsActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activity.CreateScoreCardActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.ScoreCardActivity"
+            android:screenOrientation="portrait"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.imagepicker.provider"
