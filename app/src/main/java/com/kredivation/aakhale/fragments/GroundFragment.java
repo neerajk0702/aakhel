@@ -9,12 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.TeamListActivity;
 import com.kredivation.aakhale.adapter.AcadamicAdapter;
 import com.kredivation.aakhale.adapter.GroundAdapter;
 import com.kredivation.aakhale.adapter.PlayerAdapter;
@@ -55,7 +58,9 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
     int total_pages = 1;
-
+    EditText searchedit;
+    String serviceURL;
+    int sortFlag = 1;
     public GroundFragment() {
         // Required empty public constructor
     }
@@ -81,7 +86,9 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
         groundList = new ArrayList<>();
         groundAdapter = new GroundAdapter(getContext(), groundList);
         rvList.setAdapter(groundAdapter);
-
+        searchedit = view.findViewById(R.id.searchedit);
+        ImageView searchIcon = view.findViewById(R.id.searchIcon);
+        searchIcon.setOnClickListener(this);
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -143,7 +150,9 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
     private void getGroundlist() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.SaveGround + "page=" + currentPage;
+            if (sortFlag == 1) {
+                 serviceURL = Contants.BASE_URL + Contants.SaveGround + "page=" + currentPage;
+            }
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());
@@ -272,12 +281,26 @@ public class GroundFragment extends Fragment implements View.OnClickListener, Sw
         switch (v.getId()) {
             case R.id.sortBy:
                 break;
+            case R.id.searchIcon:
+                String userId = searchedit.getText().toString().trim();
+                if (userId != null && userId.length() != 0) {
+                    serviceURL = Contants.BASE_URL + "ground?filter[unique_id]=" + userId;//users?filter[unique_id][like]=
+                    sortFlag = 2;
+                    currentPage = 1;
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    groundList.clear();
+                    getGroundlist();
+                } else {
+                    Toast.makeText(getContext(), "Please enter Ground Id!", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
     @Override
     public void onRefresh() {
         currentPage=1;
+        sortFlag=1;
         mSwipeRefreshLayout.setRefreshing(true);
         groundList.clear();
         getGroundlist();

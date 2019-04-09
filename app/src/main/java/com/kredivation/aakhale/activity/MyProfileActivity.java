@@ -1,5 +1,6 @@
 package com.kredivation.aakhale.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MyProfileActivity extends AppCompatActivity {
+public class MyProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     public MyProfileActivity() {
@@ -39,6 +40,8 @@ public class MyProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView name, unique_id, emailid, Mobile, role, fee_per_match_day, experience, player_role, address;
     LinearLayout teamInfoLayoutView, userSsportsLayoutView;
+    int roleId;
+    String profileData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,13 @@ public class MyProfileActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         teamInfoLayoutView = findViewById(R.id.teamInfoLayoutView);
         userSsportsLayoutView = findViewById(R.id.userSsportsLayoutView);
+        TextView editprofile = findViewById(R.id.editprofile);
+        editprofile.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getProfileDetail();
     }
 
@@ -122,6 +132,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
     //get getMatchList
     private void getProfileDetail() {
+        userSsportsLayoutView.removeAllViews();
+        teamInfoLayoutView.removeAllViews();
         SharedPreferences UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
         long id = UserInfo.getLong("id", 0);
         if (Utility.isOnline(MyProfileActivity.this)) {
@@ -141,6 +153,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             if (status) {
                                 JSONObject mainDataArray = mainObj.optJSONObject("data");
                                 if (mainDataArray != null) {
+                                    profileData = mainDataArray.toString();
                                     JSONArray player_team = mainDataArray.optJSONArray("player_team");
                                     JSONArray challenge_given = mainDataArray.optJSONArray("challenge_given");
                                     JSONArray challenge_received = mainDataArray.optJSONArray("challenge_received");
@@ -180,10 +193,11 @@ public class MyProfileActivity extends AppCompatActivity {
                                         country_name = country.optString("country_name");
                                     }
                                     String completeAdd = addressstr + "," + city_name + "," + state_name + "," + country_name + "," + zipcode;
-
+                                    emailid.setText(emailstr);
                                     name.setText(full_name);
                                     unique_id.setText(unique_idsrt);
                                     Mobile.setText(mobilestr);
+                                    roleId = roleobj.optInt("id");
                                     String user_type = roleobj.optString("user_type");
                                     role.setText(user_type);
                                     fee_per_match_day.setText(fee_per_match_daystr);
@@ -219,6 +233,18 @@ public class MyProfileActivity extends AppCompatActivity {
             });
         } else {
             Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, MyProfileActivity.this);//off line msg....
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.editprofile:
+                Intent intent1 = new Intent(MyProfileActivity.this, EditProfileActivity.class);
+                intent1.putExtra("roleId", roleId);
+                intent1.putExtra("ProfileData", profileData);
+                startActivity(intent1);
+                break;
         }
     }
 }

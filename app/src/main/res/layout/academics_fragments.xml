@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:backgroundTint="@color/transparentWhite"
-            android:hint="Search your Stuf here"
+            android:hint="Search academic by Id"
             android:padding="@dimen/_2dp"
             android:textColor="@color/black"
             android:textSize="@dimen/_12dp" />
@@ -61,6 +61,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight=".4"
             android:gravity="center"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <com.kredivation.aakhale.components.ASTFontTextIconView

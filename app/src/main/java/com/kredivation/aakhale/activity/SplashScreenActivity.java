@@ -145,7 +145,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
     }
 
-    public void parseMasterServiceData(String result) {
+    public void parseMasterServiceData(final String result) {
         if (result != null) {
             final ContentData serviceData = new Gson().fromJson(result, ContentData.class);
             if (serviceData != null) {
@@ -157,6 +157,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                             AakhelDBHelper switchDBHelper = new AakhelDBHelper(SplashScreenActivity.this);
                             switchDBHelper.deleteAllRows("MasterData");
                             switchDBHelper.insertMasterData(serviceData);
+
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                jsonObject.optJSONObject("data");
+                            } catch (JSONException e) {
+                               // e.printStackTrace();
+                            }
                             flag = true;
                             return flag;
                         }

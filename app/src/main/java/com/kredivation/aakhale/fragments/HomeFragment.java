@@ -17,12 +17,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.PlayerActivity;
 import com.kredivation.aakhale.activity.TeamListActivity;
 import com.kredivation.aakhale.activity.TournamentList;
 import com.kredivation.aakhale.activity.UmpireListActivity;
 import com.kredivation.aakhale.adapter.HomePostAdapter;
 import com.kredivation.aakhale.adapter.MatchPAdapter;
-import com.kredivation.aakhale.adapter.MyPostItemRecyclerViewAdapter;
 import com.kredivation.aakhale.adapter.TopperformanceAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
@@ -323,8 +323,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 updateFragment(coachesFragments, null);
                 break;
             case R.id.playersLayout:
-                PlayerFragment playerFragment = new PlayerFragment();
-                updateFragment(playerFragment, null);
+                Intent Playerintent = new Intent(getActivity(), PlayerActivity.class);
+                startActivity(Playerintent);
                 break;
             case R.id.tournamentLayout:
                 Intent tintent = new Intent(getActivity(), TournamentList.class);

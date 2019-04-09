@@ -69,7 +69,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:backgroundTint="@color/transparentWhite"
-            android:hint="Search  here"
+            android:hint="Search user by Id"
             android:padding="@dimen/_2dp"
             android:textColor="@color/black"
             android:textSize="@dimen/_12dp" />
@@ -99,7 +99,7 @@
             android:textSize="@dimen/_14dp" />
 
 
-        <LinearLayout
+        <LinearLayout android:id="@+id/sortByLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -2,12 +2,14 @@ package com.kredivation.aakhale.activity;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +20,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,10 +33,13 @@ import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.adapter.UmpireAdapter;
 import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.database.AakhelDBHelper;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.ContentDataAsArray;
 import com.kredivation.aakhale.model.Data;
+import com.kredivation.aakhale.model.Sports;
 import com.kredivation.aakhale.model.Team;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FontManager;
@@ -66,6 +74,15 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
         // Required empty public constructor
     }
 
+    ArrayList<Sports> sportList;
+    AlertDialog.Builder builderSingle;
+    int selectedSportPosition = 0;
+    long selectSportId;
+    ArrayAdapter<String> arrayAdapter;
+    String serviceURL;
+    int sortFlag = 1;
+    EditText searchedit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +107,11 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
         sortBy = findViewById(R.id.sortBy);
         sortBy.setOnClickListener(this);
         rvList = findViewById(R.id.rvList);
+        LinearLayout sortByLayout = findViewById(R.id.sortByLayout);
+        sortByLayout.setOnClickListener(this);
+        ImageView searchIcon = findViewById(R.id.searchIcon);
+        searchIcon.setOnClickListener(this);
+        searchedit = findViewById(R.id.searchedit);
         mLayoutManager = new LinearLayoutManager(UmpireListActivity.this);
         rvList.setLayoutManager(mLayoutManager);
         loaddataProgress = findViewById(R.id.loaddataProgress);
@@ -152,6 +174,7 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
                 getUmireList();
             }
         });
+        setSportValue();
     }
 
     private void getUmireList() {
@@ -159,7 +182,9 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
             loaddataProgress.setVisibility(View.VISIBLE);
             ASTProgressBar dotDialog = new ASTProgressBar(UmpireListActivity.this);
             // dotDialog.show();
-            String serviceURL = Contants.BASE_URL + Contants.UserList + "umpire&page=" + currentPage;
+            if (sortFlag == 1) {
+                serviceURL = Contants.BASE_URL + Contants.UserList + "umpire&page=" + currentPage;
+            }
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(UmpireListActivity.this);
@@ -289,17 +314,63 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.sortBy:
+            case R.id.sortByLayout:
+                builderSingle.setSingleChoiceItems(arrayAdapter, selectedSportPosition, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedSportPosition = which;
+                        selectSportId = sportList.get(which).getId();
+                        serviceURL = Contants.BASE_URL + Contants.UserList + "umpire&page=" + currentPage + "&sports=" + selectSportId;
+                        sortFlag = 2;
+                        currentPage = 1;
+                        mSwipeRefreshLayout.setRefreshing(true);
+                        umpireList.clear();
+                        getUmireList();
+                        dialog.dismiss();
+                    }
+                });
+                builderSingle.show();
+                break;
+            case R.id.searchIcon:
+                String userId = searchedit.getText().toString().trim();
+                if (userId != null && userId.length() != 0) {
+                    serviceURL = Contants.BASE_URL + "users?filter[unique_id]=" + userId;//users?filter[unique_id][like]=
+                    sortFlag = 3;
+                    currentPage = 1;
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    umpireList.clear();
+                    getUmireList();
+                } else {
+                    Toast.makeText(this, "Please enter user Id!", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
 
     @Override
     public void onRefresh() {
-        currentPage=1;
+        currentPage = 1;
+        sortFlag = 1;
         mSwipeRefreshLayout.setRefreshing(true);
         umpireList.clear();
         getUmireList();
+    }
+
+    private void setSportValue() {
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice);
+        AakhelDBHelper switchDBHelper = new AakhelDBHelper(this);
+        ContentData contentData = switchDBHelper.getMasterDataById(1);
+        if (contentData != null && contentData.getData() != null) {
+            sportList = new ArrayList<>();
+            if (contentData.getData().getSports() != null) {
+                sportList = contentData.getData().getSports();
+                for (Sports sports : contentData.getData().getSports()) {
+                    arrayAdapter.add(sports.getSports_name());
+                }
+            }
+        }
+        builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setTitle("Select Sport");
     }
 
     @Override
@@ -349,4 +420,5 @@ public class UmpireListActivity extends AppCompatActivity implements View.OnClic
         }
         return super.dispatchTouchEvent(event);
     }
+
 }

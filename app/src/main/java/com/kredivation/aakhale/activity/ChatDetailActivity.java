@@ -1,17 +1,17 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 
-import android.os.AsyncTask;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,20 +19,14 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.activity.ResetPasswordActivity;
-import com.kredivation.aakhale.activity.TeamListActivity;
-import com.kredivation.aakhale.adapter.ChatListAdapter;
 import com.kredivation.aakhale.adapter.ChatMessageAdapter;
 import com.kredivation.aakhale.components.ASTProgressBar;
-import com.kredivation.aakhale.framework.FileUploaderHelperWithProgress;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
-import com.kredivation.aakhale.model.Academics;
-import com.kredivation.aakhale.model.ChatServiceContentData;
 import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.Data;
-import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 
 import org.json.JSONArray;
@@ -40,20 +34,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import okhttp3.MultipartBody;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ChatDetailFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class ChatDetailActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     RecyclerView recyclerView;
     LinearLayoutManager mLayoutManager;
-    View view;
     EditText et_comment;
     TextView send_comment;
     String stret_comment;
@@ -61,7 +48,6 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
     ASTProgressBar chatlistProgress;
     ArrayList<Data> megList;
     Timer timer;
-    Bundle bundle;
     long id;
     int currentPage = 1;
     private ProgressBar loaddataProgress;
@@ -69,31 +55,40 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     int total_pages = 1;
+    private Toolbar toolbar;
 
-    public ChatDetailFragment() {
+    public ChatDetailActivity() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_chat_detail, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_chat_detail);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
     }
 
-
     public void init() {
-        bundle = getArguments();
-        id = bundle.getLong("id");
-        recyclerView = view.findViewById(R.id.recycler_view);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        id = getIntent().getLongExtra("id", 0);
+        recyclerView = findViewById(R.id.recycler_view);
+        mLayoutManager = new LinearLayoutManager(ChatDetailActivity.this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        loaddataProgress = view.findViewById(R.id.loaddataProgress);
+        loaddataProgress = findViewById(R.id.loaddataProgress);
 
-        getActivity().setTitle("Chat Details");
-        et_comment = view.findViewById(R.id.et_comment);
-        send_comment = view.findViewById(R.id.send_comment);
+        et_comment = findViewById(R.id.et_comment);
+        send_comment = findViewById(R.id.send_comment);
         send_comment.setOnClickListener(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -129,7 +124,7 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
         });
 
         // SwipeRefreshLayout
-        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_green_dark,
@@ -155,7 +150,7 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
 
     public void dataToView() {
         megList = new ArrayList<>();
-        mAdapter = new ChatMessageAdapter(getContext(), megList, id);
+        mAdapter = new ChatMessageAdapter(ChatDetailActivity.this, megList, id);
         recyclerView.setAdapter(mAdapter);
         callGetMessageService();
     }
@@ -175,7 +170,7 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
     public boolean isValidate() {
         stret_comment = et_comment.getText().toString();
         if (stret_comment.equals("")) {
-            Toast.makeText(getContext(), "Please Enter Message!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChatDetailActivity.this, "Please Enter Message!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -214,23 +209,23 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
     }
 
     private void getAllChatMessage() {
-        if (Utility.isOnline(getContext())) {
+        if (Utility.isOnline(ChatDetailActivity.this)) {
             JSONObject object = new JSONObject();
             String serviceURL = Contants.BASE_URL + Contants.CHATMSG + "?user_id=" + id;
 
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(ChatDetailActivity.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getAllChatMessage", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
                     if (isComplete && result != null) {
                         parseMessageData(result);
                     } else {
-                        Utility.alertForErrorMessage(Contants.Error, getContext());
+                        Utility.alertForErrorMessage(Contants.Error, ChatDetailActivity.this);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, ChatDetailActivity.this);//off line msg....
         }
     }
 
@@ -273,8 +268,8 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
 
 
     private void sendMessage() {
-        if (Utility.isOnline(getContext())) {
-            chatlistProgress = new ASTProgressBar(getContext());
+        if (Utility.isOnline(ChatDetailActivity.this)) {
+            chatlistProgress = new ASTProgressBar(ChatDetailActivity.this);
             //   chatlistProgress.show();
             JSONObject object = new JSONObject();
             try {
@@ -286,7 +281,7 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
 
             String serviceURL = Contants.BASE_URL + Contants.CHATMSG;
 
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(ChatDetailActivity.this);
             serviceCaller.CallCommanServiceMethod(serviceURL, object, "sendMessage", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -296,12 +291,12 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
                         if (chatlistProgress.isShowing()) {
                             chatlistProgress.dismiss();
                         }
-                        Utility.alertForErrorMessage(Contants.Error, getContext());
+                        Utility.alertForErrorMessage(Contants.Error, ChatDetailActivity.this);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, ChatDetailActivity.this);//off line msg....
         }
     }
 
@@ -313,7 +308,7 @@ public class ChatDetailFragment extends Fragment implements View.OnClickListener
                     et_comment.setText("");
                     //Toast.makeText(getContext(), "Message Send!", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getContext(), "Message not Send!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChatDetailActivity.this, "Message not Send!", Toast.LENGTH_LONG).show();
                 }
             }
         }

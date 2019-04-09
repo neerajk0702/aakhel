@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.TeamListActivity;
 import com.kredivation.aakhale.adapter.AcadamicAdapter;
 import com.kredivation.aakhale.adapter.TeamsAdapter;
 import com.kredivation.aakhale.components.ASTButton;
@@ -99,7 +102,9 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
 
     private Context context;
     int total_pages = 1;
-
+    EditText searchedit;
+    String serviceURL;
+    int sortFlag = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getActivity();
@@ -111,6 +116,9 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
 
 
     public void init() {
+        searchedit = view.findViewById(R.id.searchedit);
+        ImageView searchIcon = view.findViewById(R.id.searchIcon);
+        searchIcon.setOnClickListener(this);
         sortBy = view.findViewById(R.id.sortBy);
         sortBy.setOnClickListener(this);
         rvList = view.findViewById(R.id.rvList);
@@ -182,7 +190,9 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
     private void getAcademyList() {
         if (Utility.isOnline(getContext())) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.addAcademy + "?page=" + currentPage;
+            if (sortFlag == 1) {
+                 serviceURL = Contants.BASE_URL + Contants.addAcademy + "?page=" + currentPage;
+            }
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(getContext());
@@ -271,12 +281,26 @@ public class AcademicsListFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.sortBy:
                 break;
+            case R.id.searchIcon:
+                String userId = searchedit.getText().toString().trim();
+                if (userId != null && userId.length() != 0) {
+                    serviceURL = Contants.BASE_URL + "academy?filter[unique_id]=" + userId;//users?filter[unique_id][like]=
+                    sortFlag = 2;
+                    currentPage = 1;
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    academicsArrayList.clear();
+                    getAcademyList();
+                } else {
+                    Toast.makeText(getContext(), "Please enter Academic Id!", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
     @Override
     public void onRefresh() {
         currentPage=1;
+        sortFlag = 1;
         mSwipeRefreshLayout.setRefreshing(true);
         academicsArrayList.clear();
         getAcademyList();

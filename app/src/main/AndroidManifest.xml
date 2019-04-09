@@ -114,16 +114,33 @@
         <activity
             android:name=".activity.MyMatchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MyTeamActivity"
+        <activity
+            android:name=".activity.MyTeamActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.MyProfileActivity"
+        <activity
+            android:name=".activity.MyProfileActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.MatchDetailsActivity"
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.MatchDetailsActivity"
             android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".activity.CreateScoreCardActivity"
+        <activity
+            android:name=".activity.CreateScoreCardActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.ScoreCardActivity"
+        <activity
+            android:name=".activity.ScoreCardActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.PlayerActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.PlayerDetailsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.ChatDetailActivity"
             android:screenOrientation="portrait"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"

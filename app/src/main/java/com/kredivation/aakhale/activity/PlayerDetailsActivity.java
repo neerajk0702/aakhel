@@ -1,15 +1,21 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +31,7 @@ import com.kredivation.aakhale.framework.ServiceCaller;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.pagerlib.MetalRecyclerViewPager;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
 
@@ -32,101 +39,73 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.content.Context.MODE_PRIVATE;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PlayerDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PlayerDetailsFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class PlayerDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    View view;
     TextView nametxt, ratingTxt, agetxt, ExperienceTxt, OdieTxt, roleTxt, challange, REQUEST, INVITE, gender, phoneno, mail, userId;
     LinearLayout teamInfoLayoutView, galleryView, userSsportsLayoutView;
-    Bundle bundle;
     MetalRecyclerViewPager topperformanceviewPager;
     ImageView fab, imageView;
     FloatingActionButton chat;
 
-    public PlayerDetailsFragment() {
+    public PlayerDetailsActivity() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PlayerDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PlayerDetailsFragment newInstance(String param1, String param2) {
-        PlayerDetailsFragment fragment = new PlayerDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     SharedPreferences UserInfo;
     long userIdValue;
     long playerId;
 
+    private Toolbar toolbar;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_player_details, container, false);
-        getActivity().setTitle("Players Details");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_player_details);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
     }
 
     public void init() {
-        UserInfo = getActivity().getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        UserInfo = getSharedPreferences("UserInfoSharedPref", MODE_PRIVATE);
         userIdValue = UserInfo.getLong("id", 0);
-        userId = view.findViewById(R.id.userId);
-        phoneno = view.findViewById(R.id.phoneno);
-        mail = view.findViewById(R.id.mail);
-        nametxt = view.findViewById(R.id.name);
-        ratingTxt = view.findViewById(R.id.ratingTxt);
-        agetxt = view.findViewById(R.id.age);
-        ExperienceTxt = view.findViewById(R.id.ExperienceTxt);
-        OdieTxt = view.findViewById(R.id.OdieTxt);
-        gender = view.findViewById(R.id.gender);
-        roleTxt = view.findViewById(R.id.roleTxt);
-        challange = view.findViewById(R.id.challange);
+        userId = findViewById(R.id.userId);
+        phoneno = findViewById(R.id.phoneno);
+        mail = findViewById(R.id.mail);
+        nametxt = findViewById(R.id.name);
+        ratingTxt = findViewById(R.id.ratingTxt);
+        agetxt = findViewById(R.id.age);
+        ExperienceTxt = findViewById(R.id.ExperienceTxt);
+        OdieTxt = findViewById(R.id.OdieTxt);
+        gender = findViewById(R.id.gender);
+        roleTxt = findViewById(R.id.roleTxt);
+        challange = findViewById(R.id.challange);
         challange.setOnClickListener(this);
-        REQUEST = view.findViewById(R.id.REQUEST);
+        REQUEST = findViewById(R.id.REQUEST);
         REQUEST.setOnClickListener(this);
-        INVITE = view.findViewById(R.id.INVITE);
+        INVITE = findViewById(R.id.INVITE);
         INVITE.setOnClickListener(this);
-        fab = view.findViewById(R.id.fab);
-        teamInfoLayoutView = view.findViewById(R.id.teamInfoLayoutView);
-        galleryView = view.findViewById(R.id.galleryView);
-        imageView = view.findViewById(R.id.imageView);
-        userSsportsLayoutView = view.findViewById(R.id.userSsportsLayoutView);
-        chat = view.findViewById(R.id.chat);
+        fab = findViewById(R.id.fab);
+        teamInfoLayoutView = findViewById(R.id.teamInfoLayoutView);
+        galleryView = findViewById(R.id.galleryView);
+        imageView = findViewById(R.id.imageView);
+        userSsportsLayoutView = findViewById(R.id.userSsportsLayoutView);
+        chat = findViewById(R.id.chat);
         chat.setOnClickListener(this);
-        bundle = getArguments();
-        String Detail = bundle.getString("Detail");
+        String Detail = getIntent().getStringExtra("Detail");
         if (Detail != null) {
             setValue(Detail);
         }
@@ -137,7 +116,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
         Data data = new Gson().fromJson(detail, Data.class);
         if (data != null) {
             if (data.getProfile_picture() != null && !data.getProfile_picture().equals("")) {
-                Picasso.with(getContext()).load(Contants.BASE_URL + data.getProfile_picture())
+                Picasso.with(this).load(Contants.BASE_URL + data.getProfile_picture())
                         .placeholder(R.drawable.ic_cricket_player).into(imageView);
             }
             playerId = data.getId();
@@ -303,7 +282,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
         String zipcode = object.optString("zipcode");
         String status = object.optString("status");
 
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(this);
         View inflatedLayout = inflater.inflate(R.layout.playerlist_item_row, null);
         ImageView imageView = inflatedLayout.findViewById(R.id.image);
         TextView nameView = inflatedLayout.findViewById(R.id.name);
@@ -321,7 +300,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
             statusview.setText("Approved");
         }
         if (image != null && !image.equals("")) {
-            Picasso.with(getActivity()).load(Contants.BASE_URL + image)
+            Picasso.with(this).load(Contants.BASE_URL + image)
                     .placeholder(R.drawable.noimage).into(imageView);
         }
         teamInfoLayoutView.addView(inflatedLayout);
@@ -329,7 +308,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
 
     //add user sports
     public void addUserSports(String name) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(this);
         View inflatedLayout = inflater.inflate(R.layout.area_row, null);
         TextView nameView = inflatedLayout.findViewById(R.id.namearea);
         nameView.setText(name);
@@ -339,7 +318,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
 
     //add free service layout in runtime
     public void addGaleryView(String name, String statuss, String date) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+        LayoutInflater inflater = LayoutInflater.from(this);
         View inflatedLayout = inflater.inflate(R.layout.toperformancer_item, null);
         ImageView bgimage = inflatedLayout.findViewById(R.id.bgimage);
         TextView title = inflatedLayout.findViewById(R.id.title);
@@ -361,16 +340,9 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
                 openActionDilaog();
                 break;
             case R.id.chat:
-                Bundle bundle = new Bundle();
-                bundle.putLong("id", playerId);
-                ChatDetailFragment chatFragment = new ChatDetailFragment();
-                chatFragment.setArguments(bundle);
-                android.support.v4.app.FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.mainView, chatFragment).addToBackStack(null);
-                fragmentTransaction.commit();
-
-
+                Intent intent = new Intent(PlayerDetailsActivity.this, ChatDetailActivity.class);
+                intent.putExtra("id", playerId);
+                startActivity(intent);
                 break;
         }
 
@@ -379,18 +351,18 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
 
     //show action taken popup
     public void openActionDilaog() {
-        final View myview = LayoutInflater.from(getActivity()).inflate(R.layout.actiontaken_dilaog, null);
+        final View myview = LayoutInflater.from(this).inflate(R.layout.actiontaken_dilaog, null);
         final EditText messageedit = myview.findViewById(R.id.messageedit);
         Button btnSubmit = myview.findViewById(R.id.btnSubmit);
         Button btncancel = myview.findViewById(R.id.btncancel);
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).setIcon(R.mipmap.ic_launcher).setCancelable(false)
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).setIcon(R.mipmap.ic_launcher).setCancelable(false)
                 .setView(myview).create();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msgStr = messageedit.getText().toString();
                 if (msgStr.length() == 0) {
-                    Toast.makeText(getActivity(), "Please enter Your Message!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PlayerDetailsActivity.this, "Please enter Your Message!", Toast.LENGTH_LONG).show();
                 } else {
                     alertDialog.dismiss();
                     player_challenge(msgStr);
@@ -409,8 +381,8 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
     }
 
     private void player_challenge(String message) {
-        if (Utility.isOnline(getActivity())) {
-            final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());
+        if (Utility.isOnline(this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(this);
             dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.player_challenge;
             JSONObject object = new JSONObject();
@@ -420,7 +392,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
             } catch (JSONException e) {
                 // e.printStackTrace();
             }
-            ServiceCaller serviceCaller = new ServiceCaller(getActivity());
+            ServiceCaller serviceCaller = new ServiceCaller(this);
             serviceCaller.CallCommanServiceMethod(serviceURL, object, "player_challenge", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -430,9 +402,9 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
                             boolean status = jsonObject.optBoolean("status");
                             String message = jsonObject.optString("message");
                             if (status) {
-                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PlayerDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PlayerDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
                             if (dotDialog.isShowing()) {
                                 dotDialog.dismiss();
@@ -443,19 +415,19 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
                         if (dotDialog.isShowing()) {
                             dotDialog.dismiss();
                         }
-                        Utility.alertForErrorMessage(Contants.Error, getActivity());
+                        Utility.alertForErrorMessage(Contants.Error, PlayerDetailsActivity.this);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getActivity());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, PlayerDetailsActivity.this);//off line msg....
         }
     }
 
     //team request for add player in our team
     private void teamrequest() {
-        if (Utility.isOnline(getActivity())) {
-            final ASTProgressBar dotDialog = new ASTProgressBar(getActivity());
+        if (Utility.isOnline(PlayerDetailsActivity.this)) {
+            final ASTProgressBar dotDialog = new ASTProgressBar(PlayerDetailsActivity.this);
             dotDialog.show();
             String serviceURL = Contants.BASE_URL + Contants.team_player_request;
             JSONObject object = new JSONObject();
@@ -464,7 +436,7 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
             } catch (JSONException e) {
                 // e.printStackTrace();
             }
-            ServiceCaller serviceCaller = new ServiceCaller(getActivity());
+            ServiceCaller serviceCaller = new ServiceCaller(PlayerDetailsActivity.this);
             serviceCaller.CallCommanServiceMethod(serviceURL, object, "teamrequest", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -474,9 +446,9 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
                             boolean status = jsonObject.optBoolean("status");
                             String message = jsonObject.optString("message");
                             if (status) {
-                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PlayerDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PlayerDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
                             if (dotDialog.isShowing()) {
                                 dotDialog.dismiss();
@@ -487,12 +459,30 @@ public class PlayerDetailsFragment extends Fragment implements View.OnClickListe
                         if (dotDialog.isShowing()) {
                             dotDialog.dismiss();
                         }
-                        Utility.alertForErrorMessage(Contants.Error, getActivity());
+                        Utility.alertForErrorMessage(Contants.Error, PlayerDetailsActivity.this);
                     }
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getActivity());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, PlayerDetailsActivity.this);//off line msg....
         }
+    }
+
+    //for hid keyboard when tab outside edittext box
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 }

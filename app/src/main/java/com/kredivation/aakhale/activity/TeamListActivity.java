@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +64,9 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     boolean selectFlag = false;
+    EditText searchedit;
+    String serviceURL;
+    int sortFlag = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,9 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
         sortBy = findViewById(R.id.sortBy);
         sortBy.setOnClickListener(this);
         rvList = findViewById(R.id.rvList);
+        searchedit = findViewById(R.id.searchedit);
+        ImageView searchIcon = findViewById(R.id.searchIcon);
+        searchIcon.setOnClickListener(this);
         mLayoutManager = new LinearLayoutManager(TeamListActivity.this);
         rvList.setLayoutManager(mLayoutManager);
         loaddataProgress = findViewById(R.id.loaddataProgress);
@@ -170,7 +177,9 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
     private void getTeamList() {
         if (Utility.isOnline(TeamListActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.teamCreate + "?page=" + currentPage;
+            if (sortFlag == 1) {
+                serviceURL = Contants.BASE_URL + Contants.teamCreate + "?page=" + currentPage;
+            }
             JSONObject object = new JSONObject();
 
             ServiceCaller serviceCaller = new ServiceCaller(TeamListActivity.this);
@@ -244,12 +253,26 @@ public class TeamListActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.sortBy:
                 break;
+            case R.id.searchIcon:
+                String userId = searchedit.getText().toString().trim();
+                if (userId != null && userId.length() != 0) {
+                    serviceURL = Contants.BASE_URL + "team?filter[unique_id]=" + userId;//users?filter[unique_id][like]=
+                    sortFlag = 2;
+                    currentPage = 1;
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    teamArrayList.clear();
+                    getTeamList();
+                } else {
+                    Toast.makeText(TeamListActivity.this, "Please enter Team Id!", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
     @Override
     public void onRefresh() {
-        currentPage=1;
+        currentPage = 1;
+        sortFlag = 1;
         mSwipeRefreshLayout.setRefreshing(true);
         teamArrayList.clear();
         getTeamList();

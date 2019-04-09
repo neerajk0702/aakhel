@@ -1,6 +1,6 @@
 package com.kredivation.aakhale.activity;
 
-import android.Manifest;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -8,16 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.location.LocationManager;
+import android.graphics.Typeface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -42,12 +43,16 @@ import com.kredivation.aakhale.framework.FileUploaderHelperWithProgress;
 import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.Player_roles;
 import com.kredivation.aakhale.model.Sports;
-import com.kredivation.aakhale.runtimepermission.PermissionResultCallback;
 import com.kredivation.aakhale.runtimepermission.PermissionUtils;
 import com.kredivation.aakhale.utility.ASTUIUtil;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -61,9 +66,16 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback, PermissionResultCallback {
-    ASTEditText fullName, email, contactNo, password, experience;
-    ASTTextView dobEdt, selectSports,login;
+
+public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public EditProfileActivity() {
+        // Required empty public constructor
+    }
+
+    private Toolbar toolbar;
+    ASTEditText fullName, email, contactNo, experience;
+    ASTTextView dobEdt, selectSports;
     ImageView dateIcon;
     Spinner gender, sportsSpinner, roleSpinner;
     DatePickerDialog todatepicker;
@@ -73,9 +85,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<Long> roleIdList;
     ArrayList<Sports> selectedSport;
     Button registerBtn;
-    String strfullName, stremail, strcontactNo, strdobEdt, strgender, strexperience, strpassword, role, feepermatchStr;
+    String strfullName, stremail, strcontactNo, strdobEdt, strgender, strexperience, role, feepermatchStr;
     long selectRoleId;
-    private long areaId = 0;
+    private long roleId = 0;
     ASTEditText feepermatch;
     ImageView profileImg;
     public final int SELECT_PHOTO = 102;
@@ -90,17 +102,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected ArrayList<CharSequence> selectedSportItem;
     String[] sportArry;
     String sportIdStr;
+    private String ProfileData;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        lodView();
-        runTimePermission();
+        setContentView(R.layout.fragment_edit_profile);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        init();
     }
 
-    public void lodView() {
-        areaId = getIntent().getLongExtra("AreaId", 0);
+    public void init() {
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        roleId = getIntent().getIntExtra("roleId", 0);
+        ProfileData = getIntent().getStringExtra("ProfileData");
         fullName = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         contactNo = findViewById(R.id.contactNo);
@@ -109,7 +135,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         experience = findViewById(R.id.experience);
         sportsSpinner = findViewById(R.id.sportsSpinner);
         roleSpinner = findViewById(R.id.roleSpinner);
-        password = findViewById(R.id.password);
         dateIcon = findViewById(R.id.dateIcon);
         profileImg = findViewById(R.id.profileImg);
         profileImg.setOnClickListener(this);
@@ -120,28 +145,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         doblayouut = findViewById(R.id.doblayouut);
         genderMainLayout = findViewById(R.id.genderMainLayout);
         selectSports = findViewById(R.id.selectSports);
-        login = findViewById(R.id.login);
-        login.setOnClickListener(this);
         feepermatch = findViewById(R.id.feepermatch);
-        if (areaId == 1) {//Player
+        if (roleId == 1) {//Player
             roleLayout.setVisibility(View.VISIBLE);
             genderLayout.setVisibility(View.VISIBLE);
             yearofexpLayout.setVisibility(View.VISIBLE);
             doblayouut.setVisibility(View.VISIBLE);
             dobEdt.setText("DATE OF BIRTH");
         }
-        if (areaId == 2 || areaId == 3) {//coach and Umpire
+        if (roleId == 2 || roleId == 3) {//coach and Umpire
             feepermatch.setVisibility(View.VISIBLE);
             genderLayout.setVisibility(View.VISIBLE);
             yearofexpLayout.setVisibility(View.VISIBLE);
             doblayouut.setVisibility(View.VISIBLE);
             dobEdt.setText("DATE OF BIRTH");
         }
-        if (areaId == 6 || areaId == 7 || areaId == 8 || areaId == 9 || areaId == 10) {
+        if (roleId == 6 || roleId == 7 || roleId == 8 || roleId == 9 || roleId == 10) {
             doblayouut.setVisibility(View.VISIBLE);
             dobEdt.setText("Establishment Date");
             genderMainLayout.setVisibility(View.GONE);
-        } else if (areaId == 4 || areaId == 5) {//Academy ground
+        } else if (roleId == 4 || roleId == 5) {//Academy ground
             doblayouut.setVisibility(View.GONE);
             genderMainLayout.setVisibility(View.GONE);
         }
@@ -151,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         registerBtn = findViewById(R.id.registerBtn);
         setDate();
         registerBtn.setOnClickListener(this);
-        AakhelDBHelper switchDBHelper = new AakhelDBHelper(RegisterActivity.this);
+        AakhelDBHelper switchDBHelper = new AakhelDBHelper(EditProfileActivity.this);
         ContentData contentData = switchDBHelper.getMasterDataById(1);
         if (contentData != null && contentData.getData() != null) {
             selectedSport = new ArrayList<>();
@@ -169,7 +192,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
             selectedSportItem = new ArrayList<CharSequence>();
             selectSports.setOnClickListener(this);
-           /* ArrayAdapter<String> homeadapter = new ArrayAdapter<String>(RegisterActivity.this, R.layout.spinner_row, sportList);
+           /* ArrayAdapter<String> homeadapter = new ArrayAdapter<String>(EditProfileActivity.this, R.layout.spinner_row, sportList);
             sportsSpinner.setAdapter(homeadapter);
             sportsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -193,7 +216,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     roleIdList.add(roles.getId());
                 }
             }
-            ArrayAdapter<String> roleadapter = new ArrayAdapter<String>(RegisterActivity.this, R.layout.spinner_row, roleList);
+            ArrayAdapter<String> roleadapter = new ArrayAdapter<String>(EditProfileActivity.this, R.layout.spinner_row, roleList);
             roleSpinner.setAdapter(roleadapter);
 
             roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -208,6 +231,92 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
             });
         }
+        setEditValue();
+    }
+
+    private void setEditValue() {
+        try {
+            JSONObject mainDataArray = new JSONObject(ProfileData);
+            if (mainDataArray != null) {
+                JSONArray player_team = mainDataArray.optJSONArray("player_team");
+                JSONArray challenge_given = mainDataArray.optJSONArray("challenge_given");
+                JSONArray challenge_received = mainDataArray.optJSONArray("challenge_received");
+                JSONArray coach_team = mainDataArray.optJSONArray("coach_team");
+                JSONObject jsonObject = mainDataArray.optJSONObject("basic_info");
+
+                JSONObject roleobj = jsonObject.optJSONObject("role");
+                JSONObject city = jsonObject.optJSONObject("city");
+                JSONObject state = jsonObject.optJSONObject("state");
+                JSONObject country = jsonObject.optJSONObject("country");
+                JSONArray users_sportsobj = jsonObject.optJSONArray("users_sports");
+                JSONObject player_roleobj = jsonObject.optJSONObject("player_role");
+                String emailstr = jsonObject.optString("email");
+                String full_name = jsonObject.optString("full_name");
+                String mobilestr = jsonObject.optString("mobile");
+                userId = jsonObject.optInt("id");
+                String unique_idsrt = jsonObject.optString("unique_id");
+                String date_of_birth = jsonObject.optString("date_of_birth");
+                int genderStr = jsonObject.optInt("gender");
+                String addressstr = jsonObject.optString("address");
+                String zipcode = jsonObject.optString("zipcode");
+                String experiencestr = jsonObject.optString("experience");
+                String profile_picture = jsonObject.optString("profile_picture");
+                String about = jsonObject.optString("about");
+                String fee_per_match_daystr = jsonObject.optString("fee_per_match_day");
+
+                String city_name = "";
+                String country_name = "";
+                String state_name = "";
+                if (city != null) {
+                    city_name = city.optString("city_name");
+                }
+                if (state != null) {
+                    state_name = state.optString("state_name");
+                }
+                if (country != null) {
+                    country_name = country.optString("country_name");
+                }
+                String completeAdd = addressstr + "," + city_name + "," + state_name + "," + country_name + "," + zipcode;
+
+                fullName.setText(full_name);
+                contactNo.setText(mobilestr);
+                email.setText(emailstr);
+                String user_type = roleobj.optString("user_type");
+                int roleIdInt = roleobj.optInt("id");
+                if (date_of_birth != null && !date_of_birth.equals("")) {
+                    dobEdt.setText(date_of_birth);
+                }
+                if (fee_per_match_daystr != null && !fee_per_match_daystr.equals("")) {
+                    feepermatch.setText(fee_per_match_daystr);
+                }
+                if (genderStr == 1) {
+                    gender.setSelection(1);
+                } else if (genderStr == 2) {
+                    gender.setSelection(2);
+                } else {
+                    gender.setSelection(3);
+                }
+                if (experiencestr != null && !experiencestr.equals("")) {
+                    experience.setText(experiencestr);
+                }
+                roleSpinner.setSelection(roleIdInt);
+                String role_name = player_roleobj.optString("role_name");
+                if (profile_picture != null && !profile_picture.equals("")) {
+                    Picasso.with(EditProfileActivity.this).load(Contants.BASE_URL + profile_picture)
+                            .placeholder(R.drawable.ic_user).into(profileImg);
+                }
+                /*for (int i = 0; i < users_sportsobj.length(); i++) {
+                    String sports_name = users_sportsobj.optJSONObject(i).optString("sports_name");
+                    addUserSports(sports_name);
+                }
+                for (int i = 0; i < player_team.length(); i++) {
+                    addTeameInfoView(player_team.optJSONObject(i));
+                }*/
+            }
+        } catch (JSONException e) {
+
+        }
+
     }
 
     private void setDate() {
@@ -226,7 +335,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 dobEdt.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        todatepicker = new DatePickerDialog(RegisterActivity.this, todate, myCalendar
+        todatepicker = new DatePickerDialog(EditProfileActivity.this, todate, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
     }
@@ -239,7 +348,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.registerBtn:
                 if (isvalidateSignup()) {
-                    callSignup();
+                    callUpdateProfile();
                 }
                 break;
             case R.id.profileImg:
@@ -249,7 +358,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 showSelectRCASubDialog();
                 break;
             case R.id.login:
-                Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent intent1 = new Intent(EditProfileActivity.this, LoginActivity.class);
                 startActivity(intent1);
                 break;
         }
@@ -278,7 +387,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             };
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
             builder.setTitle("Select Sports");
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -337,133 +446,35 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         strdobEdt = dobEdt.getText().toString();
         strgender = gender.getSelectedItem().toString();
         strexperience = experience.getText().toString();
-        strpassword = password.getText().toString();
         feepermatchStr = feepermatch.getText().toString();
 
         if (strfullName.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Enter Full Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Please Enter Full Name", Toast.LENGTH_SHORT).show();
             return false;
         } else if (stremail.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Enter Email Id", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Please Enter Email Id", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!stremail.matches(emailRegex)) {
             showToast("Please Enter valid Email ID");
             return false;
-        } else if (strpassword.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
-            return false;
         } else if (strcontactNo.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Enter Phone Number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Please Enter Phone Number", Toast.LENGTH_SHORT).show();
             return false;
         } else if (sportIdStr == null || sportIdStr.equals("")) {
-            Toast.makeText(RegisterActivity.this, "Please Select Sport", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Please Select Sport", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
 
     }
 
-    private void callSignup() {
-        HashMap<String, String> payloadList = new HashMap<String, String>();
-        int genId = 0;
-        if (strgender.equals("Male")) {
-            genId = 1;
-        } else if (strgender.equals("Female")) {
-            genId = 2;
-        }
-
-        if (areaId == 1) {//player validation
-            if (selectRoleId == 0) {
-                Toast.makeText(RegisterActivity.this, "Please Select Role", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (strgender.equals("") || strgender.equals("GENDER")) {
-                Toast.makeText(RegisterActivity.this, "Please Select Gender", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (strdobEdt.equals("") || strdobEdt.equals("DATE OF BIRTH")) {
-                Toast.makeText(RegisterActivity.this, "Please Select Date Of Birth", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (strexperience.equals("")) {
-                Toast.makeText(RegisterActivity.this, "Please Enter Year of Experience", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            payloadList.put("date_of_birth", strdobEdt);
-            payloadList.put("gender", String.valueOf(genId));
-            payloadList.put("player_role", String.valueOf(selectRoleId));
-        } else if (areaId == 2 || areaId == 3) {//coach and umpire validation
-            if (strgender.equals("") || strgender.equals("GENDER")) {
-                Toast.makeText(RegisterActivity.this, "Please Select Gender", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (strdobEdt.equals("") || strdobEdt.equals("DATE OF BIRTH")) {
-                Toast.makeText(RegisterActivity.this, "Please Select Date of Birth", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (strexperience.equals("")) {
-                Toast.makeText(RegisterActivity.this, "Please Enter Year of Experience", Toast.LENGTH_SHORT).show();
-                return;
-            } else if (feepermatchStr.equals("")) {
-                Toast.makeText(RegisterActivity.this, "Please Enter Fee Per Match", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            payloadList.put("experience", strexperience);
-            payloadList.put("fee_per_match_day", feepermatchStr);
-        } else if (areaId == 6 || areaId == 7 || areaId == 8 || areaId == 9 || areaId == 10) {
-            if (strdobEdt.equals("") || strdobEdt.equals("Establishment Date")) {
-                Toast.makeText(RegisterActivity.this, "Please Select Establishment Date", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            payloadList.put("estd", strdobEdt);
-        }
-        if (ASTUIUtil.isOnline(this)) {
-            final String url = Contants.BASE_URL + Contants.Registration;
-
-            payloadList.put("role", String.valueOf(areaId));
-            payloadList.put("full_name", strfullName);
-            payloadList.put("email", stremail);
-            payloadList.put("mobile", strcontactNo);
-            payloadList.put("password", strpassword);
-            payloadList.put("users_sports", sportIdStr);
-
-            String device_token = Utility.getDeviceIDFromSharedPreferences(RegisterActivity.this);
-            payloadList.put("device_token", device_token);
-
-            MultipartBody.Builder multipartBody = setMultipartBodyVaule();
-            FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(RegisterActivity.this, payloadList, multipartBody, url) {
-                @Override
-                public void receiveData(String result) {
-                    ContentData data = new Gson().fromJson(result, ContentData.class);
-                    if (data != null && data.isStatus()) {
-                        ASTUIUtil.setUserId(RegisterActivity.this, stremail, strpassword, null, null);
-                        Toast.makeText(RegisterActivity.this, data.getMessage(), Toast.LENGTH_LONG).show();
-                        Intent intentLoggedIn = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intentLoggedIn);
-                    } else {
-                        Toast.makeText(RegisterActivity.this, data.getError().getEmail(), Toast.LENGTH_LONG).show();
-                    }
-
-                }
-            };
-            fileUploaderHelper.execute();
-        } else {
-            showToast(Contants.OFFLINE_MESSAGE);
-        }
-    }
-
-    //add pm install images into MultipartBody for send as multipart
-    private MultipartBody.Builder setMultipartBodyVaule() {
-        final MediaType MEDIA_TYPE = MediaType.parse("image/png");
-        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        if (imgFile != null && imgFile.exists()) {
-            multipartBody.addFormDataPart("profile_picture", imgFile.getName(), RequestBody.create(MEDIA_TYPE, imgFile));
-        }
-        return multipartBody;
-    }
-
     private void showToast(String message) {
-        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(EditProfileActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
         builder.setTitle("Select File!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -508,17 +519,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 onCaptureImageResult(data);
             }
         }
-        if (requestCode == REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
-            permissionUtils.check_permission(permissions, "Location, Phone and Storage Services Permissions are required for this App.", REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-        }
-        if (requestCode == REQUEST_CODE_GPS_PERMISSIONS) {
-            checkGpsEnable();
-        }
     }
 
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        Uri uri = Utility.getImageUri(RegisterActivity.this, thumbnail);
+        Uri uri = Utility.getImageUri(EditProfileActivity.this, thumbnail);
 
         if (uri != null) {
             setImageName(uri, thumbnail);
@@ -535,7 +540,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (data != null) {
             try {
                 uri = data.getData();
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(RegisterActivity.this.getContentResolver(), data.getData());
+                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(EditProfileActivity.this.getContentResolver(), data.getData());
                 if (uri != null) {
                     setImageName(uri, imageBitmap);
                 }
@@ -554,14 +559,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                astProgressBar = new ASTProgressBar(RegisterActivity.this);
+                astProgressBar = new ASTProgressBar(EditProfileActivity.this);
                 astProgressBar.show();
             }
 
             @Override
             protected Boolean doInBackground(Void... voids) {
                 Boolean flag = false;
-                File sdcardPath = Utility.getExternalStorageFilePath(RegisterActivity.this);
+                File sdcardPath = Utility.getExternalStorageFilePath(EditProfileActivity.this);
                 sdcardPath.mkdirs();
                 //File imgFile = new File(sdcardPath, System.currentTimeMillis() + ".png");
                 imgFile = new File(sdcardPath, fileName);
@@ -576,7 +581,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     e.printStackTrace();
                     return false;
                 }
-                MediaScannerConnection.scanFile(RegisterActivity.this, new String[]{imgFile.toString()}, null,
+                MediaScannerConnection.scanFile(EditProfileActivity.this, new String[]{imgFile.toString()}, null,
                         new MediaScannerConnection.OnScanCompletedListener() {
                             public void onScanCompleted(String path, Uri uri) {
                                 if (Contants.IS_DEBUG_LOG) {
@@ -593,9 +598,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected void onPostExecute(Boolean flag) {
                 super.onPostExecute(flag);
-                Picasso.with(RegisterActivity.this).load(imgFile).into(profileImg);
+                Picasso.with(EditProfileActivity.this).load(imgFile).into(profileImg);
                 // setImageIntoList(imgFile);
-
                 astProgressBar.dismiss();
             }
         }.execute();
@@ -603,113 +607,103 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 
-    private void runTimePermission() {
-        permissionUtils = new PermissionUtils(RegisterActivity.this);
+    private void callUpdateProfile() {
+        HashMap<String, String> payloadList = new HashMap<String, String>();
+        int genId = 0;
+        if (strgender.equals("Male")) {
+            genId = 1;
+        } else if (strgender.equals("Female")) {
+            genId = 2;
+        } else if (strgender.equals("Other")) {
+            genId = 3;
+        }
 
-        permissions.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
-        permissions.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
-        permissions.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
-        permissions.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        permissions.add(android.Manifest.permission.CAMERA);
-        permissions.add(android.Manifest.permission.WAKE_LOCK);
-        permissions.add(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
-
-
-        permissionUtils.check_permission(permissions, "Location,Storage Services Permissions are required for this App.", REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-    }
-
-    @Override
-    public void PermissionGranted(int request_code) {
-        checkGpsEnable();
-        //startLocationAlarmService();
-    }
-
-    @Override
-    public void PartialPermissionGranted(int request_code, ArrayList<String> granted_permissions) {
-        Log.i("PERMISSION PARTIALLY", "GRANTED");
-        finish();
-    }
-
-    @Override
-    public void PermissionDenied(int request_code) {
-        Log.i("PERMISSION", "DENIED");
-        finish();
-    }
-
-    @Override
-    public void NeverAskAgain(int request_code) {
-        Log.i("PERMISSION", "NEVER ASK AGAIN");
-        neverAskAgainAlert();
-    }
-
-    private void neverAskAgainAlert() {
-        //Previously Permission Request was cancelled with 'Dont Ask Again',
-        // Redirect to Settings after showing Information about why you need the permission
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegisterActivity.this);
-        builder.setTitle("Need Multiple Permissions");
-        builder.setCancelable(false);
-        builder.setMessage("Location, Phone and Storage Services Permissions are required for this App.");
-        builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                intent.setData(uri);
-                startActivityForResult(intent, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+        if (roleId == 1) {//player validation
+            if (selectRoleId == 0) {
+                Toast.makeText(EditProfileActivity.this, "Please Select Role", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (strgender.equals("") || strgender.equals("GENDER")) {
+                Toast.makeText(EditProfileActivity.this, "Please Select Gender", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (strdobEdt.equals("") || strdobEdt.equals("DATE OF BIRTH")) {
+                Toast.makeText(EditProfileActivity.this, "Please Select Date Of Birth", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (strexperience.equals("")) {
+                Toast.makeText(EditProfileActivity.this, "Please Enter Year of Experience", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                finish();
+            payloadList.put("date_of_birth", strdobEdt);
+            payloadList.put("gender", String.valueOf(genId));
+            payloadList.put("player_role", String.valueOf(selectRoleId));
+        } else if (roleId == 2 || roleId == 3) {//coach and umpire validation
+            if (strgender.equals("") || strgender.equals("GENDER")) {
+                Toast.makeText(EditProfileActivity.this, "Please Select Gender", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (strdobEdt.equals("") || strdobEdt.equals("DATE OF BIRTH")) {
+                Toast.makeText(EditProfileActivity.this, "Please Select Date of Birth", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (strexperience.equals("")) {
+                Toast.makeText(EditProfileActivity.this, "Please Enter Year of Experience", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (feepermatchStr.equals("")) {
+                Toast.makeText(EditProfileActivity.this, "Please Enter Fee Per Match", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
-        builder.show();
-    }
+            payloadList.put("experience", strexperience);
+            payloadList.put("fee_per_match_day", feepermatchStr);
+        } else if (roleId == 6 || roleId == 7 || roleId == 8 || roleId == 9 || roleId == 10) {
+            if (strdobEdt.equals("") || strdobEdt.equals("Establishment Date")) {
+                Toast.makeText(EditProfileActivity.this, "Please Select Establishment Date", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            payloadList.put("estd", strdobEdt);
+        }
+        if (ASTUIUtil.isOnline(this)) {
+            final String url = Contants.BASE_URL + Contants.User_edit + userId;
 
-    private void buildAlertMessageNoGps() {
-        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), REQUEST_CODE_GPS_PERMISSIONS);
+            payloadList.put("role", String.valueOf(roleId));
+            payloadList.put("full_name", strfullName);
+            payloadList.put("email", stremail);
+            payloadList.put("mobile", strcontactNo);
+            payloadList.put("users_sports", sportIdStr);
+
+            // String device_token = Utility.getDeviceIDFromSharedPreferences(EditProfileActivity.this);
+            //payloadList.put("device_token", device_token);
+
+            MultipartBody.Builder multipartBody = setMultipartBodyVaule();
+            FileUploaderHelperWithProgress fileUploaderHelper = new FileUploaderHelperWithProgress(EditProfileActivity.this, payloadList, multipartBody, url) {
+                @Override
+                public void receiveData(String result) {
+                    try {
+                        JSONObject mainObj = new JSONObject(result);
+                        boolean status = mainObj.optBoolean("status");
+                        if (status) {
+                            Toast.makeText(EditProfileActivity.this, "Profile Updated Successfully", Toast.LENGTH_LONG).show();
+                            onBackPressed();
+                        } else {
+                            Toast.makeText(EditProfileActivity.this, "Profile not Updated Successfully", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+
                     }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        dialog.cancel();
-                        checkGpsEnable();
-                    }
-                });
-        final android.app.AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    //    check gps enable in device or not
-    private void checkGpsEnable() {
-        try {
-            boolean isGPSEnabled = false;
-            boolean isNetworkEnabled = false;
-            final LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            // getting GPS status
-            isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-            // getting network status
-            isNetworkEnabled = locationManager
-                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-            if (!isGPSEnabled && !isNetworkEnabled) {
-                buildAlertMessageNoGps();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+                }
+            };
+            fileUploaderHelper.execute();
+        } else {
+            showToast(Contants.OFFLINE_MESSAGE);
         }
     }
+
+    //add pm install images into MultipartBody for send as multipart
+    private MultipartBody.Builder setMultipartBodyVaule() {
+        final MediaType MEDIA_TYPE = MediaType.parse("image/png");
+        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        if (imgFile != null && imgFile.exists()) {
+            multipartBody.addFormDataPart("profile_picture", imgFile.getName(), RequestBody.create(MEDIA_TYPE, imgFile));
+        }
+        return multipartBody;
+    }
+
     //for hid keyboard when tab outside edittext box
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

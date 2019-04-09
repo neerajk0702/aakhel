@@ -64,6 +64,7 @@ public class Contants {
     public static String score_add = "score/add";
     public static String team_players = "team/active-player?team_id=";
     public static String score_wicket = "score/wicket";
+    public static String User_edit = "users/edit/";
 
 
 }

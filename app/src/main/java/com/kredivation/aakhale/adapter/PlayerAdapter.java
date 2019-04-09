@@ -1,6 +1,7 @@
 package com.kredivation.aakhale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,16 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
-import com.kredivation.aakhale.fragments.CoachDeatailFragment;
-import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
-import com.kredivation.aakhale.model.ContentDataAsArray;
+import com.kredivation.aakhale.activity.PlayerDetailsActivity;
 import com.kredivation.aakhale.model.Data;
-import com.kredivation.aakhale.model.ImageItem;
 import com.kredivation.aakhale.utility.Contants;
 import com.kredivation.aakhale.utility.FontManager;
 import com.squareup.picasso.Picasso;
@@ -105,15 +102,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
                 if (!addPlayerFlag) {
 
                     String dataValue = new Gson().toJson(playerList.get(position));
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("id", playerList.get(position).getId());
-                    bundle.putString("Detail", dataValue);
-                    PlayerDetailsFragment coachDeatailFragment = new PlayerDetailsFragment();
-                    coachDeatailFragment.setArguments(bundle);
-                    android.support.v4.app.FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.replace(R.id.mainView, coachDeatailFragment).addToBackStack(null);
-                    fragmentTransaction.commit();
+                    Intent intent = new Intent(context, PlayerDetailsActivity.class);
+                    intent.putExtra("id", playerList.get(position).getId());
+                    intent.putExtra("Detail", dataValue);
+                    context.startActivity(intent);
                 }
             }
         });

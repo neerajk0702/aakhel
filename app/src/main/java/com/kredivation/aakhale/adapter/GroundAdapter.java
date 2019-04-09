@@ -9,30 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
 import com.kredivation.aakhale.components.ASTButton;
-import com.kredivation.aakhale.components.ASTFontTextIconView;
 import com.kredivation.aakhale.components.CircleImageView;
 import com.kredivation.aakhale.fragments.GroundDetailFrgment;
-import com.kredivation.aakhale.fragments.PlayerDetailsFragment;
-import com.kredivation.aakhale.model.Academics;
-import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.GroundData;
 import com.kredivation.aakhale.utility.Contants;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class GroundAdapter extends RecyclerView.Adapter<GroundAdapter.ViewHolder> {
     private ArrayList<GroundData> sportsList;

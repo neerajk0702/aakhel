@@ -1,27 +1,47 @@
-package com.kredivation.aakhale.fragments;
+package com.kredivation.aakhale.activity;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kredivation.aakhale.R;
+import com.kredivation.aakhale.activity.RegisterActivity;
 import com.kredivation.aakhale.adapter.PlayerAdapter;
 import com.kredivation.aakhale.components.ASTProgressBar;
+import com.kredivation.aakhale.database.AakhelDBHelper;
 import com.kredivation.aakhale.framework.IAsyncWorkCompletedCallback;
 import com.kredivation.aakhale.framework.ServiceCaller;
+import com.kredivation.aakhale.model.ContentData;
 import com.kredivation.aakhale.model.ContentDataAsArray;
 import com.kredivation.aakhale.model.Data;
 import com.kredivation.aakhale.model.Match;
+import com.kredivation.aakhale.model.Sports;
 import com.kredivation.aakhale.utility.Contants;
+import com.kredivation.aakhale.utility.FontManager;
 import com.kredivation.aakhale.utility.Utility;
 
 import org.json.JSONArray;
@@ -34,15 +54,15 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PlayerActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
-    View view;
     RecyclerView rvList;
 
-    public PlayerFragment() {
+    public PlayerActivity() {
         // Required empty public constructor
     }
 
+    private Toolbar toolbar;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     LinearLayoutManager mLayoutManager;
@@ -52,23 +72,44 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private ProgressBar loaddataProgress;
     SwipeRefreshLayout mSwipeRefreshLayout;
     long total_pages = 1;
+    ArrayList<Sports> sportList;
+    AlertDialog.Builder builderSingle;
+    int selectedSportPosition = 0;
+    long selectSportId;
+    ArrayAdapter<String> arrayAdapter;
+    String serviceURL;
+    int sortFlag = 1;
+    EditText searchedit;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_player, container, false);
-        getActivity().setTitle("Players");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_player);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         init();
-        return view;
-
     }
 
     public void init() {
-        rvList = view.findViewById(R.id.rvList);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        Typeface materialdesignicons_font = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
+        TextView back = toolbar.findViewById(R.id.back);
+        back.setTypeface(materialdesignicons_font);
+        back.setText(Html.fromHtml("&#xf30d;"));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-        loaddataProgress = view.findViewById(R.id.loaddataProgress);
+        rvList = findViewById(R.id.rvList);
+        mLayoutManager = new LinearLayoutManager(PlayerActivity.this);
+        LinearLayout sortByLayout = findViewById(R.id.sortByLayout);
+        sortByLayout.setOnClickListener(this);
+        ImageView searchIcon = findViewById(R.id.searchIcon);
+        searchIcon.setOnClickListener(this);
+        searchedit = findViewById(R.id.searchedit);
+        loaddataProgress = findViewById(R.id.loaddataProgress);
         playerList = new ArrayList<>();
         rvList.setLayoutManager(mLayoutManager);
         rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -106,7 +147,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
 
         // SwipeRefreshLayout
-        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_green_dark,
@@ -127,20 +168,23 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 getPlayerListData();
             }
         });
-        playerAdapter = new PlayerAdapter(getContext(), playerList);
+        playerAdapter = new PlayerAdapter(PlayerActivity.this, playerList);
         rvList.setAdapter(playerAdapter);
+        setSportValue();
     }
 
 
     //http://cricket.vikaskumar.info/users?filter[role]=player&page=5
     //get players list
     private void getPlayerListData() {
-        if (Utility.isOnline(getContext())) {
+        if (Utility.isOnline(PlayerActivity.this)) {
             loaddataProgress.setVisibility(View.VISIBLE);
-            String serviceURL = Contants.BASE_URL + Contants.UserList + "player&page=" + currentPage;
+            if (sortFlag == 1) {
+                serviceURL = Contants.BASE_URL + Contants.UserList + "player&page=" + currentPage;
+            }
             JSONObject object = new JSONObject();
 
-            ServiceCaller serviceCaller = new ServiceCaller(getContext());
+            ServiceCaller serviceCaller = new ServiceCaller(PlayerActivity.this);
             serviceCaller.CallCommanGetServiceMethod(serviceURL, object, "getPlayerListData", new IAsyncWorkCompletedCallback() {
                 @Override
                 public void onDone(String result, boolean isComplete) {
@@ -235,7 +279,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                                 loaddataProgress.setVisibility(View.GONE);
                                 mSwipeRefreshLayout.setRefreshing(false);
                             } else {
-                                Toast.makeText(getContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PlayerActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
                                 loaddataProgress.setVisibility(View.GONE);
                                 mSwipeRefreshLayout.setRefreshing(false);
                             }
@@ -243,7 +287,7 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                             // e.printStackTrace();
                         }
                     } else {
-                        Toast.makeText(getContext(), Contants.Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PlayerActivity.this, Contants.Error, Toast.LENGTH_SHORT).show();
                         loading = true;
                         loaddataProgress.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
@@ -251,15 +295,87 @@ public class PlayerFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 }
             });
         } else {
-            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, getContext());//off line msg....
+            Utility.alertForErrorMessage(Contants.OFFLINE_MESSAGE, PlayerActivity.this);//off line msg....
         }
     }
 
     @Override
     public void onRefresh() {
         currentPage = 1;
+        sortFlag = 1;
         mSwipeRefreshLayout.setRefreshing(true);
         playerList.clear();
         getPlayerListData();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.sortByLayout:
+                builderSingle.setSingleChoiceItems(arrayAdapter, selectedSportPosition, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedSportPosition = which;
+                        selectSportId = sportList.get(which).getId();
+                        serviceURL = Contants.BASE_URL + Contants.UserList + "player&page=" + currentPage + "&sports=" + selectSportId;
+                        sortFlag = 2;
+                        currentPage = 1;
+                        mSwipeRefreshLayout.setRefreshing(true);
+                        playerList.clear();
+                        getPlayerListData();
+                        dialog.dismiss();
+                    }
+                });
+                builderSingle.show();
+                break;
+            case R.id.searchIcon:
+                String userId = searchedit.getText().toString().trim();
+                if (userId != null && userId.length() != 0) {
+                    serviceURL = Contants.BASE_URL + "users?filter[unique_id]=" + userId;//users?filter[unique_id][like]=
+                    sortFlag = 3;
+                    currentPage = 1;
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    playerList.clear();
+                    getPlayerListData();
+                } else {
+                    Toast.makeText(PlayerActivity.this, "Please enter user Id!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    private void setSportValue() {
+        arrayAdapter = new ArrayAdapter<String>(PlayerActivity.this, android.R.layout.select_dialog_singlechoice);
+        AakhelDBHelper switchDBHelper = new AakhelDBHelper(PlayerActivity.this);
+        ContentData contentData = switchDBHelper.getMasterDataById(1);
+        if (contentData != null && contentData.getData() != null) {
+            sportList = new ArrayList<>();
+            if (contentData.getData().getSports() != null) {
+                sportList = contentData.getData().getSports();
+                for (Sports sports : contentData.getData().getSports()) {
+                    arrayAdapter.add(sports.getSports_name());
+                }
+            }
+        }
+        builderSingle = new AlertDialog.Builder(PlayerActivity.this);
+        builderSingle.setTitle("Select Sport");
+    }
+
+    //for hid keyboard when tab outside edittext box
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 }
